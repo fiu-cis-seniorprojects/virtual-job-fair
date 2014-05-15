@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/oci
+END
+COciColumnSchema.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/oci/COciColumnSchema.php
+END
+COciTableSchema.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/oci/COciTableSchema.php
+END
+COciCommandBuilder.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/oci/COciCommandBuilder.php
+END
+COciSchema.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/oci/COciSchema.php
+END

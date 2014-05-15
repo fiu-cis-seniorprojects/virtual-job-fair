@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/cis4911/!svn/ver/4/JobFair/framework/base
+END
+CModelBehavior.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CModelBehavior.php
+END
+CComponent.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CComponent.php
+END
+interfaces.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/interfaces.php
+END
+CHttpException.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CHttpException.php
+END
+CErrorHandler.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CErrorHandler.php
+END
+CModel.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CModel.php
+END
+CSecurityManager.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CSecurityManager.php
+END
+CException.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CException.php
+END
+CApplication.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CApplication.php
+END
+CExceptionEvent.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CExceptionEvent.php
+END
+CModule.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CModule.php
+END
+CApplicationComponent.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CApplicationComponent.php
+END
+CStatePersister.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CStatePersister.php
+END
+CModelEvent.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CModelEvent.php
+END
+CErrorEvent.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CErrorEvent.php
+END
+CBehavior.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/cis4911/!svn/ver/4/JobFair/framework/base/CBehavior.php
+END

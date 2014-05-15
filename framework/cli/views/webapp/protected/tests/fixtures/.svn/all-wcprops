@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/cis4911/!svn/ver/4/JobFair/framework/cli/views/webapp/protected/tests/fixtures
+END
+hg-hgkeep
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/cis4911/!svn/ver/4/JobFair/framework/cli/views/webapp/protected/tests/fixtures/hg-hgkeep
+END
+git-gitkeep
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/cis4911/!svn/ver/4/JobFair/framework/cli/views/webapp/protected/tests/fixtures/git-gitkeep
+END

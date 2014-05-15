@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/lib/Slim/Slim/Middleware
+END
+PrettyExceptions.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/lib/Slim/Slim/Middleware/PrettyExceptions.php
+END
+SessionCookie.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/lib/Slim/Slim/Middleware/SessionCookie.php
+END
+MethodOverride.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/lib/Slim/Slim/Middleware/MethodOverride.php
+END
+Flash.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/lib/Slim/Slim/Middleware/Flash.php
+END
+ContentTypes.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/lib/Slim/Slim/Middleware/ContentTypes.php
+END

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cis4911/!svn/ver/4/JobFair/framework/console
+END
+CHelpCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/cis4911/!svn/ver/4/JobFair/framework/console/CHelpCommand.php
+END
+CConsoleCommandRunner.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/cis4911/!svn/ver/4/JobFair/framework/console/CConsoleCommandRunner.php
+END
+CConsoleCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/cis4911/!svn/ver/4/JobFair/framework/console/CConsoleCommand.php
+END
+CConsoleCommandBehavior.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/cis4911/!svn/ver/4/JobFair/framework/console/CConsoleCommandBehavior.php
+END
+CConsoleApplication.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/cis4911/!svn/ver/4/JobFair/framework/console/CConsoleApplication.php
+END
+CConsoleCommandEvent.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/cis4911/!svn/ver/4/JobFair/framework/console/CConsoleCommandEvent.php
+END

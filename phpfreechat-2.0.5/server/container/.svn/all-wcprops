@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/container
+END
+users.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/container/users.php
+END
+messages.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/container/messages.php
+END
+channels.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/container/channels.php
+END
+indexes.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/cis4911/!svn/ver/155/JobFair/phpfreechat-2.0.5/server/container/indexes.php
+END

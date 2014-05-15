@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching
+END
+CEAcceleratorCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CEAcceleratorCache.php
+END
+CWinCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CWinCache.php
+END
+CXCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CXCache.php
+END
+CDummyCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CDummyCache.php
+END
+CCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CCache.php
+END
+CMemCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CMemCache.php
+END
+CApcCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CApcCache.php
+END
+CDbCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CDbCache.php
+END
+CFileCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CFileCache.php
+END
+CZendDataCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/cis4911/!svn/ver/4/JobFair/framework/caching/CZendDataCache.php
+END

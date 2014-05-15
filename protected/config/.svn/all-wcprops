@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/cis4911/!svn/ver/1050/JobFair/protected/config
+END
+console.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/cis4911/!svn/ver/3/JobFair/protected/config/console.php
+END
+main.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/cis4911/!svn/ver/1050/JobFair/protected/config/main.php
+END
+test.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/cis4911/!svn/ver/3/JobFair/protected/config/test.php
+END

@@ -1,0 +1,101 @@
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<style>
+html, body, #wrapper {
+   height:100%;
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   border: 0;
+}
+#wrapper td {
+   vertical-align: middle;
+   text-align: center;
+}
+#file-drop{ 
+	width: 100%; 
+	height: 100%; 
+	position: absolute;
+/* 
+	display: table; 
+	float: left; 
+	overflow: auto;
+ */
+
+	background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #2E2E2E),
+		color-stop(1, #1B1B1B)
+	);
+	background-image: -o-linear-gradient(bottom, #2E2E2E 0%, #1B1B1B 100%);
+	background-image: -moz-linear-gradient(bottom, #2E2E2E 0%, #1B1B1B 100%);
+	background-image: -webkit-linear-gradient(bottom, #2E2E2E 0%, #1B1B1B 100%);
+	background-image: -ms-linear-gradient(bottom, #2E2E2E 0%, #1B1B1B 100%);
+	background-image: linear-gradient(to bottom, #2E2E2E 0%, #1B1B1B 100%);
+}
+</style>
+<div id="file-drop"><!-- drop files here -->
+   <table id="wrapper">
+      <tr>
+         <td><img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/drop.png" alt="" /></td>
+      </tr>
+   </table>
+</div>
+<script>
+var target = document.getElementById("file-drop");
+
+target.addEventListener("dragover", function(event) {
+    event.preventDefault();
+}, false);
+
+target.addEventListener("drop", function(event) {
+
+    // cancel default actions
+    event.preventDefault();
+
+    var i = 0,
+        files = event.dataTransfer.files,
+        len = files.length;
+
+    for (; i < len; i++) {
+        console.log("Filename: " + files[i].name);
+        console.log("Type: " + files[i].type);
+        console.log("Size: " + files[i].size + " bytes");
+    }
+
+	// create a form with a couple of values
+	var form = new FormData();
+	var lU = parent.getLocalUser();
+	var rU = parent.getRemoteUser();
+	var document = files[0].name.slice(0, -4);
+	form.append("fileName", files[0].name);
+	form.append("fileContents", files[0]);
+	form.append("local_user", lU);
+	form.append("remote_user", rU);
+
+	// send via XHR - look ma, no headers being set!
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function() {
+		console.log("Upload complete.");
+	};
+	xhr.open("post", "SimpleUpload.php", true);
+	xhr.send(form);
+
+    xhr.onreadystatechange = function () {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var response = xhr.responseText;
+			console.log(xhr.responseText);
+			if (response.indexOf("successfully") !== -1) {
+				parent.parentLog(document);
+				parent.doImport(document);
+				alert("file succesfully uploaded");
+				parent.refreshDocs();
+				//window.history.back();
+			} else {
+				alert("Please upload a valid file, valid files are of .doc file extension");
+			}
+		}
+	}
+}, false);
+</script>

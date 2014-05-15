@@ -1,0 +1,143 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/cis4911/!svn/ver/1045/JobFair/protected/models
+END
+Handshake.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/555/JobFair/protected/models/Handshake.php
+END
+Employer.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/cis4911/!svn/ver/54/JobFair/protected/models/Employer.php
+END
+Student.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/54/JobFair/protected/models/Student.php
+END
+BasicInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/827/JobFair/protected/models/BasicInfo.php
+END
+Email.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/cis4911/!svn/ver/301/JobFair/protected/models/Email.php
+END
+Job.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/cis4911/!svn/ver/1045/JobFair/protected/models/Job.php
+END
+ContactForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/3/JobFair/protected/models/ContactForm.php
+END
+UserType.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/cis4911/!svn/ver/16/JobFair/protected/models/UserType.php
+END
+VideoInterview.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/cis4911/!svn/ver/608/JobFair/protected/models/VideoInterview.php
+END
+StudentSkillMap.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/cis4911/!svn/ver/195/JobFair/protected/models/StudentSkillMap.php
+END
+Message.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/cis4911/!svn/ver/938/JobFair/protected/models/Message.php
+END
+JobSkillMap.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/cis4911/!svn/ver/239/JobFair/protected/models/JobSkillMap.php
+END
+Education.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/32/JobFair/protected/models/Education.php
+END
+VideoResume.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/cis4911/!svn/ver/989/JobFair/protected/models/VideoResume.php
+END
+Experience.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/40/JobFair/protected/models/Experience.php
+END
+User.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/cis4911/!svn/ver/1039/JobFair/protected/models/User.php
+END
+CompanyInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/cis4911/!svn/ver/841/JobFair/protected/models/CompanyInfo.php
+END
+Notification.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/cis4911/!svn/ver/620/JobFair/protected/models/Notification.php
+END
+LoginForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/75/JobFair/protected/models/LoginForm.php
+END
+Resume.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/300/JobFair/protected/models/Resume.php
+END
+Application.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/cis4911/!svn/ver/243/JobFair/protected/models/Application.php
+END
+Skillset.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/132/JobFair/protected/models/Skillset.php
+END
+School.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/944/JobFair/protected/models/School.php
+END

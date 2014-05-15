@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/cis4911/!svn/ver/3/JobFair/protected/data
+END
+testdrive.db
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/cis4911/!svn/ver/3/JobFair/protected/data/testdrive.db
+END
+schema.mysql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/3/JobFair/protected/data/schema.mysql.sql
+END
+schema.sqlite.sql
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/3/JobFair/protected/data/schema.sqlite.sql
+END

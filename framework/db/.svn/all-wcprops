@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/cis4911/!svn/ver/4/JobFair/framework/db
+END
+CDbCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/CDbCommand.php
+END
+CDbTransaction.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/CDbTransaction.php
+END
+CDbMigration.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/CDbMigration.php
+END
+CDbDataReader.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/CDbDataReader.php
+END
+CDbException.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/CDbException.php
+END
+CDbConnection.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/CDbConnection.php
+END

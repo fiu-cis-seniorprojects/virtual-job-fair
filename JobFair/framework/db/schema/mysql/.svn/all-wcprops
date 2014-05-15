@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/mysql
+END
+CMysqlColumnSchema.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/mysql/CMysqlColumnSchema.php
+END
+CMysqlCommandBuilder.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/mysql/CMysqlCommandBuilder.php
+END
+CMysqlSchema.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/mysql/CMysqlSchema.php
+END
+CMysqlTableSchema.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/cis4911/!svn/ver/4/JobFair/framework/db/schema/mysql/CMysqlTableSchema.php
+END

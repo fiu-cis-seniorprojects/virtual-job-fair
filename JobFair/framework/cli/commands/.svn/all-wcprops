@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/cis4911/!svn/ver/4/JobFair/framework/cli/commands
+END
+ShellCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/cis4911/!svn/ver/4/JobFair/framework/cli/commands/ShellCommand.php
+END
+WebAppCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/cis4911/!svn/ver/4/JobFair/framework/cli/commands/WebAppCommand.php
+END
+MigrateCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/cis4911/!svn/ver/4/JobFair/framework/cli/commands/MigrateCommand.php
+END
+MessageCommand.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/cis4911/!svn/ver/4/JobFair/framework/cli/commands/MessageCommand.php
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/cis4911/!svn/ver/4/JobFair/framework/web/services
+END
+CWebServiceAction.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/cis4911/!svn/ver/4/JobFair/framework/web/services/CWebServiceAction.php
+END
+CWsdlGenerator.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/cis4911/!svn/ver/4/JobFair/framework/web/services/CWsdlGenerator.php
+END
+CWebService.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/cis4911/!svn/ver/4/JobFair/framework/web/services/CWebService.php
+END

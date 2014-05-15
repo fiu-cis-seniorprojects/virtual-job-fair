@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/cis4911/!svn/ver/4/JobFair/framework/gii
+END
+CCodeModel.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/cis4911/!svn/ver/4/JobFair/framework/gii/CCodeModel.php
+END
+CCodeFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/cis4911/!svn/ver/4/JobFair/framework/gii/CCodeFile.php
+END
+GiiModule.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/cis4911/!svn/ver/4/JobFair/framework/gii/GiiModule.php
+END
+CCodeGenerator.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/4/JobFair/framework/gii/CCodeGenerator.php
+END
+CCodeForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/cis4911/!svn/ver/4/JobFair/framework/gii/CCodeForm.php
+END

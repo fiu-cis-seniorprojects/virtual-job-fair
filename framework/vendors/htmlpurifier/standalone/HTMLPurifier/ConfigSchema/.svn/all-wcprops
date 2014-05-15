@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/cis4911/!svn/ver/4/JobFair/framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema
+END
+schema.ser
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/cis4911/!svn/ver/4/JobFair/framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/schema.ser
+END
+Interchange.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/cis4911/!svn/ver/4/JobFair/framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/Interchange.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/cis4911/!svn/ver/4/JobFair/framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/Exception.php
+END
+InterchangeBuilder.php
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/cis4911/!svn/ver/4/JobFair/framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/InterchangeBuilder.php
+END
+Validator.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/cis4911/!svn/ver/4/JobFair/framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/Validator.php
+END
+ValidatorAtom.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/cis4911/!svn/ver/4/JobFair/framework/vendors/htmlpurifier/standalone/HTMLPurifier/ConfigSchema/ValidatorAtom.php
+END

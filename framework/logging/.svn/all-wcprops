@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging
+END
+CDbLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CDbLogRoute.php
+END
+CWebLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CWebLogRoute.php
+END
+CLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CLogRoute.php
+END
+CLogFilter.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CLogFilter.php
+END
+CLogRouter.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CLogRouter.php
+END
+CProfileLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CProfileLogRoute.php
+END
+CEmailLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CEmailLogRoute.php
+END
+CChainedLogFilter.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CChainedLogFilter.php
+END
+CLogger.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CLogger.php
+END
+CFileLogRoute.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/cis4911/!svn/ver/4/JobFair/framework/logging/CFileLogRoute.php
+END
