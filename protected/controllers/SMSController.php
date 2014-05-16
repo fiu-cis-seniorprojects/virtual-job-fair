@@ -95,13 +95,13 @@ class SMSController extends Controller
 	
 		
 		if(isset($_POST['SMS']) && isset($_POST['username']) )
-		{      if($this->actionVerify() != "")
-				{
-			         break;
-			        
-				}
-				
-				
+		{
+            if($this->actionVerify() != "")
+            {
+                 return;
+
+            }
+
 			$SMS->Message = "VJF Message from " . $username . " \n";
 			
 			//$SMS->attributes = $_POST['SMS'];
@@ -117,8 +117,7 @@ class SMSController extends Controller
 			$model1 = BasicInfo::model()->find("userid=:userid",array('userid'=>$receiver->id)); //get the receivers phone numbers
 			$phone = $model1->phone;
 			
-			
-			
+
 			spl_autoload_unregister(array('YiiBase','autoload'));
 			require('Services/Twilio.php');
 			$sid = "AC1a9ec3e5aaf3135a5e4893c095be8430";
