@@ -56,7 +56,7 @@
 		</form>';
 	} else if (User::isCurrentUserStudent(Yii::app()->user->name)){
 		$home = '/home/studenthome';
-		$search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/job/home">'
+		$search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/job/search">'
 				. $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
 				'name'=>'keyword',
 				'source'=>Skillset::getNames(),
