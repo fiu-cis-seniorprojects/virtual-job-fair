@@ -2,10 +2,10 @@
 	if (!isset($_SESSION))
     	session_start();
 
-// 	$config['base_url']             =   'http://localhost/JobFair/index.php/profile/auth.php';
-// 	$config['callback_url']         =   'http://localhost/JobFair/index.php/profile/RegisterLinkedIn';
-    $config['base_url']             =   'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/user/auth1.php';
-    $config['callback_url']         =   'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/user/RegisterLinkedIn';
+ 	$config['base_url']             =   'http://localhost/JobFair/index.php/profile/auth.php';
+ 	$config['callback_url']         =   'http://localhost/JobFair/index.php/profile/RegisterLinkedIn';
+//    $config['base_url']             =   'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/user/auth1.php';
+//    $config['callback_url']         =   'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/user/RegisterLinkedIn';
     $config['linkedin_access']      =   '2rtmn93gu2m4';
     $config['linkedin_secret']      =   'JV0fYG9ls3rclP8v';
 

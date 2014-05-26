@@ -78,8 +78,10 @@ $this->breadcrumbs=array(
 <p>Students may login with these:</p>
 
 <a href="">
+    <!-- Provide local img  -->
 <a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/fiuCsSeniorAuth">
 <img class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/fiu_cs_login.png" style="margin: 1px" height="150" width="240">
+<!--<img class="loginimg" src="/JobFair/images/imgs/fiu_cs_login.png" style="margin: 1px" height="150" width="240">-->
 </a><br>
 
 <a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/fiuAuth">
@@ -90,9 +92,11 @@ $this->breadcrumbs=array(
 <img  class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/google_login.png" style="margin: 1px" height="150" width="240">
 </a><br>
 
-
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/user/auth1">
-<img class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/linkedIn_login.png" style="margin: 1px" height="150" width="240">
+<!--<a href="http://localhost/JobFair/index.php/user/auth1">-->
+    <?php
+        $image = CHtml::image(Yii::app()->baseUrl.'/images/imgs/linkedIn_login.png');
+        echo CHtml::link($image, array('user/auth1'));
+    ?>
+<!--<img class="loginimg" src="/JobFair/images/imgs/linkedIn_login.png" style="margin: 1px" height="150" width="240">-->
 </a>
 </div>
-

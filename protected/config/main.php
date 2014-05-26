@@ -17,6 +17,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+        'ext.YiiMailer.YiiMailer',
 	),
 
 	'modules'=>array(
@@ -68,7 +69,7 @@ return array(
 		'email'=>array(
 				'class'=>'application.extensions.email.Email',
 				'delivery'=>'php', //Will use the php mailing function.
-			),
+		),
 		
 		/*
 		'db'=>array(

@@ -5,38 +5,33 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'My Console Application',
-
-	// preloading 'log' component
-	'preload'=>array('log'),
-		// autoloading model and component classes
-		'import'=>array(
-				'application.models.*',
-				'application.components.*',
-		), 
+	'import'=>array(
+        'application.models.*',
+        'application.components.*',
+        'ext.YiiMailer.YiiMailer',
+    ),
 	// application components
 	'components'=>array(
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
 		// uncomment the following to use a MySQL database
+
 		'db'=>array(
-			//'connectionString' => 'mysql:host=jobfairdb.db.9862366.hostedresource.com;dbname=jobfairdb',
 			'connectionString' => 'mysql:host=localhost;dbname=jobfairdb',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			//'username' => 'jobfairdb',
-			'password' => '9Qst32+',
-			//'password' => '',
+			'username' => 'vjfuser',
+			'password' => 's3n10rpr0j3ct',
 			'charset' => 'utf8',
 		),
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
-			),
-		),
+        'log'=>array(
+            'class'=>'CLogRouter',
+            'routes'=>array(
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'error, warning',
+                ),
+            ),
+        ),
 	),
 );

@@ -10,18 +10,14 @@ class VideoInterviewController extends Controller
 
 
 	public function actionScheduleInterview(){
-
-	
-
-
-
 		$original_string = "qwertyuiopasdfghjklzxcvbnm123456789";
 		$lastid = VideoInterview::model()->find(array('order'=>'id DESC'));
-		if($lastid!=null){
-
-		$key = $lastid->id + 1 . "VJFID" . rand(1,10000000);
+		if($lastid!=null)
+        {
+		    $key = $lastid->id + 1 . "VJFID" . rand(1,10000000);
 		}
-		else{
+		else
+        {
 			$key = 1 . "VJFID" . rand(1,10000000);
 		}
 		$refid = Notification::model()->find(array('order'=>'id DESC'));
@@ -46,19 +42,12 @@ class VideoInterviewController extends Controller
 		
 		$message = $username. " scheduled a video interview with you on: $model->date at: $model->time Good Luck!";
 
-
-
-		
-
 		User::sendSchedualNotificationAlart($sender_id, $receiver->id, $message, $link);
 
 		//print "<pre>"; print_r($receiver_id);print "</pre>";return;
 
 		
 		//SAVE TO VIDEO INTERVIEW TABLE
- 		
-		
-
  		$message2 = "You scheduled an interview with ".$student. " at ". $model->time. " on ". $model->date." Click here to go to the interview page.";
  		User::sendSchedualNotificationAlart($receiver->id, $sender_id, $message2, $student);
  		//$message3 = "Hi $receiver->username, $username will like to interview you on:<br/>Date: $model->date<br/>Time: $model->time";
