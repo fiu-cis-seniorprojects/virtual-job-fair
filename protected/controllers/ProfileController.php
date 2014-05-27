@@ -487,11 +487,10 @@ class ProfileController extends Controller
 	
 		if (!isset($_SESSION))
 			session_start();
-	
-// 		$config['base_url']             =   'http://localhost/JobFair/index.php/profile/auth.php';
-// 		$config['callback_url']         =   'http://localhost/JobFair/index.php/profile/demo';
-		$config['base_url']             =   'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/auth.php';
-		$config['callback_url']         =   'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/demo';
+
+        //edit by Manuel making the link dynamic, using Yii
+		$config['base_url']             =   'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/auth.php';
+		$config['callback_url']         =   'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/demo';
 		$config['linkedin_access']      =   '2rtmn93gu2m4';
 		$config['linkedin_secret']      =   'JV0fYG9ls3rclP8v';
 	
@@ -659,8 +658,9 @@ class ProfileController extends Controller
 		########## Google Settings.. Client ID, Client Secret #############
 		$google_client_id   = '928039521722-lj2mum092i95hneqt59lnjicnsr67vk9.apps.googleusercontent.com';
 		$google_client_secret   = 'GlZH5dqUEGQl5qKCru4gQRLn';
-		$google_redirect_url    = 'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth';
-		$google_developer_key   = 'AIzaSyBuFuFgWDOkllsoeoaCNvkrhWCLZIBAcpo';
+        //edit by Manuel making the link dynamic, using Yii
+		$google_redirect_url    = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/googleAuth';
+        $google_developer_key   = 'AIzaSyBuFuFgWDOkllsoeoaCNvkrhWCLZIBAcpo';
 
 		//include google api files
 		require_once Yii::app()->basePath."/google/Google_Client.php";
@@ -670,7 +670,7 @@ class ProfileController extends Controller
 		$gClient->setApplicationName('Login to JobFair');
 		$gClient->setClientId($google_client_id);
 		$gClient->setClientSecret($google_client_secret);
-		$gClient->setRedirectUri($google_redirect_url);
+		$gClient->setRedirectUri('http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth');
 		$gClient->setDeveloperKey($google_developer_key);
 
 		$google_oauthV2 = new Google_Oauth2Service($gClient);
@@ -725,7 +725,7 @@ class ProfileController extends Controller
 		}
 		else // user logged in succesfully to google, now check if we register or login to JobFair
 		{
-			
+
 		
 			$userExists = User::model()->findByAttributes(array('googleid'=>$user["id"]));
 			// if user exists with googleid, login
@@ -893,7 +893,9 @@ class ProfileController extends Controller
 		########## Google Settings.. Client ID, Client Secret #############
 		$google_client_id   = '928039521722-lj2mum092i95hneqt59lnjicnsr67vk9.apps.googleusercontent.com';
 		$google_client_secret   = 'GlZH5dqUEGQl5qKCru4gQRLn';
-		$google_redirect_url    = 'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth';
+        //edit by Manuel making the link dynamic, using Yii
+		//$google_redirect_url    = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/googleAuth';
+        $google_redirect_url    = 'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth';
 		$google_developer_key   = 'AIzaSyBuFuFgWDOkllsoeoaCNvkrhWCLZIBAcpo';
 
 		//include google api files
