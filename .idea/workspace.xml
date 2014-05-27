@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f5f7b73-e741-4a39-8e3e-947547b9d359" name="Default" comment="first commit&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/commands/ReminderCommand.php" afterPath="$PROJECT_DIR$/protected/commands/ReminderCommand.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/User.php" afterPath="$PROJECT_DIR$/protected/models/User.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JobFair.iws" />
@@ -27,10 +25,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ReminderCommand.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ReminderCommand.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protected/commands/ReminderCommand.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="73" selection-start="2700" selection-end="2700" vertical-scroll-proportion="-21.428572" vertical-offset="102" max-vertical-offset="900">
+            <state line="41" column="0" selection-start="2388" selection-end="2388" vertical-scroll-proportion="0.7256637" vertical-offset="0" max-vertical-offset="900">
               <folding />
             </state>
           </provider>
@@ -39,7 +37,7 @@
       <file leaf-file-name="console.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/config/console.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="55" selection-start="637" selection-end="637" vertical-scroll-proportion="-11.428572" vertical-offset="0" max-vertical-offset="504">
+            <state line="20" column="55" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="504">
               <folding />
             </state>
           </provider>
@@ -48,7 +46,7 @@
       <file leaf-file-name="VideoInterviewController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/controllers/VideoInterviewController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="40" selection-start="2208" selection-end="2234" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="1332">
+            <state line="60" column="40" selection-start="2208" selection-end="2234" vertical-scroll-proportion="-3.142857" vertical-offset="654" max-vertical-offset="1332">
               <folding />
             </state>
           </provider>
@@ -57,16 +55,16 @@
       <file leaf-file-name="MessageController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/controllers/MessageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="32" selection-start="1746" selection-end="1746" vertical-scroll-proportion="-31.428572" vertical-offset="0" max-vertical-offset="3036">
+            <state line="55" column="32" selection-start="1746" selection-end="1746" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="3036">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="User.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/models/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="180" column="27" selection-start="6695" selection-end="6695" vertical-scroll-proportion="0.61946905" vertical-offset="1740" max-vertical-offset="6168">
+            <state line="186" column="5" selection-start="6906" selection-end="6906" vertical-scroll-proportion="1.1428572" vertical-offset="2256" max-vertical-offset="6168">
               <folding />
             </state>
           </provider>
@@ -75,7 +73,7 @@
       <file leaf-file-name="JobController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/controllers/JobController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="167" column="8" selection-start="4548" selection-end="4548" vertical-scroll-proportion="-10.857142" vertical-offset="1776" max-vertical-offset="4872">
+            <state line="167" column="8" selection-start="4548" selection-end="4548" vertical-scroll-proportion="0.0" vertical-offset="1776" max-vertical-offset="4872">
               <folding>
                 <marker date="1401138952000" expanded="true" signature="693:765" placeholder="SELECT * FRO..job..." />
                 <marker date="1401138952000" expanded="true" signature="842:899" placeholder="SELECT * FRO..job..." />
@@ -193,7 +191,47 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="protected" />
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobFair" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobFair" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bootstrap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobFair" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobFair" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bootstrap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -208,64 +246,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="protected" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extensions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobFair" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobFair" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="protected" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobFair" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobFair" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="protected" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobFair" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobFair" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="protected" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commands" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -364,7 +344,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15522175" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15736766" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3292683" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
     </layout>
@@ -388,11 +368,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" vertical-offset="12" max-vertical-offset="240" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/SMSController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="202" column="30" selection-start="4845" selection-end="4852" vertical-scroll-proportion="0.0" vertical-offset="2148" max-vertical-offset="5376" />
@@ -484,9 +459,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/LoginForm.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="0" selection-start="1526" selection-end="1526" vertical-scroll-proportion="0.51374817" vertical-offset="425" max-vertical-offset="1116">
-          <folding />
-        </state>
+        <state line="65" column="0" selection-start="1526" selection-end="1526" vertical-scroll-proportion="0.51374817" vertical-offset="425" max-vertical-offset="1116" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/site/login.php">
@@ -497,11 +470,6 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="42" selection-start="502" selection-end="502" vertical-scroll-proportion="0.22575977" vertical-offset="0" max-vertical-offset="691" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/NotificationController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="712" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/extensions/email/Email.php">
@@ -531,11 +499,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/extensions/YiiMailer/PHPMailer/class.smtp.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="182" column="50" selection-start="5703" selection-end="5707" vertical-scroll-proportion="-1.8511279" vertical-offset="3415" max-vertical-offset="13176">
-          <folding>
-            <element signature="e#6#1665#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="182" column="50" selection-start="5703" selection-end="5707" vertical-scroll-proportion="-1.8511279" vertical-offset="3415" max-vertical-offset="13176" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/site/contact.php">
@@ -572,9 +536,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Application.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/layouts/mail.php">
@@ -596,30 +558,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/framework/db/CDbConnection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="371" column="58" selection-start="13989" selection-end="13995" vertical-scroll-proportion="0.43541363" vertical-offset="4068" max-vertical-offset="9720">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/VideoInterviewController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="40" selection-start="2208" selection-end="2234" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="1332">
-          <folding />
-        </state>
+        <state line="371" column="58" selection-start="13989" selection-end="13995" vertical-scroll-proportion="0.43541363" vertical-offset="4068" max-vertical-offset="9720" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/framework/yii.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="689">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="689" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/framework/YiiBase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="275" column="22" selection-start="10279" selection-end="10285" vertical-scroll-proportion="2.485207" vertical-offset="1512" max-vertical-offset="10248">
-          <folding />
-        </state>
+        <state line="275" column="22" selection-start="10279" selection-end="10285" vertical-scroll-proportion="2.485207" vertical-offset="1512" max-vertical-offset="10248" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/framework/cli/commands/shell/ModelCommand.php">
@@ -637,16 +586,9 @@
         <state line="4" column="48" selection-start="148" selection-end="148" vertical-scroll-proportion="0.069666184" vertical-offset="0" max-vertical-offset="689" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/config/console.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="55" selection-start="637" selection-end="637" vertical-scroll-proportion="-11.428572" vertical-offset="0" max-vertical-offset="504">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/JobController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="8" selection-start="4548" selection-end="4548" vertical-scroll-proportion="-10.857142" vertical-offset="1776" max-vertical-offset="4872">
+        <state line="167" column="8" selection-start="4548" selection-end="4548" vertical-scroll-proportion="0.0" vertical-offset="1776" max-vertical-offset="4872">
           <folding>
             <marker date="1401138952000" expanded="true" signature="693:765" placeholder="SELECT * FRO..job..." />
             <marker date="1401138952000" expanded="true" signature="842:899" placeholder="SELECT * FRO..job..." />
@@ -656,9 +598,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/config/mail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="29" selection-start="142" selection-end="142" vertical-scroll-proportion="0.06946454" vertical-offset="0" max-vertical-offset="691">
-          <folding />
-        </state>
+        <state line="4" column="29" selection-start="142" selection-end="142" vertical-scroll-proportion="0.06946454" vertical-offset="0" max-vertical-offset="691" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/extensions/YiiMailer/YiiMailer.php">
@@ -670,28 +610,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/config/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="34" selection-start="557" selection-end="645" vertical-scroll-proportion="0.3299566" vertical-offset="0" max-vertical-offset="1560">
+        <state line="19" column="34" selection-start="557" selection-end="645" vertical-scroll-proportion="0.3299566" vertical-offset="0" max-vertical-offset="1560" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/MessageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="32" selection-start="1746" selection-end="1746" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="3036">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/config/console.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="55" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="504">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/NotificationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="8" selection-start="120" selection-end="120" vertical-scroll-proportion="0.13892908" vertical-offset="0" max-vertical-offset="691" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="186" column="5" selection-start="6906" selection-end="6906" vertical-scroll-proportion="1.1428572" vertical-offset="2256" max-vertical-offset="6168">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/VideoInterviewController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="40" selection-start="2208" selection-end="2234" vertical-scroll-proportion="-3.142857" vertical-offset="654" max-vertical-offset="1332">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themes/bootstrap/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22728">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/commands/ReminderCommand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="73" selection-start="2700" selection-end="2700" vertical-scroll-proportion="-21.428572" vertical-offset="102" max-vertical-offset="900">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/MessageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="32" selection-start="1746" selection-end="1746" vertical-scroll-proportion="-31.428572" vertical-offset="0" max-vertical-offset="3036">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="27" selection-start="6695" selection-end="6695" vertical-scroll-proportion="0.61946905" vertical-offset="1740" max-vertical-offset="6168">
+        <state line="41" column="0" selection-start="2388" selection-end="2388" vertical-scroll-proportion="0.7256637" vertical-offset="0" max-vertical-offset="900">
           <folding />
         </state>
       </provider>
