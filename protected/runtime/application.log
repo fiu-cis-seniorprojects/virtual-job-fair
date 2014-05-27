@@ -1027,1091 +1027,469 @@ Stack trace:
 REQUEST_URI=/JobFair/index.php/SMS/Sendsms
 in /Users/terremark/Sites/JobFair/protected/controllers/SMSController.php (63)
 in /Users/terremark/Sites/JobFair/index.php (13)
-2014/05/15 21:12:18 [error] [php] Cannot modify header information - headers already sent by (output started at /Users/analhernandez/Sites/JobFair/protected/extensions/email/Email.php:137) (/Users/analhernandez/Sites/JobFair/framework/web/CHttpRequest.php:789)
+2014/05/20 13:16:11 [error] [exception.CException] exception 'CException' with message 'Property "Job.template" is not defined.' in /Users/terremark/Sites/JobFair/framework/base/CComponent.php:130
 Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php(144): UserController->redirect()
-#1 /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php(205): UserController->actionSendVerificationEmail()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): UserController->actionStudentRegister()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(286): UserController->runAction()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): UserController->runActionWithFilters()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): UserController->run()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#8 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#9 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/user/StudentRegister
-in /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php (144)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php (205)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:13:30 [error] [php] Creating default object from empty value (/Users/analhernandez/Sites/JobFair/protected/views/user/StudentRegister.php:26)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(869): UserController->renderFile()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): UserController->renderPartial()
-#2 /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php(163): UserController->render()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): UserController->actionStudentRegister()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(286): UserController->runAction()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): UserController->runActionWithFilters()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): UserController->run()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/user/StudentRegister
-in /Users/analhernandez/Sites/JobFair/protected/views/user/StudentRegister.php (26)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php (163)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:18:25 [error] [php] Cannot modify header information - headers already sent by (output started at /Users/analhernandez/Sites/JobFair/protected/extensions/email/Email.php:138) (/Users/analhernandez/Sites/JobFair/framework/web/CHttpRequest.php:789)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php(144): UserController->redirect()
-#1 /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php(205): UserController->actionSendVerificationEmail()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): UserController->actionStudentRegister()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(286): UserController->runAction()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): UserController->runActionWithFilters()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): UserController->run()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#8 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#9 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/user/StudentRegister
-in /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php (144)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php (205)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:30:05 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (32)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:30:05 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php:36)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): MessageController->runAction()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): MessageController->filterAccessControl()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): MessageController->runActionWithFilters()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): MessageController->run()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#12 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#13 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/message/send
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (36)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:30:30 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (32)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:30:30 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php:36)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): MessageController->runAction()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): MessageController->filterAccessControl()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): MessageController->runActionWithFilters()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): MessageController->run()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#12 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#13 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/message/send
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (36)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:34:04 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (32)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:34:04 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php:37)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): MessageController->runAction()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): MessageController->filterAccessControl()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): MessageController->runActionWithFilters()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): MessageController->run()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#12 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#13 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/message/send
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (37)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:34:10 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (32)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:34:10 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php:37)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): MessageController->runAction()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): MessageController->filterAccessControl()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): MessageController->runActionWithFilters()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): MessageController->run()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#12 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#13 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/message/send
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (37)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 17:34:41 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (32)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 17:34:41 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
-in /Users/analhernandez/Sites/JobFair/protected/controllers/MessageController.php (52)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 21:56:25 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/models/User.php:308)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): UserController->actionEmployerRegister()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(286): UserController->runAction()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): UserController->runActionWithFilters()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): UserController->run()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#6 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#7 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/user/EmployerRegister
-in /Users/analhernandez/Sites/JobFair/protected/models/User.php (308)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php (119)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 22:12:20 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/views/home/employerhome.php:179)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CBaseController.php(95): HomeController->renderInternal()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(869): HomeController->renderFile()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): HomeController->renderPartial()
-#3 /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php(120): HomeController->render()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): HomeController->actionEmployerHome()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): HomeController->runAction()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): HomeController->filterAccessControl()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): HomeController->runActionWithFilters()
-#13 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): HomeController->run()
-#14 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#15 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#16 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/home/employerhome
-in /Users/analhernandez/Sites/JobFair/protected/views/home/employerhome.php (179)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php (120)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 22:13:46 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/views/home/employerhome.php:180)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CBaseController.php(95): HomeController->renderInternal()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(869): HomeController->renderFile()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): HomeController->renderPartial()
-#3 /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php(120): HomeController->render()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): HomeController->actionEmployerHome()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): HomeController->runAction()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): HomeController->filterAccessControl()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): HomeController->runActionWithFilters()
-#13 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): HomeController->run()
-#14 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#15 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#16 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/home/employerhome
-in /Users/analhernandez/Sites/JobFair/protected/views/home/employerhome.php (180)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php (120)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 22:14:42 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/views/home/employerhome.php:180)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CBaseController.php(95): HomeController->renderInternal()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(869): HomeController->renderFile()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): HomeController->renderPartial()
-#3 /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php(120): HomeController->render()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): HomeController->actionEmployerHome()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): HomeController->runAction()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): HomeController->filterAccessControl()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): HomeController->runActionWithFilters()
-#13 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): HomeController->run()
-#14 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#15 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#16 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/home/employerhome
-in /Users/analhernandez/Sites/JobFair/protected/views/home/employerhome.php (180)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php (120)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 22:16:14 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php:70)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#10 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#11 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
+#0 /Users/terremark/Sites/JobFair/framework/db/ar/CActiveRecord.php(143): CComponent->__get('template')
+#1 /Users/terremark/Sites/JobFair/framework/web/helpers/CHtml.php(2255): CActiveRecord->__get('template')
+#2 /Users/terremark/Sites/JobFair/framework/web/helpers/CHtml.php(1506): CHtml::resolveValue(Object(Job), 'template')
+#3 /Users/terremark/Sites/JobFair/framework/web/widgets/CActiveForm.php(747): CHtml::activeCheckBox(Object(Job), 'template', Array)
+#4 /Users/terremark/Sites/JobFair/protected/views/job/post.php(183): CActiveForm->checkBox(Object(Job), 'template')
+#5 /Users/terremark/Sites/JobFair/framework/web/CBaseController.php(126): require('/Users/terremar...')
+#6 /Users/terremark/Sites/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Users/terremar...', Array, true)
+#7 /Users/terremark/Sites/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/Users/terremar...', Array, true)
+#8 /Users/terremark/Sites/JobFair/framework/web/CController.php(782): CController->renderPartial('post', Array, true)
+#9 /Users/terremark/Sites/JobFair/protected/controllers/JobController.php(86): CController->render('post', Array)
+#10 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionPost()
+#11 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#12 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#13 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#14 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#15 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#16 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#17 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#18 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('post')
+#20 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/post')
+#21 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#22 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#23 {main}
 REQUEST_URI=/JobFair/index.php/job/post
-in /Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php (70)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 22:19:43 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/models/User.php:394)
+HTTP_REFERER=http://localhost/JobFair/index.php/home/employerhome
+---
+2014/05/20 13:18:16 [error] [exception.CException] exception 'CException' with message 'Property "Job.template" is not defined.' in /Users/terremark/Sites/JobFair/framework/base/CComponent.php:130
 Stack trace:
-#0 unknown(0): JobController->actionStudentMatch()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#13 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#14 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/Job/studentmatch/jobid/1
-in /Users/analhernandez/Sites/JobFair/protected/models/User.php (394)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php (296)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 22:23:10 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/protected/models/User.php:376)
+#0 /Users/terremark/Sites/JobFair/framework/db/ar/CActiveRecord.php(143): CComponent->__get('template')
+#1 /Users/terremark/Sites/JobFair/framework/web/helpers/CHtml.php(2255): CActiveRecord->__get('template')
+#2 /Users/terremark/Sites/JobFair/framework/web/helpers/CHtml.php(1506): CHtml::resolveValue(Object(Job), 'template')
+#3 /Users/terremark/Sites/JobFair/framework/web/widgets/CActiveForm.php(747): CHtml::activeCheckBox(Object(Job), 'template', Array)
+#4 /Users/terremark/Sites/JobFair/protected/views/job/post.php(183): CActiveForm->checkBox(Object(Job), 'template')
+#5 /Users/terremark/Sites/JobFair/framework/web/CBaseController.php(126): require('/Users/terremar...')
+#6 /Users/terremark/Sites/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Users/terremar...', Array, true)
+#7 /Users/terremark/Sites/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/Users/terremar...', Array, true)
+#8 /Users/terremark/Sites/JobFair/framework/web/CController.php(782): CController->renderPartial('post', Array, true)
+#9 /Users/terremark/Sites/JobFair/protected/controllers/JobController.php(86): CController->render('post', Array)
+#10 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionPost()
+#11 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#12 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#13 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#14 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#15 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#16 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#17 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#18 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('post')
+#20 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/post')
+#21 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#22 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#23 {main}
+REQUEST_URI=/JobFair/index.php/job/post
+HTTP_REFERER=http://localhost/JobFair/index.php/home/employerhome
+---
+2014/05/20 13:20:04 [error] [exception.CException] exception 'CException' with message 'Property "CActiveForm.template" is not defined.' in /Users/terremark/Sites/JobFair/framework/base/CComponent.php:130
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/helpers/CHtml.php(2255): CComponent->__get('template')
+#1 /Users/terremark/Sites/JobFair/framework/web/helpers/CHtml.php(1506): CHtml::resolveValue(Object(CActiveForm), 'template')
+#2 /Users/terremark/Sites/JobFair/framework/web/widgets/CActiveForm.php(747): CHtml::activeCheckBox(Object(CActiveForm), 'template', Array)
+#3 /Users/terremark/Sites/JobFair/protected/views/job/post.php(183): CActiveForm->checkBox(Object(CActiveForm), 'template')
+#4 /Users/terremark/Sites/JobFair/framework/web/CBaseController.php(126): require('/Users/terremar...')
+#5 /Users/terremark/Sites/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Users/terremar...', Array, true)
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(869): CBaseController->renderFile('/Users/terremar...', Array, true)
+#7 /Users/terremark/Sites/JobFair/framework/web/CController.php(782): CController->renderPartial('post', Array, true)
+#8 /Users/terremark/Sites/JobFair/protected/controllers/JobController.php(86): CController->render('post', Array)
+#9 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionPost()
+#10 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#12 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#13 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#14 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#15 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#16 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#17 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('post')
+#19 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/post')
+#20 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#21 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#22 {main}
+REQUEST_URI=/JobFair/index.php/job/post
+HTTP_REFERER=http://localhost/JobFair/index.php/home/employerhome
+---
+2014/05/20 14:52:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fiucsauth/FiuCsAuth.php".' in /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('fiucsauth/FiuCs...')
+#1 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/JobFair/index.php/fiucsauth/FiuCsAuth.php
+---
+2014/05/20 14:52:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "FiuCsSeniorAuth".' in /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('FiuCsSeniorAuth')
+#1 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/JobFair/index.php/FiuCsSeniorAuth
+---
+2014/05/20 15:09:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/terremark/Sites/JobFair/framework/web/CController.php:483
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
+#1 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
+#2 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
+#3 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/JobFair/index.php/site/JobFair/images/View.png
+HTTP_REFERER=http://localhost/JobFair/index.php/site/login
+---
+2014/05/20 15:09:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/terremark/Sites/JobFair/framework/web/CController.php:483
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
+#1 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
+#2 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
+#3 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/JobFair/index.php/site/JobFair/images/View.png
+HTTP_REFERER=http://localhost/JobFair/index.php/site/login
+---
+2014/05/20 15:15:27 [warning] [application] Failed to set unsafe attribute "id" of "Job".
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (99)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/22 15:51:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/terremark/Sites/JobFair/framework/web/CController.php:483
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
+#1 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
+#2 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
+#3 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/linkedIn_login.png
+HTTP_REFERER=http://localhost/JobFair/index.php/site/login
+---
+2014/05/22 15:51:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/terremark/Sites/JobFair/framework/web/CController.php:483
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
+#1 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
+#2 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
+#3 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/linkedIn_login.png
+HTTP_REFERER=http://localhost/JobFair/index.php/site/login
+---
+2014/05/22 15:51:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in /Users/terremark/Sites/JobFair/framework/web/CController.php:483
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('images')
+#1 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('images')
+#2 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/images/img...')
+#3 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/JobFair/index.php/site/images/imgs/linkedIn_login.png
+HTTP_REFERER=http://localhost/JobFair/index.php/site/login
+---
+2014/05/22 15:51:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "images".' in /Users/terremark/Sites/JobFair/framework/web/CController.php:483
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('images')
+#1 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('images')
+#2 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/images/img...')
+#3 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/JobFair/index.php/site/images/imgs/linkedIn_login.png
+HTTP_REFERER=http://localhost/JobFair/index.php/site/login
+---
+2014/05/22 16:08:12 [error] [php] Undefined index: callback_url (/Users/terremark/Sites/JobFair/protected/views/user/auth1.php:15)
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/web/CController.php(869): UserController->renderFile()
+#1 /Users/terremark/Sites/JobFair/framework/web/CController.php(782): UserController->renderPartial()
+#2 /Users/terremark/Sites/JobFair/protected/controllers/UserController.php(646): UserController->render()
+#3 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(49): UserController->actionAuth1()
+#4 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#5 /Users/terremark/Sites/JobFair/framework/web/CController.php(286): UserController->runAction()
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): UserController->runActionWithFilters()
+#7 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): UserController->run()
+#8 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/user/auth1
+in /Users/terremark/Sites/JobFair/protected/views/user/auth1.php (15)
+in /Users/terremark/Sites/JobFair/protected/controllers/UserController.php (646)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/22 18:13:06 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
+in /Users/terremark/Sites/JobFair/protected/controllers/MessageController.php (32)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/22 18:13:06 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
+in /Users/terremark/Sites/JobFair/protected/controllers/MessageController.php (51)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/22 18:29:23 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
+in /Users/terremark/Sites/JobFair/protected/controllers/MessageController.php (32)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/22 18:29:23 [warning] [application] Failed to set unsafe attribute "subject" of "Message".
+in /Users/terremark/Sites/JobFair/protected/controllers/MessageController.php (51)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/23 01:41:15 [error] [exception.CException] exception 'CException' with message 'CWebApplication and its behaviors do not have a method or closure named "baseUrl".' in /Users/terremark/Sites/JobFair/framework/base/CComponent.php:265
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/protected/config/mail.php(5): CComponent->__call('baseUrl', Array)
+#1 /Users/terremark/Sites/JobFair/protected/config/mail.php(5): CWebApplication->baseUrl()
+#2 /Users/terremark/Sites/JobFair/protected/extensions/YiiMailer/YiiMailer.php(90): require('/Users/terremar...')
+#3 /Users/terremark/Sites/JobFair/protected/models/User.php(185): YiiMailer->__construct()
+#4 /Users/terremark/Sites/JobFair/protected/controllers/UserController.php(203): User->sendVerificationEmail()
+#5 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(49): UserController->actionStudentRegister()
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Users/terremark/Sites/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('StudentRegister')
+#10 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('user/StudentReg...')
+#11 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#13 {main}
+REQUEST_URI=/JobFair/index.php/user/StudentRegister
+HTTP_REFERER=http://localhost/JobFair/index.php/user/StudentRegister
+---
+2014/05/25 20:30:30 [warning] [application] Failed to set unsafe attribute "name" of "Education".
+in /Users/terremark/Sites/JobFair/protected/controllers/ProfileController.php (137)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/25 20:50:19 [error] [php] fopen(/var/www/html/JobFair/email/index1.html): failed to open stream: No such file or directory (/Users/terremark/Sites/JobFair/protected/models/User.php:480)
 Stack trace:
 #0 unknown(0): JobController->actionVirtualHandshake()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#13 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#14 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/job/virtualHandshake?jobid=1&studentid=3
-in /Users/analhernandez/Sites/JobFair/protected/models/User.php (376)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php (360)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/15 22:37:04 [error] [php] strtotime(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/analhernandez/Sites/JobFair/framework/i18n/CDateFormatter.php:96)
+#1 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#2 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#5 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#10 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#11 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#12 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/virtualHandshake?jobid=3&studentid=2
+in /Users/terremark/Sites/JobFair/protected/models/User.php (480)
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (363)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/25 21:00:03 [error] [php] fopen(/var/www/html/JobFair/email/index1.html): failed to open stream: No such file or directory (/Users/terremark/Sites/JobFair/protected/models/User.php:480)
 Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CBaseController.php(126): require()
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CBaseController.php(95): HomeController->renderInternal()
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(869): HomeController->renderFile()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): HomeController->renderPartial()
-#4 /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php(505): HomeController->render()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): HomeController->actionAdminSearch()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): HomeController->runAction()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): HomeController->filterAccessControl()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#13 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): HomeController->runActionWithFilters()
-#14 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): HomeController->run()
-#15 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#16 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#17 /Users/analhernandez/Sites/JobFair/index.php(13): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/home/adminSearch
-in /Users/analhernandez/Sites/JobFair/protected/views/home/adminhome.php (59)
-in /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php (505)
-in /Users/analhernandez/Sites/JobFair/index.php (13)
-2014/05/19 14:41:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "localhost".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
+#0 unknown(0): JobController->actionApply()
+#1 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#2 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#5 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#10 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#11 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#12 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+in /Users/terremark/Sites/JobFair/protected/models/User.php (480)
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (174)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/25 21:03:43 [error] [php] fopen(/var/www/html/JobFair/email/index1.html): failed to open stream: No such file or directory (/Users/terremark/Sites/JobFair/protected/models/User.php:480)
 Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('localhost')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('localhost')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/localhost/...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/localhost/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
+#0 unknown(0): JobController->actionApply()
+#1 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#2 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#5 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#10 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#11 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#12 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+in /Users/terremark/Sites/JobFair/protected/models/User.php (480)
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (174)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/26 04:34:37 [error] [php] fopen(/JobFair/email/index1.html): failed to open stream: No such file or directory (/Users/terremark/Sites/JobFair/protected/models/User.php:480)
+Stack trace:
+#0 unknown(0): JobController->actionApply()
+#1 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#2 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#5 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#10 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#11 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#12 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+in /Users/terremark/Sites/JobFair/protected/models/User.php (480)
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (173)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/26 04:42:26 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '3-2' for key 1. The SQL statement executed was: INSERT INTO `application` (`jobid`, `userid`, `application_date`, `coverletter`) VALUES (:yp0, :yp1, :yp2, :yp3).
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (168)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/26 04:42:26 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '3-2' for key 1. The SQL statement executed was: INSERT INTO `application` (`jobid`, `userid`, `application_date`, `coverletter`) VALUES (:yp0, :yp1, :yp2, :yp3)' in /Users/terremark/Sites/JobFair/framework/db/CDbCommand.php:357
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/db/ar/CActiveRecord.php(1023): CDbCommand->execute()
+#1 /Users/terremark/Sites/JobFair/framework/db/ar/CActiveRecord.php(795): CActiveRecord->insert(NULL)
+#2 /Users/terremark/Sites/JobFair/protected/controllers/JobController.php(168): CActiveRecord->save(false)
+#3 [internal function]: JobController->actionApply('3')
+#4 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(JobController), Array)
+#5 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(JobController), Object(ReflectionMethod), Array)
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#9 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#13 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('apply')
+#15 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/apply/jobid...')
+#16 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#17 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#18 {main}
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+HTTP_REFERER=http://localhost/JobFair/index.php/job/view/jobid/3
 ---
-2014/05/19 14:41:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "localhost".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
+2014/05/26 04:42:48 [error] [php] fopen(/email/index1.html): failed to open stream: No such file or directory (/Users/terremark/Sites/JobFair/protected/models/User.php:480)
 Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('localhost')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('localhost')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/localhost/...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/localhost/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
+#0 unknown(0): JobController->actionApply()
+#1 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#2 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#5 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#10 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#11 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#12 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+in /Users/terremark/Sites/JobFair/protected/models/User.php (480)
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (173)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/26 04:46:11 [error] [php] fopen(/email/index1.html): failed to open stream: No such file or directory (/Users/terremark/Sites/JobFair/protected/models/User.php:481)
+Stack trace:
+#0 unknown(0): JobController->actionApply()
+#1 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#2 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#5 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#10 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#11 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#12 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+in /Users/terremark/Sites/JobFair/protected/models/User.php (481)
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (173)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/26 04:46:55 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '3-2' for key 1. The SQL statement executed was: INSERT INTO `application` (`jobid`, `userid`, `application_date`, `coverletter`) VALUES (:yp0, :yp1, :yp2, :yp3).
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (168)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/26 04:46:55 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '3-2' for key 1. The SQL statement executed was: INSERT INTO `application` (`jobid`, `userid`, `application_date`, `coverletter`) VALUES (:yp0, :yp1, :yp2, :yp3)' in /Users/terremark/Sites/JobFair/framework/db/CDbCommand.php:357
+Stack trace:
+#0 /Users/terremark/Sites/JobFair/framework/db/ar/CActiveRecord.php(1023): CDbCommand->execute()
+#1 /Users/terremark/Sites/JobFair/framework/db/ar/CActiveRecord.php(795): CActiveRecord->insert(NULL)
+#2 /Users/terremark/Sites/JobFair/protected/controllers/JobController.php(168): CActiveRecord->save(false)
+#3 [internal function]: JobController->actionApply('3')
+#4 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(JobController), Array)
+#5 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(JobController), Object(ReflectionMethod), Array)
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#9 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#13 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('apply')
+#15 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/apply/jobid...')
+#16 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#17 /Users/terremark/Sites/JobFair/index.php(14): CApplication->run()
+#18 {main}
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+HTTP_REFERER=http://localhost/JobFair/index.php/job/view/jobid/3
 ---
-2014/05/19 14:41:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "localhost".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
+2014/05/26 11:35:34 [error] [php] implode(): Invalid arguments passed (/Users/terremark/Sites/JobFair/protected/models/User.php:483)
 Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('localhost')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('localhost')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/localhost/...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/localhost/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:41:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "localhost".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
+#0 unknown(0): JobController->actionApply()
+#1 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#2 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#5 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#10 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#11 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#12 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#14 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+in /Users/terremark/Sites/JobFair/protected/models/User.php (483)
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (173)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/26 11:50:41 [error] [php] Non-static method User::sendEmailNotificationAlart() should not be called statically, assuming $this from incompatible context (/Users/terremark/Sites/JobFair/protected/controllers/JobController.php:175)
 Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('localhost')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('localhost')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/localhost/...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/localhost/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:41:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "localhost".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
+#0 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#3 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#6 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#8 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#9 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#10 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+in /Users/terremark/Sites/JobFair/protected/controllers/JobController.php (175)
+in /Users/terremark/Sites/JobFair/index.php (14)
+2014/05/26 12:03:11 [error] [php] Undefined variable: name (/Users/terremark/Sites/JobFair/protected/views/mail/contact.php:1)
 Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('localhost')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('localhost')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/localhost/...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/localhost/JobFair/index.php/profile/fiuAuth
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:42:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:42:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:42:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "localhost".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('localhost')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('localhost')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/localhost/...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/localhost/JobFair/index.php/profile/fiuAuth
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:42:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:43:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:43:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/in...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/index.php/profile/fiuAuth
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:44:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/in...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/index.php/profile/fiuAuth
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:44:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:45:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:45:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:45:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 14:46:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 15:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "JobFair".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('JobFair')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('JobFair')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/JobFair/im...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/site/JobFair/images/imgs/fiu_login.png
-HTTP_REFERER=http://localhost/JobFair/index.php/site/login
----
-2014/05/19 15:41:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/
----
-2014/05/19 15:41:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/
----
-2014/05/19 15:45:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/
----
-2014/05/19 15:54:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "localhost".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('localhost')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('localhost')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('user/localhost/...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/user/localhost/JobFair/index.php/user/auth1
-HTTP_REFERER=http://localhost/JobFair/index.php/user/StudentRegister?error=User+email+is+already+linked+with+another+account.
----
-2014/05/19 15:56:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "RegisterLinkedIn".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('RegisterLinkedI...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('RegisterLinkedI...')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile/Registe...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/RegisterLinkedIn?oauth_token=75--4218a862-7368-421d-95b6-5d6af1bce7a5&oauth_verifier=30290
----
-2014/05/19 16:55:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "layout/main".' in /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php:286
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('layout/main')
-#1 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#2 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#3 {main}
-REQUEST_URI=/JobFair/index.php/layout/main
----
-2014/05/19 16:55:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "main".' in /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php:286
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('main')
-#1 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#2 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#3 {main}
-REQUEST_URI=/JobFair/index.php/main
----
-2014/05/19 16:55:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "main.php".' in /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php:286
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('main.php')
-#1 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#2 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#3 {main}
-REQUEST_URI=/JobFair/index.php/main.php
----
-2014/05/19 16:56:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "main".' in /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php:286
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('main')
-#1 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#2 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#3 {main}
-REQUEST_URI=/JobFair/index.php/main
----
-2014/05/19 16:56:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "layout/main".' in /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php:286
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('layout/main')
-#1 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#2 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#3 {main}
-REQUEST_URI=/JobFair/index.php/layout/main
----
-2014/05/19 16:56:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "layouts/main".' in /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php:286
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('layouts/main')
-#1 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#2 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#3 {main}
-REQUEST_URI=/JobFair/index.php/layouts/main
----
-2014/05/19 16:56:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "layouts/main.php".' in /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php:286
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('layouts/main.ph...')
-#1 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#2 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#3 {main}
-REQUEST_URI=/JobFair/index.php/layouts/main.php
----
-2014/05/19 17:15:11 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: '' for column 'startdate' at row 1. The SQL statement executed was: INSERT INTO `experience` (`job_title`, `company_name`, `job_description`, `startdate`, `enddate`, `city`, `state`, `FK_userid`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7).
-in /Users/analhernandez/Sites/JobFair/protected/controllers/ProfileController.php (170)
-in /Users/analhernandez/Sites/JobFair/index.php (14)
-2014/05/19 17:15:11 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: '' for column 'startdate' at row 1. The SQL statement executed was: INSERT INTO `experience` (`job_title`, `company_name`, `job_description`, `startdate`, `enddate`, `city`, `state`, `FK_userid`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7)' in /Users/analhernandez/Sites/JobFair/framework/db/CDbCommand.php:357
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/db/ar/CActiveRecord.php(1023): CDbCommand->execute()
-#1 /Users/analhernandez/Sites/JobFair/framework/db/ar/CActiveRecord.php(795): CActiveRecord->insert(NULL)
-#2 /Users/analhernandez/Sites/JobFair/protected/controllers/ProfileController.php(170): CActiveRecord->save(false)
-#3 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): ProfileController->actionAddExperience()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#9 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('addExperience')
-#13 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('Profile/addExpe...')
-#14 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#15 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#16 {main}
-REQUEST_URI=/JobFair/index.php/Profile/addExperience
-HTTP_REFERER=http://localhost/JobFair/index.php/profile/view
----
-2014/05/19 17:43:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "RegisterLinkedIn".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('RegisterLinkedI...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('RegisterLinkedI...')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile/Registe...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/RegisterLinkedIn?oauth_token=75--82cbe27e-0c87-4306-b81d-71844988a864&oauth_verifier=04481
----
-2014/05/22 14:13:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "RegisterLinkedIn".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('RegisterLinkedI...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('RegisterLinkedI...')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile/Registe...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/RegisterLinkedIn?oauth_token=75--9edbf29f-8a35-4787-853b-effdfe9f72db&oauth_verifier=08424
----
-2014/05/22 14:14:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "RegisterLinkedIn".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('RegisterLinkedI...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('RegisterLinkedI...')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile/Registe...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/RegisterLinkedIn?oauth_token=75--9edbf29f-8a35-4787-853b-effdfe9f72db&oauth_verifier=08424
----
-2014/05/22 14:14:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "RegisterLinkedIn".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('RegisterLinkedI...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('RegisterLinkedI...')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile/Registe...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/RegisterLinkedIn?oauth_token=75--9edbf29f-8a35-4787-853b-effdfe9f72db&oauth_verifier=08424
----
-2014/05/22 14:16:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "RegisterLinkedIn".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('RegisterLinkedI...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('RegisterLinkedI...')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile/Registe...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/RegisterLinkedIn?oauth_token=75--9edbf29f-8a35-4787-853b-effdfe9f72db&oauth_verifier=08424
----
-2014/05/22 14:16:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "RegisterLinkedIn".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('RegisterLinkedI...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('RegisterLinkedI...')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('profile/Registe...')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/profile/RegisterLinkedIn?oauth_token=75--9edbf29f-8a35-4787-853b-effdfe9f72db&oauth_verifier=08424
----
-2014/05/22 14:17:25 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'company_name' at row 1. The SQL statement executed was: INSERT INTO `experience` (`FK_userid`, `company_name`, `job_title`, `job_description`, `startdate`, `enddate`, `city`, `state`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7).
-in /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php (573)
-in /Users/analhernandez/Sites/JobFair/index.php (14)
-2014/05/22 14:17:25 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'company_name' at row 1. The SQL statement executed was: INSERT INTO `experience` (`FK_userid`, `company_name`, `job_title`, `job_description`, `startdate`, `enddate`, `city`, `state`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7)' in /Users/analhernandez/Sites/JobFair/framework/db/CDbCommand.php:357
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/db/ar/CActiveRecord.php(1023): CDbCommand->execute()
-#1 /Users/analhernandez/Sites/JobFair/framework/db/ar/CActiveRecord.php(795): CActiveRecord->insert(NULL)
-#2 /Users/analhernandez/Sites/JobFair/protected/controllers/UserController.php(573): CActiveRecord->save(false)
-#3 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): UserController->actionRegisterLinkedIn()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('RegisterLinkedI...')
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('user/RegisterLi...')
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#11 {main}
-REQUEST_URI=/JobFair/index.php/user/RegisterLinkedIn
----
-2014/05/22 14:59:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "contactus".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('contactus')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('contactus')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('home/contactus')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/home/contactus
----
-2014/05/22 14:59:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "contact".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('contact')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('contact')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('home/contact')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/home/contact
----
-2014/05/22 15:25:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "searche".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('searche')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('searche')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('home/searche')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/home/searche
----
-2014/05/22 16:21:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('home')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/home/
----
-2014/05/22 17:39:04 [error] [exception.CException] exception 'CException' with message 'HomeController cannot find the requested view "JobFair/index.php/job/home".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:878
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): CController->renderPartial('JobFair/index.p...', Array, true)
-#1 /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php(446): CController->render('JobFair/index.p...', Array)
-#2 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): HomeController->actionSearch()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('home/search')
-#13 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#14 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#15 {main}
-REQUEST_URI=/JobFair/index.php/home/search
-HTTP_REFERER=http://localhost/JobFair/index.php/home/studenthome
----
-2014/05/22 17:40:23 [error] [exception.CException] exception 'CException' with message 'HomeController cannot find the requested view "home".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:878
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): CController->renderPartial('home', Array, true)
-#1 /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php(446): CController->render('home', Array)
-#2 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): HomeController->actionSearch()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('home/search')
-#13 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#14 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#15 {main}
-REQUEST_URI=/JobFair/index.php/home/search
-HTTP_REFERER=http://localhost/JobFair/index.php/home/studenthome
----
-2014/05/22 17:41:08 [error] [exception.CException] exception 'CException' with message 'HomeController cannot find the requested view "job/home".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:878
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): CController->renderPartial('job/home', Array, true)
-#1 /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php(446): CController->render('job/home', Array)
-#2 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): HomeController->actionSearch()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('home/search')
-#13 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#14 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#15 {main}
-REQUEST_URI=/JobFair/index.php/home/search
-HTTP_REFERER=http://localhost/JobFair/index.php/home/studenthome
----
-2014/05/22 17:45:06 [error] [exception.CException] exception 'CException' with message 'HomeController cannot find the requested view "job/home".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:878
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): CController->renderPartial('job/home', Array, true)
-#1 /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php(446): CController->render('job/home', Array)
-#2 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): HomeController->actionSearch()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('home/search')
-#13 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#14 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#15 {main}
-REQUEST_URI=/JobFair/index.php/home/search
-HTTP_REFERER=http://localhost/JobFair/index.php/job/home
----
-2014/05/22 17:51:29 [error] [exception.CException] exception 'CException' with message 'HomeController cannot find the requested view "home".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:878
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(782): CController->renderPartial('home', Array, true)
-#1 /Users/analhernandez/Sites/JobFair/protected/controllers/HomeController.php(446): CController->render('home', Array)
-#2 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): HomeController->actionSearch()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#9 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('home/search')
-#13 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#14 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#15 {main}
-REQUEST_URI=/JobFair/index.php/home/search
-HTTP_REFERER=http://localhost/JobFair/index.php/job/home
----
-2014/05/22 17:55:30 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Access Denied. Site is unbreakable' in /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php:179
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Access Denied. ...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/search')
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#11 {main}
-REQUEST_URI=/JobFair/index.php/job/search
-HTTP_REFERER=http://localhost/JobFair/index.php/home/studenthome
----
-2014/05/22 18:15:24 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Access Denied. Site is unbreakable' in /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php:179
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Access Denied. ...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/search')
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#11 {main}
-REQUEST_URI=/JobFair/index.php/job/search
-HTTP_REFERER=http://localhost/JobFair/index.php/home/studenthome
----
-2014/05/22 18:15:25 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Access Denied. Site is unbreakable' in /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php:179
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Access Denied. ...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/search')
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#11 {main}
-REQUEST_URI=/JobFair/index.php/job/search
-HTTP_REFERER=http://localhost/JobFair/index.php/home/studenthome
----
-2014/05/22 18:18:36 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Access Denied. Site is unbreakable' in /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php:179
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Access Denied. ...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/search')
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#11 {main}
-REQUEST_URI=/JobFair/index.php/job/search
-HTTP_REFERER=http://localhost/JobFair/index.php/home/studenthome
----
-2014/05/22 18:18:40 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Access Denied. Site is unbreakable' in /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php:179
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Access Denied. ...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/search')
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#11 {main}
-REQUEST_URI=/JobFair/index.php/job/search
-HTTP_REFERER=http://localhost/JobFair/index.php/home/studenthome
----
-2014/05/22 18:18:48 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Access Denied. Site is unbreakable' in /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php:179
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Access Denied. ...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/search')
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#11 {main}
-REQUEST_URI=/JobFair/index.php/job/search
-HTTP_REFERER=http://localhost/JobFair/index.php/home/studenthome
----
-2014/05/22 18:29:22 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Access Denied. Site is unbreakable!!!' in /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php:179
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Access Denied. ...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/search')
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#11 {main}
-REQUEST_URI=/JobFair/index.php/job/search
-HTTP_REFERER=http://localhost/JobFair/index.php/job/search
----
-2014/05/22 20:33:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/job/
----
-2014/05/24 19:27:52 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php:179
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#3 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#4 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('admin')
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('sMS/admin')
-#9 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#10 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#11 {main}
-REQUEST_URI=/JobFair/index.php/sMS/admin
-HTTP_REFERER=http://localhost/JobFair/index.php/SMS/
----
-2014/05/24 19:28:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "index".' in /Users/analhernandez/Sites/JobFair/framework/web/CController.php:483
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(270): CController->missingAction('')
-#1 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('')
-#2 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job')
-#3 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#4 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#5 {main}
-REQUEST_URI=/JobFair/index.php/job/
----
-2014/05/27 12:41:18 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'name' in 'where clause'. The SQL statement executed was: SELECT * FROM `job` `t` WHERE name like '%PHP%'.
-in /Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php (428)
-in /Users/analhernandez/Sites/JobFair/index.php (14)
-2014/05/27 12:41:18 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'name' in 'where clause'. The SQL statement executed was: SELECT * FROM `job` `t` WHERE name like '%PHP%'' in /Users/analhernandez/Sites/JobFair/framework/db/CDbCommand.php:541
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/db/CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
-#1 /Users/analhernandez/Sites/JobFair/framework/db/ar/CActiveRecord.php(1297): CDbCommand->queryAll()
-#2 /Users/analhernandez/Sites/JobFair/framework/db/ar/CActiveRecord.php(1416): CActiveRecord->query(Object(CDbCriteria), true)
-#3 /Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php(428): CActiveRecord->findAll(Object(CDbCriteria))
-#4 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionSearch()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
-#9 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
-#10 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
-#13 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): CController->run('search')
-#14 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('job/search')
-#15 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#16 /Users/analhernandez/Sites/JobFair/index.php(14): CApplication->run()
-#17 {main}
-REQUEST_URI=/JobFair/index.php/job/search
-HTTP_REFERER=http://localhost/JobFair/index.php/job/home
----
-2014/05/27 12:43:48 [error] [php] Object of class CDbCriteria could not be converted to string (/Users/analhernandez/Sites/JobFair/framework/db/CDbCommand.php:274)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/db/schema/CDbCommandBuilder.php(100): CMysqlCommandBuilder->bindValues()
-#1 /Users/analhernandez/Sites/JobFair/framework/db/ar/CActiveRecord.php(1296): CMysqlCommandBuilder->createFindCommand()
-#2 /Users/analhernandez/Sites/JobFair/framework/db/ar/CActiveRecord.php(1482): Job->query()
-#3 /Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php(428): Job->findAllByAttributes()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionSearch()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
-#13 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
-#14 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#15 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#16 /Users/analhernandez/Sites/JobFair/index.php(14): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/job/search
-in /Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php (428)
-in /Users/analhernandez/Sites/JobFair/index.php (14)
-2014/05/27 12:53:44 [error] [php] Object of class CDbCriteria could not be converted to string (/Users/analhernandez/Sites/JobFair/framework/db/CDbCommand.php:274)
-Stack trace:
-#0 /Users/analhernandez/Sites/JobFair/framework/db/schema/CDbCommandBuilder.php(352): CMysqlCommandBuilder->bindValues()
-#1 /Users/analhernandez/Sites/JobFair/framework/db/ar/CActiveRecord.php(1526): CMysqlCommandBuilder->createSqlCommand()
-#2 /Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php(429): Job->findAllBySql()
-#3 /Users/analhernandez/Sites/JobFair/framework/web/actions/CInlineAction.php(49): JobController->actionSearch()
-#4 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
-#5 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
-#6 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
-#7 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
-#8 /Users/analhernandez/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
-#9 /Users/analhernandez/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
-#10 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
-#11 /Users/analhernandez/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
-#12 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
-#13 /Users/analhernandez/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
-#14 /Users/analhernandez/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
-#15 /Users/analhernandez/Sites/JobFair/index.php(14): CWebApplication->run()
-REQUEST_URI=/JobFair/index.php/job/search
-in /Users/analhernandez/Sites/JobFair/protected/controllers/JobController.php (429)
-in /Users/analhernandez/Sites/JobFair/index.php (14)
+#0 /Users/terremark/Sites/JobFair/protected/extensions/YiiMailer/YiiMailer.php(477): YiiMailer->renderView()
+#1 /Users/terremark/Sites/JobFair/protected/extensions/YiiMailer/YiiMailer.php(509): YiiMailer->render()
+#2 /Users/terremark/Sites/JobFair/protected/models/User.php(233): YiiMailer->send()
+#3 /Users/terremark/Sites/JobFair/protected/controllers/JobController.php(175): sendEmailNotificationAlart()
+#4 unknown(0): JobController->actionApply()
+#5 /Users/terremark/Sites/JobFair/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#6 /Users/terremark/Sites/JobFair/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#7 /Users/terremark/Sites/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams()
+#8 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#9 /Users/terremark/Sites/JobFair/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#10 /Users/terremark/Sites/JobFair/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#11 /Users/terremark/Sites/JobFair/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#12 /Users/terremark/Sites/JobFair/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#13 /Users/terremark/Sites/JobFair/framework/web/CController.php(291): CFilterChain->run()
+#14 /Users/terremark/Sites/JobFair/framework/web/CController.php(265): JobController->runActionWithFilters()
+#15 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(282): JobController->run()
+#16 /Users/terremark/Sites/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#17 /Users/terremark/Sites/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#18 /Users/terremark/Sites/JobFair/index.php(14): CWebApplication->run()
+REQUEST_URI=/JobFair/index.php/job/apply/jobid/3
+in /Users/terremark/Sites/JobFair/protected/views/mail/contact.php (1)
+in /Users/terremark/Sites/JobFair/protected/extensions/YiiMailer/YiiMailer.php (460)
+in /Users/terremark/Sites/JobFair/protected/extensions/YiiMailer/YiiMailer.php (477)
