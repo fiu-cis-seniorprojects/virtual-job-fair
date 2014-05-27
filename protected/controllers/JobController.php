@@ -516,6 +516,8 @@ class JobController extends Controller
             }
         }
 
+        // TODO
+
         if (isset($_GET['user'])){
             $username = $_GET['user'];
         } else {
