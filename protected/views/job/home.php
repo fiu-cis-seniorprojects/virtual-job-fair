@@ -104,7 +104,6 @@ function getURLParameter(name) {
         </div>
     <?php } else {?>
 
-
 <!-- ******* Search Results *******  -->
 <div class="pages">
     <?php if ($jobs != null & sizeof($jobs) > 0) {?>
@@ -123,6 +122,7 @@ function getURLParameter(name) {
         <th>Expiration Date</th>
         <th>Skills</th>
     </tr>
+    <tr>
     <?php $i = $rpp;foreach ($jobs as $job) {?>
 
         <td><a href="/JobFair/index.php/job/view/jobid/<?php echo $job->id;?>"><?php echo $job->title;?></a></td>
@@ -135,8 +135,9 @@ function getURLParameter(name) {
             <?php foreach ($temp as $one){
                 echo Skillset::model()->findByAttributes(array('id'=>$one->skillid))->name.' ';
             }?></td>
+    </tr>
+        <?php }  ?>
     </table>
-    <?php } ?>
     <?php } else {?>
         <h3>No Job Matching your Search 1</h3>
     <?php }?>

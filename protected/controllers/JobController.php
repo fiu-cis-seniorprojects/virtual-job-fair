@@ -420,10 +420,10 @@ class JobController extends Controller
         $criteria->condition = $query;
         $results = Array();
 
-        if ($keyword != null){          // there are words to search
-            $skillsArray = Skillset::model()->findAll($criteria);  // array containing skills from Skillset table
+        // there are words to search
+        if ($keyword != null){
 
-            // *********  Search by job type
+            // *********  Search by job type  i.e. Full Time, Part Time **************
             $jobKeyword = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND type=:type ORDER BY deadline DESC", array(":type"=>$keyword));
             // there exists keyword in Job
             foreach($jobKeyword as $jk)
@@ -434,9 +434,26 @@ class JobController extends Controller
                     $results[] = Job::model()->findByAttributes(array('id'=>$jobIds, 'active'=>'1'));
                 }
             }
-            // *********** end of testing keyword
 
-            // there exists skills
+            // *********** Search by job title  **********
+           $jobTitle = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND title=:title ORDER BY deadline DESC", array(":title"=>$keyword));
+            // there exists keyword in Job
+            foreach($jobTitle as $jk)
+            {
+                if($jk != null)
+                {
+                    $jobIds = Job::model()->findAllByAttributes(array('id'=>$jk->id));  // get all jobs id with matching type
+                    $results[] = Job::model()->findByAttributes(array('id'=>$jobIds, 'active'=>'1'));
+                }
+            }
+
+
+            // ******** Search by Company name ***********
+            // code here
+
+
+            // ************   Search by skills  **********
+            $skillsArray = Skillset::model()->findAll($criteria);  // array containing skills from Skillset table
             foreach ($skillsArray as $sk)
             {
                 if ($sk != null){
