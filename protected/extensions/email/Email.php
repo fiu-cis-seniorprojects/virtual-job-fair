@@ -134,7 +134,7 @@ class Email extends CApplicationComponent {
 	
 	private function mail($to, $subject, $message) {
 		$from = $this->from;
-        echo $message;
+        //echo $message;
         var_dump($message);
 		switch ($this->delivery) {
 			case 'php':

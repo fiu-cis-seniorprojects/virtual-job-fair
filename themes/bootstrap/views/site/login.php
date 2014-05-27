@@ -77,22 +77,22 @@ $this->breadcrumbs=array(
 <div id="altlogin" >
 <p>Students may login with these:</p>
 
-<a href="">
 <a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/fiuCsSeniorAuth">
 <img class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/fiu_cs_login.png" style="margin: 1px" height="150" width="240">
 </a><br>
 
+<!-- FIU Login/Resgistration -->
 <a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/fiuAuth">
 <img class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/fiu_login.png" style="margin: 1px" height="150" width="240">
 </a><br>
 
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth">
-<img  class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/google_login.png" style="margin: 1px" height="150" width="240">
+<a href="http://localhost/JobFair/index.php/profile/googleAuth">
+<img  class="loginimg" src="http://localhost/JobFair/images/imgs/google_login.png" style="margin: 1px" height="150" width="240">
 </a><br>
 
 
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/user/auth1">
-<img class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/linkedIn_login.png" style="margin: 1px" height="150" width="240">
+<a href="http://localhost/JobFair/index.php/user/auth1">
+<img class="loginimg" src="http://localhost/JobFair/images/imgs/linkedIn_login.png" style="margin: 1px" height="150" width="240">
 </a>
 </div>
 

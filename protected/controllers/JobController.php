@@ -48,7 +48,6 @@ class JobController extends Controller
 			$jobs = $companyjobs;
 		}
 		
-		
 		$this->render('home', array('jobs'=>$jobs));
 	}
 	
@@ -67,7 +66,8 @@ class JobController extends Controller
 	    	}
 	        $model->attributes=$_POST['Job'];
         	$model->FK_poster = User::getCurrentUser()->id;
-        	$model->post_date = date('Y-m-d H:i:s');
+            date_default_timezone_set('America/New_York');
+            $model->post_date = date('Y-m-d H:i:s');
         	$model->description = $this->mynl2br($_POST['Job']['description']);
             $model->save(false);
             if (isset($_POST['Skill'])) {
@@ -379,7 +379,7 @@ class JobController extends Controller
 				array('allow',  // allow authenticated users to perform these actions
 					  'actions'=>array('StudentMatch', 'View', 'Home', 'Post', 
 					  		'SaveSkills', 'studentMatch','EditJobPost','VerifyJobPost', 'View' ,'VirtualHandshake', 'QuerySkill', 'Apply',
-					  		'viewApplication', 'Close'),
+					  		'viewApplication', 'Close', 'Search'),
 					  'users'=>array('@')),
 				array('allow',
 					  'actions'=>array('Home'),
@@ -397,6 +397,122 @@ class JobController extends Controller
 				'accessControl',
 		);
 	}
+
+    // job search from nav bar
+    public function actionSearch()
+    {
+        $flag = 1;
+        $keyword = ($_POST['keyword']); // Get words to search
+        $pieces = trim($keyword);
+        $pieces = explode(" ", $pieces); // split words to search by space
+        $count = sizeof($pieces);          // get number of word to search
+        $query = '';
+        for($i = 0; $i < $count;$i++) // prepare query
+        {
+            if ($i == $count - 1){
+                $query = $query.'name like \'%'.$pieces[$i].'%\'';
+            } else {
+                $query = $query.'name like \'%'.$pieces[$i].'%\' OR ';
+            }
+        }
+
+        $criteria = new CDbCriteria; // query criteria
+        $criteria->condition = $query;
+        $results = Array();
+
+        if ($keyword != null){          // there are words to search
+            $skillsArray = Skillset::model()->findAll($criteria);  // array containing skills from Skillset table
+
+            // *********  Search by job type
+            $jobKeyword = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND type=:type ORDER BY deadline DESC", array(":type"=>$keyword));
+            // there exists keyword in Job
+            foreach($jobKeyword as $jk)
+            {
+                if($jk != null)
+                {
+                    $jobIds = Job::model()->findAllByAttributes(array('id'=>$jk->id));
+                    $results[] = Job::model()->findByAttributes(array('id'=>$jobIds, 'active'=>'1'));
+                }
+            }
+            // *********** end of testing keyword
+
+            // there exists skills
+            foreach ($skillsArray as $sk)
+            {
+                if ($sk != null){
+                    $jobIds = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // get all jobs id with that skill id
+                    if ($jobIds != null) {      // if there exits jobs with skill id
+                        foreach ($jobIds as $ji)
+                        {
+                            if ($ji != null){
+                                $jobid = $ji->jobid;
+                                $duplicate = 0;
+                                if (sizeof($results) > 0){
+                                    foreach($results as $t){  // search for duplicates
+                                        if ($t != null){
+                                            if (strcmp($t->id,$jobid) == 0){
+                                                $duplicate = 1;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if ($duplicate == 0){
+                                    $results[] = Job::model()->findByAttributes(array('id'=>$jobid, 'active'=>'1'));	// get job matching job id & job post have to be active
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
+            //search by keyword
+
+
+            // get company information
+            $compsArray = CompanyInfo::model()->findAll($criteria);
+            foreach ($compsArray as $co){
+                if ($co != null){
+                    $comp_posts = Job::model()->findAllByAttributes(array('FK_poster'=>$co->FK_userid));
+                    if ($comp_posts != null){
+                        foreach ($comp_posts as $cp){
+                            $duplicate = 0;
+                            if (sizeof($results) > 1){
+                                if ($cp != null){
+                                    foreach($results as $t){
+                                        if ($t != null){
+                                            if ($t->id == $cp->id){
+                                                $duplicate = 1;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if ($duplicate == 0){
+                                $results[] = Job::model()->findByAttributes(array('id'=>$cp->id, 'active'=>'1'));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (isset($_GET['user'])){
+            $username = $_GET['user'];
+        } else {
+            $username = Yii::app()->user->name;
+        }
+        $user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
+        $skills = Skillset::getNames(); // pass skills
+        $companies = CompanyInfo::getNames(); // pass companies
+
+        $this->render('home',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,));
+        //$this->render('studentSearchResults',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));
+
+    }
 
 
 }

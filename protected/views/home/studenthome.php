@@ -1,6 +1,8 @@
 <?php
 /* @var $this HomeController */
 
+/* Student Dashboard */
+
 $this->breadcrumbs=array(
 	'Home'=>array('/home'),
 	'Home',
@@ -24,7 +26,7 @@ $(function() {
 </script>
 
 <div id="leftside3" style="border-right: 1px solid rgb(228, 228, 228);min-height: 380px;">
-<h1><?php echo 'Welcome to Virtual Job Fair' ?></h1> <br>
+<h1><?php echo 'Welcome John!!!' ?></h1> <br>
 <h3 style="margin: -10px 0 0 10px"><i><?php echo  $user->first_name ." ". $user->last_name  ?></i></h3>
 <div style="clear:both"></div>
 <hr>

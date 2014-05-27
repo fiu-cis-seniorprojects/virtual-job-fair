@@ -60,7 +60,7 @@
 				. $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
 				'name'=>'keyword',
 				'source'=>Skillset::getNames(),
-				'htmlOptions'=>array('class'=>'search-query span2','placeholder'=>'Search Job by Skill'
+				'htmlOptions'=>array('class'=>'search-query span2','placeholder'=>'Search by Skill, Type, Company, Title', 'style'=>'width:250px'
 				),
 		), true
 		).

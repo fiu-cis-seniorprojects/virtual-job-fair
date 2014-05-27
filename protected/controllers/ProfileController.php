@@ -659,7 +659,7 @@ class ProfileController extends Controller
 		########## Google Settings.. Client ID, Client Secret #############
 		$google_client_id   = '928039521722-lj2mum092i95hneqt59lnjicnsr67vk9.apps.googleusercontent.com';
 		$google_client_secret   = 'GlZH5dqUEGQl5qKCru4gQRLn';
-		$google_redirect_url    = 'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth';
+		$google_redirect_url    = 'http://localhost/JobFair/index.php/profile/googleAuth';
 		$google_developer_key   = 'AIzaSyBuFuFgWDOkllsoeoaCNvkrhWCLZIBAcpo';
 
 		//include google api files

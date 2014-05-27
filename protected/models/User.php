@@ -305,6 +305,7 @@ public static function sendEmailStudentNotificationVirtualHandshakeAlart($addres
                 	$model=new Notification;
 					$model->sender_id = $id;
 					$model->receiver_id = $student->id;
+                    date_default_timezone_set('America/New_York');
 					$model->datetime = date('Y-m-d H:i:s');
 					$model->been_read = 0;
 					$model->importancy = 1;
@@ -390,7 +391,8 @@ public static function sendEmailStudentNotificationVirtualHandshakeAlart($addres
     	$model->sender_id = $sender;
     	
     	$model->receiver_id = $reciver;
-    	$model->datetime = date('Y-m-d H:i:s');
+        date_default_timezone_set('America/New_York');
+        $model->datetime = date('Y-m-d H:i:s');
     	$model->been_read = 0;
     	$model->link = $link;
     	//print "<pre>"; print_r($model->link);print "</pre>";return;

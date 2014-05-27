@@ -77,21 +77,17 @@
 	
 <p class="note" style="margin-top:248px; margin-left:300px;">Register with:</p>
 <div id="regbox" style="margin-left: 40px; width:220px!important">
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/fiuAuth">
-<img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/fiu_login.png" style="margin: 1px">
+<a href="http://localhost/JobFair/index.php/profile/fiuAuth">
+<img src="http://localhost/JobFair/images/imgs/fiu_login.png" style="margin: 1px">
 </a>
 
 
-
-<!-- 
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth">
-<img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/google_login.png" style="margin: 1px">
+<a href="http://localhost/JobFair/index.php/profile/googleAuth">
+<img src="http://localhost/JobFair/images/imgs/google_login.png" style="margin: 1px">
 </a>
- -->
 
-
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/user/auth1">
-<img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/linkedIn_login.png" style="margin: 1px">
+<a href="http://localhost/JobFair/index.php/user/auth1">
+<img src="http://localhost/JobFair/images/imgs/linkedIn_login.png" style="margin: 1px">
 </a>
 </div>
 	<div style="clear:both"></div>
