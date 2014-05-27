@@ -178,8 +178,8 @@ class User extends CActiveRecord
         $mail->Port = 587;
         $mail->SMTPSecure= 'tls';
         $mail->SMTPAuth = true;
-        $mail->Username = "tacostae@gmail.com";
-        $mail->Password = "3@syAcc3$$";
+        $mail->Username = "";
+        $mail->Password = "";
         $mail->setView('contact');
         $mail->setLayout('mail');
         $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
