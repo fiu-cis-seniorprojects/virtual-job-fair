@@ -200,7 +200,7 @@ class UserController extends Controller
 			$basicInfo->save(false);
 
 			//Send the verification email
-			$model->sendVerificationEmail();
+			//$model->sendVerificationEmail();
 
 			$this->actionSendVerificationEmail($model->email);
 			return;

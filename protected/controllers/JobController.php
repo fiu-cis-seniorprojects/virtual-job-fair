@@ -9,6 +9,7 @@ class JobController extends Controller
 			return false;
 		}
 	}
+
 	public function actionView($jobid)
 	{
 		$job = Job::model()->findByPk($jobid);		
@@ -30,8 +31,7 @@ class JobController extends Controller
 	}
 	
 	public function actionHome($type = null, $companyname = null){
-	
-		
+
 		if (isset($type) && $type != ""){
 			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND type=:type ORDER BY deadline DESC", array(":type"=>$type));
 		} else {
@@ -158,7 +158,6 @@ class JobController extends Controller
 	}
 	public function actionApply($jobid){
 		$user = User::getCurrentUser();
-		
 		$job = Job::model()->findByPk($jobid);
 		$poster = User::model()->findByPk($job->FK_poster);
 		$application = new Application;

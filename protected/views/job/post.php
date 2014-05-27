@@ -149,18 +149,12 @@ $(document).delegate('.deletenewskill','click',function(){
 		<?php echo $form->dropDownList($model,'type',array ("" => "", 'Part Time'=>'Part Time', 'Full Time'=>'Full Time', 'Internship'=>'Internship', 'Co-op'=>'Co-op', 'Research'=>'Research')); ?>
 
 
-
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array( 'style'=>'width: 200px')); ?>
 
 
-
-
 		<?php echo $form->labelEx($model,'description'); ?>
 		<?php echo $form->textArea($model,'description', array('rows'=> 10, 'cols'=>75)); ?>
-
-
-	
 
 
 		<?php echo $form->labelEx($model,'compensation'); ?>
@@ -178,14 +172,12 @@ $(document).delegate('.deletenewskill','click',function(){
 				), 
 				'htmlOptions' => array(
 					'style' => 'height:20px; width: 200px'
-
 				)
 				));?>
 		<?php echo $form->error($model,'deadline'); ?>
 		<br>
-		<br>
-		<br>
-
+        <!--<?php echo "<input type='checkbox' id='template' name='template' value='template'> Is template?</br>" ?>-->
+        <?php //echo $form->checkBox($model, 'template') ?>
 <?php echo CHtml::submitButton('Submit', array("class"=>"btn btn-primary")); ?>
 	</div>
 </div><!-- form -->
