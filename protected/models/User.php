@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "user". Testing gitlab automation.
  *
  * The followings are the available columns in table 'user':
  * @property integer $id
@@ -224,6 +224,7 @@ class User extends CActiveRecord
     	
     	$email->send();
     }
+
     public static function sendEmailNotificationAlart($address, $to, $from, $message) {
     	$email = self::constructEmailObject();
         $email->setTo($address);
