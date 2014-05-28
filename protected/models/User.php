@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the model class for table "user". Testing gitlab automation.
+ * This is the model class for table "user".
  *
  * The followings are the available columns in table 'user':
  * @property integer $id
