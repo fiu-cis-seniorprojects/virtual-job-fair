@@ -173,11 +173,11 @@ class User extends CActiveRecord
     {
         $mail = new YiiMailer();
         $mail->IsSMTP();
-        //$mail->Host = 'smtp.cs.fiu.edu';
-        $mail->Host = 'smtp.gmail.com';
-        $mail->Port = 587;
-        $mail->SMTPSecure= 'tls';
-        $mail->SMTPAuth = true;
+        $mail->Host = 'smtp.cs.fiu.edu';
+        //$mail->Host = 'smtp.gmail.com';
+        //$mail->Port = 587;
+        //$mail->SMTPSecure= 'tls';
+        $mail->SMTPAuth = false;
         $mail->Username = "";
         $mail->Password = "";
         $mail->setView('contact');
