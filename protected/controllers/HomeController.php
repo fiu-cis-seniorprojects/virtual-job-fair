@@ -352,6 +352,7 @@ class HomeController extends Controller
 	
 	public function actionSearch()
 	{
+        $flag = 1;
 		$keyword = ($_POST['keyword']); // Get words to search
 		$pieces = trim($keyword);
 		$pieces = explode(" ", $pieces); // split words to search
@@ -442,7 +443,8 @@ class HomeController extends Controller
 		$skills = Skillset::getNames(); // pass skills
 		$companies = CompanyInfo::getNames(); // pass companies
 
-		$this->render('studentSearchResults',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));
+        $this->render('home',array('flag'=>$flag, 'results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));
+		//$this->render('studentSearchResults',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));
 
 	}
  

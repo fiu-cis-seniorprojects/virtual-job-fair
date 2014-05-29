@@ -1,6 +1,7 @@
 <?php
 /* @var $this SiteController */
 
+// if user logged in redirect to homepage (Student, employer, admin)
 if (User::isCurrentUserStudent()) {
 	$this->redirect("/JobFair/index.php/home/studenthome");
 } elseif (User::isCurrentUserEmployer()) {
@@ -8,7 +9,8 @@ if (User::isCurrentUserStudent()) {
 } elseif (User::isCurrentUserAdmin()) {
 	$this->redirect("/JobFair/index.php/home/adminhome");	
 	
-}	else  {
+}	// redirect to login page
+    else  {
 		$this->redirect("/JobFair/index.php/site/login");
 }
 

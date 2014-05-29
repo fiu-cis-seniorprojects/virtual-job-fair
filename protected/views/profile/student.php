@@ -35,6 +35,8 @@ function formatDate($date) {
 <img style="width:200px; height:215px;" src="<?php echo $user->image_url ?>" />
 </div>
 
+<!-- Student Profile -->
+
 <div id="insidebasicinfo" >
 <?php $form = $this->beginWidget('CActiveForm', array(
    'id'=>'user-EditStudent-form', 'action'=> '/JobFair/index.php/Profile/EditBasicInfo',

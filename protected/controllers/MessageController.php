@@ -33,7 +33,8 @@ class MessageController extends Controller
 			
 			
 				$model->FK_sender = Yii::app()->user->name;
-				$model->date = date('Y-m-d H:i:s');
+                date_default_timezone_set('America/New_York');
+                $model->date = date('Y-m-d H:i:s');
 				$model->userImage = $model->fKSender->image_url;
 
 				$model->subject = $_POST['Message']['subject'];

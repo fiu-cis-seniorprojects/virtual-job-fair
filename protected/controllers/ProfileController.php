@@ -656,11 +656,15 @@ class ProfileController extends Controller
 	public function actionGoogleAuth()
 	{
 		########## Google Settings.. Client ID, Client Secret #############
-		$google_client_id   = '928039521722-lj2mum092i95hneqt59lnjicnsr67vk9.apps.googleusercontent.com';
-		$google_client_secret   = 'GlZH5dqUEGQl5qKCru4gQRLn';
-        //edit by Manuel making the link dynamic, using Yii
-		$google_redirect_url    = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/googleAuth';
-        $google_developer_key   = 'AIzaSyBuFuFgWDOkllsoeoaCNvkrhWCLZIBAcpo';
+        //edit by Manuel, making the links dynamic, using Yii
+        //To access the google API console to be able to change the setting
+        //go to https://code.google.com/apis/console
+        //E-mail: virtualjobfairfiu@gmail.com
+        //PASS: cis49112014
+		$google_client_id   = '44822970295-ub8arp3hk5as3s549jdmgl497rahs6jl.apps.googleusercontent.com';
+		$google_client_secret   = 'RsCRTYbGC4VZc40ppLR-4L5h';
+		$google_redirect_url    = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/googleAuth/oauth2callback';
+        $google_developer_key   = 'AIzaSyBRvfT7Djj4LZUrHqLdZfJRWBLubk51ARA';
 
 		//include google api files
 		require_once Yii::app()->basePath."/google/Google_Client.php";
@@ -670,7 +674,7 @@ class ProfileController extends Controller
 		$gClient->setApplicationName('Login to JobFair');
 		$gClient->setClientId($google_client_id);
 		$gClient->setClientSecret($google_client_secret);
-		$gClient->setRedirectUri('http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth');
+		$gClient->setRedirectUri($google_redirect_url);
 		$gClient->setDeveloperKey($google_developer_key);
 
 		$google_oauthV2 = new Google_Oauth2Service($gClient);
@@ -891,12 +895,15 @@ class ProfileController extends Controller
 	public function actionFiuAuth()
 	{
 		########## Google Settings.. Client ID, Client Secret #############
-		$google_client_id   = '928039521722-lj2mum092i95hneqt59lnjicnsr67vk9.apps.googleusercontent.com';
-		$google_client_secret   = 'GlZH5dqUEGQl5qKCru4gQRLn';
-        //edit by Manuel making the link dynamic, using Yii
-		//$google_redirect_url    = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/googleAuth';
-        $google_redirect_url    = 'http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth';
-		$google_developer_key   = 'AIzaSyBuFuFgWDOkllsoeoaCNvkrhWCLZIBAcpo';
+         //edit by Manuel, making the links dynamic, using Yii
+         //To access the google API console to be able to change the setting
+         //go to https://code.google.com/apis/console
+         //E-mail: virtualjobfairfiu@gmail.com
+         //PASS: cis49112014
+		$google_client_id   = '44822970295-ub8arp3hk5as3s549jdmgl497rahs6jl.apps.googleusercontent.com';
+		$google_client_secret   = 'RsCRTYbGC4VZc40ppLR-4L5h';
+		$google_redirect_url    = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/googleAuth/oauth2callback';
+		$google_developer_key   = 'AIzaSyBRvfT7Djj4LZUrHqLdZfJRWBLubk51ARA';
 
 		//include google api files
 		require_once Yii::app()->basePath."/fiu/Google_Client.php";

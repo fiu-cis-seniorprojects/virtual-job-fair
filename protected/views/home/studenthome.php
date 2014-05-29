@@ -1,6 +1,8 @@
 <?php
 /* @var $this HomeController */
 
+/* Student Dashboard */
+
 $this->breadcrumbs=array(
 	'Home'=>array('/home'),
 	'Home',
