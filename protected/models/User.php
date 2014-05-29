@@ -175,7 +175,7 @@ class User extends CActiveRecord
         $mail->IsSMTP();
         $mail->Host = 'smtp.cs.fiu.edu';
         //$mail->Host = 'smtp.gmail.com';
-        //$mail->Port = 587;
+        $mail->Port = 25;
         //$mail->SMTPSecure= 'tls';
         $mail->SMTPAuth = false;
         $mail->Username = "";
