@@ -174,22 +174,18 @@ class User extends CActiveRecord
         $mail = new YiiMailer();
         $mail->IsSMTP();
         $mail->Host = 'smtp.cs.fiu.edu';
-        //$mail->Host = 'smtp.gmail.com';
         $mail->Port = 25;
-        //$mail->SMTPSecure= 'tls';
         $mail->SMTPAuth = false;
-        $mail->Username = "";
-        $mail->Password = "";
         $mail->setView('contact');
         $mail->setLayout('mail');
         $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
         return $mail;
     }
     
-    public static function sendVerificationEmail() {
-        $link = CHtml::link('click here', 'http://'.Yii::app()->request->getServerName() . '/JobFair/index.php/user/VerifyEmail?username=' . self::username
-            . '&activation_string=' . self::activation_string);
-        $address = self::email;
+    public function sendVerificationEmail() {
+        $link = CHtml::link('click here', 'http://'.Yii::app()->request->getServerName() . '/JobFair/index.php/user/VerifyEmail?username=' . $this->username
+            . '&activation_string=' . $this->activation_string);
+        $address = $this->email;
         $email = self::constructEmailObject();
         $email->setData(array('message' => 'You need to verify your account before logging in.  Use this '. $link .' to verify your account.',
                             'name' => 'Virtual Job Fair',

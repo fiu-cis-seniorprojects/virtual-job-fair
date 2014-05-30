@@ -15,7 +15,7 @@ $this->breadcrumbs=array(
 
 <div class="form">
 
-<div style="float:left; border:1px solid">
+    <div style="float:left; border:1px solid">
 <?php $this->widget('bootstrap.widgets.TbCarousel', array(
     'items'=>array(
         array('image'=>'/JobFair/images/imgs/slider4.gif', 'label'=>'Virtual Job Fair', 'caption'=>'Virtual Job Fair is an efficient way to make a connection between employers and job seeking students. Recruiting high quality employees or finding the perfect job is no easy task; Virtual Job Fair provides a simple an efficient solution to this.'),
@@ -25,12 +25,12 @@ $this->breadcrumbs=array(
     		),
 		'htmlOptions' => array('style'=>'width:600px;'),
 )); ?>
-</div>
+    </div>
 
 <img style="float:left; height:50px; margin-left:50px"src='/JobFair/images/imgs/vjflogo.jpg'/>
 <h2 style="margin-bottom:40px;float:left;margin-left:10px">Virtual Job Fair Login</h2>
 
-<div id="login">
+    <div id="login">
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'login-form',
@@ -51,52 +51,51 @@ $this->breadcrumbs=array(
 	<p style="float:left; margin-left:5px">Remember Me</p>
 	<br>
 	<br>
-	<div style="float:left">
+	    <div style="float:left">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
             'buttonType'=>'submit',
             'type'=>'primary',
             'label'=>'Login',
         )); ?>
 	
-</div>
-	<div style="float:left; margin-left: 10px;margin-top: -5px;">
+         </div>
+	    <div style="float:left; margin-left: 10px;margin-top: -5px;">
 	<a style="float:left;" href= "/JobFair/index.php/site/forgotPassword" >  Forgot Password </a>	
 	<div style="clear:both"></div>
 	<a style="float:left;" href= "/JobFair/index.php/user/register" > Register  </a>	
-</div>
+        </div>
 
 
 	
-	</div>
+    </div>
 
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
-
-
+<!--Author Manuel
+making the links dynamic so if the base Url changed the program won not be affected
+testing
+-->
 <div id="altlogin" >
 <p>Students may login with these:</p>
 
-<a href="">
-    <!-- Provide local img  -->
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/fiuCsSeniorAuth">
-<img class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/fiu_cs_login.png" style="margin: 1px" height="150" width="240">
-<!--<img class="loginimg" src="/JobFair/images/imgs/fiu_cs_login.png" style="margin: 1px" height="150" width="240">-->
-</a><br>
+<?php
+    $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/fiu_cs_login.png');
+    echo CHtml::link($image, array('profile/fiuCsSeniorAuth'));
+?><br><br>
 
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/fiuAuth">
-<img class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/fiu_login.png" style="margin: 1px" height="150" width="240">
-</a><br>
+<?php
+    $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/fiu_login.png');
+    echo CHtml::link($image, array('profile/fiuAuth'));
+?><br><br>
 
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/googleAuth">
-<img  class="loginimg" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/google_login.png" style="margin: 1px" height="150" width="240">
-</a><br>
+<?php
+    $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/google_login.png');
+    echo CHtml::link($image, array('profile/googleAuth'));
+?><br><br>
 
-<!--<a href="http://localhost/JobFair/index.php/user/auth1">-->
-    <?php
-        $image = CHtml::image(Yii::app()->baseUrl.'/images/imgs/linkedIn_login.png');
-        echo CHtml::link($image, array('user/auth1'));
-    ?>
-<!--<img class="loginimg" src="/JobFair/images/imgs/linkedIn_login.png" style="margin: 1px" height="150" width="240">-->
-</a>
-</div>
+
+<?php
+    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/linkedIn_login.png');
+    echo CHtml::link($image, array('user/auth1'));
+?><br><br>

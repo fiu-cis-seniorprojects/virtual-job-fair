@@ -117,6 +117,7 @@ class LinkedIn {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_HEADER, 0);
+        //edit by Manuel, to make my curl version run since the verification of PEER do not happen  automatically.
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array($auth_header)); // Set the headers.
