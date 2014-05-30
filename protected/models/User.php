@@ -209,12 +209,11 @@ class User extends CActiveRecord
 	public static function sendEmployerVerificationEmail($to) {
         $email = self::constructEmailObject();
         $modle = User::model()->findByPk($to);
-        $link= CHtml::link('click here to go to your home page', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/home/studenthome');
-        $message = "Your accuont has just been activated<br/>$link";
-        $html = User::replaceMessage($modle->username, $message);
+        $link= CHtml::link('here', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/home/studenthome');
+        $message = "Your account has just been activated. Click $link to login";
         $email->setTo($modle->email);
         $email->setSubject("Account activated on Virtual Job Fair");
-        $email->setData(array('message' => $html, 'name' => 'Virtual Job Fair', 'description' => 'Account has been activated'));
+        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Account has been activated'));
         $email->send();
     	/*$email = Yii::app()->email;
     	$modle = User::model()->findByPk($to);
