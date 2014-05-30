@@ -207,18 +207,24 @@ class User extends CActiveRecord
     }
     
 	public static function sendEmployerVerificationEmail($to) {
-    	$email = Yii::app()->email;
-   		
+        $email = self::constructEmailObject();
+        $modle = User::model()->findByPk($to);
+        $link= CHtml::link('click here to go to your home page', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/home/studenthome');
+        $message = "Your accuont has just been activated<br/>$link";
+        $html = User::replaceMessage($modle->username, $message);
+        $email->setTo($modle->email);
+        $email->setSubject("Account activated on Virtual Job Fair");
+        $email->setData(array('message' => $html, 'name' => 'Virtual Job Fair', 'description' => 'Account has been activated'));
+        $email->send();
+    	/*$email = Yii::app()->email;
     	$modle = User::model()->findByPk($to);
     	$email->to = $modle->email;
-    	
     	$email->subject = "Activationc for account on Virtual Job Fair";
     	$link= CHtml::link('click here to go to your home page', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/home/studenthome');
     	$message = "Your accuont has just been activated<br/>$link";
     	$html = User::replaceMessage($modle->username, $message);
     	$email->message = $html;
-    	
-    	$email->send();
+    	$email->send();*/
     }
 
     public static function sendEmailNotificationAlart($address, $to, $from, $message) {
