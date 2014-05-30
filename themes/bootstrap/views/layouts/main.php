@@ -142,12 +142,12 @@
 
 ?>
 
-<?php  if (isset($_GET["activation"]))
-		{
-			//print "<pre>"; print_r($_GET["notificationRead"]);print "</pre>";return;
-			User::activeEmployer($_GET["activation"]);
-			User::sendEmployerVerificationEmail($_GET["activation"]);
-		}
+<?php // if (isset($_GET["activation"]))
+//		{
+//			//print "<pre>"; print_r($_GET["notificationRead"]);print "</pre>";return;
+//			User::activeEmployer($_GET["activation"]);
+//			User::sendEmployerVerificationEmail($_GET["activation"]);
+//		}
 
 
 ?>
