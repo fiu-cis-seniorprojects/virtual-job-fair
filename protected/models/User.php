@@ -174,12 +174,8 @@ class User extends CActiveRecord
         $mail = new YiiMailer();
         $mail->IsSMTP();
         $mail->Host = 'smtp.cs.fiu.edu';
-        //$mail->Host = 'smtp.gmail.com';
         $mail->Port = 25;
-        //$mail->SMTPSecure= 'tls';
         $mail->SMTPAuth = false;
-        $mail->Username = "";
-        $mail->Password = "";
         $mail->setView('contact');
         $mail->setLayout('mail');
         $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
