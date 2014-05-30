@@ -197,23 +197,23 @@ class User extends CActiveRecord
     
 	public static function sendEmailWithNewPassword($address, $password, $username) {
     	$email = self::constructEmailObject();
-    	$link = CHtml::link('click here to login', Yii::app()->baseUrl  . '/site/login' );
+    	$link = CHtml::link('click here to login', 'http://'. Yii::app()->request->getServerName()  . 'JobFair/' );
     	$email->setTo($address);
     	$email->setSubject('Your new password');
-        $email->setData(array('message' => 'Username: '. $username .'<br/>Password: '. $password . '<br/>Login: '.$link,
+        $email->setData(array('message' => '<br/>Username: '. $username .'<br/>Password: '. $password . '<br/>Login: '.$link,
             'name' => 'Virtual Job Fair',
             'description' => 'Password Reset'));
     	$email->send();
     }
     
 	public static function sendEmployerVerificationEmail($to) {
-        $email = self::constructEmailObject();
         $modle = User::model()->findByPk($to);
         $link= CHtml::link('here', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/home/studenthome');
         $message = "Your account has just been activated. Click $link to login";
+        $email = self::constructEmailObject();
+        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Account has been activated'));
         $email->setTo($modle->email);
         $email->setSubject("Account activated on Virtual Job Fair");
-        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Account has been activated'));
         $email->send();
     	/*$email = Yii::app()->email;
     	$modle = User::model()->findByPk($to);
