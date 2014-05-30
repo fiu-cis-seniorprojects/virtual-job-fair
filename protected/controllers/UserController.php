@@ -171,7 +171,7 @@ class UserController extends Controller
 
 			// save ID to resume table
 			$resume->id = $model->id;
-			$resume->save(false);
+			//$resume->save(false);
 
 			//Populate user attributes
 			$model->FK_usertype = 1;
@@ -183,7 +183,7 @@ class UserController extends Controller
 			$model->password = $hasher->HashPassword($model->password);
 
 			//Save user into database. Account still needs to be activated
-			$model->save($runValidation=false);
+			//$model->save($runValidation=false);
 			
 			//added in order to store phone number
 			$basicInfo = new BasicInfo;
@@ -197,7 +197,7 @@ class UserController extends Controller
 			}
 				
 			
-			$basicInfo->save(false);
+			//$basicInfo->save(false);
 
 			//Send the verification email
 			//$model->sendVerificationEmail();
