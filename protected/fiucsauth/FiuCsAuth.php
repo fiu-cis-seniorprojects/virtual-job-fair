@@ -19,12 +19,12 @@
  -->                                                      
 <html>
  <head>
-  <link rel="stylesheet" type="text/css" href="http://srprog-fall13-01.cs.fiu.edu/JobFair/css/FiuCsAuth.css">
-  <link rel="stylesheet" type="text/css" href="http://srprog-fall13-01.cs.fiu.edu/JobFair/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="http://localhost/JobFair/css/FiuCsAuth.css">
+  <link rel="stylesheet" type="text/css" href="http://localhost/JobFair/bootstrap/css/bootstrap.css">
  </head>
  <body>
   <div class="header-bar">
-   <center><img class="top_image" src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/fiu.jpg" alt=""><center>
+   <center><img class="top_image" src="http://localhost/JobFair/images/imgs/fiu.jpg" alt=""><center>
    <h2><small>Fiu Seniors sign in here</small></h2>
   </div>
  <form method="post" action="">
