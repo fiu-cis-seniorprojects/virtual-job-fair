@@ -1,5 +1,5 @@
 <?php
-
+$flag = 0;
 class JobController extends Controller
 {
 	private function isExpired($job){
