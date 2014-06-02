@@ -1,5 +1,6 @@
 <br/><br/><br/><br/>
 <?php
+$pages = 1;
 if (!isset($_GET['companyname'])) {
 	$_GET['companyname'] = '';
 }
