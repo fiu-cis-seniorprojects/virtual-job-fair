@@ -444,10 +444,9 @@ class JobController extends Controller
                 }
             }
 
-
             // ******** Search by Company name ***********
-            $compName = CompanyInfo::model()->findAllBySql("SELECT FK_userid FROM company_info WHERE company_info.name=:coName", array(":coName"=>$keyword));
-            $compID = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND FK_poster=:FK_poster ORDER BY deadline DESC", array(":FK_poster"=>$compName) );
+            $compName = CompanyInfo::model()->findBySql("SELECT FK_userid FROM company_info WHERE company_info.name=:coName", array(":coName"=>$keyword));
+            $compID = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND FK_poster=:FK_poster ORDER BY deadline DESC", array(":FK_poster"=>$compName->getAttribute(FK_userid)) );
             // there exists company keyword
             foreach($compID as $jk)
             {
