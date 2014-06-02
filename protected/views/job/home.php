@@ -75,7 +75,7 @@ function getURLParameter(name) {
 <div>
 
 <!-- Search Result from Nav Bar -->
-    <?php if ($flag == 1) {?>
+    <?php if (isset($flag) && $flag == 1) {?>
         <div id="hardcorecontent">
 
             <?php if ($results != null & sizeof($results) > 0) {?>
