@@ -2,4 +2,4 @@
 assets/
 *.iml
 protected/runtime/application.log
-.sh
+*.sh
