@@ -49,13 +49,6 @@ function getURLParameter(name) {
     <option value="Co-op">Co-op</option>
     <option value="Research">Research</option>
 </select>
-<strong>Title:</strong>
- <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-    'name'=>'jobtitle',
-    'id'=>'jobtitle',
-    'source'=>Job::getJobTitle(),
-    'value'=> $_GET['jobtitle'],
-    'htmlOptions'=>array('value'=> $_GET['jobtitle'],),)); ?>
 <strong>Company:</strong>
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
     'name'=>'companyname',
