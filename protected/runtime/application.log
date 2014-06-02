@@ -1721,3 +1721,35 @@ Stack trace:
 REQUEST_URI=/JobFair/index.php/site/login
 ---
 >>>>>>> 0cc028579914bba8f03c05cc5f31f18cf8acce38
+2014/06/02 17:05:57 [error] [exception.CException] exception 'CException' with message 'CAssetManager.basePath "/home/enio/development/php/JobFair/assets" is invalid. Please make sure the directory exists and is writable by the Web server process.' in /home/enio/development/php/JobFair/framework/web/CAssetManager.php:138
+Stack trace:
+#0 /home/enio/development/php/JobFair/framework/web/CAssetManager.php(123): CAssetManager->setBasePath('/home/enio/deve...')
+#1 /home/enio/development/php/JobFair/framework/web/CAssetManager.php(217): CAssetManager->getBasePath()
+#2 /home/enio/development/php/JobFair/protected/extensions/bootstrap/components/Bootstrap.php(306): CAssetManager->publish('/home/enio/deve...', true, -1, false)
+#3 /home/enio/development/php/JobFair/protected/extensions/bootstrap/components/Bootstrap.php(50): Bootstrap->getAssetsUrl()
+#4 /home/enio/development/php/JobFair/protected/extensions/bootstrap/components/Bootstrap.php(81): Bootstrap->registerCoreCss()
+#5 /home/enio/development/php/JobFair/protected/extensions/bootstrap/components/Bootstrap.php(115): Bootstrap->registerAllCss()
+#6 /home/enio/development/php/JobFair/themes/bootstrap/views/layouts/main.php(17): Bootstrap->register()
+#7 /home/enio/development/php/JobFair/framework/web/CBaseController.php(126): require('/home/enio/deve...')
+#8 /home/enio/development/php/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/enio/deve...', Array, true)
+#9 /home/enio/development/php/JobFair/framework/web/widgets/CContentDecorator.php(76): CBaseController->renderFile('/home/enio/deve...', Array, true)
+#10 /home/enio/development/php/JobFair/framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate('<div id="conten...')
+#11 /home/enio/development/php/JobFair/framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput('<div id="conten...')
+#12 /home/enio/development/php/JobFair/framework/web/CBaseController.php(206): COutputProcessor->run()
+#13 /home/enio/development/php/JobFair/framework/web/CBaseController.php(300): CBaseController->endWidget('CContentDecorat...')
+#14 /home/enio/development/php/JobFair/protected/views/layouts/column1.php(6): CBaseController->endContent()
+#15 /home/enio/development/php/JobFair/framework/web/CBaseController.php(126): require('/home/enio/deve...')
+#16 /home/enio/development/php/JobFair/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/enio/deve...', Array, true)
+#17 /home/enio/development/php/JobFair/framework/web/CController.php(784): CBaseController->renderFile('/home/enio/deve...', Array, true)
+#18 /home/enio/development/php/JobFair/protected/controllers/SiteController.php(118): CController->render('login', Array)
+#19 /home/enio/development/php/JobFair/framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#20 /home/enio/development/php/JobFair/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#21 /home/enio/development/php/JobFair/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#22 /home/enio/development/php/JobFair/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 /home/enio/development/php/JobFair/framework/web/CWebApplication.php(282): CController->run('login')
+#24 /home/enio/development/php/JobFair/framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#25 /home/enio/development/php/JobFair/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#26 /home/enio/development/php/JobFair/index.php(14): CApplication->run()
+#27 {main}
+REQUEST_URI=/JobFair/index.php/site/login
+---
