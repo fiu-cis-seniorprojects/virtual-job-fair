@@ -528,7 +528,7 @@ class JobController extends Controller
         $user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
         $skills = Skillset::getNames(); // pass skills
         $companies = CompanyInfo::getNames(); // pass companies
-
+        // render results to job/home
         $this->render('home',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,));
 
     }
