@@ -32,19 +32,22 @@ function getURLParameter(name) {
 }
 </script>
 
-<!-- ****** Refine Search ****** -->
+<!-- ********** Refine Search *********** -->
 <div id="searchforjobs2" style="float:left;">
-<div class="titlebox">Search</div>
+<div class="titlebox">Refine Search</div>
 <br/><br/>
 <form method="GET">
 <div>
 <strong>Job Type:</strong>
-<?php CHtml::dropDownList("type",'', array(''=>'Any', 'Internship'=>'Internship', 'Full+Time'=>'Full Time', 'Part+Time'=>'Part Time'))?>
+<?php CHtml::dropDownList("type",'', array(''=>'Any', 'Internship'=>'Internship', 'Full+Time'=>'Full Time', 'Part+Time'=>'Part Time',
+                            'Co-op'=>'Co-op', 'Research'=>'Research'))?>
 <select name="type" id="type">
 	<option value="">Any</option>
 	<option value="Internship">Internship</option>
 	<option value="Full Time">Full Time</option>
 	<option value="Part Time">Part Time</option>
+    <option value="Co-op">Co-op</option>
+    <option value="Research">Research</option>
 </select>
 <strong>Company:</strong>
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
@@ -53,7 +56,8 @@ function getURLParameter(name) {
 	'source'=>CompanyInfo::getCompanyNames(),
 	'value'=> $_GET['companyname'],
     'htmlOptions'=>array('value'=> $_GET['companyname'],),)); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
+<!-- search button -->
+<?php $this->widget('bootstrap.widgets.TbButton', array(
 		    'label'=>'Search',
 		    'type'=>'primary',
 		    'htmlOptions'=>array(
@@ -63,11 +67,9 @@ function getURLParameter(name) {
 				'id' => "searchbutton",
 		    	'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
 		    	'onclick' =>'$(this).closest("form").submit();',
-
 		    	),
 			)); ?>
 </div>
-
 </form>
 </div>
 <div>

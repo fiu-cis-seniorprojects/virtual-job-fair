@@ -197,34 +197,38 @@ class User extends CActiveRecord
     
 	public static function sendEmailWithNewPassword($address, $password, $username) {
     	$email = self::constructEmailObject();
-    	$link = CHtml::link('click here to login', Yii::app()->baseUrl  . '/site/login' );
+    	$link = CHtml::link('click here to login', 'http://'. Yii::app()->request->getServerName()  . 'JobFair/' );
     	$email->setTo($address);
     	$email->setSubject('Your new password');
-        $email->setData(array('message' => 'Username: '. $username .'<br/>Password: '. $password . '<br/>Login: '.$link,
+        $email->setData(array('message' => '<br/>Username: '. $username .'<br/>Password: '. $password . '<br/>Login: '.$link,
             'name' => 'Virtual Job Fair',
             'description' => 'Password Reset'));
     	$email->send();
     }
     
 	public static function sendEmployerVerificationEmail($to) {
-    	$email = Yii::app()->email;
-   		
+        $modle = User::model()->findByPk($to);
+        $link= CHtml::link('here', 'http://'.Yii::app()->request->getServerName().'/JobFair/');
+        $message = "Your account has just been activated. Click $link to login";
+        $email = self::constructEmailObject();
+        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Account has been activated'));
+        $email->setTo($modle->email);
+        $email->setSubject("Account activated on Virtual Job Fair");
+        $email->send();
+    	/*$email = Yii::app()->email;
     	$modle = User::model()->findByPk($to);
     	$email->to = $modle->email;
-    	
     	$email->subject = "Activationc for account on Virtual Job Fair";
     	$link= CHtml::link('click here to go to your home page', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/home/studenthome');
     	$message = "Your accuont has just been activated<br/>$link";
     	$html = User::replaceMessage($modle->username, $message);
     	$email->message = $html;
-    	
-    	$email->send();
+    	$email->send();*/
     }
 
     public static function sendEmailNotificationAlart($address, $to, $from, $message) {
     	$email = self::constructEmailObject();
         $email->setTo($address);
-        $email->setFrom($from);
         $email->setSubject("Virtual Job Fair Application Submitted");
         $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'New Application Submitted'));
         $email->setBody($message);
@@ -239,20 +243,24 @@ class User extends CActiveRecord
     
     
     public static function sendEmailMessageNotificationAlart($address, $to, $from, $message) {
-    	 
-    	//$html = fopen("/var/www/html/Jobfair/email/index.html", "r");
+        $email = self::constructEmailObject();
+        $email->setTo($address);
+        $email->setSubject("Virtual Job Fair Message");
+        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Message from Virtual Job Fair'));
+        $email->setBody($message);
+        $email->send();
+    	/*//$html = fopen("/var/www/html/Jobfair/email/index.html", "r");
     	$email = Yii::app()->email;
     	$email->to = $address;
     	$email->from = 'JobFair';
     	$email->subject ='VJB New Message'; 
     	$email->message = $message;
-    	$email->send();
+    	$email->send();*/
     }
     
     public static function sendEmailEmployerAcceptingInterviewNotificationAlart($address, $to, $from, $message) {
-    	 $email = self::constructEmailObject();
+    	$email = self::constructEmailObject();
         $email->setTo($address);
-        $email->setFrom($from);
         $email->setSubject("Your interview schedule was accepted");
         $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Interview Schedule Accepted'));
         $email->setBody($message);
@@ -268,14 +276,19 @@ class User extends CActiveRecord
     }
     
     public static function sendEmailStudentNotificationVirtualHandshakeAlart($address, $to, $from, $message) {
-    	 
-    	//$html = fopen("/var/www/html/Jobfair/email/index.html", "r");
+        $email = self::constructEmailObject();
+        $email->setTo($address);
+        $email->setSubject("A handshake from Virtual Job Fair");
+        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Handshake Notification'));
+        $email->setBody($message);
+        $email->send();
+    	/*//$html = fopen("/var/www/html/Jobfair/email/index.html", "r");
     	$email = Yii::app()->email;
     	$email->to = $address;
     	$email->from = 'JobFair';
     	$email->subject ='New Message'; 
     	$email->message = $message;
-    	$email->send();
+    	$email->send();*/
     }
     
     

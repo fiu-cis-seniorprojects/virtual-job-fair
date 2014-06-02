@@ -423,33 +423,39 @@ class JobController extends Controller
         if ($keyword != null){
 
             // *********  Search by job type  i.e. Full Time, Part Time **************
-            $jobKeyword = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND type=:type ORDER BY deadline DESC", array(":type"=>$keyword));
-            // there exists keyword in Job
+            $jobKeyword = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND job.type=:jobtype ORDER BY deadline DESC", array(":jobtype"=>$keyword));
+            // there exists type in Job
             foreach($jobKeyword as $jk)
             {
                 if($jk != null)
                 {
-                    $jobIds = Job::model()->findAllByAttributes(array('id'=>$jk->id));
-                    $results[] = Job::model()->findByAttributes(array('id'=>$jobIds, 'active'=>'1'));
+                    $results[] = $jk;   // add job to results array
                 }
             }
 
             // *********** Search by job title  **********
            $jobTitle = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND title=:title ORDER BY deadline DESC", array(":title"=>$keyword));
-            // there exists keyword in Job
+            // there exists job title in Job
             foreach($jobTitle as $jk)
             {
                 if($jk != null)
                 {
-                    $jobIds = Job::model()->findAllByAttributes(array('id'=>$jk->id));  // get all jobs id with matching type
-                    $results[] = Job::model()->findByAttributes(array('id'=>$jobIds, 'active'=>'1'));
+                    $results[] = $jk; // add job to results array
                 }
             }
 
 
             // ******** Search by Company name ***********
-            // code here
-
+            $compName = CompanyInfo::model()->findAllBySql("SELECT FK_userid FROM company_info WHERE company_info.name=:coName", array(":coName"=>$keyword));
+            $compID = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND FK_poster=:FK_poster ORDER BY deadline DESC", array(":FK_poster"=>$compName) );
+            // there exists company keyword
+            foreach($compID as $jk)
+            {
+                if($jk != null)
+                {
+                    $results[] = $jk; // add job to results array
+                }
+            }
 
             // ************   Search by skills  **********
             $skillsArray = Skillset::model()->findAll($criteria);  // array containing skills from Skillset table
@@ -484,9 +490,6 @@ class JobController extends Controller
             }
 
 
-            //search by keyword
-
-
             // get company information
             $compsArray = CompanyInfo::model()->findAll($criteria);
             foreach ($compsArray as $co){
@@ -516,7 +519,6 @@ class JobController extends Controller
             }
         }
 
-        // TODO
 
         if (isset($_GET['user'])){
             $username = $_GET['user'];
@@ -526,9 +528,8 @@ class JobController extends Controller
         $user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
         $skills = Skillset::getNames(); // pass skills
         $companies = CompanyInfo::getNames(); // pass companies
-
+        // render results to job/home
         $this->render('home',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,));
-        //$this->render('studentSearchResults',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,));
 
     }
 

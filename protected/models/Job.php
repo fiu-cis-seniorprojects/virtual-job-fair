@@ -243,4 +243,17 @@ class Job extends CActiveRecord
 		$jobs = array_slice($jobs, 0 , 6);
 		return $jobs;
 	}
+
+    public static function getJobTitle() {
+
+        $jobTitle = Job::model()->findAll();
+        $title = array();
+
+        if ($jobTitle != null)
+            foreach ($jobTitle as $jt)
+                $title[] = $jt->title;
+
+        return $title;
+
+    }
 }

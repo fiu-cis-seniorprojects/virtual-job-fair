@@ -387,12 +387,12 @@ class ProfileController extends Controller
 	
 	public function actionEmployer()
 	{
-	
+
 		if (isset($_GET['user'])){
 			$username = $_GET['user'];
 		}
 		$model = User::model()->find("username=:username",array(':username'=>$username));
-		
+
 		if ($model->hide_email) {
 			$model->email = "<i>hidden</i>";
 		}
@@ -400,8 +400,13 @@ class ProfileController extends Controller
 		if ($model->basicInfo->hide_phone){
 			$model->basicInfo->phone = "<i>hidden</i>";
 		}
-		
+
 		if (!$model->activated || $model->disable){
+            if (isset($_GET["activation"]))
+            {
+                User::activeEmployer($_GET["activation"]);
+                User::sendEmployerVerificationEmail($_GET["activation"]);
+            }
 			$this->render('userInvalid');
 		} else {
 			$this->render('employer', array('user'=>$model,));
