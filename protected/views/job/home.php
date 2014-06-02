@@ -3,10 +3,15 @@
 if (!isset($_GET['companyname'])) {
 	$_GET['companyname'] = '';
 }
-$jobcount = count($jobs);
+if(isset($job))
+{
+    $jobcount = count($jobs);
+    $pages = round($jobcount / $rpp);
+    if ($pages == 0) $pages = 1;
+}
+
 $rpp = 10; //results per page
-$pages = round($jobcount / $rpp);
-if ($pages == 0) $pages = 1;
+
 ?>
 <script>
 $(document).ready(function() {
