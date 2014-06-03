@@ -319,7 +319,9 @@ $this->endWidget();
 
 <div id="menutools">
 <div id="studentlinks">
-
+<!--Author Manuel
+making the links dynamic so if the base Url changed the program won not be affected
+-->
 <?php
     $image =CHtml::image(Yii::app()->baseUrl. '/images/ico/linkedinlogo.png');
     echo CHtml::link($image, array('user/auth1'));
