@@ -16,7 +16,7 @@
   \ \____/\ \____/\ \_,__/    \ \_\ \__/.\_\\ \_\ \_\ 
    \/___/  \/___/  \/___/      \/_/\/__/\/_/ \/_/\/_/ 
 												Luis B.
- -->                                                      
+ -->
 <html>
  <head>
   <link rel="stylesheet" type="text/css" href="http://localhost/JobFair/css/FiuCsAuth.css">
@@ -64,7 +64,7 @@ if(isset($_POST['submit']))
 class FiuCsAuth
 {
     // declare CONSTANTS
-    private $BASEURL = 'http://srprog-spr13-01.aul.fiu.edu';
+    private $BASEURL = 'http://spws-dev.cis.fiu.edu';
     private $PORT = ':8080';
     private $PATHURL = '/SPW2-RegisterAPI/rest/SPWRegister/getUserInfo/';
     private $TOKEN =  '123FIUspw/';
