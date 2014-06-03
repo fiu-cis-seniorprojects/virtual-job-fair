@@ -319,8 +319,13 @@ $this->endWidget();
 
 <div id="menutools">
 <div id="studentlinks">
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/auth"><img src="/JobFair/images/ico/linkedinlogo.png" height="55" width="55">
-<br>LinkedIn Connect</a>
+
+<?php
+    $image =CHtml::image(Yii::app()->baseUrl. '/images/ico/linkedinlogo.png');
+    echo CHtml::link($image, array('user/auth1'));
+?><br>
+<a LinkedIn Connect  </a>
+
 <hr/>
 <a href="/JobFair/index.php/user/ChangePassword">Change Password</a>
 </div>

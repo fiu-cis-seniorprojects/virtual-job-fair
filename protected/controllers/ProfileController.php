@@ -658,10 +658,10 @@ class ProfileController extends Controller
 		########## Google Settings.. Client ID, Client Secret #############
         //edit by Manuel, making the links dynamic, using Yii
         //To access the google API console to be able to change the setting
-        //go to https://code.google.com/apis/console
+        //go to https://code.google.com/apis/console/?noredirect#project:44822970295:access
         //E-mail: virtualjobfairfiu@gmail.com
         //PASS: cis49112014
-		$google_client_id   = '44822970295-ub8arp3hk5as3s549jdmgl497rahs6jl.apps.googleusercontent.com';
+		$google_client_id       = '44822970295-ub8arp3hk5as3s549jdmgl497rahs6jl.apps.googleusercontent.com';
 		$google_client_secret   = 'RsCRTYbGC4VZc40ppLR-4L5h';
 		$google_redirect_url    = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/googleAuth/oauth2callback';
         $google_developer_key   = 'AIzaSyBRvfT7Djj4LZUrHqLdZfJRWBLubk51ARA';
@@ -897,7 +897,7 @@ class ProfileController extends Controller
 		########## Google Settings.. Client ID, Client Secret #############
          //edit by Manuel, making the links dynamic, using Yii
          //To access the google API console to be able to change the setting
-         //go to https://code.google.com/apis/console
+         //go to https://code.google.com/apis/console/?noredirect#project:44822970295:access
          //E-mail: virtualjobfairfiu@gmail.com
          //PASS: cis49112014
 		$google_client_id   = '44822970295-ub8arp3hk5as3s549jdmgl497rahs6jl.apps.googleusercontent.com';
