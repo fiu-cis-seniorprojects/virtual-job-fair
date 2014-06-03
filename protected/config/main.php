@@ -112,7 +112,16 @@ return array(
 				'class'=>'bootstrap.components.Bootstrap'
 		),
 		'multicomplete'=>array(
-				'class'=>'multicomplete.MultiComplete.php')		
+				'class'=>'multicomplete.MultiComplete.php'),
+
+        'curl' => array(
+            'class' => 'application.extensions.curl.Curl',
+            'options'=>array(
+                'setOptions'=>array(
+                    CURLOPT_HEADER => false,
+                ),
+            ),
+        ),
 	),
 
 	// application-level parameters that can be accessed

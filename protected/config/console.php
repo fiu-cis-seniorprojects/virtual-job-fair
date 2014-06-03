@@ -9,6 +9,7 @@ return array(
         'application.models.*',
         'application.components.*',
         'ext.YiiMailer.YiiMailer',
+        'ext.curl.Curl',
     ),
 	// application components
 	'components'=>array(
@@ -24,12 +25,22 @@ return array(
 			'password' => 's3n10rpr0j3ct',
 			'charset' => 'utf8',
 		),
+
         'log'=>array(
             'class'=>'CLogRouter',
             'routes'=>array(
                 array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'error, warning',
+                ),
+            ),
+        ),
+
+        'curl' => array(
+            'class' => 'application.extensions.curl.Curl',
+            'options'=>array(
+                'setOptions'=>array(
+                    CURLOPT_HEADER => false,
                 ),
             ),
         ),

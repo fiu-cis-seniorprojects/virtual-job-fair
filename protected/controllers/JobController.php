@@ -12,6 +12,7 @@ class JobController extends Controller
 
 	public function actionView($jobid)
 	{
+
 		$job = Job::model()->findByPk($jobid);		
 		
 		//foreach ($skills->skillset as $skillset) {
@@ -32,7 +33,7 @@ class JobController extends Controller
 	
 	public function actionHome($type = null, $companyname = null){
 
-		if (isset($type) && $type != ""){
+        if (isset($type) && $type != ""){
 			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND type=:type ORDER BY deadline DESC", array(":type"=>$type));
 		} else {
 			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' ORDER BY deadline DESC");
