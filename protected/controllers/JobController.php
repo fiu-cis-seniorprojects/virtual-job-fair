@@ -446,9 +446,11 @@ class JobController extends Controller
 
             // ******** Search by Company name ***********
             $compName = CompanyInfo::model()->findBySql("SELECT FK_userid FROM company_info WHERE company_info.name=:coName", array(":coName"=>$keyword));
-           // var_dump($compName['FK_userid']);
-            //die();
-            $compID = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND FK_poster=:FK_poster ORDER BY deadline DESC", array(":FK_poster"=>$compName['FK_userid']) );
+           // fix double row by selecting unique attributes
+            $compID = Job::model()->findAllBySql("SELECT DISTINCT id, job.type, title,FK_poster, post_date, deadline, description,
+                    compensation, other_requirements, email_notification, active, matches_found
+                    FROM job WHERE active='1' AND FK_poster=:FK_poster
+                    ORDER BY deadline DESC", array(":FK_poster"=>$compName['FK_userid']) );
             // there exists company keyword
             foreach($compID as $jk)
             {
@@ -486,35 +488,6 @@ class JobController extends Controller
                             }
                         }
 
-                    }
-                }
-            }
-
-
-            // get company information
-            $compsArray = CompanyInfo::model()->findAll($criteria);
-            foreach ($compsArray as $co){
-                if ($co != null){
-                    $comp_posts = Job::model()->findAllByAttributes(array('FK_poster'=>$co->FK_userid));
-                    if ($comp_posts != null){
-                        foreach ($comp_posts as $cp){
-                            $duplicate = 0;
-                            if (sizeof($results) > 1){
-                                if ($cp != null){
-                                    foreach($results as $t){
-                                        if ($t != null){
-                                            if ($t->id == $cp->id){
-                                                $duplicate = 1;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            if ($duplicate == 0){
-                                $results[] = Job::model()->findByAttributes(array('id'=>$cp->id, 'active'=>'1'));
-                            }
-                        }
                     }
                 }
             }
