@@ -81,7 +81,7 @@ function getURLParameter(name) {
 <div>
 
 <!-- Search Result from Nav Bar -->
-    <?php if (isset($flag) && $flag == 1) {?>
+    <?php if (isset($flag) && $flag == 1)   { $i=0;?>
         <div id="hardcorecontent">
 
             <?php if ($results != null & sizeof($results) > 0) {?>
@@ -102,7 +102,7 @@ function getURLParameter(name) {
                                 <?php foreach ($temp as $one){
                                     echo Skillset::model()->findByAttributes(array('id'=>$one->skillid))->name.' ';
                                 }?></td>
-                            <td>coming soon</td>
+                            <td><?php echo $i++; ?></td>
                         </tr>
                     <?php } } ?>
                 </table>
@@ -110,7 +110,8 @@ function getURLParameter(name) {
                 <h3>No Job Matching your Search 2</h3>
             <?php }  ?>
         </div>
-    <?php } else {?>
+    <?php }
+    else {?>
 
 <!-- ******* Search Results *******  -->
 <div class="pages">
