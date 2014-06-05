@@ -30,13 +30,29 @@ class JobController extends Controller
 		
 	}
 	
-	public function actionHome($type = null, $companyname = null){
+	public function actionHome($type = null, $jobtitle = null, $companyname = null, $skillname = null ){
 
+        //get all jobs by type or not
 		if (isset($type) && $type != ""){
 			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND type=:type ORDER BY deadline DESC", array(":type"=>$type));
 		} else {
 			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' ORDER BY deadline DESC");
 		}
+
+        if(isset($jobtitle) && $jobtitle != "")
+        {
+            $jobtitles = array();
+            foreach($jobs as $job)
+            {
+                $name = $job->title;
+                if($name == $jobtitle)
+                {
+                    $jobtitles[] = $job;
+                }
+            }
+            $jobs = $jobtitles;
+        }
+
 		if (isset($companyname) && $companyname != ""){
 			$companyjobs = array();
 			foreach($jobs as $job){
@@ -47,7 +63,38 @@ class JobController extends Controller
 			}
 			$jobs = $companyjobs;
 		}
-		
+
+        if (isset($skillname) && $skillname != ""){
+            $jobskill = array();
+            $jobMap = null;
+            $skill_id = null;
+
+            // Query database by skill name and retrieve the skill_id
+            $skill = Skillset::model()->findByAttributes(array('name'=>$skillname));
+            if ($skill != null){
+                $skill_id = $skill->id; //get skill id
+                // Get all jobs that have the skill_id
+                $jobMap = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$skill_id));
+            }
+
+            // Array of jobs
+            foreach($jobs as $job){
+                if ($jobMap != null){
+                    foreach ($jobMap as $aJobMap)
+                    {
+                        $jobid = $aJobMap->jobid; //get jobid from matching skill
+                        if ($skill_id != null){ // search for Skill
+                            $name = $job->id;
+                           if($name == $jobid)
+                           {
+                                $jobskill[] = $job;
+                           }
+                        }
+                    }
+                }
+            }
+            $jobs = $jobskill;
+        }
 		$this->render('home', array('jobs'=>$jobs));
 	}
 	

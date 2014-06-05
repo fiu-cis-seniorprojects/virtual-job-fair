@@ -256,4 +256,19 @@ class Job extends CActiveRecord
         return $title;
 
     }
+
+    public static function getJobBySkill()
+    {
+        $skill = Skillset::model()->findAll();
+        $skills = array();
+        if($skill != null)
+        {
+            foreach($skill as $jk)
+            {
+                $skills[] = $jk->name;
+            }
+        }
+
+        return $skills;
+    }
 }

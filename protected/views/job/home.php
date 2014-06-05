@@ -4,6 +4,13 @@ $pages = 1;
 if (!isset($_GET['companyname'])) {
 	$_GET['companyname'] = '';
 }
+if (!isset($_GET['jobtitle'])) {
+    $_GET['jobtitle'] = '';
+}
+if (!isset($_GET['skillname'])) {
+    $_GET['skillname'] = '';
+}
+
 if(isset($job))
 {
     $jobcount = count($jobs);
@@ -15,6 +22,14 @@ $rpp = 10; //results per page
 
 ?>
 <script>
+    function resetField()
+    {
+        $('#type').val('');
+        $('#jobtitle').val('');
+        $('#companyname').val('');
+        $('#skillname').val('');
+    }
+
 $(document).ready(function() {
 
 	$('#type').val(getURLParameter("type").replace(/[+]/g, " "));
@@ -42,7 +57,7 @@ function getURLParameter(name) {
 <div id="searchforjobs2" style="float:left;">
 <div class="titlebox">Refine Search</div>
 <br/><br/>
-<form method="GET">
+<form method="GET" id="searchForm">
 <div>
 <strong>Job Type:</strong>
 <?php CHtml::dropDownList("type",'', array(''=>'Any', 'Internship'=>'Internship', 'Full+Time'=>'Full Time', 'Part+Time'=>'Part Time',
@@ -55,6 +70,13 @@ function getURLParameter(name) {
     <option value="Co-op">Co-op</option>
     <option value="Research">Research</option>
 </select>
+<strong>Title:</strong>
+<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+     'name'=>'jobtitle',
+     'id'=>'jobtitle',
+     'source'=>Job::getJobTitle(),
+     'value'=> $_GET['jobtitle'],
+     'htmlOptions'=>array('value'=> $_GET['jobtitle'],),)); ?>
 <strong>Company:</strong>
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
     'name'=>'companyname',
@@ -62,6 +84,14 @@ function getURLParameter(name) {
 	'source'=>CompanyInfo::getCompanyNames(),
 	'value'=> $_GET['companyname'],
     'htmlOptions'=>array('value'=> $_GET['companyname'],),)); ?>
+<strong>Skills:</strong>
+<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+     'name'=>'skillname',
+     'id'=>'skillname',
+     'source'=>Job::getJobBySkill(),
+     'value'=> $_GET['skillname'],
+     'htmlOptions'=>array('value'=> $_GET['skillname'],),)); ?>
+
 <!-- search button -->
 <?php $this->widget('bootstrap.widgets.TbButton', array(
 		    'label'=>'Search',
@@ -75,20 +105,31 @@ function getURLParameter(name) {
 		    	'onclick' =>'$(this).closest("form").submit();',
 		    	),
 			)); ?>
+<!-- reset button -->
+<?php $this->widget('bootstrap.widgets.TbButton', array(
+    'buttonType'=>'reset', 'label'=>'Reset',
+    'htmlOptions'=>array(
+        'data-toggle'=>'modal',
+        'data-target'=>'#myModal',
+        'style'=>'width: 120px;',
+        'id' => "searchbutton",
+        'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
+        'onclick' =>'resetField()',
+    ),)); ?>
 </div>
 </form>
 </div>
 <div>
 
-<!-- Search Result from Nav Bar -->
-    <?php if (isset($flag) && $flag == 1)   { $i=0;?>
+<!-- ********** Search Result from Nav Bar ************** -->
+    <?php if (isset($flag) && $flag == 1)   { ?>
         <div id="hardcorecontent">
 
             <?php if ($results != null & sizeof($results) > 0) {?>
-                <h2>Search Results</h2>
+                <h2>Jobs Matching your Search</h2>
                 <table class="jobtable">
                     <thead>
-                    <th>Tittle</th> <th>Company</th> <th>Type</th> <th>Posted</th> <th>Deadline</th> <th>Compensation</th> <th>Skills</th> <th>Location</th>
+                    <th>Title</th> <th>Company</th> <th>Type</th> <th>Posted</th> <th>Deadline</th> <th>Compensation</th> <th>Skills</th> <th>Location</th>
                     </thead>
                     <?php foreach ($results as $js){ if ($js != null){?>
                         <tr>
@@ -102,7 +143,7 @@ function getURLParameter(name) {
                                 <?php foreach ($temp as $one){
                                     echo Skillset::model()->findByAttributes(array('id'=>$one->skillid))->name.' ';
                                 }?></td>
-                            <td><?php echo $i++; ?></td>
+                            <td> coming soon </td>
                         </tr>
                     <?php } } ?>
                 </table>
@@ -112,9 +153,8 @@ function getURLParameter(name) {
         </div>
     <?php }
     else {?>
-
-<!-- ******* Search Results *******  -->
-<div class="pages">
+<!-- ******* Search Results from Job Page *******  -->
+  <div class="pages">
     <?php if ($jobs != null & sizeof($jobs) > 0) {?>
     Page:
     <?php for ($i = 0; $i < $pages; $i ++) {?>
@@ -122,7 +162,7 @@ function getURLParameter(name) {
     <?php }?>
     </div>
     <table class="jobtable"">
-    <head><th>Description</th> <th>Company</th> <th>Job Type</th>  <th>Post Date</th> <th>Expiration Date</th>  <th>Compensation</th> <th>Skills</th></head>
+    <head><th>Title</th> <th>Company</th> <th>Job Type</th>  <th>Post Date</th> <th>Expiration Date</th>  <th>Compensation</th> <th>Skills</th></head>
     <tr>
     <?php $i = $rpp;foreach ($jobs as $job) {?>
 

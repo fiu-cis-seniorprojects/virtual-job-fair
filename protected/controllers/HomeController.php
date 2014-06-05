@@ -256,11 +256,6 @@ class HomeController extends Controller
 		$query = '';
 		for($i = 0; $i < $count;$i++) // prepare query
 		{
-			/*if ($i == $count - 1){
-				$query = $query.'name like \'%'.$pieces[$i].'%\'';
-			} else {
-				$query = $query.'name like \'%'.$pieces[$i].'%\' OR ';
-			}*/
 			
 			if ($i == $count - 1){
 				$query = $query.'name =\''.$pieces[$i].'\'';
@@ -304,36 +299,6 @@ class HomeController extends Controller
 					}
 				}
 			}
-	/*
-			foreach ($results as $re)
-			{      if($re)
-				Yii::log("the user name is" . $re->id, CLogger::LEVEL_ERROR, 'application.controller.Prof');
-			}	
-	
-			$compsArray = CompanyInfo::model()->findAll($criteria);
-			foreach ($compsArray as $co){
-				if ($co != null){
-					$comp_posts = Job::model()->findAllByAttributes(array('FK_poster'=>$co->FK_userid));
-					if ($comp_posts != null){
-						foreach ($comp_posts as $cp){
-							$duplicate = 0;
-							if (sizeof($results) > 1){
-								foreach($results as $t){
-
-                                                               if($t)
-									if ($t->id == $cp->id){
-										$duplicate = 1;
-									}
-								}
-							}
-	
-							if ($duplicate == 0){
-								$results[] = Job::model()->findByAttributes(array('id'=>$cp->id, 'active'=>'1'));
-							}
-						}
-					}
-				}
-			}*/
 		}
 	
 		if (isset($_GET['user'])){
