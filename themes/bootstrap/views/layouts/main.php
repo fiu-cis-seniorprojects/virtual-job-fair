@@ -21,6 +21,7 @@
 </head>
 
 <body>
+
 <?php 
 	if (User::isStudent(Yii::app()->user->name))
 		$profile = '/profile/view';
@@ -113,6 +114,9 @@
 			'links'=>$this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
+
+
+    <?php echo '<h3>HELLO</h3>'; ?>
 
 	<?php echo $content; ?>
 
