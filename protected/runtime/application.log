@@ -1516,3 +1516,12 @@ Stack trace:
 REQUEST_URI=/JobFair/index.php/profile/fiuAuth
 HTTP_REFERER=http://localhost/JobFair/index.php/site/login
 ---
+2014/06/06 14:08:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "JobFair/index.php/job/post".' in C:\wamp\www\JobFair\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\JobFair\framework\web\CWebApplication.php(141): CWebApplication->runController('JobFair/index.p...')
+#1 C:\wamp\www\JobFair\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\wamp\www\JobFair\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/JobFair/index.php/JobFair/index.php/job/post
+HTTP_REFERER=http://localhost/JobFair/index.php/home/employerhome
+---

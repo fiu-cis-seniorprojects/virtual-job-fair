@@ -7,7 +7,7 @@
 <h5><?php echo $n->message;?></h5>
 <?php }?>
 
-<h5><?php echo $user->notifications[1]->message?></h5s>
+<h5><?php echo $user->notifications[1]->message?></h5>
 </div>
 
 
@@ -32,7 +32,7 @@ Last name: <input type="text" name="lastname">
 
 
 //$user = new User();
-//$User->Email= 'tomer@hotmail.com';§
+//$User->Email= 'tomer@hotmail.com';ï¿½
 //$User->username= 'tomer';
 //$User->email= 'tomer@hotmail.com';
 //$User->save();

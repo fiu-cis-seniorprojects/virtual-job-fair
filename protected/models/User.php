@@ -197,7 +197,7 @@ class User extends CActiveRecord
     
 	public static function sendEmailWithNewPassword($address, $password, $username) {
     	$email = self::constructEmailObject();
-    	$link = CHtml::link('click here to login', 'http://'. Yii::app()->request->getServerName()  . 'JobFair/' );
+    	$link = CHtml::link('click here to login', 'http://'. Yii::app()->request->getServerName()  . '/JobFair/' );
     	$email->setTo($address);
     	$email->setSubject('Your new password');
         $email->setData(array('message' => '<br/>Username: '. $username .'<br/>Password: '. $password . '<br/>Login: '.$link,
