@@ -37,7 +37,15 @@ $(function() {
 
 
 
-		<div class="hometitle" style="width:740px; ">JOB POSTS | <a style="color:white; font-weight:bold"href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/job/post">Post New Job</a></div>
+		<div class="hometitle" style="width:740px; ">JOB POSTS |
+                //edit by Manuel making the link dynamic, using Yii
+                <?php
+                $image = "<font color=\"white\">Post New Job</font>";
+                echo CHtml::link($image, array('/job/post'));
+                ?><br>
+
+
+        </div>
 		<div style="clear:both"></div>
 		<div id="list4">
 		
