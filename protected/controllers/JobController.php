@@ -168,12 +168,12 @@ class JobController extends Controller
 		$application->coverletter = $this->mynl2br($_POST['Application']['coverletter']);
 		$application->save(false);
 		$link = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/student/user/'.$user->username;
-		$link1= CHtml::link('click here to see '.$user->username.' profile', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/student/user/'.$user->username);
+		$link1= CHtml::link('Go to '.$user->username.'\'s profile', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/student/user/'.$user->username);
 		$message = "The User ".$user->username. " just applied for your job ".$job->title.". Click here to view his profile";		
 		$message1 = "$user->username just applied for your job $job->title<br/>$link1";
-		$html = User::replaceMessage($poster->username, $message1);
+		//$html = User::replaceMessage($poster->username, $message1);
 		User::sendEmployerNotificationAlart($user->id, $job->FK_poster, $message, $link, 3);
-		User::sendEmailNotificationAlart($poster->email, $poster->username, $user->username ,$html);
+		User::sendEmailNotificationAlart($poster->email, $poster->username, $user->username ,$message1);
 		$this->redirect("/JobFair/index.php/Job/View/jobid/" . $jobid);
 		
 	}
@@ -360,8 +360,8 @@ class JobController extends Controller
 			//SENT EMAIL NOTIFICATION	
 			$link1= CHtml::link('click here to see '.$job->title.' page', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/job/view/jobid/' . $jobid);
 			$message1 =  User::getCurrentUser()->username." is interested in you for the following job post:  " .$job->title."<br/>$link1";
-			$html = User::replaceMessage($student->username, $message1);
-			User::sendEmailStudentNotificationVirtualHandshakeAlart($student->email, $student->username, User::getCurrentUser()->username ,$html);
+			//$html = User::replaceMessage($student->username, $message1);
+			User::sendEmailStudentNotificationVirtualHandshakeAlart($student->email, $student->username, User::getCurrentUser()->username ,$message1);
 		}
 
 		return;

@@ -295,7 +295,8 @@ class m140601_035609_initial extends CDbMigration
          $this->addForeignKey('fk_student_skill_map_user_userid', 'student_skill_map', 'userid', 'user', 'id', 'NO ACTION', 'NO ACTION');
 
          $this->addForeignKey('fk_user_usertype_FK_usertype', 'user', 'FK_usertype', 'usertype', 'id', 'NO ACTION', 'NO ACTION');
-	}
+
+    }
 
 	public function safeDown()
 	{

@@ -37,7 +37,7 @@ $(function() {
 
 
 
-		<div class="hometitle" style="width:740px; ">JOB POSTS | <a style="color:white; font-weight:bold"href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/job/post">Post New Job</a></div>
+		<div class="hometitle" style="width:740px; ">JOB POSTS | <a style="color:white; font-weight:bold" href="http://<?php echo Yii::app()->request->getServerName(); ?>/JobFair/index.php/job/post">Post New Job</a></div>
 		<div style="clear:both"></div>
 		<div id="list4">
 		
