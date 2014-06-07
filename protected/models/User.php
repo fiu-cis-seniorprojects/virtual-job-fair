@@ -173,25 +173,13 @@ class User extends CActiveRecord
     {
         $mail = new YiiMailer();
         $mail->IsSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->Port = 587;
-        $mail->SMTPSecure= 'tls';
-        $mail->SMTPAuth = true;
-        $mail->Username = "tacostae";
-        $mail->Password = 'M0n!t0$L!nd0$';
-        $mail->setView('contact');
-        $mail->setLayout('mail');
-        $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
-        return $mail;
-        /*$mail = new YiiMailer();
-        $mail->IsSMTP();
         $mail->Host = 'smtp.cs.fiu.edu';
         $mail->Port = 25;
         $mail->SMTPAuth = false;
         $mail->setView('contact');
         $mail->setLayout('mail');
         $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
-        return $mail;*/
+        return $mail;
     }
     
     public function sendVerificationEmail() {

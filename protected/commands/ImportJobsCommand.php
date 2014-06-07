@@ -11,6 +11,8 @@ class ImportJobsCommand extends CConsoleCommand
         return parent::getHelp() . $description;
     }
 
+
+
     public function actionIndeed()
     {
         echo "Not implemented.\n";

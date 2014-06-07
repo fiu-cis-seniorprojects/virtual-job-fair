@@ -81,7 +81,7 @@ function getURLParameter(name) {
 <div>
 
 <!-- Search Result from Nav Bar -->
-    <?php if (isset($flag) && $flag == 1) {?>
+    <?php if (isset($flag) && $flag == 1)   { $i=0;?>
         <div id="hardcorecontent">
 
             <?php if ($results != null & sizeof($results) > 0) {?>
@@ -102,7 +102,7 @@ function getURLParameter(name) {
                                 <?php foreach ($temp as $one){
                                     echo Skillset::model()->findByAttributes(array('id'=>$one->skillid))->name.' ';
                                 }?></td>
-                            <td>coming soon</td>
+                            <td><?php echo $i++; ?></td>
                         </tr>
                     <?php } } ?>
                 </table>
@@ -110,7 +110,8 @@ function getURLParameter(name) {
                 <h3>No Job Matching your Search 2</h3>
             <?php }  ?>
         </div>
-    <?php } else {?>
+    <?php }
+    else {?>
 
 <!-- ******* Search Results *******  -->
 <div class="pages">
@@ -120,16 +121,8 @@ function getURLParameter(name) {
     <a class="pageclick"<?php if ($i == 0) echo "id='firstpage'"; ?>> <?php echo $i + 1;?></a>
     <?php }?>
     </div>
-    <table class="jobtable" style="margin-bottom:50px!important; float:left">
-    <tr id="headerrow">
-        <th>Description</th>
-        <th>Company</th>
-        <th>Job Title</th>
-        <th>Job Type</th>
-        <th>Post Date</th>
-        <th>Expiration Date</th>
-        <th>Skills</th>
-    </tr>
+    <table class="jobtable"">
+    <head><th>Description</th> <th>Company</th> <th>Job Type</th>  <th>Post Date</th> <th>Expiration Date</th>  <th>Compensation</th> <th>Skills</th></head>
     <tr>
     <?php $i = $rpp;foreach ($jobs as $job) {?>
 
