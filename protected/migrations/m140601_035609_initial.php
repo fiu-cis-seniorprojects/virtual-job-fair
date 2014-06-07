@@ -256,6 +256,7 @@ class m140601_035609_initial extends CDbMigration
          'tmpstamp'=>'timestamp NOT NULL',
          ), '');
 
+
          $this->addForeignKey('fk_SMS_user_receiver_id', 'SMS', 'receiver_id', 'user', 'id', 'NO ACTION', 'NO ACTION');
 
          $this->addForeignKey('fk_SMS_user_sender_id', 'SMS', 'sender_id', 'user', 'id', 'NO ACTION', 'NO ACTION');
