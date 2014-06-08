@@ -84,6 +84,37 @@ class MessageController extends Controller
 		
 		$this->render('send', array('user'=>$user, 'users'=>$users, 'model'=>$model, 'username'=>$username));		
 	}
+
+    public function actionToggleMatchNotifications()
+    {
+        if(User::isCurrentUserAdmin())
+        {
+            $bit = intval($_GET['value']);
+            $bit = ($bit == 0) ? 1 : 0;
+            $mod = new MatchNotification();
+            $mod->status = $bit;
+            $mod->date_modified = date('Y-m-d H:i:s');
+            $mod->userid = User::getCurrentUser()['id'];
+            $mod->save();
+            $userid = $mod->getUserId();
+            $user = User::model()->find("id=:id",array(':id'=>$userid));
+            $state = ($mod->isGlobalNotificationOn()) ? '1' : '0';
+            $data = Array('userid'=>$userid, 'status'=>$state, 'last_modified'=>$mod->getLastDate(), 'username'=>$user['username']);
+            echo CJSON::encode($data);
+        }
+    }
+
+    public function actionCheckNotificationState()
+    {
+        if(User::isCurrentUserAdmin())
+        {
+            $matchnotification = MatchNotification::model()->findBySql("SELECT * FROM match_notification ORDER BY date_modified DESC limit 1");
+            $status = Array('status'=>$matchnotification['status'], 'date_modified'=>$matchnotification['date_modified'], 'userid'=>$matchnotification['userid']);
+            $user = User::model()->find("id=:id",array(':id'=>$matchnotification['userid']));
+            $status['username'] = $user['username'];
+            echo CJSON::encode($status);
+        }
+    }
 	
 	//Ajax calls
 	public function actionGetInbox()
@@ -230,7 +261,7 @@ class MessageController extends Controller
 				array('allow',  // allow authenticated users to perform these actions
 						'actions'=>array('Index', 'Send', 'getInbox', 'getMessage', 'getSent',
 								'setAsRead', 'sentToTrash', 'getTrash', 'deleteMessage', 'deleteMessages',
-								'autoComplete'),
+								'autoComplete', 'toggleMatchNotifications', 'checkNotificationState'),
 						'users'=>array('@')),
 				array('deny', //deny all users anything not specified
 						'users'=>array('*'),

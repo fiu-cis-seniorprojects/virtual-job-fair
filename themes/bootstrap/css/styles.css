@@ -610,14 +610,15 @@ opacity: 1.5;
 
 
 #adminNotification{
-	
+    position: absolute;
+    top: 205px;
+    right: 100px;
 	margin-top:5px;   
  	float: right;
     width:300px;
 	min-height:200px;
 	padding:5px;
 	border-width: 1px;
-	border-color:white;
 	border-style:solid;
  	border-radius: 5px 5px 5px 5px;
 
@@ -627,6 +628,26 @@ opacity: 1.5;
 	
 	
 	}
+
+#adminTools{
+    position: absolute;
+    top: 65px;
+    right: 100px;
+    margin-top:0px;
+    min-height:100px;
+    padding:5px;
+    float: right;
+    width:300px;
+    border-width: 1px;
+    border-style:solid;
+    border-radius: 5px 5px 5px 5px;
+
+    font-size:12px;
+    background-color: transparent;
+    border-color: rgb(0,0,0);
+
+
+}
 
 #adminSearchbox{
 	margin-top:5px;   
