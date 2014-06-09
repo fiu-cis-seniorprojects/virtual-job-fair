@@ -361,15 +361,4 @@ class m140601_035609_initial extends CDbMigration
         $this->dropTable('video_resume');
         $this->dropTable('whiteboard_sessions');
 	}
-
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
 }
