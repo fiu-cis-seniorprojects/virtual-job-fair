@@ -181,6 +181,17 @@ class User extends CActiveRecord
         $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
         return $mail;
     }
+
+    public static function sendEmail($to, $subject, $email_description, $message)
+    {
+        $email = self::constructEmailObject();
+        $email->setTo($to);
+        $email->setSubject($subject);
+        $email->setData(array('message' => $message,
+            'name' => 'Virtual Job Fair',
+            'description' => $email_description));
+        $email->send();
+    }
     
     public function sendVerificationEmail() {
         $link = CHtml::link('click here', 'http://'.Yii::app()->request->getServerName() . '/JobFair/index.php/user/VerifyEmail?username=' . $this->username
