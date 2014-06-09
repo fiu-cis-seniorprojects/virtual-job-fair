@@ -57,12 +57,12 @@ class MessageController extends Controller
 				}				
 
 				User::sendUserNotificationMessageAlart(Yii::app()->user->id, $model->FK_receiver, 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/message', 3);
-				$link= CHtml::link('click here to see the message', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/message');
+				$link= CHtml::link('here', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/message');
 				$recive = User::model()->find("username=:username",array(':username'=>$model->FK_receiver));
 				if ($recive != NULL){
-				$message = "You just got a message from $model->FK_sender<br/> '$model->message'<br/>$link";
-				$html = User::replaceMessage($recive->username, $message); 
-				User::sendEmailMessageNotificationAlart($recive->email, $recive->username, $model->FK_sender, $html);
+				$message = "You just got a message from $model->FK_sender<br/> '$model->message'<br/> Access the message $link";
+				//$html = User::replaceMessage($recive->username, $message);
+				User::sendEmailMessageNotificationAlart($recive->email, $recive->username, $model->FK_sender, $message);
 				}
 				$this->redirect("/JobFair/index.php/message");
 				return;

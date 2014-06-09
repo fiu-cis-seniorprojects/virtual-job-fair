@@ -571,10 +571,10 @@ class HomeController extends Controller
 		//SEND EMAIL NOTIFICATION
 		$username = Yii::app()->user->name;
 		$user = User::model()->find("username=:username",array(':username'=>$username));
-		$message = "$username just accepted your interview invitation";
+		$message = "$username just accepted your interview invitation.";
 		$recive = User::model()->findByPk($modle->sender_id);
-		$html = User::replaceMessage($recive->username, $message);
-		User::sendEmailEmployerAcceptingInterviewNotificationAlart($recive->email, $recive->username, $username, $html);
+		//$html = User::replaceMessage($recive->username, $message);
+		User::sendEmailEmployerAcceptingInterviewNotificationAlart($recive->email, $recive->username, $username, $message);
 		if ($user->FK_usertype == 1)
 		$this->redirect("/JobFair/index.php/home/studenthome");
 		else 

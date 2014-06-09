@@ -20,9 +20,9 @@
             </td>
 		</tr>
 		<tr>
-            <td style="padding:15px 20px;text-align:right;padding-top:5px;border-top:solid 1px #dfdfdf">
-				<a href="http://www.yiiframework.com/"><img alt="yiiframework.com" src="yii.png" /></a>
-			</td>
+            <!--<td style="padding:15px 20px;text-align:right;padding-top:5px;border-top:solid 1px #dfdfdf">
+				<a href="http://www.cis.fiu.edu/"><img alt="FIU Computer Science" src="<?php echo Yii::app()->baseUrl. '/images/imgs/fiu.jpg'; ?>" /></a>
+			</td>-->
 		</tr>
 	</tbody>
 </table>
