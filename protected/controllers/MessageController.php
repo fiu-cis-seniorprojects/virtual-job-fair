@@ -94,7 +94,8 @@ class MessageController extends Controller
             $mod = new MatchNotification();
             $mod->status = $bit;
             $mod->date_modified = date('Y-m-d H:i:s');
-            $mod->userid = User::getCurrentUser()['id'];
+            $userinfo = User::getCurrentUser();
+            $mod->userid = $userinfo['id'];
             $mod->save();
             $userid = $mod->getUserId();
             $user = User::model()->find("id=:id",array(':id'=>$userid));
