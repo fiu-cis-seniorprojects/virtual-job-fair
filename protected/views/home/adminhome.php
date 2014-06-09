@@ -23,7 +23,7 @@
             $("#user_lastmodifieddate").html(data["last_modified"]);
             $("#tn_value").val(data["status"]);
         });
-        var timerId = setInterval("toggleNotifications(1)", 30000);
+       setTimeout("toggleNotifications(1)", 30000);
     }
 
 </script>
