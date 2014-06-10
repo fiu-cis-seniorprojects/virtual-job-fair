@@ -23,17 +23,20 @@ class ImportJobsCommand extends CConsoleCommand
 [
     '{{repeat(5, 1)}}',
     {
-        company: '{{company().toUpperCase()}}',
-        title: '{{lorem(3, "words").toUpperCase()}}',
-        type: function (tags) {
-            var jtypes = ['Part Time', 'Full Time', 'Internship', 'Co-op', 'Research'];
-            return jtypes[tags.integer(0, jtypes.length - 1)];
-        },
-        expiration_date: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
-        contact: '{{email()}}',
-        website: 'http://website.com',
-        compensation: '{{floating(15, 40, 2, "$0.00")}}',
-        description: '{{lorem(5, "paragraphs")}}'
+      ID: 'http://www.postingurl.com',
+      PostedTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-dd hh:mm:ss Z")}}',
+      ExpireTime: '{{date(new Date(2014, 0, 1), new Date(), "MM/dd/YYYY")}}',
+      Company: '{{company().toUpperCase()}}',
+      Position: '{{lorem(3, "words").toUpperCase()}}',
+      URL: 'http://www.companyurl.com',
+      PostingType: "Job",
+      Background: '{{lorem(5, "paragraphs")}}',
+      Description: '{{lorem(3, "paragraphs")}}',
+      Duties: '{{lorem(3, "paragraphs")}}',
+      Qualifications: '{{lorem(3, "paragraphs")}}',
+      Email: '{{email()}}',
+      PostedBy: '{{lorem(3, "paragraphs")}}',
+      Format: '2'
     }
 ]
     */
@@ -43,11 +46,11 @@ class ImportJobsCommand extends CConsoleCommand
         // using test URL retrieve mock json objects
         // here I would request a date range, since this script runs daily as a cron job
         //
-        $request = Yii::app()->curl->run('http://www.json-generator.com/j/bVtmwbiRHC?indent=4');
+        $request = Yii::app()->curl->run('http://www.json-generator.com/api/json/get/cmztbPLWCq?indent=2');
 
         $job_postings = CJSON::decode($request->getData());
 
-        // keep track of new jobs (used in crontab email message)
+        // keep track of new jobs
         $new_jobs_count = 0;
 
         // check each object to see if it has been posted already:
@@ -56,7 +59,22 @@ class ImportJobsCommand extends CConsoleCommand
         foreach($job_postings as $job_posting)
         {
             // dissect job posting information
-            $jp_company = $job_posting['company'];
+            $jp_id = $job_posting['ID'];
+            $jp_postedTime = $job_posting['PostedTime'];
+            $jp_expireTime = $job_posting['ExpireTime'];
+            $jp_company = $job_posting['Company'];
+            $jp_position = $job_posting['Position'];
+            $jp_company_url = $job_posting['URL'];
+            $jp_company_background = $job_posting['Background'];
+            $jp_company_description = $job_posting['Description'];
+            $jp_duties = $job_posting['Duties'];
+            $jp_qualifications = $job_posting['Qualifications'];
+            $jp_company_email = $job_posting['Email'];
+            $jp_posted_by = $job_posting['PostedBy'];
+            $jp_posting_format = $job_posting['Format'];
+
+
+            $jp_type = $job_posting['PostingType'];
             $jp_website = $job_posting['website'];
             $jp_description = $job_posting['description'];
             $jp_title = $job_posting['title'];
@@ -104,3 +122,8 @@ class ImportJobsCommand extends CConsoleCommand
     }
 
 }
+
+
+/*
+ [{"ID":"http:\/\/cis.fiu.edu\/careerpath\/posting.php?id=205","PostedTime":"2014-03-10 13:33:42","ExpireTime":"07\/01\/2014","Company":"Fortytwo Sports","Position":"Lead Developer","URL":"http:\/\/www.fort42wo.com","PostingType":"Job","Background":"\u003Cp\u003EFortytwo Sports is a startup company that offers an online social networking service. Visit our website \u003Ca href=\"http:\/\/www.fort42wo.com\"\u003Ewww.fort42wo.com\u003C\/a\u003E for more information about the Lead Developer position and to play a quick brain teaser!\u003C\/p\u003E\r\n\r\n\u003Cp\u003E \u003C\/p\u003E\r\n","Description":"\u003Cp\u003EFortytwo Sports is looking for an exceptional lead developer who will drive the overall developmental process for new products. Our team will strive to use innovative technologies that change how millions of users connect, explore, and interact with information and one another. As the Lead Developer, you will be responsible for implementing front-end and back-end technologies for building a web\/mobile application. You will work with a small team and can switch projects as our fast-paced business grows and evolves. The ideal candidate will be a self-motivated, out-of-the-box thinker, with a ‘can-do, will do’ attitude with excellent communication skills and an ability to quickly ramp-up skills in new technologies. \u003C\/p\u003E\r\n\r\n\u003Cp\u003EAs a key member of a small and versatile team, you will design, test, deploy and maintain software solutions. Our ambitions reach far beyond a small startup company. You have the opportunity to become a principal member in a company looking to accomplish extraordinary measures.\u003C\/p\u003E\r\n","Duties":"\u003Cp\u003E• Lead the developmental process for building a web\/mobile application. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Develop aesthetically pleasing and responsive front-end interfaces. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Develop an optimized back-end codebase. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Design and improve an ever-expanding database. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Assist in building a developer team by recruiting talent.\u003C\/p\u003E\r\n","Qualifications":"\u003Cp\u003ECandidate should have at least 80% of the preferred qualifications listed below:\u003C\/p\u003E\r\n\r\n\u003Cul\u003E\r\n\t\u003Cli\u003EPursuing or accomplished a BS in Computer Science or related field. \u003C\/li\u003E\r\n\t\u003Cli\u003EFluent in front-end technologies such as HTML, CSS, and Javascript (w\/jQuery) with an interest in user interface design. \u003C\/li\u003E\r\n\t\u003Cli\u003EKnowledgeable in back-end\/server technologies such as C\/C++, Java and\/or Apache\/Apache Tomcat. \u003C\/li\u003E\r\n\t\u003Cli\u003EBasic knowledge in PostgreSQL, GIT, and Agile is a plus. \u003C\/li\u003E\r\n\t\u003Cli\u003EStrong written and oral communication skills. \u003C\/li\u003E\r\n\u003C\/ul\u003E\r\n","Email":"jobs@fort42wo.com","PostedBy":"Roberto Guzman, From: Fortytwo Sports (Start Up)","Format":"2”}]
+ */

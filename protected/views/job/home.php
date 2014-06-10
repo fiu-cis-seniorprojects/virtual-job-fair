@@ -15,6 +15,7 @@ $rpp = 10; //results per page
 
 ?>
 <script>
+
 $(document).ready(function() {
 
 	$('#type').val(getURLParameter("type").replace(/[+]/g, " "));
@@ -145,6 +146,3 @@ function getURLParameter(name) {
 
     </div>
 <?php }?>
-
-
-
