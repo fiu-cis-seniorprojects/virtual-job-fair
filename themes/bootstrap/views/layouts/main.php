@@ -115,9 +115,6 @@
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
 
-
-    <?php echo '<h3>HELLO</h3>'; ?>
-
 	<?php echo $content; ?>
 
 	<div class="clear"></div>
