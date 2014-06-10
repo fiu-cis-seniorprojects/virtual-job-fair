@@ -77,7 +77,7 @@ class JobController extends Controller
                 $jobMap = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$skill_id));
             }
 
-            // Array of jobs
+            // Array of jobs()
             foreach($jobs as $job){
                 if ($jobMap != null){
                     foreach ($jobMap as $aJobMap)
