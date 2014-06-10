@@ -24,7 +24,7 @@ $rpp = 10; //results per page
 <script>
     function resetField()
     {
-        // Reset the page()
+        // Reset the page(
         window.location = "/JobFair/index.php/job/home";
         // Reset fields ONLY
         /* $('#type').val('');

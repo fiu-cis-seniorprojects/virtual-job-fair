@@ -12,7 +12,6 @@ class JobController extends Controller
 
 	public function actionView($jobid)
 	{
-
 		$job = Job::model()->findByPk($jobid);		
 		
 		//foreach ($skills->skillset as $skillset) {
@@ -31,13 +30,29 @@ class JobController extends Controller
 		
 	}
 	
-	public function actionHome($type = null, $companyname = null){
+	public function actionHome($type = null, $jobtitle = null, $companyname = null, $skillname = null ){
 
-        if (isset($type) && $type != ""){
+        //get all jobs by type or not
+		if (isset($type) && $type != ""){
 			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND type=:type ORDER BY deadline DESC", array(":type"=>$type));
 		} else {
 			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' ORDER BY deadline DESC");
 		}
+
+        if(isset($jobtitle) && $jobtitle != "")
+        {
+            $jobtitles = array();
+            foreach($jobs as $job)
+            {
+                $name = $job->title;
+                if($name == $jobtitle)
+                {
+                    $jobtitles[] = $job;
+                }
+            }
+            $jobs = $jobtitles;
+        }
+
 		if (isset($companyname) && $companyname != ""){
 			$companyjobs = array();
 			foreach($jobs as $job){
@@ -48,7 +63,38 @@ class JobController extends Controller
 			}
 			$jobs = $companyjobs;
 		}
-		
+
+        if (isset($skillname) && $skillname != ""){
+            $jobskill = array();
+            $jobMap = null;
+            $skill_id = null;
+
+            // Query database by skill name and retrieve the skill_id
+            $skill = Skillset::model()->findByAttributes(array('name'=>$skillname));
+            if ($skill != null){
+                $skill_id = $skill->id; //get skill id
+                // Get all jobs that have the skill_id
+                $jobMap = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$skill_id));
+            }
+
+            // Array of jobs()
+            foreach($jobs as $job){
+                if ($jobMap != null){
+                    foreach ($jobMap as $aJobMap)
+                    {
+                        $jobid = $aJobMap->jobid; //get jobid from matching skill
+                        if ($skill_id != null){ // search for Skill
+                            $name = $job->id;
+                           if($name == $jobid)
+                           {
+                                $jobskill[] = $job;
+                           }
+                        }
+                    }
+                }
+            }
+            $jobs = $jobskill;
+        }
 		$this->render('home', array('jobs'=>$jobs));
 	}
 	
@@ -168,12 +214,12 @@ class JobController extends Controller
 		$application->coverletter = $this->mynl2br($_POST['Application']['coverletter']);
 		$application->save(false);
 		$link = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/student/user/'.$user->username;
-		$link1= CHtml::link('Go to '.$user->username.'\'s profile', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/student/user/'.$user->username);
+		$link1= CHtml::link('click here to see '.$user->username.' profile', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/student/user/'.$user->username);
 		$message = "The User ".$user->username. " just applied for your job ".$job->title.". Click here to view his profile";		
 		$message1 = "$user->username just applied for your job $job->title<br/>$link1";
-		//$html = User::replaceMessage($poster->username, $message1);
+		$html = User::replaceMessage($poster->username, $message1);
 		User::sendEmployerNotificationAlart($user->id, $job->FK_poster, $message, $link, 3);
-		User::sendEmailNotificationAlart($poster->email, $poster->username, $user->username ,$message1);
+		User::sendEmailNotificationAlart($poster->email, $poster->username, $user->username ,$html);
 		$this->redirect("/JobFair/index.php/Job/View/jobid/" . $jobid);
 		
 	}
@@ -360,8 +406,8 @@ class JobController extends Controller
 			//SENT EMAIL NOTIFICATION	
 			$link1= CHtml::link('click here to see '.$job->title.' page', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/job/view/jobid/' . $jobid);
 			$message1 =  User::getCurrentUser()->username." is interested in you for the following job post:  " .$job->title."<br/>$link1";
-			//$html = User::replaceMessage($student->username, $message1);
-			User::sendEmailStudentNotificationVirtualHandshakeAlart($student->email, $student->username, User::getCurrentUser()->username ,$message1);
+			$html = User::replaceMessage($student->username, $message1);
+			User::sendEmailStudentNotificationVirtualHandshakeAlart($student->email, $student->username, User::getCurrentUser()->username ,$html);
 		}
 
 		return;
