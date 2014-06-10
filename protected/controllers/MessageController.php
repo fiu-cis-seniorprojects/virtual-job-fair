@@ -57,12 +57,12 @@ class MessageController extends Controller
 				}				
 
 				User::sendUserNotificationMessageAlart(Yii::app()->user->id, $model->FK_receiver, 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/message', 3);
-				$link= CHtml::link('click here to see the message', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/message');
+				$link= CHtml::link('here', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/message');
 				$recive = User::model()->find("username=:username",array(':username'=>$model->FK_receiver));
 				if ($recive != NULL){
-				$message = "You just got a message from $model->FK_sender<br/> '$model->message'<br/>$link";
-				$html = User::replaceMessage($recive->username, $message); 
-				User::sendEmailMessageNotificationAlart($recive->email, $recive->username, $model->FK_sender, $html);
+				$message = "You just got a message from $model->FK_sender<br/> '$model->message'<br/> Access the message $link";
+				//$html = User::replaceMessage($recive->username, $message);
+				User::sendEmailMessageNotificationAlart($recive->email, $recive->username, $model->FK_sender, $message);
 				}
 				$this->redirect("/JobFair/index.php/message");
 				return;
@@ -84,6 +84,38 @@ class MessageController extends Controller
 		
 		$this->render('send', array('user'=>$user, 'users'=>$users, 'model'=>$model, 'username'=>$username));		
 	}
+
+    public function actionToggleMatchNotifications()
+    {
+        if(User::isCurrentUserAdmin())
+        {
+            $bit = intval($_GET['value']);
+            $bit = ($bit == 0) ? 1 : 0;
+            $mod = new MatchNotification();
+            $mod->status = $bit;
+            $mod->date_modified = date('Y-m-d H:i:s');
+            $userinfo = User::getCurrentUser();
+            $mod->userid = $userinfo['id'];
+            $mod->save();
+            $userid = $mod->getUserId();
+            $user = User::model()->find("id=:id",array(':id'=>$userid));
+            $state = ($mod->isGlobalNotificationOn()) ? '1' : '0';
+            $data = Array('userid'=>$userid, 'status'=>$state, 'last_modified'=>$mod->getLastDate(), 'username'=>$user['username']);
+            echo CJSON::encode($data);
+        }
+    }
+
+    public function actionCheckNotificationState()
+    {
+        if(User::isCurrentUserAdmin())
+        {
+            $matchnotification = MatchNotification::model()->findBySql("SELECT * FROM match_notification ORDER BY date_modified DESC limit 1");
+            $status = Array('status'=>$matchnotification['status'], 'date_modified'=>$matchnotification['date_modified'], 'userid'=>$matchnotification['userid']);
+            $user = User::model()->find("id=:id",array(':id'=>$matchnotification['userid']));
+            $status['username'] = $user['username'];
+            echo CJSON::encode($status);
+        }
+    }
 	
 	//Ajax calls
 	public function actionGetInbox()
@@ -230,7 +262,7 @@ class MessageController extends Controller
 				array('allow',  // allow authenticated users to perform these actions
 						'actions'=>array('Index', 'Send', 'getInbox', 'getMessage', 'getSent',
 								'setAsRead', 'sentToTrash', 'getTrash', 'deleteMessage', 'deleteMessages',
-								'autoComplete'),
+								'autoComplete', 'toggleMatchNotifications', 'checkNotificationState'),
 						'users'=>array('@')),
 				array('deny', //deny all users anything not specified
 						'users'=>array('*'),

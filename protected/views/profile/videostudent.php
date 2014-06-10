@@ -139,7 +139,7 @@ if(!(Yii::app()->user->isGuest)){
 			<?php 
 			$link="";
 			if($resume != null){
-			$link = 'http://srprog-fall13-01.cs.fiu.edu/' . $resume->resume;
+			$link = 'http://'.Yii::app()->request->getServerName().'/' . $resume->resume;
 			}
 			?>
 				<iframe src="http://docs.google.com/gview?url=<?php echo $link ?>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>

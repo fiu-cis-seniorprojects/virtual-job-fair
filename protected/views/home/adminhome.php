@@ -1,5 +1,32 @@
 <br>
 <br>
+<script>
+    function toggleNotifications(check)
+    {
+        var val = $("#tn_value").val();
+        var action = 'togglematchnotifications';
+        if(check)
+        {
+            action = 'checknotificationstate';
+        }
+        $.get("/JobFair/index.php/message/"+action, {"value": val}, function(data){
+            data = JSON.parse(data);
+            if(data["status"] == '0')
+            {
+                $("#toggleNotifications").addClass('btn btn-danger').removeClass('btn btn-success');
+            }
+            else
+            {
+                $("#toggleNotifications").addClass('btn btn-success').removeClass('btn btn-danger');
+            }
+            $("#user_lastmodified").html(data["username"]);
+            $("#user_lastmodifieddate").html(data["last_modified"]);
+            $("#tn_value").val(data["status"]);
+        });
+       setTimeout("toggleNotifications(1)", 30000);
+    }
+
+</script>
 <div id="adminSearchbox"> 
 <h1> Search for User or Job</h1>
 
@@ -94,9 +121,41 @@ if ($results1 != NULL)
 
 </div>
 
+<div id="adminTools">
+
+    <h1>ToolBox:</h1>
+    <?php
+        if(isset($matchnotification))
+        {
+            $class = 'btn btn-success';
+            $value = intval($matchnotification['status']);
+            if($value == 0)
+            {
+                $class = 'btn btn-danger';
+            }
+            echo CHtml::button("Match Notification Status", array(
+                'type'=>'submit',
+                'id'=>'toggleNotifications',
+                'class'=>$class,
+                'onclick'=>'toggleNotifications()'
+            ));
+
+            echo CHtml::button("", array(
+                'type'=>'hidden',
+                'id'=>'tn_value',
+                'class'=>'btn btn-success',
+                'onclick'=>'toggleNotifications()',
+                'value'=>$value,
+            ));
+        }
+    ?><br/>Last Modified by: <span id="user_lastmodified"><?php if(isset($matchnotification)){ echo $matchnotification['username']; } ?></span><br/>
+    Last Modified Date: <span id="user_lastmodifieddate"><?php if(isset($matchnotification)){ echo $matchnotification['date_modified']; } ?></span><br/>
+
+</div>
+
 <div id="adminNotification">
 
-<h1>notifications:</h1>
+<h1>Notifications:</h1>
 
 <?php foreach ($notification as $n) { ?>
 <p style="color:#468847"><a href="<?php echo $n->link."?notificationRead=".$n->id."&activation=".$n->sender_id; ?>"><?php echo $n->message; ?></a>

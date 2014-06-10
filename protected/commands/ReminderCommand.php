@@ -1,4 +1,5 @@
 <?php
+
 class ReminderCommand extends CConsoleCommand
 {
     public function getHelp()

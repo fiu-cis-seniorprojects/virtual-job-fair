@@ -16,15 +16,15 @@
   \ \____/\ \____/\ \_,__/    \ \_\ \__/.\_\\ \_\ \_\ 
    \/___/  \/___/  \/___/      \/_/\/__/\/_/ \/_/\/_/ 
 												Luis B.
- -->                                                      
+ -->
 <html>
  <head>
-  <link rel="stylesheet" type="text/css" href="http://localhost/JobFair/css/FiuCsAuth.css">
-  <link rel="stylesheet" type="text/css" href="http://localhost/JobFair/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="http://vjf-dev.cis.fiu.edu//JobFair/css/FiuCsAuth.css">
+  <link rel="stylesheet" type="text/css" href="http://vjf-dev.cis.fiu.edu//JobFair/bootstrap/css/bootstrap.css">
  </head>
  <body>
   <div class="header-bar">
-   <center><img class="top_image" src="http://localhost/JobFair/images/imgs/fiu.jpg" alt=""><center>
+   <center><img class="top_image" src="http://vjf-dev.cis.fiu.edu/JobFair/images/imgs/fiu.jpg" alt=""><center>
    <h2><small>Fiu Seniors sign in here</small></h2>
   </div>
  <form method="post" action="">
@@ -64,7 +64,7 @@ if(isset($_POST['submit']))
 class FiuCsAuth
 {
     // declare CONSTANTS
-    private $BASEURL = 'http://srprog-spr13-01.aul.fiu.edu';
+    private $BASEURL = 'http://spws-dev.cis.fiu.edu';
     private $PORT = ':8080';
     private $PATHURL = '/SPW2-RegisterAPI/rest/SPWRegister/getUserInfo/';
     private $TOKEN =  '123FIUspw/';

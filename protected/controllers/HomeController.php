@@ -129,7 +129,11 @@ class HomeController extends Controller
 		$user = User::model()->find("username=:username",array(':username'=>$username));
 		
 		$notification = Notification::model()->getNotificationId($user->id); // pass the notifications
-		$this->render('adminhome', array('results'=>$results, 'results1'=>$results1, 'notification'=>$notification));
+        $matchnotification = MatchNotification::model()->findBySql("SELECT * FROM match_notification ORDER BY date_modified DESC limit 1");
+        $status = Array('status'=>$matchnotification['status'], 'date_modified'=>$matchnotification['date_modified'], 'userid'=>$matchnotification['userid']);
+        $user = User::model()->find("id=:id",array(':id'=>$matchnotification['userid']));
+        $status['username'] = $user['username'];
+		$this->render('adminhome', array('results'=>$results, 'results1'=>$results1, 'notification'=>$notification, 'matchnotification'=>$status));
 	}
 
 	
@@ -536,10 +540,10 @@ class HomeController extends Controller
 		//SEND EMAIL NOTIFICATION
 		$username = Yii::app()->user->name;
 		$user = User::model()->find("username=:username",array(':username'=>$username));
-		$message = "$username just accepted your interview invitation";
+		$message = "$username just accepted your interview invitation.";
 		$recive = User::model()->findByPk($modle->sender_id);
-		$html = User::replaceMessage($recive->username, $message);
-		User::sendEmailEmployerAcceptingInterviewNotificationAlart($recive->email, $recive->username, $username, $html);
+		//$html = User::replaceMessage($recive->username, $message);
+		User::sendEmailEmployerAcceptingInterviewNotificationAlart($recive->email, $recive->username, $username, $message);
 		if ($user->FK_usertype == 1)
 		$this->redirect("/JobFair/index.php/home/studenthome");
 		else 

@@ -1,3 +1,10 @@
 .idea/
 assets/
+<<<<<<< HEAD
 .DS_Store
+=======
+*.iml
+protected/runtime/application.log
+*.sh
+*.bak
+>>>>>>> integration

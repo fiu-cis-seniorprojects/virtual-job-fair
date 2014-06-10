@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 ?>
 
 
-
 <br><br><br><br><br><br>
 
 <div class="form">
@@ -74,7 +73,6 @@ $this->breadcrumbs=array(
 </div><!-- form -->
 <!--Author Manuel
 making the links dynamic so if the base Url changed the program won not be affected
-testing
 -->
 <div id="altlogin" >
 <p>Students may login with these:</p>

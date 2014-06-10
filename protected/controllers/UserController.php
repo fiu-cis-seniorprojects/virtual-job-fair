@@ -120,6 +120,9 @@ class UserController extends Controller
 				$message1 = "There is a new employer named ".$model->username. " that is waiting for acctivation"; 
 				$admins = User::model()->findAllByAttributes(array('FK_usertype'=>3));
 				User::sendAdminNotificationNewEmpolyer($model, $admins, $link2, $message1);
+                $message = "You have successfully registered. Once your account has been approved, you will receive an email stating your account is active.";
+                $message .= "<br/>Your username: $model->username";
+                User::sendEmail($model->email, "Registration Notification", "Registration Notification", $message);
 				$this->render('NewEmployer');
 				return;	
 			}

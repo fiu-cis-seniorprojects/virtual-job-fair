@@ -50,15 +50,15 @@ class VideoInterviewController extends Controller
 		//SAVE TO VIDEO INTERVIEW TABLE
  		$message2 = "You scheduled an interview with ".$student. " at ". $model->time. " on ". $model->date." Click here to go to the interview page.";
  		User::sendSchedualNotificationAlart($receiver->id, $sender_id, $message2, $student);
- 		//$message3 = "Hi $receiver->username, $username will like to interview you on:<br/>Date: $model->date<br/>Time: $model->time";
- 		//User::sendEmailNotificationAlart($receiver->email, $receiver->username, $username, $message3);
+ 		$message3 = "Hi $receiver->username, $username will like to interview you on:<br/>Date: $model->date<br/>Time: $model->time";
+ 		User::sendEmailNotificationAlart($receiver->email, $receiver->username, $username, $message3);
  		
- 		$link= CHtml::link('click here to go to your homepage', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/home/studenthome');
-		$message4 = "$username scheduled an interview with you on:<br/>Date: $model->date<br/>Time: $model->time<br/>$link". " Click here to go to the interview page";
+ 		$link= CHtml::link('here', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/home/studenthome');
+		$message4 = "$username scheduled an interview with you on:<br/>Date: $model->date<br/>Time: $model->time<br/>$link". " Click $link to go to the interview page";
 		
  		
-		$html = User::replaceMessage($student, $message4); 
- 		User::sendEmailNotificationAlart($receiver->email, $receiver->username, $username, $html);
+		//$html = User::replaceMessage($student, $message4);
+ 		User::sendEmailNotificationAlart($receiver->email, $receiver->username, $username, $message4);
  		$this->redirect("/JobFair/index.php/profile/student/user/".$student);
  		//print "<pre>"; print_r($key);print "</pre>";return;
 
