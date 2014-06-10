@@ -633,8 +633,12 @@ if (User::isCurrentUserStudent() && !$user->has_viewed_profile) {
 <br><br>
 <h3 class="mostwantedskills">Consider using LinkedIn to create your profile.</h3>
 <div id="studentlinks">
-<a href="http://srprog-fall13-01.cs.fiu.edu/JobFair/index.php/profile/auth">
-<img src="/JobFair/images/ico/linkedinlogo.png" height="55" width="55">
+<a  //edit by Manuel making the link dynamic, using Yii
+    <?php
+    $image =CHtml::image(Yii::app()->baseUrl. '/images/ico/linkedinlogo.png');
+    echo CHtml::link($image, array('/user/auth1'));
+    ?>
+
 <br>LinkedIn Connect</a>
 </div>
 </div>

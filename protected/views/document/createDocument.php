@@ -29,7 +29,7 @@ $lang='en';
 $id='9864654684658468846';
 $format='doc';
 $realUserName='Pepito Mendieta';
-$saveurl='http://srprog-fall13-01.cs.fiu.edu/lcb-text-editor-test/Zoho/ownersave.php';
+$saveurl='http://'.Yii::app()->request->getServerName().'/lcb-text-editor-test/Zoho/ownersave.php';
 $fields_string='';
 $headers = array("Content-Type: multipart/form-data");
 

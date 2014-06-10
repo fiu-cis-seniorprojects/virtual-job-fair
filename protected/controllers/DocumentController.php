@@ -65,7 +65,7 @@ class DocumentController extends Controller
 		$id=$dI;
 		$format='doc';
 		$realUserName=$rN;
-		$saveurl='http://srprog-fall13-01.cs.fiu.edu/JobFair/userHomes/' . $uN . '/saveFiles/' . $dI .'.php';
+		$saveurl='http://'.Yii::app()->request->getServerName().'/JobFair/userHomes/' . $uN . '/saveFiles/' . $dI .'.php';
 		$fields_string='';
 		$headers = array("Content-Type: multipart/form-data");
 
@@ -166,9 +166,9 @@ class DocumentController extends Controller
 		$id=$dI;
 		$format='doc';
 		$realUserName=$rN;
-		$saveurl='http://srprog-fall13-01.cs.fiu.edu/JobFair/userHomes/' . $uN . '/saveFiles/' . $dI .'.php';
+		$saveurl='http://'.Yii::app()->request->getServerName().'/JobFair/userHomes/' . $uN . '/saveFiles/' . $dI .'.php';
 		$fields_string='';
-		$content_url='http://srprog-fall13-01.cs.fiu.edu/JobFair/userHomes/' . $uN . '/saveFiles/' . $filename;
+		$content_url='http://'.Yii::app()->request->getServerName().'/JobFair/userHomes/' . $uN . '/saveFiles/' . $filename;
 	
 		/*
 		From the curl_setopt reference: 
@@ -510,7 +510,7 @@ class DocumentController extends Controller
 			<link href="/lcb-text-editor-test/Zoho/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 			<link href="/lcb-text-editor-test/Zoho/bootstrap/css/stylesheet.css" rel="stylesheet" media="screen">
 			<!-- <script src="http://code.jquery.com/jquery.js"></script> -->
-			<script src="http://srprog-fall13-01.cs.fiu.edu/JobFair/js/jquery-1.10.2.min.js"></script>
+			<script src="http://".Yii::app()->request->getServerName()."/JobFair/js/jquery-1.10.2.min.js"></script>
 			<script src="/lcb-text-editor-test/Zoho/bootstrap/js/bootstrap.min.js"></script>
 			<script src="/lcb-text-editor-test/Zoho/bootstrap/js/animations.js"></script>
 			<script>
@@ -589,7 +589,7 @@ class DocumentController extends Controller
 			});
 			$(function(){
 				$("#import_selected_document").click(function() {
-					self.location = "http://srprog-fall13-01.cs.fiu.edu/JobFair/protected/controllers/FileUpload.html";
+					self.location = "http://".Yii::app()->request->getServerName()."/JobFair/protected/controllers/FileUpload.html";
 				});
 			});			
 			$(function(){
@@ -602,14 +602,14 @@ class DocumentController extends Controller
 
 			<div id="open_document" width="48px" height="48px" style="position:relative;float:left;padding-right:10px;padding-left:10px;overflow:hidden;">
 				
-					<img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/open_normal.png" id="open_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/open_hover.png\'" onmouseout="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/open_normal.png\'" >
+					<img src="http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/open_normal.png" id="open_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/open_hover.png\'" onmouseout="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/open_normal.png\'" >
 				<center>
 					<br><br>open
 				</center>
 			</div>
 			<div id="import_document" width="48px" height="48px" style="position:relative;float:left;padding-right:10px;padding-left:10px;overflow:hidden;">
 
-					<img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/import_normal.png" id="import_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/import_hover.png\'" onmouseout="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/import_normal.png\'" >
+					<img src="http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/import_normal.png" id="import_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/import_hover.png\'" onmouseout="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/import_normal.png\'" >
 				<center>
 					<br><br style="font-size:8px;">import
 				</center>
@@ -617,7 +617,7 @@ class DocumentController extends Controller
 
 			<div id="export_document" width="48px" height="48px" style="position:relative;float:left;padding-right:10px;padding-left:10px;overflow:hidden;">
 
-					<img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/export_normal.png" id="export_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/export_hover.png\'" onmouseout="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/export_normal.png\'" >
+					<img src="http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/export_normal.png" id="export_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/export_hover.png\'" onmouseout="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/export_normal.png\'" >
 				<center>
 					<br><br style="font-size:8px;">export
 				</center>
@@ -625,7 +625,7 @@ class DocumentController extends Controller
 			
 			<div id="delete_document" width="48px" height="48px" style="position:relative;float:left;padding-right:10px;padding-left:10px;overflow:hidden;">
 
-					<img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/delete_normal.png" id="delete_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/delete_hover.png\'" onmouseout="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/delete_normal.png\'" >
+					<img src="http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/delete_normal.png" id="delete_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/delete_hover.png\'" onmouseout="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/delete_normal.png\'" >
 				<center>
 					<br><br style="font-size:8px;">delete
 				</center>
@@ -633,7 +633,7 @@ class DocumentController extends Controller
 				
 			<div id="rename_document" width="48px" height="48px" style="position:relative;float:left;padding-right:10px;padding-left:10px;overflow:hidden;">
 
-					<img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/rename_normal.png" id="rename_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/rename_hover.png\'" onmouseout="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/rename_normal.png\'" >
+					<img src="http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/rename_normal.png" id="rename_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/rename_hover.png\'" onmouseout="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/rename_normal.png\'" >
 				<center>
 					<br><br style="font-size:8px;">rename
 				</center>
@@ -641,7 +641,7 @@ class DocumentController extends Controller
 
 			<div id="cancel_document" width="48px" height="48px" style="position:relative;float:left;padding-right:10px;padding-left:10px;overflow:hidden;border-right:2px #6592A6 solid;">
 
-					<img src="http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/cancel_normal.png" id="cancel_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/cancel_hover.png\'" onmouseout="this.src=\'http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/cancel_normal.png\'" >
+					<img src="http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/cancel_normal.png" id="cancel_selected_document" alt="new" style="left:14px;cursor:pointer; "onmouseover="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/cancel_hover.png\'" onmouseout="this.src=\'http://".Yii::app()->request->getServerName()."/JobFair/images/imgs/cancel_normal.png\'" >
 				<center>
 					<br><br style="font-size:8px;">cancel
 				</center>
@@ -712,7 +712,7 @@ class DocumentController extends Controller
 						if ($document){
 							$real_document_name = $document->document_name;
 							//echo "<li> <a href='#' id='$entry' onclick='setSelected(\"$entry\")'> <i class='icon-file'> </i> "; echo " $real_document_name</a> </li> \n <br>";
-							echo "<li style=\"list-style-type: none;background: url('http://srprog-fall13-01.cs.fiu.edu/JobFair/images/imgs/doc.jpg') no-repeat top left;height: 32px;padding-left: 48px;padding-top: 4px;\"> <a href='#' id='$entry' onclick='setSelected(\"$entry\")'>  "; echo " $real_document_name</a> </li> \n <br>";
+							echo "<li style=\"list-style-type: none;background: url('http://'.Yii::app()->request->getServerName().'/JobFair/images/imgs/doc.jpg') no-repeat top left;height: 32px;padding-left: 48px;padding-top: 4px;\"> <a href='#' id='$entry' onclick='setSelected(\"$entry\")'>  "; echo " $real_document_name</a> </li> \n <br>";
 						}
 					}
 				}
