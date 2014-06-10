@@ -24,14 +24,10 @@ $rpp = 10; //results per page
 <script>
     function resetField()
     {
-        // Reset the page
-        window.location = "/JobFair/index.php/job/home";
-        // Reset fields ONLY
-        /* $('#type').val('');
-         $('#jobtitle').val('');
-         $('#companyname').val('');
-         $('#skillname').val(''); */
-
+        $('#type').val('');
+        $('#jobtitle').val('');
+        $('#companyname').val('');
+        $('#skillname').val('');
     }
 
 $(document).ready(function() {
@@ -63,7 +59,6 @@ function getURLParameter(name) {
 <br/><br/>
 <form method="GET" id="searchForm">
 <div>
-<!-- job type field -->
 <strong>Job Type:</strong>
 <?php CHtml::dropDownList("type",'', array(''=>'Any', 'Internship'=>'Internship', 'Full+Time'=>'Full Time', 'Part+Time'=>'Part Time',
                             'Co-op'=>'Co-op', 'Research'=>'Research'))?>
@@ -75,7 +70,6 @@ function getURLParameter(name) {
     <option value="Co-op">Co-op</option>
     <option value="Research">Research</option>
 </select>
-<!-- ttitle field -->
 <strong>Title:</strong>
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
      'name'=>'jobtitle',
@@ -83,7 +77,6 @@ function getURLParameter(name) {
      'source'=>Job::getJobTitle(),
      'value'=> $_GET['jobtitle'],
      'htmlOptions'=>array('value'=> $_GET['jobtitle'],),)); ?>
-<!-- company field -->
 <strong>Company:</strong>
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
     'name'=>'companyname',
@@ -91,7 +84,6 @@ function getURLParameter(name) {
 	'source'=>CompanyInfo::getCompanyNames(),
 	'value'=> $_GET['companyname'],
     'htmlOptions'=>array('value'=> $_GET['companyname'],),)); ?>
-<!-- skills field -->
 <strong>Skills:</strong>
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
      'name'=>'skillname',
@@ -99,6 +91,7 @@ function getURLParameter(name) {
      'source'=>Job::getJobBySkill(),
      'value'=> $_GET['skillname'],
      'htmlOptions'=>array('value'=> $_GET['skillname'],),)); ?>
+
 <!-- search button -->
 <?php $this->widget('bootstrap.widgets.TbButton', array(
 		    'label'=>'Search',
@@ -160,10 +153,10 @@ function getURLParameter(name) {
         </div>
     <?php }
     else {?>
-<!-- ******* Job Postings from Job Page *******  -->
+<!-- ******* Search Results from Job Page *******  -->
   <div class="pages">
     <?php if ($jobs != null & sizeof($jobs) > 0) {?>
-    Job Postings Page:
+    Page:
     <?php for ($i = 0; $i < $pages; $i ++) {?>
     <a class="pageclick"<?php if ($i == 0) echo "id='firstpage'"; ?>> <?php echo $i + 1;?></a>
     <?php }?>
