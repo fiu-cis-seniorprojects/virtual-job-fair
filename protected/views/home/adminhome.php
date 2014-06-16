@@ -1,9 +1,17 @@
 <br>
 <br>
-<script>
+<script language="JavaScript">
     function toggleNotifications(check)
     {
-        var val = $("#tn_value").val();
+        var val = $('#myonoffswitch').val();
+        if(val == '1')
+        {
+            $('#myonoffswitch').val('0');
+        }
+        else
+        {
+            $('#myonoffswitch').val('1');
+        }
         var action = 'togglematchnotifications';
         if(check)
         {
@@ -13,15 +21,15 @@
             data = JSON.parse(data);
             if(data["status"] == '0')
             {
-                $("#toggleNotifications").addClass('btn btn-danger').removeClass('btn btn-success');
+                $("#myonoffswitch").prop('checked', false);
             }
             else
             {
-                $("#toggleNotifications").addClass('btn btn-success').removeClass('btn btn-danger');
+                $("#myonoffswitch").prop('checked', true);
             }
             $("#user_lastmodified").html(data["username"]);
             $("#user_lastmodifieddate").html(data["last_modified"]);
-            $("#tn_value").val(data["status"]);
+            $("#myonoffswitch").val(data["status"]);
         });
         setTimeout("toggleNotifications(1)", 30000);
     }
@@ -123,32 +131,29 @@ if ($results1 != NULL)
 
 <div id="adminTools">
 
-    <h1>ToolBox:</h1>
+    <h1>Settings:</h1><br/>
     <?php
         if(isset($matchnotification))
         {
-            $class = 'btn btn-success';
             $value = intval($matchnotification['status']);
-            if($value == 0)
+            $checked = "";
+            if($value == 1)
             {
-                $class = 'btn btn-danger';
+                $checked = "checked";
             }
-            echo CHtml::button("Match Notification Status", array(
-                'type'=>'submit',
-                'id'=>'toggleNotifications',
-                'class'=>$class,
-                'onclick'=>'toggleNotifications()'
-            ));
-
-            echo CHtml::button("", array(
-                'type'=>'hidden',
-                'id'=>'tn_value',
-                'class'=>'btn btn-success',
-                'onclick'=>'toggleNotifications()',
-                'value'=>$value,
-            ));
         }
-    ?><br/>Last Modified by: <span id="user_lastmodified"><?php if(isset($matchnotification)){ echo $matchnotification['username']; } ?></span><br/>
+    ?>
+    <div style="overflow: hidden;">
+        <div style="float: left;">Match Email Notifications:</div>
+        <div style="margin-left: 150px;" class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $value; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleNotifications()">
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+    </div>
+    Last Modified by: <span id="user_lastmodified"><?php if(isset($matchnotification)){ echo $matchnotification['username']; } ?></span><br/>
     Last Modified Date: <span id="user_lastmodifieddate"><?php if(isset($matchnotification)){ echo $matchnotification['date_modified']; } ?></span><br/>
 
 </div>

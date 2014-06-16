@@ -153,7 +153,10 @@ class SiteController extends Controller
 			$hasher = new PasswordHash(8, false);
 			$model->password = $hasher->HashPassword($password);
 			$model->save(false);
-			User::sendEmailWithNewPassword($email, $password, $model->username);
+            $link = CHtml::link('here', 'http://'. Yii::app()->request->getServerName()  . '/JobFair/' );
+            $message = '<br/>Username: '. $model->username .'<br/>Password: '. $password . '<br/>Login: '. $link;
+            User::sendEmail($email, "Your new password", "Your password has been reset", $message);
+			//User::sendEmailWithNewPassword($email, $password, $model->username);
 			$error = 'Email has been sent';
 			$this->render('forgotPassword', array('error'=>$error));
 			return;
