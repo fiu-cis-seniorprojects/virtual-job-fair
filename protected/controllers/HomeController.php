@@ -543,7 +543,8 @@ class HomeController extends Controller
 		$message = "$username just accepted your interview invitation.";
 		$recive = User::model()->findByPk($modle->sender_id);
 		//$html = User::replaceMessage($recive->username, $message);
-		User::sendEmailEmployerAcceptingInterviewNotificationAlart($recive->email, $recive->username, $username, $message);
+        User::sendEmail($recive->email, "Virtual Job Fair", "Interview Schedule Accepted", $message);
+		//User::sendEmailEmployerAcceptingInterviewNotificationAlart($recive->email, $recive->username, $username, $message);
 		if ($user->FK_usertype == 1)
 		$this->redirect("/JobFair/index.php/home/studenthome");
 		else 

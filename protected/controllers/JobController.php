@@ -219,7 +219,8 @@ class JobController extends Controller
 		$message1 = "$user->username just applied for your job $job->title<br/>$link1";
 		$html = User::replaceMessage($poster->username, $message1);
 		User::sendEmployerNotificationAlart($user->id, $job->FK_poster, $message, $link, 3);
-		User::sendEmailNotificationAlart($poster->email, $poster->username, $user->username ,$html);
+        User::sendEmail($poster->email, "Virtual Job Fair Application Submitted", "New Application Submitted", $message1);
+		//User::sendEmailNotificationAlart($poster->email, $poster->username, $user->username ,$message1);
 		$this->redirect("/JobFair/index.php/Job/View/jobid/" . $jobid);
 		
 	}
@@ -406,8 +407,9 @@ class JobController extends Controller
 			//SENT EMAIL NOTIFICATION	
 			$link1= CHtml::link('click here to see '.$job->title.' page', 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/job/view/jobid/' . $jobid);
 			$message1 =  User::getCurrentUser()->username." is interested in you for the following job post:  " .$job->title."<br/>$link1";
-			$html = User::replaceMessage($student->username, $message1);
-			User::sendEmailStudentNotificationVirtualHandshakeAlart($student->email, $student->username, User::getCurrentUser()->username ,$html);
+			//$html = User::replaceMessage($student->username, $message1);
+            User::sendEmail($student->email, "A handshake from Virtual Job Fair", "Handshake Notification", $message1);
+			//User::sendEmailStudentNotificationVirtualHandshakeAlart($student->email, $student->username, User::getCurrentUser()->username ,$message1);
 		}
 
 		return;

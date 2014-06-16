@@ -173,13 +173,25 @@ class User extends CActiveRecord
     {
         $mail = new YiiMailer();
         $mail->IsSMTP();
-        $mail->Host = 'smtp.cs.fiu.edu';
-        $mail->Port = 25;
-        $mail->SMTPAuth = false;
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 587;
+        $mail->SMTPSecure= 'tls';
+        $mail->SMTPAuth = true;
+        $mail->Username = "tacostae";
+        $mail->Password = 'M0n!t0$L!nd0$';
         $mail->setView('contact');
         $mail->setLayout('mail');
         $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
         return $mail;
+//        $mail = new YiiMailer();
+//        $mail->IsSMTP();
+//        $mail->Host = 'smtp.cs.fiu.edu';
+//        $mail->Port = 25;
+//        $mail->SMTPAuth = false;
+//        $mail->setView('contact');
+//        $mail->setLayout('mail');
+//        $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
+//        return $mail;
     }
 
     public static function sendEmail($to, $subject, $email_description, $message)
@@ -193,76 +205,76 @@ class User extends CActiveRecord
         $email->send();
     }
     
-    public function sendVerificationEmail() {
-        $link = CHtml::link('click here', 'http://'.Yii::app()->request->getServerName() . '/JobFair/index.php/user/VerifyEmail?username=' . $this->username
-            . '&activation_string=' . $this->activation_string);
-        $address = $this->email;
-        $email = self::constructEmailObject();
-        $email->setData(array('message' => 'You need to verify your account before logging in.  Use this '. $link .' to verify your account.',
-                            'name' => 'Virtual Job Fair',
-                            'description' => 'Verify Account'));
-        $email->setTo($address);
-        $email->setSubject('Verify your account on Virtual Job Fair');
-        $email->send();
-    }
+//    public function sendVerificationEmail() {
+//        $link = CHtml::link('click here', 'http://'.Yii::app()->request->getServerName() . '/JobFair/index.php/user/VerifyEmail?username=' . $this->username
+//            . '&activation_string=' . $this->activation_string);
+//        $address = $this->email;
+//        $email = self::constructEmailObject();
+//        $email->setData(array('message' => 'You need to verify your account before logging in.  Use this '. $link .' to verify your account.',
+//                            'name' => 'Virtual Job Fair',
+//                            'description' => 'Verify Account'));
+//        $email->setTo($address);
+//        $email->setSubject('Verify your account on Virtual Job Fair');
+//        $email->send();
+//    }
     
-	public static function sendEmailWithNewPassword($address, $password, $username) {
-    	$email = self::constructEmailObject();
-    	$link = CHtml::link('here', 'http://'. Yii::app()->request->getServerName()  . '/JobFair/' );
-    	$email->setTo($address);
-    	$email->setSubject('Your new password');
-        $email->setData(array('message' => '<br/>Username: '. $username .'<br/>Password: '. $password . '<br/>Login: '. $link,
-            'name' => 'Virtual Job Fair',
-            'description' => 'Password Reset'));
-    	$email->send();
-    }
-    
-	public static function sendEmployerVerificationEmail($to) {
-        $modle = User::model()->findByPk($to);
-        $link= CHtml::link('here', 'http://'.Yii::app()->request->getServerName().'/JobFair/');
-        $message = "Your account has just been activated. Click $link to login";
-        $email = self::constructEmailObject();
-        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Account has been activated'));
-        $email->setTo($modle->email);
-        $email->setSubject("Account activated on Virtual Job Fair");
-        $email->send();
-    }
+//	public static function sendEmailWithNewPassword($address, $password, $username) {
+//    	$email = self::constructEmailObject();
+//    	$link = CHtml::link('here', 'http://'. Yii::app()->request->getServerName()  . '/JobFair/' );
+//    	$email->setTo($address);
+//    	$email->setSubject('Your new password');
+//        $email->setData(array('message' => '<br/>Username: '. $username .'<br/>Password: '. $password . '<br/>Login: '. $link,
+//            'name' => 'Virtual Job Fair',
+//            'description' => 'Password Reset'));
+//    	$email->send();
+//    }
+//
+//	public static function sendEmployerVerificationEmail($to) {
+//        $modle = User::model()->findByPk($to);
+//        $link= CHtml::link('here', 'http://'.Yii::app()->request->getServerName().'/JobFair/');
+//        $message = "Your account has just been activated. Click $link to login";
+//        $email = self::constructEmailObject();
+//        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Account has been activated'));
+//        $email->setTo($modle->email);
+//        $email->setSubject("Account activated on Virtual Job Fair");
+//        $email->send();
+//    }
 
-    public static function sendEmailNotificationAlart($address, $to, $from, $message) {
-    	$email = self::constructEmailObject();
-        $email->setTo($address);
-        $email->setSubject("Virtual Job Fair Application Submitted");
-        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'New Application Submitted'));
-        $email->send();
-    }
+//    public static function sendEmailNotificationAlart($address, $to, $from, $message) {
+//    	$email = self::constructEmailObject();
+//        $email->setTo($address);
+//        $email->setSubject("Virtual Job Fair Application Submitted");
+//        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'New Application Submitted'));
+//        $email->send();
+//    }
+//
+//
+//    public static function sendEmailMessageNotificationAlart($address, $to, $from, $message) {
+//        $email = self::constructEmailObject();
+//        $email->setTo($address);
+//        $email->setSubject("Virtual Job Fair Message");
+//        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Message from Virtual Job Fair'));
+//        //$email->setBody($message);
+//        $email->send();
+//    }
     
+//    public static function sendEmailEmployerAcceptingInterviewNotificationAlart($address, $to, $from, $message) {
+//    	$email = self::constructEmailObject();
+//        $email->setTo($address);
+//        $email->setSubject("Your interview schedule was accepted");
+//        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Interview Schedule Accepted'));
+//        //$email->setBody($message);
+//        $email->send();
+//    }
     
-    public static function sendEmailMessageNotificationAlart($address, $to, $from, $message) {
-        $email = self::constructEmailObject();
-        $email->setTo($address);
-        $email->setSubject("Virtual Job Fair Message");
-        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Message from Virtual Job Fair'));
-        //$email->setBody($message);
-        $email->send();
-    }
-    
-    public static function sendEmailEmployerAcceptingInterviewNotificationAlart($address, $to, $from, $message) {
-    	$email = self::constructEmailObject();
-        $email->setTo($address);
-        $email->setSubject("Your interview schedule was accepted");
-        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Interview Schedule Accepted'));
-        //$email->setBody($message);
-        $email->send();
-    }
-    
-    public static function sendEmailStudentNotificationVirtualHandshakeAlart($address, $to, $from, $message) {
-        $email = self::constructEmailObject();
-        $email->setTo($address);
-        $email->setSubject("A handshake from Virtual Job Fair");
-        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Handshake Notification'));
-        //$email->setBody($message);
-        $email->send();
-    }
+//    public static function sendEmailStudentNotificationVirtualHandshakeAlart($address, $to, $from, $message) {
+//        $email = self::constructEmailObject();
+//        $email->setTo($address);
+//        $email->setSubject("A handshake from Virtual Job Fair");
+//        $email->setData(array('message' => $message, 'name' => 'Virtual Job Fair', 'description' => 'Handshake Notification'));
+//        //$email->setBody($message);
+//        $email->send();
+//    }
     
     
     public function isAStudent(){

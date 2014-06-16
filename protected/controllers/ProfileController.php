@@ -176,11 +176,6 @@ class ProfileController extends Controller
 	}
 	
 	public function actionUploadImage() {
-
-		
-
-
-		
 		$username = Yii::app()->user->name;
 		//Yii::log("the user name is".$username, CLogger::LEVEL_ERROR, 'application.controller.Prof');
 		
@@ -404,8 +399,13 @@ class ProfileController extends Controller
 		if (!$model->activated || $model->disable){
             if (isset($_GET["activation"]))
             {
-                User::activeEmployer($_GET["activation"]);
-                User::sendEmployerVerificationEmail($_GET["activation"]);
+                $activation_id = intval($_GET["activation"]);
+                User::activeEmployer($activation_id);
+                $modle = User::model()->findByPk($activation_id);
+                $link= CHtml::link('here', 'http://'.Yii::app()->request->getServerName().'/JobFair/');
+                $message = "Your account has just been activated. Click $link to login";
+                User::sendEmail($modle->email, "Virtual Job Fair", "Account Activated", $message);
+                //User::sendEmployerVerificationEmail($_GET["activation"]);
             }
 			$this->render('userInvalid');
 		} else {

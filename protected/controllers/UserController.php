@@ -142,8 +142,11 @@ class UserController extends Controller
 		} else {
 			$user = User::model()->find("email=:email",array(':email'=>$email));
 		}
-		
-		$user->sendVerificationEmail();
+        $link = CHtml::link('click here', 'http://'.Yii::app()->request->getServerName() . '/JobFair/index.php/user/VerifyEmail?username=' . $user->username
+            . '&activation_string=' . $user->activation_string);
+        $message = 'You need to verify your account before logging in.  Use this '. $link .' to verify your account.';
+        $user->sendEmail($user->email, 'Verify your account on Virtual Job Fair', 'Verify Account', $message);
+		//$user->sendVerificationEmail();
 		$this->redirect('/JobFair/index.php/site/page?view=verification');
 	}
 	
@@ -198,16 +201,9 @@ class UserController extends Controller
 				Yii::log("checks", CLogger::LEVEL_ERROR, 'application.controller.Prof');
 				$basicInfo->phone = NULL;
 			}
-				
-			
 			$basicInfo->save(false);
-
-			//Send the verification email
-			//$model->sendVerificationEmail();
-
 			$this->actionSendVerificationEmail($model->email);
 			return;
-			
 		}
 		$error = '';
 		$this->render('StudentRegister',array('model'=>$model, 'error' => $error));
