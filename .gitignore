@@ -4,3 +4,4 @@ assets/
 protected/runtime/application.log
 *.sh
 *.bak
+
