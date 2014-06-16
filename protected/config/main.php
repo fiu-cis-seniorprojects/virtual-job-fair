@@ -62,14 +62,15 @@ return array(
 			'urlFormat'=>'path',
 			'rules'=>array(
 
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-
                 // REST API PATTERNS
-                array('api/list', 'pattern'=>'api/<key:\w+>/<range:\d+>', 'verb'=>'GET'),
+                array('api/postings', 'pattern'=>'api/<key:\w+>/<range:\d+>', 'verb'=>'POST'),
 
-                // END REST API PATTERNS
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                //
+                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+
+
 			),
 		),
 		'email'=>array(

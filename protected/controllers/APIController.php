@@ -12,7 +12,15 @@ class APIController extends Controller
     public function actionList()
     {
         // validate API key
-        $key = $_GET['key'];
+        if (isset($_GET['key']))
+        {
+            $key = $_GET['key'];
+        }
+        else
+        {
+            $this->_sendResponse(500, 'Error: Parameter <b>key</b> is missing');
+            Yii::app()->end();
+        }
 
         // this should be done against DB
         if ($key !== $this->API_KEY)
@@ -38,9 +46,9 @@ class APIController extends Controller
         $end_date = new DateTime('now');
 
         // retrieve postings from DB that fall within specified date range
-        $postings = Job::model()->find('postdate >= :startdate AND postdate <= :enddate AND active=1',
-                                        array('startdate' => $start_date,
-                                                'enddate' => $end_date));
+        $postings = Job::model()->find('post_date >= :startdate AND post_date <= :enddate AND active=1',
+                                        array('startdate' => $start_date->format('Y-m-d H:i:s'),
+                                                'enddate' => $end_date->format('Y-m-d H:i:s')));
 
         // check if we got results
         if (empty($postings))
@@ -139,3 +147,24 @@ class APIController extends Controller
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
 }
+
+/*
+ * [
+   {
+      "ID":"http:\/\/cis.fiu.edu\/careerpath\/posting.php?id=205",
+      "PostedTime":"2014-03-10 13:33:42",
+      "ExpireTime":"07\/01\/2014",
+      "Company":"Fortytwo Sports",
+      "Position":"Lead Developer",
+      "URL":"http:\/\/www.fort42wo.com",
+      "PostingType":"Job",
+      "Background":"\u003Cp\u003EFortytwo Sports is a startup company that offers an online social networking service. Visit our website \u003Ca href=\"http:\/\/www.fort42wo.com\"\u003Ewww.fort42wo.com\u003C\/a\u003E for more information about the Lead Developer position and to play a quick brain teaser!\u003C\/p\u003E\r\n\r\n\u003Cp\u003E \u003C\/p\u003E\r\n",
+      "Description":"\u003Cp\u003EFortytwo Sports is looking for an exceptional lead developer who will drive the overall developmental process for new products. Our team will strive to use innovative technologies that change how millions of users connect, explore, and interact with information and one another. As the Lead Developer, you will be responsible for implementing front-end and back-end technologies for building a web\/mobile application. You will work with a small team and can switch projects as our fast-paced business grows and evolves. The ideal candidate will be a self-motivated, out-of-the-box thinker, with a ‘can-do, will do’ attitude with excellent communication skills and an ability to quickly ramp-up skills in new technologies. \u003C\/p\u003E\r\n\r\n\u003Cp\u003EAs a key member of a small and versatile team, you will design, test, deploy and maintain software solutions. Our ambitions reach far beyond a small startup company. You have the opportunity to become a principal member in a company looking to accomplish extraordinary measures.\u003C\/p\u003E\r\n",
+      "Duties":"\u003Cp\u003E• Lead the developmental process for building a web\/mobile application. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Develop aesthetically pleasing and responsive front-end interfaces. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Develop an optimized back-end codebase. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Design and improve an ever-expanding database. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Assist in building a developer team by recruiting talent.\u003C\/p\u003E\r\n",
+      "Qualifications":"\u003Cp\u003ECandidate should have at least 80% of the preferred qualifications listed below:\u003C\/p\u003E\r\n\r\n\u003Cul\u003E\r\n\t\u003Cli\u003EPursuing or accomplished a BS in Computer Science or related field. \u003C\/li\u003E\r\n\t\u003Cli\u003EFluent in front-end technologies such as HTML, CSS, and Javascript (w\/jQuery) with an interest in user interface design. \u003C\/li\u003E\r\n\t\u003Cli\u003EKnowledgeable in back-end\/server technologies such as C\/C++, Java and\/or Apache\/Apache Tomcat. \u003C\/li\u003E\r\n\t\u003Cli\u003EBasic knowledge in PostgreSQL, GIT, and Agile is a plus. \u003C\/li\u003E\r\n\t\u003Cli\u003EStrong written and oral communication skills. \u003C\/li\u003E\r\n\u003C\/ul\u003E\r\n",
+      "Email":"jobs@fort42wo.com",
+      "PostedBy":"Roberto Guzman, From: Fortytwo Sports (Start Up)",
+      "Format":"2"
+   }
+]
+ */

@@ -141,7 +141,7 @@ class HomeController extends Controller
 	{
 		return array(
 				array('allow',  // allow authenticated users to perform these actions
-						'actions'=>array('StudentHome', 'MergeSkills', 'AddSkill', 'EmployerHome', 'Search', 'Search2','Employersearch', 'New', 'Hello', 'AdminHome', 'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob', 'DeleteNotification', 'AcceptNotificationSchedualInterview'),
+						'actions'=>array('StudentHome', 'MergeSkills', 'AddSkill', 'EmployerHome', 'Search', 'Search2','Employersearch', 'New', 'Hello', 'AdminHome', 'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob', 'DeleteNotification', 'AcceptNotificationSchedualInterview', 'CareerPathSync'),
 						'users'=>array('@')),
 				array('deny', //deny all users anything not specified
 						'users'=>array('*'),
@@ -622,4 +622,56 @@ class HomeController extends Controller
 		$skill2->delete();
 		$this->redirect("/JobFair/index.php/home/adminhome");
 	}
+
+
+    // synchronize with the careerpath API
+    public function actionCareerPathSync()
+    {
+        // using test URL retrieve mock json objects
+        // here I would request a date range, since this script runs daily as a cron job
+        //
+        $request = Yii::app()->curl->run('http://www.json-generator.com/api/json/get/cmztbPLWCq?indent=2');
+
+        $job_postings = CJSON::decode($request->getData());
+
+        // keep track of new jobs
+        $new_jobs_count = 0;
+
+        // check each object to see if it has been posted already:
+        // criteria for duplicate jobs:
+        // - same title, description and expiration date
+        foreach ($job_postings as $job_posting)
+        {
+            // dissect job posting information
+            $jp_id = $job_posting['ID'];
+            $jp_postedTime = $job_posting['PostedTime'];
+            $jp_expireTime = $job_posting['ExpireTime'];
+            $jp_company = $job_posting['Company'];
+            $jp_position = $job_posting['Position'];
+            $jp_company_url = $job_posting['URL'];
+            $jp_company_background = $job_posting['Background'];
+            $jp_company_description = $job_posting['Description'];
+            $jp_duties = $job_posting['Duties'];
+            $jp_qualifications = $job_posting['Qualifications'];
+            $jp_company_email = $job_posting['Email'];
+            $jp_posted_by = $job_posting['PostedBy'];
+            $jp_posting_format = $job_posting['Format'];
+
+            // no duplicates found, add job posting to database!
+            // NEED SCHEMA VERIFICATION
+            /*
+            $new_job_posting = new Job();
+            $new_job_posting->FK_poster = null; // need an account
+            $new_job_posting->post_date = $jp_postedTime;
+            $new_job_posting->title = $jp_position;
+            $new_job_posting->deadline = date('Y-m-d H:i:s', $jp_expireTime);
+            $new_job_posting->description = $jp_description;
+            $new_job_posting->type = $jp_jobtype;
+            $new_job_posting->compensation = $jp_compensation;
+            $new_job_posting->save(false);
+            $new_jobs_count++;
+            */
+        }
+        echo 'Success!';
+    }
 }

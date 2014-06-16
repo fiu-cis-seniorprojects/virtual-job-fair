@@ -26,7 +26,30 @@
        setTimeout("toggleNotifications(1)", 30000);
     }
 
+    function careerPathSync()
+    {
+        $.get("/JobFair/index.php/home/careerpathsync", null, function(data){
+            alert(data);
+        });
+    }
+
+
 </script>
+<div id="adminSearchBox">
+
+    <?php
+    echo '<br/>';
+    echo CHtml::button("Synchronize with CareerPath", array(
+        'type'=>'submit',
+        'id'=>'carrerPathAPISync',
+        'class'=>'btn btn-success',
+        'onclick'=>'careerPathSync()',
+    ));
+    echo '<br/>';
+    ?>
+</div>
+
+
 <div id="adminSearchbox"> 
 <h1> Search for User or Job</h1>
 
@@ -121,13 +144,16 @@ if ($results1 != NULL)
 
 </div>
 
+
 <div id="adminTools">
 
     <h1>ToolBox:</h1>
     <?php
+        $class = 'btn btn-success';
+
         if(isset($matchnotification))
         {
-            $class = 'btn btn-success';
+
             $value = intval($matchnotification['status']);
             if($value == 0)
             {
@@ -150,8 +176,9 @@ if ($results1 != NULL)
         }
     ?><br/>Last Modified by: <span id="user_lastmodified"><?php if(isset($matchnotification)){ echo $matchnotification['username']; } ?></span><br/>
     Last Modified Date: <span id="user_lastmodifieddate"><?php if(isset($matchnotification)){ echo $matchnotification['date_modified']; } ?></span><br/>
-
+    <br/>
 </div>
+
 
 <div id="adminNotification">
 
@@ -164,4 +191,3 @@ if ($results1 != NULL)
 <?php }?>
 
 </div>
-
