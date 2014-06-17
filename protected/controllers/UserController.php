@@ -643,6 +643,19 @@ class UserController extends Controller
 	{
 		$this->render('auth1');
 	}
+
+    public function actionToggleEmailMatch()
+    {
+        if(isset($_GET['value']))
+        {
+            $val = intval($_GET['value']);
+            $val = ($val == 0) ? 1 : 0;
+            $current_user = User::getCurrentUser();
+            $current_user->job_notification = $val;
+            $current_user->save(false);
+            echo json_encode(Array("status"=>$val));
+        }
+    }
 	
 
 	// Uncomment the following methods and override them if needed
