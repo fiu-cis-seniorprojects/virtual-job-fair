@@ -198,6 +198,32 @@ function uploadvideo(){
 	}
 
 }
+
+    function toggleJobMatching(){
+        var val = $('#myonoffswitch').val();
+        if(val == '1')
+        {
+            $('#myonoffswitch').val('0');
+        }
+        else
+        {
+            $('#myonoffswitch').val('1');
+        }
+        $.get("/JobFair/index.php/user/toggleEmailMatch", {"value": val}, function(data){
+            data = JSON.parse(data);
+            if(data["status"] == '0')
+            {
+                $("#myonoffswitch").prop('checked', false);
+            }
+            else
+            {
+                $("#myonoffswitch").prop('checked', true);
+            }
+            $("#user_lastmodified").html(data["username"]);
+            $("#user_lastmodifieddate").html(data["last_modified"]);
+            $("#myonoffswitch").val(data["status"]);
+        });
+    }
 </script>
 
 
@@ -269,6 +295,29 @@ function uploadvideo(){
 <div style="clear:both"></div>
 
 <div id="menutools">
+    <div class="titlebox">SETTINGS</div><br><br>
+    <?php
+        $checked = '';
+        $job_notif = null;
+        if(isset($user['job_notification']))
+        {
+            $job_notif = $user->job_notification;
+            if($user->job_notification == '1')
+            {
+                $checked = 'checked';
+            }
+        }
+    ?>
+    <div style="overflow: hidden;">
+        <div style="float: left;">Email Job Matches:</div>
+        <div style="margin-left: 120px;" class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleJobMatching()">
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+    </div><hr>
 <div class="titlebox">DOCUMENTS</div><br><br>
 <p><a href="#" id="editResume" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadresume()"/></a></p>
 
