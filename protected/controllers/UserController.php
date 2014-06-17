@@ -230,9 +230,9 @@ class UserController extends Controller
 		if (User::model()->find("username=:username",array(':username'=>$username))) {
 			$error .= "Username is taken<br />";
 		}
-		if (User::model()->find("email=:email",array(':email'=>$email))) {
+		/*if (User::model()->find("email=:email",array(':email'=>$email))) {
 			$error .= "Email is taken<br />";
-		}
+		}*/
 		if ($password != $password2) {
 			$error .= "Passwords do not match<br />";
 		}
@@ -242,7 +242,7 @@ class UserController extends Controller
 		if (!$this->check_email_address($email)){
 			$error .= "Email is not correct format<br />";
 		}
-		
+
 		print $error;
 		return $error;
 	}
@@ -642,6 +642,36 @@ class UserController extends Controller
 			$this->render('ChangeFirstPassword',array('model'=>$model, 'error' => $error));
 		}
 	}
+    public function actionMergeAccounts() {
+
+        $model = User::getCurrentUser();
+        $error = '';
+        if(isset($_POST['User'])) {
+            $pass = 'tester';
+            $p1 = $_POST['User']['Email'];
+            $p2 = $_POST['User']['password'];
+            //verify old password
+            $username = Yii::app()->user->name;
+            $hasher = new PasswordHash(8, false);
+            $login = new LoginForm;
+            $login->username = $username;
+            $login->password = $pass;
+
+            if ($p1 == $p2) {
+                //Hash the password before storing it into the database
+                $hasher = new PasswordHash(8, false);
+                $user = User::getCurrentUser();
+                $user->password = $hasher->HashPassword($p1);
+                $user->save(false);
+                $this->redirect("/JobFair/index.php/home/studenthome");
+            } else {
+                $error = "Passwords do not match.";
+                $this->render('MergeAccounts',array('model'=>$model, 'error' => $error));
+            }
+        } else {
+            $this->render('MergeAccounts',array('model'=>$model, 'error' => $error));
+        }
+    }
 	
 	public function actionAuth1()
 	{
