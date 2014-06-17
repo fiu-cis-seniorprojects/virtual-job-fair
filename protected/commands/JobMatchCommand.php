@@ -31,13 +31,12 @@ class JobMatchCommand extends CConsoleCommand {
             foreach($jobs as $job)
             {
                 $message = "";
-                $job_poster_id = $job->FK_poster;
-                $job_poster_info = User::model()->findByPk($job_poster_id);
-//                if(!$job_poster_info->job_notification)
-//                {
-//                    echo "[*] User $job_poster_info->username has notifications OFF\n";
-//                    continue;
-//                }
+                $job_poster_info = User::model()->findByPk($job->FK_poster);
+                if(!$job_poster_info->job_notification)
+                {
+                    echo "[*] Employer $job_poster_info->username has notifications OFF\n";
+                    continue;
+                }
                 $job_poster_email = $job_poster_info->email;
                 echo "\n[*] Working on jobid $job->id : $job->title\n";
                 $results = Yii::app()->jobmatch->getJobStudentsMatch($job->id);
@@ -49,14 +48,15 @@ class JobMatchCommand extends CConsoleCommand {
                 $message .= "The following students matched this job posting:<br/>";
                 foreach($results as $student)
                 {
-                    $message .= "$student->first_name $student->last_name : $student->email<br/>";
+                    $rating = number_format($student->skillrating, 2, '.', '');
+                    $message .= "$student->first_name $student->last_name | $rating | $student->email<br/>";
                 }
                 echo $this->replaceTags($message);
                 echo "[*] Sending email to $job_poster_email\n";
-                //User::sendEmail($job_poster_email, "Virtual Job Fair | Job Matches", "Job Matches for $job->title", $message);
+                User::sendEmail($job_poster_email, "Virtual Job Fair | Job Matches", "Job Matches for $job->title", $message);
             }
             $students = User::model()->findAll("FK_usertype = 1 AND job_notification = 1");
-            echo "\n::::::::::::::::::::\n[*] Matching jobs for students.";
+            echo "\n::::::::::::::::::::\n[*] Matching jobs for students.\n";
             foreach($students as $st)
             {
                 $message = "";
@@ -69,7 +69,7 @@ class JobMatchCommand extends CConsoleCommand {
                         $message .= "$j->title : $j->post_date<br/>";
                     }
                     echo "[*] Sending email to $st->email\n";
-                    User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Job Matches for $job->title", $message);
+                    User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
                 }
             }
             return 0;

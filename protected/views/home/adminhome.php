@@ -144,8 +144,8 @@ if ($results1 != NULL)
         }
     ?>
     <div style="overflow: hidden;">
-        <div style="float: left;">Match Email Notifications:</div>
-        <div style="margin-left: 150px;" class="onoffswitch">
+        <div style="float: left;">Job Match Notifications Status:</div>
+        <div style="margin-left: 180px;" class="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $value; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleNotifications()">
             <label class="onoffswitch-label" for="myonoffswitch">
                 <span class="onoffswitch-inner"></span>
