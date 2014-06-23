@@ -493,7 +493,8 @@ class ProfileController extends Controller
 		if (!isset($_SESSION))
 			session_start();
 
-        //edit by Manuel making the link dynamic, using Yii
+        //edit by Manuel making the link dynamic, using Yii. and changing how the account will be link so if the student
+        //decide to login with his linkedIn account it will be taken to the account that it is link to.
 		$config['base_url']             =   'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/auth.php';
 		$config['callback_url']         =   'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/demo';
 		$config['linkedin_access']      =   '2rtmn93gu2m4';
@@ -526,19 +527,22 @@ class ProfileController extends Controller
 	   $xml_response = $linkedin->getProfile("~:(id,first-name,last-name,headline,picture-url,industry,email-address,languages,phone-numbers,skills,educations,location:(name),positions,picture-urls::(original))");
 	   $data = simplexml_load_string($xml_response);
 	   
-	   //print "<pre>"; print_r($xml_response);print "</pre>";
+	  // print "<pre>"; print_r($xml_response);print "</pre>";
 	   
 	   //print "<pre>"; print_r($data->{'picture-urls'}->{'picture-url'}[0]);print "</pre>";
+       // print "<pre>"; print_r($data->{'id'});print "</pre>";
 	   
 	   //return;
-	   
+
+
 	   // get username
 	   $username = Yii::app()->user->name;
 	   $user = User::model()->find("username=:username",array(':username'=>$username));
 	   $user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
+       $user->linkedinid = $data->{'id'};
 	   $user->save(false);
 	   $user_id = $user->id;
-	  
+
 	    
 	   // ------------------BASIC INFO---------------
 	   $basic_info = null;
@@ -732,7 +736,22 @@ class ProfileController extends Controller
 		{
 			$this->redirect($authUrl);
 		}
-		else // user logged in succesfully to google, now check if we register or login to JobFair
+
+            //link google account to the current one
+        $currentUser = User::getCurrentUser();
+        if (($currentUser != null) && ($currentUser->FK_usertype == 1))
+        {
+        $username = Yii::app()->user->name;
+        $userLink = User::model()->find("username=:username",array(':username'=>$username));
+        //$user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
+        $userLink->googleid = $user_id;
+        $userLink->save(false);
+
+        $this->redirect('/JobFair/index.php/profile/view');
+
+        }
+
+        else // user logged in succesfully to google, now check if we register or login to JobFair, link
 		{
 
 		
@@ -825,7 +844,21 @@ class ProfileController extends Controller
 				// *** Model marker begin ***
 					$fiuCsUser = $fiucsauth->getUserInfo();
 					//$fiucsauth->debug($fiuCsUser['email'] . "@fiu.edu");
-					
+
+
+                    $currentUser = User::getCurrentUser();
+                    if (($currentUser != null) && ($currentUser->FK_usertype == 1))
+                    {
+                        $username = Yii::app()->user->name;
+                        $userLink = User::model()->find("username=:username",array(':username'=>$username));
+                        //$user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
+                        $userLink->fiucsid = $fiuCsUser['id'];
+                        $userLink->save(false);
+
+                        $this->redirect('/JobFair/index.php/profile/view');
+
+                    }
+
 					$userExists = User::model()->findByAttributes(array('fiucsid'=>$fiuCsUser["id"]));
 					// if user exists with fiucsseniorid, login
 					if ($userExists != null) {
@@ -1035,5 +1068,6 @@ class ProfileController extends Controller
 		}
 
 	}
+
 	
 }
