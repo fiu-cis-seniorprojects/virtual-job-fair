@@ -644,12 +644,26 @@ opacity: 1.5;
     font-size:12px;
     background-color: transparent;
     border-color: rgb(0,0,0);
+}
 
+#adminAPITools{
+    margin-top:5px;
+    float: left;
+    width:600px;
+    min-height:200px;
+    padding:5px;
+    border-width: 1px;
+    border-color:white;
+    border-style:solid;
+    border-radius: 5px 5px 5px 5px;
 
+    font-size:12px;
+    background-color: transparent;
+    border-color: rgb(0,0,0);
 }
 
 #adminSearchbox{
-	margin-top:5px;   
+	margin-top:5px;
  	float: left;
     width:600px;
 	min-height:200px;
@@ -1959,7 +1973,5 @@ padding-left: 40px;
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px;
 }
-
-
 
 
