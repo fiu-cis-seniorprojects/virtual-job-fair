@@ -157,10 +157,6 @@ class JobController extends Controller
 
 	}
 	
-	
-	
-	
-	
 	public function actionSaveSkills($jobid){
 		$skills = $_POST['Skill'];
 		//first wipe out the jobs skills

@@ -14,6 +14,7 @@
  * @property string $compensation
  * @property string $other_requirements
  * @property integer $email_notification
+ * @property string $posting_url
  *
  * The followings are the available model relations:
  * @property Application[] $applications
@@ -106,7 +107,7 @@ class Job extends CActiveRecord
 			array('deadline, other_requirements', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, title, FK_poster, post_date, deadline, description, compensation, other_requirements, email_notification', 'safe', 'on'=>'search'),
+			array('id, type, title, FK_poster, post_date, deadline, description, compensation, other_requirements, email_notification, posting_url', 'safe', 'on'=>'search'),
 		);
 	}
 
