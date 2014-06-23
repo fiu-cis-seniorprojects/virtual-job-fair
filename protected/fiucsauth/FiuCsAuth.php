@@ -31,9 +31,9 @@
   <fieldset>
    <div class="box">
     <label>Panthermail</label>
-    <input type="text" name="panthermail" placeholder="jdoe001@fiu.edu">
+    <input type="text" name="panthermail" placeholder="example001@fiu.edu">
     <label>PantherId</label>
-    <input type="text" name="pantherid" placeholder="0123456">
+    <input type="text" name="pantherid" placeholder="PantherID">
     <span class="help-block">type in your credentials to login</span>
     <button type="submit" class="btn btn-block" name="submit" value="Submit">Submit</button>
    </div>
@@ -186,7 +186,8 @@ class FiuCsAuth
 	 * @return returns the array.
 	 */
   	public function getUserInfo(){
-    	return $this->userData;
+
+       return $this->userData;
     }
 }
 ?>

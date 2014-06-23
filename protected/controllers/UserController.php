@@ -230,9 +230,9 @@ class UserController extends Controller
 		if (User::model()->find("username=:username",array(':username'=>$username))) {
 			$error .= "Username is taken<br />";
 		}
-		/*if (User::model()->find("email=:email",array(':email'=>$email))) {
+		if (User::model()->find("email=:email",array(':email'=>$email))) {
 			$error .= "Email is taken<br />";
-		}*/
+		}
 		if ($password != $password2) {
 			$error .= "Passwords do not match<br />";
 		}
