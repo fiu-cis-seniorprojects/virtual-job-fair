@@ -380,7 +380,7 @@ making the links dynamic so if the base Url changed the program won not be affec
     if(($currentUser != null) && ($currentUser->linkedinid !=null))
         echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
     else{
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/wrogMark.ico','', array('width'=>30, 'height'=>30));
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
     }
 ?><br><br>
 
@@ -393,7 +393,7 @@ making the links dynamic so if the base Url changed the program won not be affec
     if(($currentUser != null) && ($currentUser->googleid !=null))
         echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
     else{
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/wrogMark.ico','', array('width'=>30, 'height'=>30));
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
     }
 ?><br><br>
 
@@ -406,7 +406,7 @@ making the links dynamic so if the base Url changed the program won not be affec
     if(($currentUser != null) && ($currentUser->fiucsid !=null))
         echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
     else{
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/wrogMark.ico','', array('width'=>30, 'height'=>30));
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
     }
 ?><br><br>
 
@@ -415,7 +415,7 @@ making the links dynamic so if the base Url changed the program won not be affec
     echo CHtml::link($image, array('profile/fiuAuth'));
 
     $currentUser = User::getCurrentUser();
-    if(($currentUser != null) && ($currentUser->linkedinid !=null))
+    if(($currentUser != null) && ($currentUser->fiu_account_id !=null))
         echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
     else{
         echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
