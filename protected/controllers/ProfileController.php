@@ -852,7 +852,7 @@ class ProfileController extends Controller
                         $username = Yii::app()->user->name;
                         $userLink = User::model()->find("username=:username",array(':username'=>$username));
                         //$user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
-                        $userLink->fiucsid = $fiuCsUser['id'];
+                        $userLink->fiucsid  = $fiuCsUser['id'];
                         $userLink->save(false);
 
                         $this->redirect('/JobFair/index.php/profile/view');
