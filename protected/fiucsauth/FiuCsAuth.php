@@ -30,10 +30,10 @@
  <form method="post" action="">
   <fieldset>
    <div class="box">
-    <label>Panthermail</label>
+    <label>Panther Email</label>
     <input type="text" name="panthermail" placeholder="example001@fiu.edu">
-    <label>PantherId</label>
-    <input type="text" name="pantherid" placeholder="PantherID">
+    <label>Panther ID</label>
+    <input type="text" name="pantherid" placeholder="xxxxxxx">
     <span class="help-block">type in your credentials to login</span>
     <button type="submit" class="btn btn-block" name="submit" value="Submit">Submit</button>
    </div>
