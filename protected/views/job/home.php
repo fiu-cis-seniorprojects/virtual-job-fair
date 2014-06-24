@@ -19,7 +19,6 @@ if(isset($job))
 }
 
 $rpp = 10; //results per page
-
 ?>
 <script>
     function resetField()
@@ -75,7 +74,7 @@ function getURLParameter(name) {
     <option value="Co-op">Co-op</option>
     <option value="Research">Research</option>
 </select>
-<!-- ttitle field -->
+<!-- title field -->
 <strong>Title:</strong>
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
      'name'=>'jobtitle',
