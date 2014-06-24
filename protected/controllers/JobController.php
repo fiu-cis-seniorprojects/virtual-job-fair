@@ -30,7 +30,7 @@ class JobController extends Controller
 		
 	}
 	
-	public function actionHome($type = null, $jobtitle = null, $companyname = null, $skillname = null ){
+	public function actionHome($type = null, $jobtitle = null, $companyname = null, $skillname = null){
 
         //get all jobs by type or not
 		if (isset($type) && $type != ""){
@@ -95,6 +95,7 @@ class JobController extends Controller
             }
             $jobs = $jobskill;
         }
+
 		$this->render('home', array('jobs'=>$jobs));
 	}
 	
@@ -450,9 +451,22 @@ class JobController extends Controller
         $flag = 1;
         $keyword = ($_POST['keyword']); // Get words to search
         $pieces = trim($keyword);
-        $pieces = explode(" ", $pieces); // split words to search by space
+        if(strpos($keyword, ", ")!== false)
+        {
+            $pieces = explode(", ", $pieces); // split words to search by comma
+        }
+        if(strpos($keyword, "OR")!== false)
+        {
+            $pieces = explode(" OR ", $pieces); // split words to search by OR
+        }
+        if(strpos($keyword, "OR") == false && strpos($keyword, ", ") == false)
+        {
+            $pieces = explode(" ", $pieces); // split words to search by space
+        }
+
         $count = sizeof($pieces);          // get number of word to search
         $query = '';
+        $query2 = '';
         for($i = 0; $i < $count;$i++) // prepare query
         {
             if ($i == $count - 1){
@@ -462,81 +476,142 @@ class JobController extends Controller
             }
         }
 
+        for($i = 0; $i < $count;$i++) // prepare query
+        {
+            if ($i == $count - 1){
+                $query2 = $query2.'type like \'%'.$pieces[$i].'%\' OR title like \'%'.$pieces[$i].'%\' OR
+                    description like \'%'.$pieces[$i].'%\'';
+            } else {
+                $query2 = $query2.'type like \'%'.$pieces[$i].'%\' OR title like \'%'.$pieces[$i].'%\' OR
+                    description like \'%'.$pieces[$i].'%\' OR ';
+            }
+        }
+
         $criteria = new CDbCriteria; // query criteria
+        $criteria2 = new CDbCriteria; // query criteria
         $criteria->condition = $query;
+        $criteria2->condition = $query2;
         $results = Array();
 
         // there are words to search
         if ($keyword != null){
 
-            // *********  Search by job type  i.e. Full Time, Part Time **************
-            $jobKeyword = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND job.type=:jobtype ORDER BY deadline DESC", array(":jobtype"=>$keyword));
-            // there exists type in Job
-            foreach($jobKeyword as $jk)
+        /*
+            if(strpos($keyword, ", ")!== false)
             {
-                if($jk != null)
-                {
-                    $results[] = $jk;   // add job to results array
-                }
-            }
+                $typeArray = Job::model()->findAll($criteria2);
+                // *********  Search by job type  i.e. Full Time, Part Time **************
 
-            // *********** Search by job title  **********
-           $jobTitle = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND title=:title ORDER BY deadline DESC", array(":title"=>$keyword));
-            // there exists job title in Job
-            foreach($jobTitle as $jk)
-            {
-                if($jk != null)
+                foreach($typeArray as $jk)
                 {
-                    $results[] = $jk; // add job to results array
-                }
-            }
-
-            // ******** Search by Company name ***********
-            $compName = CompanyInfo::model()->findBySql("SELECT FK_userid FROM company_info WHERE company_info.name=:coName", array(":coName"=>$keyword));
-           // fix double row by selecting unique attributes
-            $compID = Job::model()->findAllBySql("SELECT DISTINCT id, job.type, title,FK_poster, post_date, deadline, description,
-                    compensation, other_requirements, email_notification, active, matches_found
-                    FROM job WHERE active='1' AND FK_poster=:FK_poster
-                    ORDER BY deadline DESC", array(":FK_poster"=>$compName['FK_userid']) );
-            // there exists company keyword
-            foreach($compID as $jk)
-            {
-                if($jk != null)
-                {
-                    $results[] = $jk; // add job to results array
-                }
-            }
-
-            // ************   Search by skills  **********
-            $skillsArray = Skillset::model()->findAll($criteria);  // array containing skills from Skillset table
-            foreach ($skillsArray as $sk)
-            {
-                if ($sk != null){
-                    $jobIds = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // get all jobs id with that skill id
-                    if ($jobIds != null) {      // if there exits jobs with skill id
-                        foreach ($jobIds as $ji)
+                    if($jk != null)
+                    {
+                        // title
+                        $results[] = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND title=:title ORDER BY deadline DESC", array(":title"=>$jk->title));
+                        // type
+                        $results[] = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND job.type=:jobtype ORDER BY deadline DESC", array(":jobtype"=>$jk->type));
+                        // company nam
+                        $compName = CompanyInfo::model()->findBySql("SELECT FK_userid FROM company_info WHERE company_info.name=:coName", array(":coName"=>$query));
+                        // fix double row by selecting unique attributes
+                        $compID = Job::model()->findAllBySql("SELECT DISTINCT id, job.type, title,FK_poster, post_date, deadline, description,
+                            compensation, other_requirements, email_notification, active, matches_found
+                            FROM job WHERE active='1' AND FK_poster=:FK_poster
+                            ORDER BY deadline DESC", array(":FK_poster"=>$compName['FK_userid']) );
+                        // there exists company keyword
+                        foreach($compID as $jk)
                         {
-                            if ($ji != null){
-                                $jobid = $ji->jobid;
-                                $duplicate = 0;
-                                if (sizeof($results) > 0){
-                                    foreach($results as $t){  // search for duplicates
-                                        if ($t != null){
-                                            if (strcmp($t->id,$jobid) == 0){
-                                                $duplicate = 1;
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if ($duplicate == 0){
-                                    $results[] = Job::model()->findByAttributes(array('id'=>$jobid, 'active'=>'1'));	// get job matching job id & job post have to be active
-                                }
+                            if($jk != null)
+                            {
+                                $results[] = $jk; // add job to results array
                             }
                         }
 
                     }
+
+                   // $results[] = $job;
                 }
+                */
+                    // *********** Search by job title  **********
+                // there exists job title in Job
+                /*     foreach($jobTitle as $jk)
+                   {
+                        if($jk != null)
+                        {
+                            $results[] += Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND title=:title ORDER BY deadline DESC", array(":title"=>$keyword));
+                            // add job to results array
+                        }
+                    }
+
+                    // ******** Search by Company name ***********
+                    $compName = CompanyInfo::model()->findBySql("SELECT FK_userid FROM company_info WHERE company_info.name=:coName", array(":coName"=>$keyword));
+                   // fix double row by selecting unique attributes
+                    $compID = Job::model()->findAllBySql("SELECT DISTINCT id, job.type, title,FK_poster, post_date, deadline, description,
+                            compensation, other_requirements, email_notification, active, matches_found
+                            FROM job WHERE active='1' AND FK_poster=:FK_poster
+                            ORDER BY deadline DESC", array(":FK_poster"=>$compName['FK_userid']) );
+                    // there exists company keyword
+                    foreach($compID as $jk)
+                    {
+                        if($jk != null)
+                        {
+                            $results[] += $jk; // add job to results array
+                        }
+                    }
+
+                    // ************   Search by skills  **********
+                    $skillsArray = Skillset::model()->findAll($criteria);  // array containing skills from Skillset table
+                    foreach ($skillsArray as $sk)
+                    {
+                        if ($sk != null){
+                            $jobIds = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // get all jobs id with that skill id
+                            if ($jobIds != null) {      // if there exits jobs with skill id
+                                foreach ($jobIds as $ji)
+                                {
+                                    if ($ji != null){
+                                        $jobid = $ji->jobid;
+                                        $duplicate = 0;
+                                        if (sizeof($results) > 0){
+                                            foreach($results as $t){  // search for duplicates
+                                                if ($t != null){
+                                                    if (strcmp($t->id,$jobid) == 0){
+                                                        $duplicate = 1;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        if ($duplicate == 0){
+                                            $results[] = Job::model()->findByAttributes(array('id'=>$jobid, 'active'=>'1'));	// get job matching job id & job post have to be active
+
+                                        }
+
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+            }*/
+            if(strpos($keyword, ", ")!== false)
+            {
+                // ****** Search by anything *********
+                $compName = CompanyInfo::getCompanyNames();
+                $jobKeyword = Job::model()->findAll($criteria2); // array containing matching words from job table
+                foreach($criteria2 as $c)
+                {    if($c == $compName)
+                    {
+                        $jobid = company_info::model()->findAllByAttributes(array('name'=>$compName));
+                        $jobKeyword = Job::model()->findAllByAttributes(array('FK_poster'=>$jobid->FK_userid));
+                    }
+                }
+                 foreach($jobKeyword as $jk)
+                 {
+                     if($jk != null)
+                     {
+                         $results[] = Job::model()->findByAttributes(array('id'=>$jk->id, 'active'=>'1'));
+                     }
+                 }
+
             }
         }
 
