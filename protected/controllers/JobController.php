@@ -68,23 +68,37 @@ class JobController extends Controller
             $jobskill = array();
             $jobMap = null;
             $skill_id = null;
+            $skillnames = explode(" ", $skillname);
 
-            // Query database by skill name and retrieve the skill_id
-            $skill = Skillset::model()->findByAttributes(array('name'=>$skillname));
-            if ($skill != null){
-                $skill_id = $skill->id; //get skill id
-                // Get all jobs that have the skill_id
-                $jobMap = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$skill_id));
+            // Query database by skills name and retrieve the skill_id
+            foreach($skillnames as $sk) {
+                $skills[] = Skillset::model()->findAllBySql("SELECT * FROM skillset WHERE name=:name", array(":name"=>$sk));
+            }
+
+            if ($skills != null){
+                foreach($skills as $sk)
+                {
+                    $skill_id[] = $sk[0]->id; //get skill id
+                    // Get all jobs that have the skill_id
+                    $jobMap = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$skill_id));
+                }
             }
 
             // Array of jobs()
-            foreach($jobs as $job){
-                if ($jobMap != null){
+            foreach($jobs as $job)
+            {
+                if ($jobMap != null)
+                {
                     foreach ($jobMap as $aJobMap)
                     {
-                        $jobid = $aJobMap->jobid; //get jobid from matching skill
-                        if ($skill_id != null){ // search for Skill
+                        //get jobid from matching skills
+                        $jobid = $aJobMap->jobid;
+
+                        if ($skill_id != null)
+                        {
+                            // all jobs id from jobs
                             $name = $job->id;
+
                            if($name == $jobid)
                            {
                                 $jobskill[] = $job;
@@ -115,6 +129,7 @@ class JobController extends Controller
 	        $model->attributes=$_POST['Job'];
         	$model->FK_poster = User::getCurrentUser()->id;
             date_default_timezone_set('America/New_York');
+            $model->comp_name = CompanyInfo::getCompanyNamesUser(User::getCurrentUser()->id);
             $model->post_date = date('Y-m-d H:i:s');
         	$model->description = $this->mynl2br($_POST['Job']['description']);
             $model->save(false);
@@ -446,183 +461,50 @@ class JobController extends Controller
     // job search from nav bar
     public function actionSearch()
     {
+        // flag to display results in home
         $flag = 1;
-        $keyword = ($_POST['keyword']); // Get words to search
-        $pieces = trim($keyword);
-        if(strpos($keyword, ", ")!== false)
-        {
-            $pieces = explode(", ", $pieces); // split words to search by comma
-        }
-        if(strpos($keyword, "OR")!== false)
-        {
-            $pieces = explode(" OR ", $pieces); // split words to search by OR
-        }
-        if(strpos($keyword, "OR") == false && strpos($keyword, ", ") == false)
-        {
-            $pieces = explode(" ", $pieces); // split words to search by space
-        }
-
-        $count = sizeof($pieces);          // get number of word to search
-        $query = '';
-        $query2 = '';
-        for($i = 0; $i < $count;$i++) // prepare query
-        {
-            if ($i == $count - 1){
-                $query = $query.'name like \'%'.$pieces[$i].'%\'';
-            } else {
-                $query = $query.'name like \'%'.$pieces[$i].'%\' OR ';
-            }
-        }
-
-        for($i = 0; $i < $count;$i++) // prepare query
-        {
-            if ($i == $count - 1){
-                $query2 = $query2.'type like \'%'.$pieces[$i].'%\' OR title like \'%'.$pieces[$i].'%\' OR
-                    description like \'%'.$pieces[$i].'%\'';
-            } else {
-                $query2 = $query2.'type like \'%'.$pieces[$i].'%\' OR title like \'%'.$pieces[$i].'%\' OR
-                    description like \'%'.$pieces[$i].'%\' OR ';
-            }
-        }
-
-        $criteria = new CDbCriteria; // query criteria
-        $criteria2 = new CDbCriteria; // query criteria
-        $criteria->condition = $query;
-        $criteria2->condition = $query2;
+        $bool = false;
+        // words to search for
+        $keyword = ($_POST['keyword']);
+        // array to contain the results of the search
         $results = Array();
 
         // there are words to search
-        if ($keyword != null){
-
-        /*
-            if(strpos($keyword, ", ")!== false)
+        if ($keyword != null)
+        {
+            // operators for boolean search mode
+            if(preg_match('/("|-)/', $keyword))
             {
-                $typeArray = Job::model()->findAll($criteria2);
-                // *********  Search by job type  i.e. Full Time, Part Time **************
+                $bool = true;
+            }
 
-                foreach($typeArray as $jk)
-                {
-                    if($jk != null)
-                    {
-                        // title
-                        $results[] = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND title=:title ORDER BY deadline DESC", array(":title"=>$jk->title));
-                        // type
-                        $results[] = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND job.type=:jobtype ORDER BY deadline DESC", array(":jobtype"=>$jk->type));
-                        // company nam
-                        $compName = CompanyInfo::model()->findBySql("SELECT FK_userid FROM company_info WHERE company_info.name=:coName", array(":coName"=>$query));
-                        // fix double row by selecting unique attributes
-                        $compID = Job::model()->findAllBySql("SELECT DISTINCT id, job.type, title,FK_poster, post_date, deadline, description,
-                            compensation, other_requirements, email_notification, active, matches_found
-                            FROM job WHERE active='1' AND FK_poster=:FK_poster
-                            ORDER BY deadline DESC", array(":FK_poster"=>$compName['FK_userid']) );
-                        // there exists company keyword
-                        foreach($compID as $jk)
-                        {
-                            if($jk != null)
-                            {
-                                $results[] = $jk; // add job to results array
-                            }
-                        }
-
-                    }
-
-                   // $results[] = $job;
-                }
-                */
-                    // *********** Search by job title  **********
-                // there exists job title in Job
-                /*     foreach($jobTitle as $jk)
-                   {
-                        if($jk != null)
-                        {
-                            $results[] += Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND title=:title ORDER BY deadline DESC", array(":title"=>$keyword));
-                            // add job to results array
-                        }
-                    }
-
-                    // ******** Search by Company name ***********
-                    $compName = CompanyInfo::model()->findBySql("SELECT FK_userid FROM company_info WHERE company_info.name=:coName", array(":coName"=>$keyword));
-                   // fix double row by selecting unique attributes
-                    $compID = Job::model()->findAllBySql("SELECT DISTINCT id, job.type, title,FK_poster, post_date, deadline, description,
-                            compensation, other_requirements, email_notification, active, matches_found
-                            FROM job WHERE active='1' AND FK_poster=:FK_poster
-                            ORDER BY deadline DESC", array(":FK_poster"=>$compName['FK_userid']) );
-                    // there exists company keyword
-                    foreach($compID as $jk)
-                    {
-                        if($jk != null)
-                        {
-                            $results[] += $jk; // add job to results array
-                        }
-                    }
-
-                    // ************   Search by skills  **********
-                    $skillsArray = Skillset::model()->findAll($criteria);  // array containing skills from Skillset table
-                    foreach ($skillsArray as $sk)
-                    {
-                        if ($sk != null){
-                            $jobIds = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$sk->id)); // get all jobs id with that skill id
-                            if ($jobIds != null) {      // if there exits jobs with skill id
-                                foreach ($jobIds as $ji)
-                                {
-                                    if ($ji != null){
-                                        $jobid = $ji->jobid;
-                                        $duplicate = 0;
-                                        if (sizeof($results) > 0){
-                                            foreach($results as $t){  // search for duplicates
-                                                if ($t != null){
-                                                    if (strcmp($t->id,$jobid) == 0){
-                                                        $duplicate = 1;
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        if ($duplicate == 0){
-                                            $results[] = Job::model()->findByAttributes(array('id'=>$jobid, 'active'=>'1'));	// get job matching job id & job post have to be active
-
-                                        }
-
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-            }*/
-            if(strpos($keyword, ", ")!== false)
+            if($bool == true)
             {
-                // ****** Search by anything *********
-                $compName = CompanyInfo::getCompanyNames();
-                $jobKeyword = Job::model()->findAll($criteria2); // array containing matching words from job table
-                foreach($criteria2 as $c)
-                {    if($c == $compName)
-                    {
-                        $jobid = company_info::model()->findAllByAttributes(array('name'=>$compName));
-                        $jobKeyword = Job::model()->findAllByAttributes(array('FK_poster'=>$jobid->FK_userid));
-                    }
-                }
-                 foreach($jobKeyword as $jk)
-                 {
-                     if($jk != null)
-                     {
-                         $results[] = Job::model()->findByAttributes(array('id'=>$jk->id, 'active'=>'1'));
-                     }
-                 }
+                // search FULLTEXT IN BOOLEAN MODE to allow for operations such as ' ""'  and ' - '
+                $results =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$keyword."%' IN BOOLEAN MODE) AND active = '1';");
 
             }
+            if($bool == false)
+            {// search FULLTEXT IN NATURAL LANGUAGE MODE
+                $results =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$keyword."%' IN NATURAL LANGUAGE MODE) AND active = '1';");
+                //print_r ($result);
+            }
+
         }
 
-
+        // get user
         if (isset($_GET['user'])){
             $username = $_GET['user'];
         } else {
             $username = Yii::app()->user->name;
         }
-        $user = User::model()->find("username=:username",array(':username'=>$username)); // pass user
-        $skills = Skillset::getNames(); // pass skills
-        $companies = CompanyInfo::getNames(); // pass companies
-        // render results to job/home
+        // pass user
+        $user = User::model()->find("username=:username",array(':username'=>$username));
+        // pass skills
+        $skills = Skillset::getNames();
+        // pass companies
+        $companies = CompanyInfo::getNames();
+        // render search results, user, skills, companies and flag to job/home
         $this->render('home',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,));
 
     }

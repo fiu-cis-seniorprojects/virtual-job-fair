@@ -134,4 +134,12 @@ class CompanyInfo extends CActiveRecord
 		return $names;
 
 	}
+
+    public static function getCompanyNamesUser($fKPoster) {
+
+        $names = CompanyInfo::model()->findBySql("SELECT company_info.name FROM company_info WHERE FK_userid=:FK_poster", array(":FK_poster"=>$fKPoster));
+
+        return $names->name;
+
+    }
 }

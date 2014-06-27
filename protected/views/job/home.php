@@ -75,7 +75,7 @@ function getURLParameter(name) {
     <option value="Research">Research</option>
 </select>
 <!-- title field -->
-<strong>Title:</strong>
+<strong>Position:</strong>
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
      'name'=>'jobtitle',
      'id'=>'jobtitle',
@@ -130,12 +130,11 @@ function getURLParameter(name) {
 <!-- ********** Search Result from Nav Bar ************** -->
     <?php if (isset($flag) && $flag == 1)   { ?>
         <div id="hardcorecontent">
-
             <?php if ($results != null & sizeof($results) > 0) {?>
-                <h2>Jobs Matching your Search</h2>
+                Jobs Matching your Search
                 <table class="jobtable">
                     <thead>
-                    <th>Title</th> <th>Company</th> <th>Type</th> <th>Posted</th> <th>Deadline</th> <th>Compensation</th> <th>Skills</th> <th>Location</th>
+                    <th>Position</th> <th>Company</th> <th>Type</th> <th>Posted</th> <th>Deadline</th> <th>Compensation</th> <th>Skills</th>
                     </thead>
                     <?php foreach ($results as $js){ if ($js != null){?>
                         <tr>
@@ -149,12 +148,11 @@ function getURLParameter(name) {
                                 <?php foreach ($temp as $one){
                                     echo Skillset::model()->findByAttributes(array('id'=>$one->skillid))->name.' ';
                                 }?></td>
-                            <td> coming soon </td>
                         </tr>
                     <?php } } ?>
                 </table>
             <?php } else {?>
-                <h3>No Job Matching your Search 2</h3>
+                <h3>No Job Matching your Search</h3>
             <?php }  ?>
         </div>
     <?php }
@@ -168,7 +166,7 @@ function getURLParameter(name) {
     <?php }?>
     </div>
     <table class="jobtable"">
-    <head><th>Title</th> <th>Company</th> <th>Job Type</th>  <th>Post Date</th> <th>Expiration Date</th>  <th>Compensation</th> <th>Skills</th></head>
+    <head><th>Position</th> <th>Company</th> <th>Job Type</th>  <th>Post Date</th> <th>Expiration Date</th>  <th>Compensation</th> <th>Skills</th></head>
     <tr>
     <?php $i = $rpp;foreach ($jobs as $job) {?>
 
@@ -186,7 +184,7 @@ function getURLParameter(name) {
         <?php }  ?>
     </table>
     <?php } else {?>
-        <h3>No Job Matching your Search 1</h3>
+        <h3>No Job Matching your Search</h3>
     <?php }?>
 
     </div>

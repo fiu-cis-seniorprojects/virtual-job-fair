@@ -57,22 +57,16 @@
 	} else if (User::isCurrentUserStudent(Yii::app()->user->name)){
 		$home = '/home/studenthome';
 		$search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/job/search">'
-				. $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-				'name'=>'keyword',
-				'source'=>Skillset::getNames(),
-				'htmlOptions'=>array('class'=>'search-query span2','placeholder'=>'Search by Skill, Type, Company, Title', 'style'=>'width:250px'
-				),
-		), true
-		).
-		'<button type="submit" style="background-color:transparent ; border:0"  >
+				.'<input type="text" class="search-query span2" name="keyword" placeholder="Search by Skills, Type, Company, Position" style="width:250px">'.
+		'<button type="submit" style="background-color:transparent ; border:0" data-toggle="tooltip" data-placement="left" title=" - for NOT">
 		<img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
 		</form>';
 	} else {
 		$home = '/site/index';
 	}
-	
+
 	?>
-	
+
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
     'items'=>array(
         array(
