@@ -95,6 +95,11 @@ return array(
 			//'password' => 'E!qazxsw2',
 			'charset' => 'utf8',
 		),
+
+        'jobmatch'=>array(
+            'class'=>'JobMatch'
+        ),
+
 		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

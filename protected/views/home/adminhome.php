@@ -157,8 +157,6 @@ if ($results1 != NULL)
 
     <h1>Settings:</h1><br/>
     <?php
-        $class = 'btn btn-success';
-
         if(isset($matchnotification))
         {
             $value = intval($matchnotification['status']);

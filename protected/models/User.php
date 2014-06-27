@@ -17,6 +17,7 @@
  * @property string $last_name
  * @property boolean $hide_email
  * @property boolean $job_notification
+ * @property boolean $looking_for_job
  *
  * The followings are the available model relations:
  * @property Application[] $applications
@@ -139,7 +140,8 @@ class User extends CActiveRecord
 			'last_name' => 'Last Name',
 			'hide_email' => 'Hide email from students?',
 			'disable' => "Disable",
-            'job_notification' => "Job Match Notifications"
+            'job_notification' => "Job Match Notifications",
+            'looking_for_job' => "Searching for job"
 		);
 	}
 
@@ -166,6 +168,7 @@ class User extends CActiveRecord
         $criteria->compare('first_name',$this->first_name,true);
         $criteria->compare('last_name',$this->last_name,true);
         $criteria->compare('job_notification',$this->job_notification,true);
+        $criteria->compare('looking_for_job',$this->looking_for_job,true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
@@ -176,13 +179,27 @@ class User extends CActiveRecord
     {
         $mail = new YiiMailer();
         $mail->IsSMTP();
-        $mail->Host = 'smtp.cs.fiu.edu';
+//        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = 'localhost';
         $mail->Port = 25;
-        $mail->SMTPAuth = false;
+//        $mail->Port = 587;
+//        $mail->SMTPSecure= 'tls';
+//        $mail->SMTPAuth = true;
+//        $mail->Username = "tacostae";
+//        $mail->Password = 'M0n!t0$L!nd0$';
         $mail->setView('contact');
         $mail->setLayout('mail');
         $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
         return $mail;
+//        $mail = new YiiMailer();
+//        $mail->IsSMTP();
+//        $mail->Host = 'smtp.cs.fiu.edu';
+//        $mail->Port = 25;
+//        $mail->SMTPAuth = false;
+//        $mail->setView('contact');
+//        $mail->setLayout('mail');
+//        $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
+//        return $mail;
     }
 
     public static function sendEmail($to, $subject, $email_description, $message)
@@ -193,7 +210,9 @@ class User extends CActiveRecord
         $email->setData(array('message' => $message,
             'name' => 'Virtual Job Fair',
             'description' => $email_description));
-        $email->send();
+        echo $message;
+        $fl = fopen('/tmp/email.eml', 'w');
+//        $email->send();
     }
     
 //    public function sendVerificationEmail() {
@@ -274,6 +293,10 @@ class User extends CActiveRecord
 
     public function isMatchNotificationSet(){
     	return ($this->job_notification == 1);
+    }
+
+    public function isLookingForJob(){
+        return ($this->looking_for_job == 1);
     }
     
     public function isAEmployer(){

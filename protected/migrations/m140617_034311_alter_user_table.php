@@ -16,7 +16,7 @@ class m140617_034311_alter_user_table extends CDbMigration
 	// Use safeUp/safeDown to do migration with transaction
 	public function safeUp()
 	{
-        $this->execute("ALTER TABLE user ADD COLUMN job_notification tinyint(1) NOT NULL DEFAULT 0");
+        $this->execute("ALTER TABLE user ADD COLUMN job_notification tinyint(1) NOT NULL DEFAULT 1");
 	}
 
 	public function safeDown()

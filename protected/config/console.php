@@ -11,6 +11,7 @@ return array(
         'ext.YiiMailer.YiiMailer',
         'ext.curl.Curl',
     ),
+
 	// application components
 	'components'=>array(
 		/*'db'=>array(
@@ -20,6 +21,12 @@ return array(
 
         'jobmatch'=>array(
             'class'=>'JobMatch'
+        ),
+
+        'request' => array(
+            'hostInfo' => 'http://vjf-dev.cs.fiu.edu',
+            'baseUrl' => '/JobFair/',
+            'scriptUrl' => 'index.php',
         ),
 
 		'db'=>array(

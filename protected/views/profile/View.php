@@ -317,6 +317,16 @@ function uploadvideo(){
                 <span class="onoffswitch-switch"></span>
             </label>
         </div>
+    </div>
+    <div style="overflow: hidden;">
+        <div style="float: left;">Looking For Job:</div>
+        <div style="margin-left: 120px;" class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch_1" <?php echo $checked; ?> onclick="toggleJobMatching()">
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
     </div><hr>
 <div class="titlebox">DOCUMENTS</div><br><br>
 <p><a href="#" id="editResume" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadresume()"/></a></p>
