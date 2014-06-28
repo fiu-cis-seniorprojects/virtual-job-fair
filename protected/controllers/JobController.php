@@ -30,7 +30,7 @@ class JobController extends Controller
 		
 	}
 	
-	public function actionHome($type = null, $jobtitle = null, $companyname = null, $skillname = null){
+	public function actionHome($type = null, $jobtitle = null, $companyname = null, $skillname = null, $radioOption = null){
 
         //get all jobs by type or not
 		if (isset($type) && $type != ""){
@@ -110,8 +110,75 @@ class JobController extends Controller
             $jobs = $jobskill;
         }
 
+        // calling indeed function
+        if(isset($radioOption) && $radioOption != "")
+        {
+            $this->indeed($jobtitle, $companyname, $skillname);
+        }
+
 		$this->render('home', array('jobs'=>$jobs));
 	}
+
+    // call to indeed API
+    public function indeed($jobtitle, $companyname, $skillname)
+    {
+        //$query = $jobtitle;
+        //$query = $companyname;
+        $query = $skillname;
+
+        // to call Indeed API
+        require 'protected/indeed/Indeed.php';
+        // Indeed publisher number 5595740829812660
+        $client = new \indeed\Indeed("5595740829812660");
+
+        // parameters pass to indeed API
+        $params = array(
+            "q" => $query,                              // query from user
+            "l" => "miami",                             // user location set to Miami
+            "userip" => $_SERVER['REMOTE_ADDR'],        // user IP address
+            "useragent" => $_SERVER['HTTP_USER_AGENT']  // user browser
+        );
+
+        // search results from indeed.com
+        $results = $client->search($params);
+        $job = $this->xmlToArray($results);
+       // echo $results;
+        ?>
+
+        <HTML>
+        <body>
+            <ol>
+            <?php
+            for($i=0;$i<10;$i++)    // using for loop to show number of  jobs
+            {
+                $results=$job['results'];
+                ?>
+                <li>
+                    <p>
+                        <strong>Job :<a href=”<?php echo $results['result'][$i]['url']; ?>” target=”_blank”><?php echo $results['result'][$i]['jobtitle']; ?></a></strong>
+                    </p>
+                    <p><strong>Location: <?php echo $results['result'][$i]['city']; ?></strong></p>
+                    <p><strong>Date: <?php echo $results['result'][$i]['date']; ?></strong></p>
+                    <p><strong>Expire: <?php echo $results['result'][$i]['expired']; ?></strong></p>
+                    <p><strong>Company :<?php echo $results['result'][$i]['company'];?></strong></p>
+                    <p> Descriptions :<?php echo $results['result'][$i]['snippet']; ?></p>
+                </li>
+            <?php }
+            ?>
+            </ol>
+
+        </body>
+        </HTML>
+
+  <?php  }
+
+    public function xmlToArray($input, $callback = null, $recurse = false)
+    {
+        $data = ((!$recurse) && is_string($input))? simplexml_load_string($input, 'SimpleXMLElement', LIBXML_NOCDATA): $input;
+        if($data instanceof \SimpleXMLElement) $data = (array)$data;
+        if (is_array($data)) foreach ($data as &$item) $item = $this->xmlToArray($item, $callback, true);
+        return (!is_array($data) && is_callable($callback))? call_user_func($callback, $data): $data;
+    }
 	
 	public function mynl2br($text) {
 		return strtr($text, array("\r\n" => '<br />', "\r" => '<br />', "\n" => '<br />'));

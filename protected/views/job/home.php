@@ -98,6 +98,13 @@ function getURLParameter(name) {
      'source'=>Job::getJobBySkill(),
      'value'=> $_GET['skillname'],
      'htmlOptions'=>array('value'=> $_GET['skillname'],),)); ?>
+<!-- outside resources radio button -->
+<div class="radio">
+    <label>
+        <input type="radio" name="radioOption" id="radioOption" value="true">
+            Get jobs from outside source
+    </label>
+</div>
 <!-- search button -->
 <?php $this->widget('bootstrap.widgets.TbButton', array(
 		    'label'=>'Search',
@@ -189,6 +196,7 @@ function getURLParameter(name) {
 
     </div>
 <?php }?>
+
 
 
 
