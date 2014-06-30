@@ -344,9 +344,7 @@ class JobController extends Controller
 		$this->render('studentmatch', array('students'=>$students));
 	}
 	
-	
-	
-	
+
 	public function actionVerifyJobPost(){
 		$job = $_POST['Job'];
 		$error = "";

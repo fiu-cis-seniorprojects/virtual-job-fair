@@ -33,7 +33,7 @@ class m140610_182901_careerpath_sync extends CDbMigration
 	public function safeDown()
 	{
         $this->execute("
-                        DROP TABLE `jobfairdb`.`api_auth`;
+                        DROP TABLE IF EXISTS `jobfairdb`.`api_auth`;
 
                         ALTER TABLE `jobfairdb`.`user`
                         CHANGE COLUMN `first_name` `first_name` VARCHAR(45) NOT NULL ,

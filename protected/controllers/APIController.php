@@ -38,6 +38,10 @@ class APIController extends Controller
         // api key is valid, now parse the json object
         $request_obj = Yii::app()->request->getRawBody();
         $job_posting = CJSON::decode($request_obj);
+        if (!isset($job_posting) || (is_null($job_posting)))
+        {
+            $this->_sendResponse(500, 'Empty job posting body.');
+        }
 
         // dissect scis job posting information
         $jp_id = $job_posting['ID'];
@@ -102,19 +106,35 @@ class APIController extends Controller
         $current_user = (isset($new_user) ? $new_user : $user_found);
 
         // check for duplicate postings
-        $dup_entries = Job::model()->find(  "FK_poster=:poster AND ".
-                                            "title=:title AND ".
-                                            "deadline=:deadline AND ".
-                                            "post_date=:post_date",
-                                            array(  ':poster' => $current_user->id,
-                                                    ':title' => $jp_position,
-                                                    ':deadline' => date('Y-m-d H:i:s', strtotime($jp_expireTime)),
-                                                    ':post_date' => $jp_postedTime));
+//        $dup_entries = Job::model()->find(  "FK_poster=:poster AND ".
+//                                            "title=:title AND ".
+//                                            "deadline=:deadline AND ".
+//                                            "post_date=:post_date",
+//                                            array(  ':poster' => $current_user->id,
+//                                                    ':title' => $jp_position,
+//                                                    ':deadline' => date('Y-m-d H:i:s', strtotime($jp_expireTime)),
+//                                                    ':post_date' => $jp_postedTime));
+
+        $dup_entries = Job::model()->find(  "posting_url=:job_url", array(':job_url' => $jp_id));
 
         // duplicate entry, ignore
         if (count($dup_entries) > 0)
         {
-            $this->_sendResponse(400, 'Entry already exists in the database.');
+            $new_job_posting = $dup_entries;
+            $new_job_posting->FK_poster = $current_user->id; // need an account
+            $new_job_posting->post_date = $jp_postedTime;
+            $new_job_posting->title = $jp_position;
+            $new_job_posting->deadline = date('Y-m-d H:i:s', strtotime($jp_expireTime));
+            $new_job_posting->description = $jp_description . $jp_duties . $jp_qualifications;
+            $new_job_posting->type = 'CIS'; // know it was posted using this api
+            $new_job_posting->compensation = ""; // not available from CIS
+            $new_job_posting->posting_url = $jp_id;
+
+            // post the job to db
+            $new_job_posting->save(false);
+
+            // send response and stop application
+            $this->_sendResponse(400, 'Job entry has been updated in the database.');
         }
 
         // no duplicates, add posting
@@ -305,22 +325,22 @@ class APIController extends Controller
 }
 
 /*
- *
-    {
-      "ID":"http:\/\/cis.fiu.edu\/careerpath\/posting.php?id=205",
-      "PostedTime":"2014-03-10 13:33:42",
-      "ExpireTime":"07\/01\/2014",
-      "Company":"Fortytwo Sports",
-      "Position":"Lead Developer",
-      "URL":"http:\/\/www.fort42wo.com",
-      "PostingType":"Job",
-      "Background":"\u003Cp\u003EFortytwo Sports is a startup company that offers an online social networking service. Visit our website \u003Ca href=\"http:\/\/www.fort42wo.com\"\u003Ewww.fort42wo.com\u003C\/a\u003E for more information about the Lead Developer position and to play a quick brain teaser!\u003C\/p\u003E\r\n\r\n\u003Cp\u003E \u003C\/p\u003E\r\n",
-      "Description":"\u003Cp\u003EFortytwo Sports is looking for an exceptional lead developer who will drive the overall developmental process for new products. Our team will strive to use innovative technologies that change how millions of users connect, explore, and interact with information and one another. As the Lead Developer, you will be responsible for implementing front-end and back-end technologies for building a web\/mobile application. You will work with a small team and can switch projects as our fast-paced business grows and evolves. The ideal candidate will be a self-motivated, out-of-the-box thinker, with a ‘can-do, will do’ attitude with excellent communication skills and an ability to quickly ramp-up skills in new technologies. \u003C\/p\u003E\r\n\r\n\u003Cp\u003EAs a key member of a small and versatile team, you will design, test, deploy and maintain software solutions. Our ambitions reach far beyond a small startup company. You have the opportunity to become a principal member in a company looking to accomplish extraordinary measures.\u003C\/p\u003E\r\n",
-      "Duties":"\u003Cp\u003E• Lead the developmental process for building a web\/mobile application. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Develop aesthetically pleasing and responsive front-end interfaces. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Develop an optimized back-end codebase. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Design and improve an ever-expanding database. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Assist in building a developer team by recruiting talent.\u003C\/p\u003E\r\n",
-      "Qualifications":"\u003Cp\u003ECandidate should have at least 80% of the preferred qualifications listed below:\u003C\/p\u003E\r\n\r\n\u003Cul\u003E\r\n\t\u003Cli\u003EPursuing or accomplished a BS in Computer Science or related field. \u003C\/li\u003E\r\n\t\u003Cli\u003EFluent in front-end technologies such as HTML, CSS, and Javascript (w\/jQuery) with an interest in user interface design. \u003C\/li\u003E\r\n\t\u003Cli\u003EKnowledgeable in back-end\/server technologies such as C\/C++, Java and\/or Apache\/Apache Tomcat. \u003C\/li\u003E\r\n\t\u003Cli\u003EBasic knowledge in PostgreSQL, GIT, and Agile is a plus. \u003C\/li\u003E\r\n\t\u003Cli\u003EStrong written and oral communication skills. \u003C\/li\u003E\r\n\u003C\/ul\u003E\r\n",
-      "Email":"jobs@fort42wo.com",
-      "PostedBy":"Roberto Guzman, From: Fortytwo Sports (Start Up)",
-      "Format":"2"
-   }
+*
+{
+"ID":"http:\/\/cis.fiu.edu\/careerpath\/posting.php?id=205",
+"PostedTime":"2014-03-10 13:33:42",
+"ExpireTime":"07\/01\/2014",
+"Company":"Fortytwo Sports",
+"Position":"Lead Developer",
+"URL":"http:\/\/www.fort42wo.com",
+"PostingType":"Job",
+"Background":"\u003Cp\u003EFortytwo Sports is a startup company that offers an online social networking service. Visit our website \u003Ca href=\"http:\/\/www.fort42wo.com\"\u003Ewww.fort42wo.com\u003C\/a\u003E for more information about the Lead Developer position and to play a quick brain teaser!\u003C\/p\u003E\r\n\r\n\u003Cp\u003E \u003C\/p\u003E\r\n",
+"Description":"\u003Cp\u003EFortytwo Sports is looking for an exceptional lead developer who will drive the overall developmental process for new products. Our team will strive to use innovative technologies that change how millions of users connect, explore, and interact with information and one another. As the Lead Developer, you will be responsible for implementing front-end and back-end technologies for building a web\/mobile application. You will work with a small team and can switch projects as our fast-paced business grows and evolves. The ideal candidate will be a self-motivated, out-of-the-box thinker, with a ‘can-do, will do’ attitude with excellent communication skills and an ability to quickly ramp-up skills in new technologies. \u003C\/p\u003E\r\n\r\n\u003Cp\u003EAs a key member of a small and versatile team, you will design, test, deploy and maintain software solutions. Our ambitions reach far beyond a small startup company. You have the opportunity to become a principal member in a company looking to accomplish extraordinary measures.\u003C\/p\u003E\r\n",
+"Duties":"\u003Cp\u003E• Lead the developmental process for building a web\/mobile application. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Develop aesthetically pleasing and responsive front-end interfaces. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Develop an optimized back-end codebase. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Design and improve an ever-expanding database. \u003C\/p\u003E\r\n\r\n\u003Cp\u003E• Assist in building a developer team by recruiting talent.\u003C\/p\u003E\r\n",
+"Qualifications":"\u003Cp\u003ECandidate should have at least 80% of the preferred qualifications listed below:\u003C\/p\u003E\r\n\r\n\u003Cul\u003E\r\n\t\u003Cli\u003EPursuing or accomplished a BS in Computer Science or related field. \u003C\/li\u003E\r\n\t\u003Cli\u003EFluent in front-end technologies such as HTML, CSS, and Javascript (w\/jQuery) with an interest in user interface design. \u003C\/li\u003E\r\n\t\u003Cli\u003EKnowledgeable in back-end\/server technologies such as C\/C++, Java and\/or Apache\/Apache Tomcat. \u003C\/li\u003E\r\n\t\u003Cli\u003EBasic knowledge in PostgreSQL, GIT, and Agile is a plus. \u003C\/li\u003E\r\n\t\u003Cli\u003EStrong written and oral communication skills. \u003C\/li\u003E\r\n\u003C\/ul\u003E\r\n",
+"Email":"jobs@fort42wo.com",
+"PostedBy":"Roberto Guzman, From: Fortytwo Sports (Start Up)",
+"Format":"2"
+}
 
- */
+*/
