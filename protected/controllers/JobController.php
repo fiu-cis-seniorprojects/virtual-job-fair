@@ -76,12 +76,12 @@ class JobController extends Controller
             }
 
             if ($skills != null){
-                foreach($skills as $sk)
-                {
-                    $skill_id[] = $sk[0]->id; //get skill id
+              //  foreach($skills as $sk)
+               // {
+                    // $skill_id[] = $sk[0]->id; //get skill id
                     // Get all jobs that have the skill_id
                     $jobMap = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$skill_id));
-                }
+               // }
             }
 
             // Array of jobs()
@@ -113,10 +113,15 @@ class JobController extends Controller
         // calling indeed function
         if(isset($radioOption) && $radioOption != "")
         {
-            $this->indeed($jobtitle, $companyname, $skillname);
+            $flag = 2;
+            $result = $this->indeed($jobtitle, $companyname, $skillname);
+            $this->render('home', array('result'=>$result,'jobs'=>$jobs,'flag'=>$flag));
         }
-
-		$this->render('home', array('jobs'=>$jobs));
+        else
+        {
+            $flag = 0;
+            $this->render('home', array('jobs'=>$jobs,'flag'=>$flag));
+        }
 	}
 
     // call to indeed API
@@ -125,6 +130,7 @@ class JobController extends Controller
         //$query = $jobtitle;
         //$query = $companyname;
         $query = $skillname;
+        $result = Array();
 
         // to call Indeed API
         require 'protected/indeed/Indeed.php';
@@ -141,37 +147,15 @@ class JobController extends Controller
 
         // search results from indeed.com
         $results = $client->search($params);
-        $job = $this->xmlToArray($results);
-       // echo $results;
+        // get array of jobs
+        $result = $this->xmlToArray($results);
+        $flag = 2;
+        return $result;
+        //$this->render('home', array('result'=>$result,'flag'=>$flag));
         ?>
-
-        <HTML>
-        <body>
-            <ol>
-            <?php
-            for($i=0;$i<10;$i++)    // using for loop to show number of  jobs
-            {
-                $results=$job['results'];
-                ?>
-                <li>
-                    <p>
-                        <strong>Job :<a href=”<?php echo $results['result'][$i]['url']; ?>” target=”_blank”><?php echo $results['result'][$i]['jobtitle']; ?></a></strong>
-                    </p>
-                    <p><strong>Location: <?php echo $results['result'][$i]['city']; ?></strong></p>
-                    <p><strong>Date: <?php echo $results['result'][$i]['date']; ?></strong></p>
-                    <p><strong>Expire: <?php echo $results['result'][$i]['expired']; ?></strong></p>
-                    <p><strong>Company :<?php echo $results['result'][$i]['company'];?></strong></p>
-                    <p> Descriptions :<?php echo $results['result'][$i]['snippet']; ?></p>
-                </li>
-            <?php }
-            ?>
-            </ol>
-
-        </body>
-        </HTML>
-
   <?php  }
 
+    // convert XML feed from Indeed to Array
     public function xmlToArray($input, $callback = null, $recurse = false)
     {
         $data = ((!$recurse) && is_string($input))? simplexml_load_string($input, 'SimpleXMLElement', LIBXML_NOCDATA): $input;

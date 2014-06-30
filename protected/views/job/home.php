@@ -102,7 +102,7 @@ function getURLParameter(name) {
 <div class="radio">
     <label>
         <input type="radio" name="radioOption" id="radioOption" value="true">
-            Get jobs from outside source
+            Include jobs from outside sources
     </label>
 </div>
 <!-- search button -->
@@ -135,7 +135,7 @@ function getURLParameter(name) {
 <div>
 
 <!-- ********** Search Result from Nav Bar ************** -->
-    <?php if (isset($flag) && $flag == 1)   { ?>
+ <?php if (isset($flag) && $flag == 1)   { ?>
         <div id="hardcorecontent">
             <?php if ($results != null & sizeof($results) > 0) {?>
                 Jobs Matching your Search
@@ -163,8 +163,8 @@ function getURLParameter(name) {
             <?php }  ?>
         </div>
     <?php }
-    else {?>
-<!-- ******* Job Postings from Job Page *******  -->
+  else if (isset($flag) && $flag == 0) {?>
+<!-- ******* Job Postings from Job Page using only Career Path *******  -->
   <div class="pages">
     <?php if ($jobs != null & sizeof($jobs) > 0) {?>
     Job Postings Page:
@@ -195,8 +195,54 @@ function getURLParameter(name) {
     <?php }?>
 
     </div>
-<?php }?>
+<?php }
+else if (isset($flag) && $flag == 2) { ?>
+    <!-- ******* Job Postings from Job Page using external resources *******  -->
+    <div class="pages">
+    <?php if ($result != null & sizeof($result) > 0) {?>
+        Job Postings Page:
+        <?php for ($j = 0; $j < $pages; $j ++) {?>
+            <a class="pageclick"<?php if ($j == 0) echo "id='firstpage'"; ?>> <?php echo $j + 1;?></a>
+        <?php }  ?>
+        </div>
+        <table class="jobtable"">
+        <head><th>Position</th> <th>Company</th> <th>Job Type</th>  <th>Post Date</th> <th>Expiration Date</th>  <th>Compensation</th> <th>Skills</th></head>
+        <tr>
+            <?php for($i=0;$i<10;$i++){
+                $results=$result['results'];
+                ?>
+                <td><a href=<?php echo $results['result'][$i]['url']; ?>><?php echo $results['result'][$i]['jobtitle']; ?></a></td>
+                <td><?php echo $results['result'][$i]['company'];?></a></td>
+                <td>Not provided</td>
+                <td><?php echo $results['result'][$i]['date']; ?></td>
+                <td>Not provided</td>
+                <td>Not provided</td>
+                <td><?php echo $results['result'][$i]['snippet']; ?></td>
+                </tr>
+            <?php } ?>
+        <tr>
+            <?php if ($jobs != null & sizeof($jobs) > 0) {
 
+                foreach ($jobs as $job) {?>
+                <td><a href="/JobFair/index.php/job/view/jobid/<?php echo $job->id;?>"><?php echo $job->title;?></a></td>
+                <td><a href="/JobFair/index.php/profile/employer/user/<?php echo User::model()->findByAttributes(array('id'=>$job->FK_poster))->username;?>"><?php echo CompanyInfo::model()->findByAttributes(array('FK_userid'=>$job->FK_poster))->name;?></a></td>
+                <td><?php echo $job->type;?></td>
+                <td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $job->post_date);?></td>
+                <td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $job->deadline);?></td>
+                <td><?php echo $job->compensation;?></td>
+                <td><?php $temp = JobSkillMap::model()->findAllByAttributes(array('jobid'=>$job->id));?>
+                    <?php foreach ($temp as $one){
+                        echo Skillset::model()->findByAttributes(array('id'=>$one->skillid))->name.' ';
+                    }?></td>
+        </tr>
+        <?php }}  ?>
 
+     </table>
+    <?php }
+    else {?>
+        <h3>No Job Matching your Search</h3>
+    <?php }?>
 
+    </div>
 
+<?php } ?>
