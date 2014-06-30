@@ -793,12 +793,19 @@ class ProfileController extends Controller
 			 // register
 			 else {
 			 	
-			 	// check that there is no duplicate user
+			 	// check that there is no duplicate user, if so ask if he want to link the accounts
 			 	$duplicateUser = User::model()->findByAttributes(array('email'=>$user['email']));
 			 	if ($duplicateUser != null) {
-			 		$error = 'User email is already linked with another account.';
-					$this->redirect(array('user/StudentRegister', 'error'=>$error,));
+                    $res = $this->actionLinkToo();
+
+                    if($res == true){
+                    $duplicateUser->googleid = $user_id;
+                    $duplicateUser->image_url = $user['picture'];
+                    $duplicateUser->save(false);
+
+                    $this->redirect('/JobFair/index.php/profile/view');
 					return;
+                    }
 			 	}
 			 	
 			 	$model = new User();
@@ -1117,6 +1124,14 @@ class ProfileController extends Controller
 		}
 
 	}
+    public function actionLinkToo()
+    {
+        $link = true;
+        $this->render('LinkToo');
 
-	
+        return $link;
+    }
+
+
+
 }

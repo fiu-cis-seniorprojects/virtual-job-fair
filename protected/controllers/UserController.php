@@ -153,7 +153,7 @@ class UserController extends Controller
 	public function actionStudentRegister()
 	{
 		$model=new User;
-	
+
 		// uncomment the following code to enable ajax-based validation
 		/*
 		 if(isset($_POST['ajax']) && $_POST['ajax']==='user-StudentRegister-form')
@@ -165,7 +165,14 @@ class UserController extends Controller
 	
 		if(isset($_POST['User']))
 		{
-			if ($this->actionVerifyStudentRegistration() != "") {
+            $user = $_POST['User'];
+            $email = $user['email'];
+            $pathStudent = $this->actionVerifyStudentRegistration();
+			if($pathStudent == 1){
+                $this->actionStudentHelpReg($email);
+                return;
+            }
+            if ($pathStudent != "" && $pathStudent != 1) {
 				$this->render('StudentRegister');
 			}
 						
@@ -227,7 +234,8 @@ class UserController extends Controller
 			$error .= "Username is taken<br />";
 		}
 		if (User::model()->find("email=:email",array(':email'=>$email))) {
-			$error .= "Email is taken<br />";
+            $error .= "Email is taken<br />";
+            return 1;
 		}
 		if ($password != $password2) {
 			$error .= "Passwords do not match<br />";
@@ -685,6 +693,17 @@ class UserController extends Controller
             $current_user->save(false);
             echo json_encode(Array("status"=>$val));
         }
+    }
+    public function actionDuplicationError()
+    {
+        //$model = User::getCurrentUser();
+        //$error = '';
+        //,array('model'=>$model, 'error' => $error)
+        $this->render('duplicationError');
+    }
+    public function actionStudentHelpReg($email)
+    {
+        $this->render('StudentHelpReg', array('email'=>$email));
     }
 	
 
