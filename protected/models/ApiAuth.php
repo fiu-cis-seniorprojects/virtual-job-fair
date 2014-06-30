@@ -61,7 +61,7 @@ class ApiAuth extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'valid_key' => 'Valid Key',
+			'valid_key' => 'API Key',
 		);
 	}
 

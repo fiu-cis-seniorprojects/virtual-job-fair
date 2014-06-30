@@ -33,55 +33,7 @@
         });
         setTimeout("toggleNotifications(1)", 30000);
     }
-
-    function careerPathSync()
-    {
-        $.get("/JobFair/index.php/home/careerpathsync", null, function(data){
-            alert(data);
-        });
-    }
-
-
 </script>
-<div id="adminAPITools">
-
-    <h1>API Sync:</h1>
-    <br/>
-    From:
-    <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-        'name' => 'api_date_from',
-        'options' => array(
-            'showAnim' => 'fold',
-            'dateFormat'=> 'yy-mm-dd',
-        ),
-        'htmlOptions' => array(
-            'style' => 'height:20px; width: 200px'
-        )
-    ));?>
-    <br/>
-    To:
-    <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-        'name' => 'api_date_to',
-        'options' => array(
-            'showAnim' => 'fold',
-            'dateFormat'=> 'yy-mm-dd',
-        ),
-        'htmlOptions' => array(
-            'style' => 'height:20px; width: 200px'
-        )
-    ));?>
-
-    <?php
-    echo '<br/>';
-    echo CHtml::button("Synchronize with CareerPath", array(
-        'type'=>'submit',
-        'id'=>'carrerPathAPISync',
-        'class'=>'btn btn-success',
-        'onclick'=>'careerPathSync()',
-    ));
-    echo '<br/>';
-    ?>
-</div>
 <br/>
 
 <div id="adminSearchbox"> 
