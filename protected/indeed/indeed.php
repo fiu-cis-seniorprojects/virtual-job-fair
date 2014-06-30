@@ -2,14 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: analhernandez
- * Date: 6/23/14
- * Time: 4:09 PM
  */
 
 namespace indeed;
 
+/**
+ * Class Indeed
+ * @package indeed
+ * Indeed API Information
+ * Publisher ID: "5595740829812660"
+ * email: virtualjobfairfiu@gmail.com
+ * password: cis49112014
+ */
 
-class indeedJobFetch{
+
+class Indeed{
 
     const DEFAULT_FORMAT = "xml";
     const API_SEARCH_ENDPOINT = "http://api.indeed.com/ads/apisearch";
@@ -19,7 +26,7 @@ class indeedJobFetch{
     private static $API_SEARCH_REQUIRED = array("userip", "useragent", array("q", "l"));
     private static $API_JOBS_REQUIRED = array("jobkeys");
 
-    public function indeedJobFetcht($publisher, $version = "2"){
+    public function __construct($publisher, $version = "2"){
         $this->publisher = $publisher;
         $this->version = $version;
     }
@@ -67,5 +74,6 @@ class indeedJobFetch{
         }
         return $args;
     }
+}
 
-} 
+?>
