@@ -4,7 +4,6 @@
  * User: analhernandez
  */
 
-namespace indeed;
 
 /**
  * Class Indeed

@@ -135,9 +135,9 @@ class JobController extends Controller
         $result = Array();
 
         // to call Indeed API
-        require 'protected/indeed/Indeed.php';
+        require 'protected/indeed/indeed.php';
         // Indeed publisher number 5595740829812660
-        $client = new \indeed\Indeed("5595740829812660");
+        $client = new Indeed("5595740829812660");
 
         // parameters pass to indeed API
         $params = array(
