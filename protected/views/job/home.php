@@ -84,16 +84,31 @@ function getURLParameter(name) {
 <div>
 <!-- job type field -->
 <strong>Job Type:</strong>
-<?php CHtml::dropDownList("type",'', array(''=>'Any', 'Internship'=>'Internship', 'Full+Time'=>'Full Time', 'Part+Time'=>'Part Time',
-                            'Co-op'=>'Co-op', 'Research'=>'Research'))?>
-<select name="type" id="type">
-	<option value="">Any</option>
-	<option value="Internship">Internship</option>
-	<option value="Full Time">Full Time</option>
-	<option value="Part Time">Part Time</option>
-    <option value="Co-op">Co-op</option>
-    <option value="Research">Research</option>
-</select>
+
+<?php
+
+// get types from database
+$unique_types = Job::model()->findAllBySql('SELECT DISTINCT `type` FROM `job`');
+$job_types = array('' => 'Any');
+if (isset($unique_types) && !is_null($unique_types))
+{
+    foreach ($unique_types as $cur_type)
+    {
+        $cur_type_str = $cur_type['type'];
+        $job_types[$cur_type_str] = $cur_type_str;
+    }
+}
+
+echo CHtml::dropDownList("type",'', $job_types);
+?>
+<!--<select name="type" id="type">-->
+<!--	<option value="">Any</option>-->
+<!--	<option value="Internship">Internship</option>-->
+<!--	<option value="Full Time">Full Time</option>-->
+<!--	<option value="Part Time">Part Time</option>-->
+<!--    <option value="Co-op">Co-op</option>-->
+<!--    <option value="Research">Research</option>-->
+<!--</select>-->
 <!-- title field -->
 <strong>Position:</strong>
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(

@@ -36,7 +36,7 @@
 	<div class="row buttons">
 
         <?php
-            echo CHtml::button('Generate', array('onclick' => 'js:random_str(30);'));
+            echo CHtml::button('Generate', array('onclick' => 'js:random_str(45);'));
         ?>
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
