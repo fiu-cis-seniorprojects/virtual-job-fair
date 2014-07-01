@@ -32,6 +32,13 @@ class APIController extends Controller
 
     public function actionPost()
     {
+        // check if api is enabled
+        $api_status = ApiStatus::getFirst();
+        if (!$api_status->isApiOn())
+        {
+            $this->_sendResponse(200,'API access has been disabled. Contact VJF administrator.');
+        }
+
         // perform routine auth
         $this->authenticate();
 
