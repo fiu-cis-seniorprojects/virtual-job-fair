@@ -5,7 +5,5 @@
 ?>
 <br/><br/>
 <h2>Linking Error:</h2>
-<div class="form">
+<h3>The account is already link</h3>
 
-    helloooooooo
-    </div><!-- form -->

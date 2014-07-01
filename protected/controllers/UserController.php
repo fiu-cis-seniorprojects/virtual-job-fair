@@ -466,13 +466,146 @@ class UserController extends Controller
 			
 // 			print "<pre>"; print_r('user is null');print "</pre>";
 
-			// check that there is no duplicate user
+			// check that there is no duplicate user if so link to that account
 			$duplicateUser = User::model()->findByAttributes(array('email'=>$data->{'email-address'}));
 			if ($duplicateUser != null) {
-				$error = 'User email is already linked with another account.';
-				$model=new User;
-				$this->render('StudentRegister',array('error' => $error, 'model'=>$model));
-				return;
+
+
+
+                // get username and link the accounts
+                $username = $duplicateUser->username;
+                $user = User::model()->find("username=:username",array(':username'=>$username));
+                $user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
+                $user->linkedinid = $data->{'id'};
+                $user->save(false);
+                $user_id = $user->id;
+
+
+                // ------------------BASIC INFO---------------
+                $basic_info = null;
+                $basic_info = BasicInfo::model()->findByAttributes(array('userid'=>$user_id));
+                if ($basic_info == null)
+                    $basic_info = new BasicInfo();
+                $basic_info->userid = $user_id;
+                $basic_info->phone = $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};
+                $basic_info->city = $data->location->name;
+                $basic_info->state = '';
+                $basic_info->about_me = $data->headline;
+                $basic_info->save(false);
+                // ------------------BASIC INFO -----------------
+
+                // -----------------EDUCATION ----------------------
+                // get number of educations to add
+                $educ_count = $data->educations['total'];
+
+                // delete current educations
+                $delete_educs = Education::model()->findAllByAttributes(array('FK_user_id'=>$user_id));
+                foreach ($delete_educs as $de)
+                {
+                    $de->delete();
+                }
+
+                // add educations
+                for ($i=0; $i<$educ_count; $i++)
+                {
+                    // first check if current education is in school table. if not, add it
+                    $current_school_name = $data->educations->education[$i]->{'school-name'};
+                    $school_exists = School::model()->findByAttributes(array('name'=>$current_school_name));
+                    if ($school_exists == null){
+                        $new_school = new School();
+                        $new_school->name = $current_school_name;
+                        $new_school->save();
+                        $school_id = School::model()->findByAttributes(array('name'=>$current_school_name))->id;
+                    } else {
+                        $school_id = $school_exists->id;
+                    }
+
+                    // now ready to add new education
+                    $new_educ = new Education();
+                    $new_educ->degree = $data->educations->education[$i]->degree;
+                    $new_educ->major = $data->educations->education[$i]->{'field-of-study'};
+// 	   	$model->admission_date=date('Y-m-d',strtotime($model->admission_date));
+                    $new_educ->graduation_date = date('Y-m-d',strtotime($data->educations->education[$i]->{'end-date'}->year));
+// 	   	print "<pre>"; print_r($new_educ->graduation_date);print "</pre>";return;
+                    $new_educ->FK_school_id = $school_id;
+                    $new_educ->FK_user_id = $user_id;
+                    $new_educ->additional_info = $data->educations->education[$i]->notes;
+                    $new_educ->save(false);
+                }
+                // -----------------EDUCATION ----------------------
+
+                // -----------------EXPERIENCE -------------------
+                // get number of educations to add
+                $pos_count = $data->positions['total'];
+
+                // delete current positions
+                $delete_pos = Experience::model()->findAllByAttributes(array('FK_userid'=>$user_id));
+                foreach ($delete_pos as $de)
+                {
+                    $de->delete();
+                }
+
+                for ($i=0; $i<$pos_count; $i++)
+                {
+                    $new_pos = new Experience();
+                    $new_pos->FK_userid = $user_id;
+                    $new_pos->company_name = $data->positions->position[$i]->company->name;
+                    $new_pos->job_title = $data->positions->position[$i]->title;
+                    $new_pos->job_description = $data->positions->position[$i]->summary;
+                    $temp_start_date = $data->positions->position[$i]->{'start-date'}->month . '/01/' . $data->positions->position[$i]->{'start-date'}->year;
+                    $new_pos->startdate = date('Y-m-d', strtotime($temp_start_date));
+                    if ($data->positions->position[$i]->{'is-current'} == 'true'){
+                        $new_pos->enddate =  '';
+                    } else {
+                        $temp_end_date = $data->positions->position[$i]->{'end-date'}->month . '/01/' . $data->positions->position[$i]->{'end-date'}->year;
+                        $new_pos->enddate = date('Y-m-d', strtotime($temp_end_date));
+                    }
+                    $new_pos->city = '';
+                    $new_pos->state = '';
+                    $new_pos->save(false);
+                }
+                // -----------------EXPERIENCE -------------------
+
+                // ----------------------SKILLS----------------------
+                // get number of educations to add
+                $linkedin_skill_count = $data->skills['total'];
+
+                for ($i=0; $i<$linkedin_skill_count; $i++){
+                    // check if skill exists in skill set table, if not, add it to skill set table
+                    if (Skillset::model()->findByAttributes(array('name'=>$data->skills->skill[$i]->skill->name)) == null){
+                        $new_skill = new Skillset();
+                        $new_skill->name = $data->skills->skill[$i]->skill->name;
+                        $new_skill->save(false);
+                        echo 'New Skill ' . $new_skill->attributes;
+                    }
+
+                    // check if student has that skill, if not add it to student-skill-map table
+                    if (StudentSkillMap::model()->findByAttributes(array('userid'=>$user_id,
+                            'skillid'=>Skillset::model()->findByAttributes(array('name'=>$data->skills->skill[$i]->skill->name))->id)) == null){
+                        $new_sdnt_skill = new StudentSkillMap();
+                        $new_sdnt_skill->userid = $user_id;
+                        $new_sdnt_skill->skillid = Skillset::model()->findByAttributes(array('name'=>$data->skills->skill[$i]->skill->name))->id;
+                        $new_sdnt_skill->ordering = $i + 1;
+                        $new_sdnt_skill->save(false);
+                        echo 'New Skill for student' . $new_sdnt_skill->attributes;
+                    }
+                }
+                // ----------------------SKILLS----------------------
+
+                if ($duplicateUser->disable != 1)
+                {
+                    $identity = new UserIdentity($duplicateUser->username, '');
+                    if ($identity->authenticateOutside()) {
+                        Yii::app()->user->login($identity);
+                    }
+                    $mesg = "LinkedIn";
+                    $this->actionLinkNotification($mesg);
+                    return;
+                }
+                else {
+                    $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+                    return;
+                }
 			}
 
 			// Populate user attributes
@@ -703,7 +836,13 @@ class UserController extends Controller
     }
     public function actionStudentHelpReg($email)
     {
-        $this->render('StudentHelpReg', array('email'=>$email));
+        $model = new LinkTooForm();
+        $this->render('StudentHelpReg', array('model'=>$model,'email'=>$email));
+    }
+    public function actionLinkNotification($mesg)
+    {
+        $model = new LinkTooForm();
+        $this->render('LinkNotification', array('model'=>$model, 'mesg'=>$mesg));
     }
 	
 
