@@ -30,101 +30,50 @@ class JobController extends Controller
 		
 	}
 	
-	public function actionHome($type = null, $jobtitle = null, $companyname = null, $skillname = null, $radioOption = null,
+	public function actionHome($allWords = null, $phrase = null, $anyWord = null, $minus = null, $radioOption = null,
                 $city = null){
 
         $flag = 2;
-        //get all jobs by type or not
-		if (isset($type) && $type != ""){
-			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND type=:type ORDER BY deadline DESC", array(":type"=>$type));
-		} else {
-			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' ORDER BY deadline DESC");
-		}
+        $query = "";
+        $job = Array();
 
-        if(isset($jobtitle) && $jobtitle != "")
+        if( $allWords == "" &&  $phrase == "" &&  $anyWord == "" &&  $minus == "")
         {
-            $jobtitles = array();
-            foreach($jobs as $job)
-            {
-                $name = $job->title;
-                if($name == $jobtitle)
-                {
-                    $jobtitles[] = $job;
-                }
-            }
-            $jobs = $jobtitles;
+            $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
+        }
+        if(isset($allWords) && $allWords != "")
+        {
+            $query = $allWords." ";
+        }
+        if(isset($phrase) && $phrase != "")
+        {
+            $query .= $phrase." ";
+        }
+        if(isset($anyWord) && $anyWord != "")
+        {
+            $query .= $anyWord." ";
+        }
+        if(isset($minus) && $minus != "")
+        {
+            $query .= $minus." ";
+        }
+        if($query != null)
+        {
+            $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1';");
+
         }
 
-		if (isset($companyname) && $companyname != ""){
-			$companyjobs = array();
-			foreach($jobs as $job){
-				$name = $job->fKPoster->companyInfo['name'];
-				if ($name == $companyname) {
-					$companyjobs[] = $job;
-				}
-			}
-			$jobs = $companyjobs;
-		}
-
-        if (isset($skillname) && $skillname != ""){
-            $jobskill = array();
-            $skills = array();
-            $jobMap = null;
-            $skill_id = null;
-            $skillnames = explode(" ", $skillname);
-
-            // Query database by skills name and retrieve the skill_id
-            foreach($skillnames as $sk) {
-                $skills[] = Skillset::model()->findBySql("SELECT id FROM skillset WHERE name=:name", array(":name"=>$sk));
-            }
-
-            if ($skills != null){
-                foreach($skills as $sk)
-                {
-                     $skill_id[] = $sk['id']; //get skill id
-                    // Get all jobs that have the skill_id
-                    $jobMap = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$skill_id));
-
-                }
-            }
-            // Array of jobs()
-            foreach($jobs as $job)
-            {
-                if ($jobMap != null)
-                {
-                    foreach ($jobMap as $aJobMap)
-                    {
-                        //get jobid from matching skills
-                        $jobid = $aJobMap->jobid;
-                        if ($skill_id != null)
-                        {
-                            // all jobs id from jobs
-                            $name = $job->id;
-
-                           if($name == $jobid)
-                           {
-                                $jobskill[] = $job;
-                           }
-                        }
-                    }
-                }
-            }
-            $jobs = $jobskill;
-        }
         // calling indeed function
         if(isset($radioOption) && $radioOption != "")
         {
-            $query = $skillname." ";
-            $query .= $jobtitle." ";
-            $query .= $companyname." ";
             $result = $this->indeed($query, $city);
             //print_r($result); return;
-            $this->render('home', array('jobs'=>$jobs,'result'=>$result,'flag'=>$flag));
+            $this->render('home', array('jobs'=>$job,'result'=>$result,'flag'=>$flag));
         }
         else
         {
             $result = "";
-            $this->render('home', array('jobs'=>$jobs, 'result'=>$result, 'flag'=>$flag));
+            $this->render('home', array('jobs'=>$job, 'result'=>$result, 'flag'=>$flag));
         }
 	}
 

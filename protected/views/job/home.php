@@ -4,14 +4,17 @@ $pages = 0;
 $size = 0;
 $loValue = false;
 settype($size, "integer");
-if (!isset($_GET['companyname'])) {
-	$_GET['companyname'] = '';
+if (!isset($_GET['allWords'])) {
+	$_GET['allWords'] = '';
 }
-if (!isset($_GET['jobtitle'])) {
-    $_GET['jobtitle'] = '';
+if (!isset($_GET['phrase'])) {
+    $_GET['phrase'] = '';
 }
-if (!isset($_GET['skillname'])) {
-    $_GET['skillname'] = '';
+if (!isset($_GET['anyWord'])) {
+    $_GET['anyWord'] = '';
+}
+if (!isset($_GET['minus'])) {
+    $_GET['minus'] = '';
 }
 
 if(isset($job))
@@ -76,80 +79,71 @@ function getURLParameter(name) {
 }
 </script>
 
-<!-- ********** Refine Search *********** -->
+<!-- ********** Advance Search *********** -->
 <div id="searchforjobs2" style="float:left;">
-<div class="titlebox">Refine Search</div>
-<br/><br/>
-<form method="GET" id="searchForm">
-<div>
-<!-- job type field -->
-<strong>Job Type:</strong>
-<?php CHtml::dropDownList("type",'', array(''=>'Any', 'Internship'=>'Internship', 'Full+Time'=>'Full Time', 'Part+Time'=>'Part Time',
-                            'Co-op'=>'Co-op', 'Research'=>'Research'))?>
-<select name="type" id="type">
-	<option value="">Any</option>
-	<option value="Internship">Internship</option>
-	<option value="Full Time">Full Time</option>
-	<option value="Part Time">Part Time</option>
-    <option value="Co-op">Co-op</option>
-    <option value="Research">Research</option>
-</select>
-<!-- title field -->
-<strong>Position:</strong>
-<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-     'name'=>'jobtitle',
-     'id'=>'jobtitle',
-     'source'=>Job::getJobTitle(),
-     'value'=> $_GET['jobtitle'],
-     'htmlOptions'=>array('value'=> $_GET['jobtitle'],),)); ?>
-<!-- company field -->
-<strong>Company:</strong>
-<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-    'name'=>'companyname',
-	'id'=>'companyname',
-	'source'=>CompanyInfo::getCompanyNames(),
-	'value'=> $_GET['companyname'],
-    'htmlOptions'=>array('value'=> $_GET['companyname'],),)); ?>
-<!-- skills field -->
-<strong>Skills:</strong>
-<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-     'name'=>'skillname',
-     'id'=>'skillname',
-     'source'=>Job::getJobBySkill(),
-     'value'=> $_GET['skillname'],
-     'htmlOptions'=>array('value'=> $_GET['skillname'],),)); ?>
-<!-- outside resources radio button -->
-<div class="radio">
-    <label>
-        Include jobs from outside sources <input type="radio" name="radioOption" id="radioOption" value="true">
-    </label>
-</div>
-<!-- search button -->
-<?php $this->widget('bootstrap.widgets.TbButton', array(
-		    'label'=>'Search',
-		    'type'=>'primary',
-		    'htmlOptions'=>array(
-		        'data-toggle'=>'modal',
-		        'data-target'=>'#myModal',
-				'style'=>'width: 120px;',
-				'id' => "searchbutton",
-		    	'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
-		    	'onclick' =>'$(this).closest("form").submit();',
-		    	),
-			)); ?>
-<!-- reset button -->
-<?php $this->widget('bootstrap.widgets.TbButton', array(
-    'buttonType'=>'reset', 'label'=>'Reset',
-    'htmlOptions'=>array(
-        'data-toggle'=>'modal',
-        'data-target'=>'#myModal',
-        'style'=>'width: 120px;',
-        'id' => "searchbutton",
-        'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
-        'onclick' =>'resetField()',
-    ),)); ?>
-</div>
-</form>
+<div class="titlebox">Advanced Search  </div>
+    <br/><br>
+    <form method="GET" id="searchForm">
+      <h4>Find jobs with... </h4>
+        <div>
+            <strong>all these words:</strong>
+            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'allWords',
+                'id'=>'allWords',
+                'value'=> $_GET['allWords'],
+                'htmlOptions'=>array('value'=> $_GET['allWords'],'placeholder' => 'put important words',
+                    'style'=>'width: 220px;'),)); ?>
+            <br> <strong>this exact words or phrase:</strong><br>
+            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'phrase',
+                'id'=>'phrase',
+                'value'=> $_GET['phrase'],
+                'htmlOptions'=>array('value'=> $_GET['phrase'],'placeholder' => 'put words in quotes',
+                    'style'=>'width: 220px;'),)); ?>
+            <br> <strong>any of these words:</strong><br>
+            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'anyWord',
+                'id'=>'anyWord',
+                'value'=> $_GET['anyWord'],
+                'htmlOptions'=>array('value'=> $_GET['anyWord'],'placeholder' => 'put OR between words',
+                    'style'=>'width: 220px;'),)); ?>
+            <br> <strong>none of these words:</strong><br>
+            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'minus',
+                'id'=>'minus',
+                'value'=> $_GET['minus'],
+                'htmlOptions'=>array('value'=> $_GET['minus'],'placeholder' => 'put minus sign before word',
+                    'style'=>'width: 220px;'),)); ?>
+            <!-- outside resources radio button -->
+            <br> <div class="radio">
+             <input type="radio" name="radioOption" id="radioOption" value="true">
+                <strong> Include jobs from outside sources </strong>
+            </div>
+            <!-- search button -->
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                'label'=>'Search',
+                'type'=>'primary',
+                'htmlOptions'=>array(
+                    'data-toggle'=>'modal',
+                    'data-target'=>'#myModal',
+                    'id' => "searchbutton",
+                    'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
+                    'onclick' =>'$(this).closest("form").submit();',
+                ),
+            )); ?>
+            <!-- reset button -->
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                'buttonType'=>'reset',
+                'label'=>'Reset Fields',
+                'htmlOptions'=>array(
+                    'data-toggle'=>'modal',
+                    'data-target'=>'#myModal',
+                    'id' => "searchbutton",
+                    'style' => "margin-top: 5px; margin-bottom: 5px;width: 140px;",
+                    'onclick' =>'resetField()',
+                ),)); ?>
+        </div>
+    </form>
 </div>
 <div>
 

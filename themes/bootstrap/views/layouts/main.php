@@ -68,6 +68,7 @@
 	?>
 
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
+    //'type'=>'inverse', // null or 'inverse'
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
