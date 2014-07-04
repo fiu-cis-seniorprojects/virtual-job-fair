@@ -31,11 +31,6 @@ if(isset($job))
 $rpp = 10; //results per page
 ?>
 <script>
-    function resetField()
-    {
-        // Reset the page(
-        window.location = "/JobFair/index.php/job/home";
-    }
 
     $(document).on('click', '#radioOption', create);
     $clicked = 0;
@@ -54,6 +49,11 @@ $rpp = 10; //results per page
             $clicked++;
         }
 
+    }
+
+    function myFunction()
+    {
+        document.getElementById("searchForm").submit();
     }
 
 $(document).ready(function() {
@@ -83,22 +83,22 @@ function getURLParameter(name) {
 <div id="searchforjobs2" style="float:left;">
 <div class="titlebox">Advanced Search  </div>
     <br/><br>
-    <form method="GET" id="searchForm">
+    <form method="GET" id="searchForm" action="/JobFair/index.php/job/home">
       <h4>Find jobs with... </h4>
         <div>
-            <strong>all these words:</strong>
+            <strong>these words:</strong>
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                 'name'=>'allWords',
                 'id'=>'allWords',
                 'value'=> $_GET['allWords'],
-                'htmlOptions'=>array('value'=> $_GET['allWords'],'placeholder' => 'put important words',
+                'htmlOptions'=>array('value'=> $_GET['allWords'],'placeholder' => 'put plus sign before word',
                     'style'=>'width: 220px;'),)); ?>
-            <br> <strong>this exact words or phrase:</strong><br>
+            <br> <strong>this exact word or phrase:</strong><br>
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                 'name'=>'phrase',
                 'id'=>'phrase',
                 'value'=> $_GET['phrase'],
-                'htmlOptions'=>array('value'=> $_GET['phrase'],'placeholder' => 'put words in quotes',
+                'htmlOptions'=>array('value'=> $_GET['phrase'],'placeholder' => 'put word or phrase in quotes',
                     'style'=>'width: 220px;'),)); ?>
             <br> <strong>any of these words:</strong><br>
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
@@ -112,7 +112,7 @@ function getURLParameter(name) {
                 'name'=>'minus',
                 'id'=>'minus',
                 'value'=> $_GET['minus'],
-                'htmlOptions'=>array('value'=> $_GET['minus'],'placeholder' => 'put minus sign before word',
+                'htmlOptions'=>array('value'=> $_GET['minus'],'placeholder' => 'put minus sign before words',
                     'style'=>'width: 220px;'),)); ?>
             <!-- outside resources radio button -->
             <br> <div class="radio">
@@ -126,12 +126,13 @@ function getURLParameter(name) {
                 'htmlOptions'=>array(
                     'data-toggle'=>'modal',
                     'data-target'=>'#myModal',
+                    //'action'=> '/JobFair/index.php/job/home',
                     'id' => "searchbutton",
                     'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
-                    'onclick' =>'$(this).closest("form").submit();',
+                    'onclick' => "myFunction()",
                 ),
             )); ?>
-            <!-- reset button -->
+           <!-- reset button -->
             <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'buttonType'=>'reset',
                 'label'=>'Reset Fields',
@@ -140,14 +141,14 @@ function getURLParameter(name) {
                     'data-target'=>'#myModal',
                     'id' => "searchbutton",
                     'style' => "margin-top: 5px; margin-bottom: 5px;width: 140px;",
-                    'onclick' =>'resetField()',
+                    'onclick' =>'window.location = "/JobFair/index.php/job/home"',
                 ),)); ?>
         </div>
     </form>
 </div>
 <div>
 
-<!-- ********** Search Result from Nav Bar && Advance Search ************** -->
+<!-- ********** Search Result from Nav Bar && Advanced Search ************** -->
  <?php if (isset($flag) && $flag == 2) { ?>
     <!-- ******* Job Postings from Job Page using external sources & Career Path *******  -->
     <div class="pages">
@@ -156,7 +157,7 @@ function getURLParameter(name) {
         <?php for ($i = 0; $i < $pages; $i ++) {?>
             <a class="pageclick"<?php if ($i == 0) echo "id='firstpage'"; ?>> <?php echo $i + 1;?></a>
         <?php }?>
-    <head><th>Position</th> <th>Company</th> <th>Job Type</th>  <th>Post Date</th> <th>Expiration Date</th>  <th>Compensation</th> <th>Skills</th><th>Source</th></head>
+    <head><th>Position</th> <th>Company</th> <th>Type</th>  <th>Opening</th> <th>Deadline</th>  <th>Compensation</th> <th> Skills</th><th>Source</th></head>
     <?php  if($jobs != null & sizeof($jobs) > 0) { ?>
     </div>
     <?php foreach ($jobs as $job) {?>

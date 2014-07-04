@@ -436,7 +436,7 @@ margin: 0 10px 5px 0;
 .titlebox{
 	float:left;
 	margin:-6px 0 0 -6px;
-	background:#0088cc;
+	background: #0088cc;
 	color:white;
 	border-radius: 5px 0 5px 0;
 	padding:5px !important;
@@ -689,7 +689,7 @@ opacity: 1.5;
 	border-width: 1px;
 	border-color:white;
 	border-style:solid;
- 	border-radius: 3px 3px 3px 3px;
+ 	border-radius: 17px 5px 5px 5px;
 
  	font-size:12px;
  	background-color: transparent;
@@ -702,14 +702,13 @@ opacity: 1.5;
     margin-right:20px;
 	min-height:50px;
 	padding:5px;
-	border-width: 1px;
-	border-color:white;
+	border-width: 2px;
 	border-style:solid;
- 	border-radius: 3px 3px 3px 3px;
+ 	border-radius: 5px 0px 8px 0px;
 
  	font-size:12px;
  	background-color: transparent;
-	border-color: rgb(178, 197, 252);
+	border-color: #ADADAD;
 }
 
 
@@ -1507,13 +1506,13 @@ ul
 
 
 .jobtable {
-    border: solid #ccc 1px;
-    -moz-border-radius: 6px;
+    border: solid #E1EEF4 1px;
+    -moz-border-radius: 30px;
     -webkit-border-radius: 6px;
     border-radius: 6px;
-    -webkit-box-shadow: 0 1px 1px #ccc; 
-    -moz-box-shadow: 0 1px 1px #ccc; 
-    box-shadow: 0 1px 1px #ccc;         
+    -webkit-box-shadow: 0 1px 1px #ccc;
+    -moz-box-shadow: 0 1px 1px #ccc;
+    box-shadow: 0 1px 1px #ccc;
 }
 
 .pageclick {
@@ -1532,21 +1531,26 @@ ul
     -ms-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;     
 }    
-    
-.jobtable td, .jobtable th {
-    border-left: 1px solid #ccc;
+
+.jobtable th{
+    border-left: 0px solid #E1EEF4;
     border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+.jobtable td {
+    border-left: 1px solid #E1EEF4;
+    border-top: 1px solid #E1EEF4;
     padding: 10px;
     text-align: left;    
 }
 
 .jobtable th {
-    background-color: #0088cc;
+    background-color: #006699;
     -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
     -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
     box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
     border-top: none;
-    text-shadow: 0 1px 0 rgba(255,255,255,.5);
     color:white;
 }
 

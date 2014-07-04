@@ -41,13 +41,13 @@ class JobController extends Controller
         {
             $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
         }
-        if(isset($allWords) && $allWords != "")
-        {
-            $query = $allWords." ";
-        }
         if(isset($phrase) && $phrase != "")
         {
-            $query .= $phrase." ";
+            $query = $phrase." ";
+        }
+        if(isset($allWords) && $allWords != "")
+        {
+            $query .= $allWords." ";
         }
         if(isset($anyWord) && $anyWord != "")
         {
@@ -59,7 +59,8 @@ class JobController extends Controller
         }
         if($query != null)
         {
-            $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1';");
+            //print_r($query); exit;
+            $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
 
         }
 
@@ -122,12 +123,12 @@ class JobController extends Controller
             {
                 // check each snipped for skills
                 $cur_snippet = $snippets[$i];
-                $cur_snippet = str_replace(array('/', ',', '.'), ' ', $cur_snippet);
+                $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
                 $cur_snippet_words = explode(' ', $cur_snippet); // split into words
                 foreach ($cur_snippet_words as $snippet_word)
                 {
                     // check database to see if current word is a skill
-                    $skill = Skillset::model()->find("name=:name", array(":name"=>$snippet_word));
+                    $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
                     if ($skill)
                     {
                         // append current word (skill) to results snippet (check duplicates)
@@ -501,6 +502,7 @@ class JobController extends Controller
         // flag to display results in home
         $flag = 2;
         $bool = false;
+        $keyword = "";
         $result = Array();
         // words to search for
         if(isset($_POST['keyword']))
