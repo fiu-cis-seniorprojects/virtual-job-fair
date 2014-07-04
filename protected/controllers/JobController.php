@@ -30,108 +30,58 @@ class JobController extends Controller
 		
 	}
 	
-	public function actionHome($type = null, $jobtitle = null, $companyname = null, $skillname = null, $radioOption = null,
+	public function actionHome($allWords = null, $phrase = null, $anyWord = null, $minus = null, $radioOption = null,
                 $city = null){
 
-        //get all jobs by type or not
-		if (isset($type) && $type != ""){
-			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' AND type=:type ORDER BY deadline DESC", array(":type"=>$type));
-		} else {
-			$jobs = Job::model()->findAllBySql("SELECT * FROM job WHERE active='1' ORDER BY deadline DESC");
-		}
+        $flag = 2;
+        $query = "";
+        $job = Array();
 
-        if(isset($jobtitle) && $jobtitle != "")
+        if( $allWords == "" &&  $phrase == "" &&  $anyWord == "" &&  $minus == "")
         {
-            $jobtitles = array();
-            foreach($jobs as $job)
-            {
-                $name = $job->title;
-                if($name == $jobtitle)
-                {
-                    $jobtitles[] = $job;
-                }
-            }
-            $jobs = $jobtitles;
+            $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
+        }
+        if(isset($phrase) && $phrase != "")
+        {
+            $query = $phrase." ";
+        }
+        if(isset($allWords) && $allWords != "")
+        {
+            $query .= $allWords." ";
+        }
+        if(isset($anyWord) && $anyWord != "")
+        {
+            $query .= $anyWord." ";
+        }
+        if(isset($minus) && $minus != "")
+        {
+            $query .= $minus." ";
+        }
+        if($query != null)
+        {
+            //print_r($query); exit;
+            $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
+
         }
 
-		if (isset($companyname) && $companyname != ""){
-			$companyjobs = array();
-			foreach($jobs as $job){
-				$name = $job->fKPoster->companyInfo['name'];
-				if ($name == $companyname) {
-					$companyjobs[] = $job;
-				}
-			}
-			$jobs = $companyjobs;
-		}
-
-        if (isset($skillname) && $skillname != ""){
-            $jobskill = array();
-            $skills = array();
-            $jobMap = null;
-            $skill_id = null;
-            $skillnames = explode(" ", $skillname);
-
-            // Query database by skills name and retrieve the skill_id
-            foreach($skillnames as $sk) {
-                $skills[] = Skillset::model()->findBySql("SELECT id FROM skillset WHERE name=:name", array(":name"=>$sk));
-            }
-
-            if ($skills != null){
-                foreach($skills as $sk)
-                {
-                     $skill_id[] = $sk['id']; //get skill id
-                    // Get all jobs that have the skill_id
-                    $jobMap = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$skill_id));
-
-                }
-            }
-            // Array of jobs()
-            foreach($jobs as $job)
-            {
-                if ($jobMap != null)
-                {
-                    foreach ($jobMap as $aJobMap)
-                    {
-                        //get jobid from matching skills
-                        $jobid = $aJobMap->jobid;
-                        if ($skill_id != null)
-                        {
-                            // all jobs id from jobs
-                            $name = $job->id;
-
-                           if($name == $jobid)
-                           {
-                                $jobskill[] = $job;
-                           }
-                        }
-                    }
-                }
-            }
-            $jobs = $jobskill;
-        }
         // calling indeed function
         if(isset($radioOption) && $radioOption != "")
         {
-            $flag = 2;
-            $result = $this->indeed($jobtitle, $companyname, $skillname, $city);
+            $result = $this->indeed($query, $city);
             //print_r($result); return;
-            $this->render('home', array('jobs'=>$jobs,'result'=>$result,'flag'=>$flag));
+            $this->render('home', array('jobs'=>$job,'result'=>$result,'flag'=>$flag));
         }
         else
         {
-            $flag = 0;
-            $this->render('home', array('jobs'=>$jobs,'flag'=>$flag));
+            $result = "";
+            $this->render('home', array('jobs'=>$job, 'result'=>$result, 'flag'=>$flag));
         }
 	}
 
     // call to indeed API
-    public function indeed($jobtitle, $companyname, $skillname, $city)
+    public function indeed($query, $city)
     {
         $loc = $city;
-        $query = $jobtitle;
-        $query .= $companyname;
-        $query .= $skillname;
         $result = Array();
 
         // to call Indeed API
@@ -143,7 +93,6 @@ class JobController extends Controller
         $params = array(
             "q" => $query,                              // query from user
             "l" => $loc,                                // user location
-           // "jt" => $type,                            // Job type. Allowed values: "fulltime", "parttime", "contract", "internship", "temporary"
             "limit" => 25,                              // Maximum number of results returned per query. Default is 10
             "userip" => $_SERVER['REMOTE_ADDR'],        // user IP address
             "useragent" => $_SERVER['HTTP_USER_AGENT']  // user browser
@@ -157,33 +106,37 @@ class JobController extends Controller
         // convert snippets to skills
         $snippets = array();
         $j = 0;
-        for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
-        {
-            $snippets[$j] =  strtolower($result['results']['result'][$i]['snippet']);
-            $snippets[$j] = utf8_decode($snippets[$j]);
-            $snippets[$j] =  iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
 
-            $result['results']['result'][$i]['snippet'] = '';
-        }
-
-        // put back into results snippet as skill words
-        for ($i = 0; $i < count($result['results']['result']); $i++)
-        {
-            // check each snipped for skills
-            $cur_snippet = $snippets[$i];
-            $cur_snippet = str_replace(array('/', ',', '.'), ' ', $cur_snippet);
-            $cur_snippet_words = explode(' ', $cur_snippet); // split into words
-            foreach ($cur_snippet_words as $snippet_word)
+        // if there are results from indeed.com API
+        if($result['totalresults'] >0){
+            for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
             {
-                // check database to see if current word is a skill
-                $skill = Skillset::model()->find("name=:name", array(":name"=>$snippet_word));
-                if ($skill)
+                $snippets[$j] =  strtolower($result['results']['result'][$i]['snippet']);
+                $snippets[$j] = utf8_decode($snippets[$j]);
+                $snippets[$j] =  iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+
+                $result['results']['result'][$i]['snippet'] = '';
+            }
+
+            // put back into results snippet as skill words
+            for ($i = 0; $i < count($result['results']['result']); $i++)
+            {
+                // check each snipped for skills
+                $cur_snippet = $snippets[$i];
+                $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
+                $cur_snippet_words = explode(' ', $cur_snippet); // split into words
+                foreach ($cur_snippet_words as $snippet_word)
                 {
-                    // append current word (skill) to results snippet (check duplicates)
-                    $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
-                    if (!strstr($cur_skills, $snippet_word))
+                    // check database to see if current word is a skill
+                    $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
+                    if ($skill)
                     {
-                        $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                        // append current word (skill) to results snippet (check duplicates)
+                        $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
+                        if (!strstr($cur_skills, $snippet_word))
+                        {
+                            $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                        }
                     }
                 }
             }
@@ -547,10 +500,15 @@ class JobController extends Controller
     public function actionSearch()
     {
         // flag to display results in home
-        $flag = 1;
+        $flag = 2;
         $bool = false;
+        $keyword = "";
+        $result = Array();
         // words to search for
-        $keyword = ($_POST['keyword']);
+        if(isset($_POST['keyword']))
+        {
+            $keyword = ($_POST['keyword']);
+        }
         // array to contain the results of the search
         $results = Array();
 
@@ -575,6 +533,11 @@ class JobController extends Controller
                 //print_r ($result);
             }
 
+            // location will be set to "Miami, Florida"
+            $loc = "Miami, Florida";
+            // call indeed API to get jobs query by user
+            $result = $this->indeed($keyword, $loc);
+
         }
 
         // get user
@@ -589,8 +552,11 @@ class JobController extends Controller
         $skills = Skillset::getNames();
         // pass companies
         $companies = CompanyInfo::getNames();
+
+        //print_r($result); return;
+
         // render search results, user, skills, companies and flag to job/home
-        $this->render('home',array('results'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,));
+        $this->render('home',array('result'=>$result, 'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,));
 
     }
 
