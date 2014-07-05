@@ -4,6 +4,13 @@ class m140601_035609_initial extends CDbMigration
 {
 	public function safeUp()
 	{
+        // fix collation issues once and for all
+        $this->execute("ALTER SCHEMA `jobfairdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;");
+
+        // needed for fulltext index
+        $this->execute("SET storage_engine=MYISAM;");
+
+        // begin populating db
         $this->createTable('SMS', array(
         'id'=>'pk',
         'receiver_id'=>'int(11) NOT NULL',

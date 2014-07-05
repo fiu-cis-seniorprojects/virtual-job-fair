@@ -7,7 +7,7 @@ class m140624_020245_company_name_column extends CDbMigration
 	public function safeUp()
 	{
         $this->execute("
-           ALTER TABLE `jobfairdb`.`job`
+            ALTER TABLE `jobfairdb`.`job`
                         ADD COLUMN `comp_name` VARCHAR(255) NULL DEFAULT NULL,
                         ADD FULLTEXT(type,title,description,comp_name);
 

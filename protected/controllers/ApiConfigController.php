@@ -6,6 +6,10 @@ class ApiConfigController extends Controller
 
     public function actionHome()
     {
+        if (!User::isCurrentUserAdmin())
+            Yii::app()->end();
+
+        $api_status = ApiStatus::getFirst();
         $model = new ApiConfigForm();
 
         if(isset($_POST['ApiConfigForm']))
@@ -16,11 +20,14 @@ class ApiConfigController extends Controller
                 Yii::app()->end();
             }
         }
-        $this->render('home', array('model' => $model));
+        $this->render('home', array('model' => $model, 'api_status' => $api_status));
     }
 
     public function actionImportJobs()
     {
+        if (!User::isCurrentUserAdmin())
+            Yii::app()->end();
+
         if(isset($_POST['ApiConfigForm']))
         {
             $model = new ApiConfigForm();
@@ -30,6 +37,31 @@ class ApiConfigController extends Controller
             $this->careerPathSync($model->dateFrom, $model->dateTo, $model->allowExpired);
         }
         Yii::app()->end();
+    }
+
+    public function actionToggleAPIStatus()
+    {
+        if (!User::isCurrentUserAdmin())
+            Yii::app()->end();
+
+        $bit = intval($_GET['value']);
+        $bit = ($bit == 0) ? 1 : 0;
+        $stat = new ApiStatus();
+        $stat->status = $bit;
+        $stat->date_modified = date('Y-m-d H:i:s');
+        $stat->save();
+        $data = array('status'=>$stat->status);
+        echo CJSON::encode($data);
+    }
+
+    public function actionCheckAPIStatus()
+    {
+        if (!User::isCurrentUserAdmin())
+            Yii::app()->end();
+
+        $status = ApiStatus::getFirst();
+        $data = array('status'=>$status['status']);
+        echo CJSON::encode($data);
     }
 
     public function actionIndex()
@@ -152,6 +184,7 @@ class ApiConfigController extends Controller
             $new_job_posting->type = 'CIS'; // know it was posted using this api
             $new_job_posting->compensation = ""; // not available from CIS
             $new_job_posting->posting_url = $jp_id;
+            $new_job_posting->comp_name = $jp_company;
 
             // post the job to db
             $new_job_posting->save(false);

@@ -32,6 +32,13 @@ class APIController extends Controller
 
     public function actionPost()
     {
+        // check if api is enabled
+        $api_status = ApiStatus::getFirst();
+        if (!$api_status->isApiOn())
+        {
+            $this->_sendResponse(200,'API access has been disabled. Contact VJF administrator.');
+        }
+
         // perform routine auth
         $this->authenticate();
 
@@ -129,6 +136,7 @@ class APIController extends Controller
             $new_job_posting->type = 'CIS'; // know it was posted using this api
             $new_job_posting->compensation = ""; // not available from CIS
             $new_job_posting->posting_url = $jp_id;
+            $new_job_posting->comp_name = $jp_company;
 
             // post the job to db
             $new_job_posting->save(false);
@@ -147,6 +155,8 @@ class APIController extends Controller
         $new_job_posting->type = 'CIS'; // know it was posted using this api
         $new_job_posting->compensation = ""; // not available from CIS
         $new_job_posting->posting_url = $jp_id;
+        $new_job_posting->comp_name = $jp_company;
+
 
         // post the job to db
         $new_job_posting->save(false);
