@@ -550,7 +550,7 @@ class JobController extends Controller
         $flag = 1;
         $bool = false;
         // words to search for
-        $keyword = ($_POST['keyword']);
+        $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : null;
         // array to contain the results of the search
         $results = Array();
 

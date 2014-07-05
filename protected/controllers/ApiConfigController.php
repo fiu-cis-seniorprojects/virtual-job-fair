@@ -184,6 +184,7 @@ class ApiConfigController extends Controller
             $new_job_posting->type = 'CIS'; // know it was posted using this api
             $new_job_posting->compensation = ""; // not available from CIS
             $new_job_posting->posting_url = $jp_id;
+            $new_job_posting->comp_name = $jp_company;
 
             // post the job to db
             $new_job_posting->save(false);

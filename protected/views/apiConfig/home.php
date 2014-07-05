@@ -20,7 +20,6 @@ $this->breadcrumbs=array(
     function formSend(form, data, hasError)
     {
         var data=$("#careerpath-bulkimport-form").serialize();
-
         $.ajax({
             type: 'POST',
             url: '<?php echo Yii::app()->createAbsoluteUrl("ApiConfig/importJobs"); ?>',
@@ -138,7 +137,7 @@ if (isset($api_status) && !is_null($api_status))
 
 <?php echo $form->checkboxRow($model, 'allowExpired'); ?>
 
-<?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'primary', 'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Synchronize with CareerPath')); ?>
+<?php $this->widget('bootstrap.widgets.TbButton', array('id' => 'btnBulkImport', 'type'=>'primary', 'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Synchronize with CareerPath')); ?>
 
 <?php $this->endWidget(); ?>
 
