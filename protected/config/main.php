@@ -63,13 +63,13 @@ return array(
 			'rules'=>array(
 
                 // REST API PATTERNS
-                array('api/postings', 'pattern'=>'api/<key:\w+>/<range:\d+>', 'verb'=>'POST'),
-
+                array('API/post', 'pattern'=>'api/postings', 'verb'=>'POST'),
+                array('API/update', 'pattern'=>'api/postings/<modelid:\d+>', 'verb'=>'PUT'),
                 //
+
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-
 
 			),
 		),

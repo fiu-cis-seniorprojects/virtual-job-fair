@@ -33,30 +33,8 @@
         });
         setTimeout("toggleNotifications(1)", 30000);
     }
-
-    function careerPathSync()
-    {
-        $.get("/JobFair/index.php/home/careerpathsync", null, function(data){
-            alert(data);
-        });
-    }
-
-
 </script>
-<div id="adminSearchBox">
-
-    <?php
-    echo '<br/>';
-    echo CHtml::button("Synchronize with CareerPath", array(
-        'type'=>'submit',
-        'id'=>'carrerPathAPISync',
-        'class'=>'btn btn-success',
-        'onclick'=>'careerPathSync()',
-    ));
-    echo '<br/>';
-    ?>
-</div>
-
+<br/>
 
 <div id="adminSearchbox"> 
 <h1> Search for User or Job</h1>

@@ -57,19 +57,19 @@ if ($jobs == null) $jobs = array();
 	);*/
 
 	$sk = JobSkillMap::model()->findAllByAttributes(array('skillid'=>$mmm->id));
-foreach($sk as $sk2)
-{
-	$thejob = Job::model()->findByPk($sk2->jobid);
-	
-	
-	if($thejob->active)
-	{
-		$thecount++;
-	}
-}
-	?>
-	<a class="mostwantedtext" href="/JobFair/index.php/home/Search2/?key=<?php echo $mmm->name  ?>"><?php  echo " - [ " . $thecount . " ] Jobs";?></a>	
-</li>
+    foreach($sk as $sk2)
+    {
+        $thejob = Job::model()->findByPk($sk2->jobid);
+
+
+        if($thejob->active)
+        {
+            $thecount++;
+        }
+    }
+        ?>
+        <a class="mostwantedtext" href="/JobFair/index.php/home/Search2/?key=<?php echo $mmm->name  ?>"><?php  echo " - [ " . $thecount . " ] Jobs";?></a>
+    </li>
 <?php }?></ul>
 
 	<br>

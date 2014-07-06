@@ -13,7 +13,7 @@ $model = new User;
 <h1>Forgot your Password?</h1>
 
 <?php if ($error != '') {?>
-	<p style="color:red;"> <?php echo $error?></p>
+	<p  style="color:red;"> <?php echo $error?></p>
 	<?php }?>
 
 <p>Please enter your email:</p>
@@ -28,14 +28,14 @@ $model = new User;
 )); ?>
 
 
-	<div class="row">
+	<div class="">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email'); ?>
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
 
-	<div class="row buttons">
+	<div class="">
 		<?php echo CHtml::submitButton('Send Password', array("class"=>"btn btn-primary")); ?>
 	</div>
 

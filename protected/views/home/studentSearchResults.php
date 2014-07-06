@@ -1,6 +1,7 @@
 <br>
 <br>
 <br>
+<!--NOT NEEDED -->
 <div id="hardcorecontent">
 
 <?php if ($results != null & sizeof($results) > 0) {?>

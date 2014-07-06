@@ -414,11 +414,56 @@ $this->endWidget();
 <!--Author Manuel
 making the links dynamic so if the base Url changed the program won not be affected
 -->
+
 <?php
-    $image =CHtml::image(Yii::app()->baseUrl. '/images/ico/linkedinlogo.png');
-    echo CHtml::link($image, array('user/auth1'));
-?><br>
-<a LinkedIn Connect  </a>
+    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/linkedIn_login.png','', array('width'=>160, 'height'=>100));
+    echo CHtml::link($image, array('profile/auth'));
+
+    $currentUser = User::getCurrentUser();
+    if(($currentUser != null) && ($currentUser->linkedinid !=null))
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
+    else{
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
+    }
+?><br><br>
+
+
+<?php
+    $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/google_login.png','', array('width'=>160, 'height'=>100));
+    echo CHtml::link($image, array('profile/googleAuth'));
+
+    $currentUser = User::getCurrentUser();
+    if(($currentUser != null) && ($currentUser->googleid !=null))
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
+    else{
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
+    }
+?><br><br>
+
+
+<?php
+    $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/fiu_cs_login.png','', array('width'=>160, 'height'=>100));
+    echo CHtml::link($image, array('profile/fiuCsSeniorAuth'));
+
+    $currentUser = User::getCurrentUser();
+    if(($currentUser != null) && ($currentUser->fiucsid !=null))
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
+    else{
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
+    }
+?><br><br>
+
+<?php
+    $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/fiu_login.png','', array('width'=>160, 'height'=>100));
+    echo CHtml::link($image, array('profile/fiuAuth'));
+
+    $currentUser = User::getCurrentUser();
+    if(($currentUser != null) && ($currentUser->fiu_account_id !=null))
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
+    else{
+        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
+    }
+?><br><br>
 
 <hr/>
 <a href="/JobFair/index.php/user/ChangePassword">Change Password</a>
@@ -728,7 +773,7 @@ if (User::isCurrentUserStudent() && !$user->has_viewed_profile) {
 <a  //edit by Manuel making the link dynamic, using Yii
     <?php
     $image =CHtml::image(Yii::app()->baseUrl. '/images/ico/linkedinlogo.png');
-    echo CHtml::link($image, array('/user/auth1'));
+    echo CHtml::link($image, array('/profile/auth'));
     ?>
 
 <br>LinkedIn Connect</a>

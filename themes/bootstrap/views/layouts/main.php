@@ -57,23 +57,18 @@
 	} else if (User::isCurrentUserStudent(Yii::app()->user->name)){
 		$home = '/home/studenthome';
 		$search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/job/search">'
-				. $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-				'name'=>'keyword',
-				'source'=>Skillset::getNames(),
-				'htmlOptions'=>array('class'=>'search-query span2','placeholder'=>'Search by Skill, Type, Company, Title', 'style'=>'width:250px'
-				),
-		), true
-		).
-		'<button type="submit" style="background-color:transparent ; border:0"  >
+				.'<input type="text" class="search-query span2" name="keyword" placeholder="Search by Skills, Type, Company, Position" style="width:250px">'.
+		'<button type="submit" style="background-color:transparent ; border:0" >
 		<img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
 		</form>';
 	} else {
 		$home = '/site/index';
 	}
-	
+
 	?>
-	
+
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
+    //'type'=>'inverse', // null or 'inverse'
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
@@ -91,16 +86,17 @@
    array(
             'class'=>'bootstrap.widgets.TbMenu',
             'htmlOptions'=>array('class'=>'pull-left'),
-            'items'=>array('-',
-                array('label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
-					array('label'=>'My Profile', 'url'=>array($profile), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
-                    array('label'=>'Change Password','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/ChangePassword'),
-				
-	
-					'----',
-					array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
- 					array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-					array('label'=>'Register', 'url'=>array('/user/register'), 'visible'=>Yii::app()->user->isGuest),
+            'items'=>   array('-',
+                        array('label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
+                        array('label'=>'My Profile', 'url'=>array($profile), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
+                        array('label'=>'Merge Accounts','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/MergeAccounts'),
+                        array('label'=>'Change Password','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/ChangePassword'),
+                        array('label'=>'API Configuration','visible'=>(User::isCurrentUserAdmin(Yii::app()->user->name)), 'url'=>'/JobFair/index.php/ApiConfig/home'),
+
+                        '----',
+                        array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                        array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                        array('label'=>'Register', 'url'=>array('/user/register'), 'visible'=>Yii::app()->user->isGuest),
                 )),
             ),
         ),
