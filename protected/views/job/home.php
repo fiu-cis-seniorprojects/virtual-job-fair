@@ -153,6 +153,10 @@ function getURLParameter(name) {
     <!-- ******* Job Postings from Job Page using external sources & Career Path *******  -->
     <div class="pages">
     <table class="jobtable">
+
+     <?php if ($jobs == null && $result == "" && $cbresults == ""){?>
+        <h3>Sorry, no jobs matched your search. Please try again.</h3>
+     <?php } else {?>
         Job Postings Page:
         <?php for ($i = 0; $i < $pages; $i ++) {?>
             <a class="pageclick"<?php if ($i == 0) echo "id='firstpage'"; ?>> <?php echo $i + 1;?></a>
@@ -196,10 +200,30 @@ function getURLParameter(name) {
                 <td><?php echo "Indeed"?></td>
             </tr>
             <?php } ?>
-    </table> <?php }
-    else if ($jobs == null && $result == null){?>
-        <h3>No Jobs Matching your Search</h3>
-    <?php }?>
+     <?php }
+    if ($cbresults != null & sizeof($cbresults) > 0) {  $size = $cbresults[0]; ?>
+        <tr>
+        <?php  for($i=1;$i<$size+1;$i++){
+            ?>
+            <td><a href=<?php echo $cbresults[$i]->jobDetailsURL; ?> target="_blank">
+                    <?php if($cbresults[$i]->title != null) {echo $cbresults[$i]->title;}
+                    else {echo "N/A";}?></a></td>
+            <td><?php if($cbresults[$i]->companyName != null) { echo $cbresults[$i]->companyName;}
+                else {echo "N/A";}?></a></td>
+            <td><?php if($cbresults[$i]->type != null) { echo $cbresults[$i]->type;}
+                else {echo "N/A";}?></td>
+            <td><?php if($cbresults[$i]->posted != null) {echo $cbresults[$i]->posted;}
+                else {echo "N/A";} ?></td>
+            <td>N/A</td>
+            <td><?php if($cbresults[$i]->pay != null) {echo $cbresults[$i]->pay;}
+                else {echo "N/A";} ?></td>
+            <td><?php if($cbresults[$i]->skills != null) {echo $cbresults[$i]->skills;}
+                else {echo "N/A";} ?></td>
+            <td><?php echo "CareerBuilder"?></td>
+            </tr>
+        <?php } ?>
+        </table> <?php }
+     }?>
 
     </div>
 

@@ -8,6 +8,7 @@
 /**
  * Class Indeed
  * @package indeed
+ * source: https://github.com/indeedlabs/indeed-php
  * Indeed API Information
  * Publisher ID: "5595740829812660"
  * email: virtualjobfairfiu@gmail.com
