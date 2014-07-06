@@ -78,10 +78,10 @@ class User extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('id, username, password, FK_usertype, email, registration_date, activation_string, image_url, first_name, last_name', 'safe', 'on'=>'search'),
 			array('image_url', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
-			
+
 			);
 	}
-	
+
 	/**
 	 * Validates user password
 	 * @return boolean whether the password is valid
@@ -179,27 +179,13 @@ class User extends CActiveRecord
     {
         $mail = new YiiMailer();
         $mail->IsSMTP();
-//        $mail->Host = 'smtp.gmail.com';
-        $mail->Host = 'localhost';
+        $mail->Host = 'smtp.cs.fiu.edu';
         $mail->Port = 25;
-//        $mail->Port = 587;
-//        $mail->SMTPSecure= 'tls';
-//        $mail->SMTPAuth = true;
-//        $mail->Username = "tacostae";
-//        $mail->Password = 'M0n!t0$L!nd0$';
+        $mail->SMTPAuth = false;
         $mail->setView('contact');
         $mail->setLayout('mail');
         $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
         return $mail;
-//        $mail = new YiiMailer();
-//        $mail->IsSMTP();
-//        $mail->Host = 'smtp.cs.fiu.edu';
-//        $mail->Port = 25;
-//        $mail->SMTPAuth = false;
-//        $mail->setView('contact');
-//        $mail->setLayout('mail');
-//        $mail->setFrom('virtualjobfair_no-reply@cs.fiu.edu', 'Virtual Job Fair');
-//        return $mail;
     }
 
     public static function sendEmail($to, $subject, $email_description, $message)
@@ -210,11 +196,9 @@ class User extends CActiveRecord
         $email->setData(array('message' => $message,
             'name' => 'Virtual Job Fair',
             'description' => $email_description));
-        echo $message;
-        $fl = fopen('/tmp/email.eml', 'w');
-//        $email->send();
+        $email->send();
     }
-    
+
 //    public function sendVerificationEmail() {
 //        $link = CHtml::link('click here', 'http://'.Yii::app()->request->getServerName() . '/JobFair/index.php/user/VerifyEmail?username=' . $this->username
 //            . '&activation_string=' . $this->activation_string);
@@ -227,7 +211,7 @@ class User extends CActiveRecord
 //        $email->setSubject('Verify your account on Virtual Job Fair');
 //        $email->send();
 //    }
-    
+
 //	public static function sendEmailWithNewPassword($address, $password, $username) {
 //    	$email = self::constructEmailObject();
 //    	$link = CHtml::link('here', 'http://'. Yii::app()->request->getServerName()  . '/JobFair/' );
@@ -267,7 +251,7 @@ class User extends CActiveRecord
 //        //$email->setBody($message);
 //        $email->send();
 //    }
-    
+
 //    public static function sendEmailEmployerAcceptingInterviewNotificationAlart($address, $to, $from, $message) {
 //    	$email = self::constructEmailObject();
 //        $email->setTo($address);
@@ -276,7 +260,7 @@ class User extends CActiveRecord
 //        //$email->setBody($message);
 //        $email->send();
 //    }
-    
+
 //    public static function sendEmailStudentNotificationVirtualHandshakeAlart($address, $to, $from, $message) {
 //        $email = self::constructEmailObject();
 //        $email->setTo($address);
@@ -285,8 +269,8 @@ class User extends CActiveRecord
 //        //$email->setBody($message);
 //        $email->send();
 //    }
-    
-    
+
+
     public function isAStudent(){
     	return ($this->FK_usertype == 1);
     }

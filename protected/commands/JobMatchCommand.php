@@ -10,11 +10,10 @@ class JobMatchCommand extends CConsoleCommand {
     {
         $flag = 0;
         $color = "#D1E5F6";
-        $table = "";
+        $table = CHtml::openTag('table', array());
         if($type == 'student')
         {
-            $table = CHtml::openTag('table', array('width'=>'100%'));
-            $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
+            $table .= CHtml::openTag('tr', array('bgcolor'=>$color, 'align'=>'center'));
             $table .= CHtml::tag('td', array(), 'Job Title');
             $table .= CHtml::tag('td', array(), 'Match Rate');
             $table .= CHtml::tag('td', array(), 'Job Details');
@@ -23,7 +22,7 @@ class JobMatchCommand extends CConsoleCommand {
             {
                 $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
                 $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
-                $link = CHtml::link('Job Deatils', "http://" . Yii::app()->request->hostInfo . "/JobFair/index.php/job/view/jobid/".$item->id);
+                $link = CHtml::link('here', Yii::app()->request->hostInfo . "/JobFair/index.php/job/view/jobid/".$item->id);
                 $rating = number_format($item->skillrating, 2, '.', '');
                 $job_title = $item->title;
                 $table .= CHtml::tag('td', array(), $job_title);
@@ -32,12 +31,33 @@ class JobMatchCommand extends CConsoleCommand {
                 $table .= CHtml::closeTag('tr');
                 $flag += 1;
             }
-            $table .= CHtml::closeTag('table');
         }
         else
         {
-
+            $table .= CHtml::openTag('tr', array('bgcolor'=>$color, 'align'=>'center'));
+            $table .= CHtml::tag('td', array(), 'Student Name');
+            $table .= CHtml::tag('td', array(), 'Match Rate');
+            $table .= CHtml::tag('td', array(), 'Profile');
+            $table .= CHtml::closeTag('tr');
+            foreach($ar as $student)
+            {
+                if($student->looking_for_job == 0)
+                {
+                    continue;
+                }
+                $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
+                $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
+                $lnk = CHtml::link('Student Profile', Yii::app()->request->hostInfo . '/JobFair/index.php/profile/student/user/' . $student->username);
+                $rating = number_format($student->skillrating, 2, '.', '');
+                $st_name = $student->first_name . ' ' . $student->last_name;
+                $table .= CHtml::tag('td', array(), $st_name);
+                $table .= CHtml::tag('td', array(), $rating);
+                $table .= CHtml::tag('td', array(), $lnk);
+                $table .= CHtml::closeTag('tr');
+                $flag += 1;
+            }
         }
+        $table .= CHtml::closeTag('table');
         return $table;
     }
 
@@ -52,14 +72,6 @@ class JobMatchCommand extends CConsoleCommand {
             $nau_info['username'] = explode('=', $args[0])[1];
             $nau_info['email'] = explode('=', $args[1])[1];
         }
-//        $table = CHtml::openTag('table');
-//        $table .= CHtml::openTag('tr', array('bgcolor'=>'red'));
-//        $table .= CHtml::tag('td', array(), 'Student Name');
-//        $table .= CHtml::tag('td', array(), 'Match Rate');
-//        $table .= CHtml::tag('td', array(), 'Profile');
-//        $table .= CHtml::closeTag('tr');
-//        $table .= CHtml::closeTag('table');
-//        echo $table;
         $now = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
         $time = date('H:i:s');
@@ -67,29 +79,30 @@ class JobMatchCommand extends CConsoleCommand {
 //        echo $now . "\n";
 //        echo $date . " " . $pasttime . "\n";
         $matchnotification = MatchNotification::model()->findBySql("SELECT * FROM match_notification ORDER BY date_modified DESC limit 1");
-        $active_jobs = Job::model()->find("active=:active", array(':active'=>1));
         $notfication_status = intval($matchnotification['status']);
         if($notfication_status)
         {
-            //echo "[*] Job Matching Notification is ON\n";
-            $jobs = Job::model()->findAll("post_date > '$pasttime' AND active = 1");
-            $flag = 0;
             if($new_active_user)
             {
+                $jobs = Job::model()->findAll("active = 1");
                 $student = User::model()->find("username=:username", array(':username'=>$nau_info['username']));
-                if($student['username'] != null)
+                if($student['username'] != null && $student['job_notification'] == 1 && $student['looking_for_job'] == 1)
                 {
                     $message = "";
-                    //$message = "The following jobs matched with your skills:";
                     $results = Yii::app()->jobmatch->getStudentMatchJobs(intval($student['id']), $jobs);
                     if(count($results) > 0)
                     {
                         $message .= $this->buildTable('student', $results);
+                        var_dump($message);
+                        die();
                         User::sendEmail($student->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
                     }
                     return;
                 }
+                return;
             }
+            echo "[*] Job Matching Notification is ON\n";
+            $jobs = Job::model()->findAll("post_date > '$pasttime' AND active = 1");
             $students = User::model()->findAll("FK_usertype = 1 AND job_notification = 1 AND looking_for_job = 1");
             echo "\n::::::::::::::::::::\n[*] Matching jobs for students.\n";
             foreach($students as $st)
@@ -126,28 +139,7 @@ class JobMatchCommand extends CConsoleCommand {
                     continue;
                 }
                 $message .= "The following students matched this job posting:<br/>";
-                $color = "#D1E5F6";
-                $table = CHtml::openTag('table', array('width'=>'100%'));
-                $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
-                $table .= CHtml::tag('td', array(), 'Student Name');
-                $table .= CHtml::tag('td', array(), 'Match Rate');
-                $table .= CHtml::tag('td', array(), 'Profile');
-                $table .= CHtml::closeTag('tr');
-                foreach($results as $student)
-                {
-                    $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
-                    $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
-                    $lnk = CHtml::link('Student Profile', Yii::app()->request->hostInfo . '/JobFair/index.php/profile/student/user/' . $student->username);
-                    $rating = number_format($student->skillrating, 2, '.', '');
-                    $st_name = $student->first_name . ' ' . $student->last_name;
-                    $table .= CHtml::tag('td', array(), $st_name);
-                    $table .= CHtml::tag('td', array(), $rating);
-                    $table .= CHtml::tag('td', array(), $lnk);
-//                    $message .= "$student->first_name $student->last_name | $rating | $lnk<br/>";
-                    $table .= CHtml::closeTag('tr');
-                    $flag += 1;
-                }
-                $table .= CHtml::closeTag('table');
+                $table = $this->buildTable('', $results);
                 $message .= $table;
                 echo $this->replaceTags($message);
                 echo "[*] Sending email to $job_poster_email\n";
