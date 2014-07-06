@@ -76,7 +76,7 @@ class User extends CActiveRecord
 			array('image_url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, FK_usertype, email, registration_date, activation_string, image_url, first_name, last_name, fiu_account_id', 'safe', 'on'=>'search'),
+			array('id, username, password, FK_usertype, email, registration_date, activation_string, image_url, first_name, last_name', 'safe', 'on'=>'search'),
 			array('image_url', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
 
 			);
@@ -282,16 +282,16 @@ class User extends CActiveRecord
     public function isLookingForJob(){
         return ($this->looking_for_job == 1);
     }
-    
+
     public function isAEmployer(){
     	return ($this->FK_usertype == 2);
     }
-    
+
     public function isAAdmin(){
     	return ($this->FK_usertype == 3);
     }
-    
-    
+
+
     public static function isCurrentUserStudent(){
     	$username = Yii::app()->user->name;
     	$user = User::model()->find("username=:username",array(':username'=>$username));
@@ -299,7 +299,7 @@ class User extends CActiveRecord
     		return false;
     	return ($user->FK_usertype == 1);
     }
-    
+
 	public static function isCurrentUserAdmin(){
     	$username = Yii::app()->user->name;
     	$user = User::model()->find("username=:username",array(':username'=>$username));
@@ -307,7 +307,7 @@ class User extends CActiveRecord
     		return false;
     	return ($user->FK_usertype == 3);
     }
-    
+
 	public static function isCurrentUserEmployer(){
     	$username = Yii::app()->user->name;
     	$user = User::model()->find("username=:username",array(':username'=>$username));
@@ -315,7 +315,7 @@ class User extends CActiveRecord
     		return false;
     	return ($user->FK_usertype == 2);
     }
-    
+
     public static function isStudent($username){
     	$user = User::model()->find("username=:username",array(':username'=>$username));
     	if ($user == null)
@@ -324,13 +324,13 @@ class User extends CActiveRecord
     }
 
     public static function sendAllStudentVerificationAlart($id, $username, $email, $message, $link){
-    	
-    	
+
+
     	$students= User::model()->findAllByAttributes(array('FK_usertype'=>1));
-    	
+
     	foreach ($students as $student)
 
-                {   
+                {
                 	$model=new Notification;
 					$model->sender_id = $id;
 					$model->receiver_id = $student->id;
@@ -341,16 +341,16 @@ class User extends CActiveRecord
 					$model->message =  $message;//$username. " just join our website, check there jobpost and apply... ";
 					$model->link = $link;
 					$model->save(false);
-					  
-                	
+
+
                 }
 
-    	
+
 		return;
     }
-    
+
     public static function sendSchedualNotificationAlart($sender, $reciver, $message, $link){
-	    	
+
         $model = new Notification;
         $model->sender_id = $sender;
         $model->receiver_id = $reciver;
@@ -363,7 +363,7 @@ class User extends CActiveRecord
 
     }
     public static function sendEmployerNotificationAlart($sender, $reciver, $message, $link, $level){
-    
+
     	$model = new Notification;
     	$model->sender_id = $sender;
     	$model->receiver_id = $reciver;
@@ -373,14 +373,14 @@ class User extends CActiveRecord
     	$model->link = $link;
     	$model->importancy = 6;
     	$model->save(false);
-    
+
     }
-    
+
     public static function sendUserNotificationMessageAlart($sender, $reciver, $link, $level){
-    
+
     	$model = new Notification;
     	$model->sender_id = $sender;
-    	
+
     	$recive = User::model()->find("username=:username",array(':username'=>$reciver));
     	if ($recive != NULL)
     	{
@@ -393,14 +393,14 @@ class User extends CActiveRecord
     	$model->importancy = 3;
     	$model->save(false);
     	}
-    
+
     }
-    
+
     public static function sendUserNotificationHandshakeAlart($sender, $reciver, $link, $message){
 
     	$model = new Notification;
     	$model->sender_id = $sender;
-   
+
     	$model->receiver_id = $reciver;
     	$model->datetime = date('Y-m-d H:i:s');
     	$model->been_read = 0;
@@ -409,16 +409,16 @@ class User extends CActiveRecord
     	$model->message = $message;
     	$model->importancy = 2;
     	$model->save(false);
-    
-    
-    
+
+
+
     }
-    
-    
+
+
     public static function sendStudentNotificationMatchJobAlart($sender, $reciver, $link, $message){
     	$model = new Notification;
     	$model->sender_id = $sender;
-    	
+
     	$model->receiver_id = $reciver;
         date_default_timezone_set('America/New_York');
         $model->datetime = date('Y-m-d H:i:s');
@@ -428,10 +428,10 @@ class User extends CActiveRecord
     	$model->message = $message;
     	$model->importancy = 2;
     	$model->save(false);
-    	
+
     }
-    
-    
+
+
     public static function sendAdminNotificationNewEmpolyer($employer, $admins, $link, $message)
     {
     	foreach ($admins as $admin)
@@ -447,12 +447,12 @@ class User extends CActiveRecord
     		$model->importancy = 1;
     		$model->save(false);
     	}
-    
-    
+
+
     }
-    
+
 public static function sendEmployerNotificationStudentAcceptIntervie($sender, $reciver){
-    
+
     	$model = new Notification;
     	$student = User::model()->findByPk($sender);
     	$model->sender_id = $sender;
@@ -461,11 +461,11 @@ public static function sendEmployerNotificationStudentAcceptIntervie($sender, $r
     	$model->been_read = 0;
     	$model->message = "$student->username just accept the interview invitation";
     	$model->importancy = 4;
-    	$model->link = $student->username; 
+    	$model->link = $student->username;
     	$model->save(false);
-    
+
     }
-    public static function  getCurrentUser(){
+    public static function getCurrentUser(){
     	$username = Yii::app()->user->name;
     	$user = User::model()->find("username=:username",array(':username'=>$username));
     	return $user;
