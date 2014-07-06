@@ -447,6 +447,7 @@ class ProfileController extends Controller
 					  'actions'=>array('View', 'ViewEmployer', 'DeleteEducation', 'AddEducation',
 					  		'DeleteExperience', 'AddExperience', 'UploadImage', 
 					  		'EditStudent', 'UploadResume', 'EditCompanyInfo',
+                            'LinkToo','LinkNotification','LinkNotification2',
 					  		'EditBasicInfo', 'Student', 'Employer','Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',),
 					  'users'=>array('@')),
 				array('allow',
@@ -502,7 +503,8 @@ class ProfileController extends Controller
 		if (!isset($_SESSION))
 			session_start();
 
-        //edit by Manuel making the link dynamic, using Yii
+        //edit by Manuel making the link dynamic, using Yii. and changing how the account will be link so if the student
+        //decide to login with his linkedIn account it will be taken to the account that it is link to.
 		$config['base_url']             =   'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/auth.php';
 		$config['callback_url']         =   'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/demo';
 		$config['linkedin_access']      =   '2rtmn93gu2m4';
@@ -527,27 +529,37 @@ class ProfileController extends Controller
 		        }
 		        else{
 		        $linkedin->request_token    =   unserialize($_SESSION['requestToken']);
-	        $linkedin->oauth_verifier   =   $_SESSION['oauth_verifier'];
-	        $linkedin->access_token     =   unserialize($_SESSION['oauth_access_token']);
+	            $linkedin->oauth_verifier   =   $_SESSION['oauth_verifier'];
+	            $linkedin->access_token     =   unserialize($_SESSION['oauth_access_token']);
 	   }
 	
 	   # You now have a $linkedin->access_token and can make calls on behalf of the current member
 	   $xml_response = $linkedin->getProfile("~:(id,first-name,last-name,headline,picture-url,industry,email-address,languages,phone-numbers,skills,educations,location:(name),positions,picture-urls::(original))");
 	   $data = simplexml_load_string($xml_response);
 	   
-	   //print "<pre>"; print_r($xml_response);print "</pre>";
+	  // print "<pre>"; print_r($xml_response);print "</pre>";
 	   
 	   //print "<pre>"; print_r($data->{'picture-urls'}->{'picture-url'}[0]);print "</pre>";
+       // print "<pre>"; print_r($data->{'id'});print "</pre>";
 	   
 	   //return;
-	   
-	   // get username
+
+        // check that there is no duplicate id
+        $duplicateUser = User::model()->findByAttributes(array('linkedinid'=>$data->{'id'}));
+        if ($duplicateUser != null) {
+            $error = 'User LinkedIn account is already linked with another account.';
+            $this->redirect(array('user/StudentRegister', 'error'=>$error,));
+            return;
+        }
+
+	   // get username and link the accounts
 	   $username = Yii::app()->user->name;
 	   $user = User::model()->find("username=:username",array(':username'=>$username));
 	   $user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
+       $user->linkedinid = $data->{'id'};
 	   $user->save(false);
 	   $user_id = $user->id;
-	  
+
 	    
 	   // ------------------BASIC INFO---------------
 	   $basic_info = null;
@@ -741,7 +753,31 @@ class ProfileController extends Controller
 		{
 			$this->redirect($authUrl);
 		}
-		else // user logged in succesfully to google, now check if we register or login to JobFair
+
+            //link google account to the current one
+        $currentUser = User::getCurrentUser();
+        if (($currentUser != null) && ($currentUser->FK_usertype == 1))
+        {
+            // check that there is no duplicate id
+            $duplicateUser = User::model()->findByAttributes(array('googleid'=>$user["id"]));
+            if ($duplicateUser != null) {
+                $error = 'User Google account is already linked with another account.';
+                $this->redirect(array('site/error', 'error'=>$error,));
+                return;
+            }
+
+        $username = Yii::app()->user->name;
+        $userLink = User::model()->find("username=:username",array(':username'=>$username));
+        //$user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
+        $userLink->googleid = $user_id;
+        $userLink->image_url = $user['picture'];
+        $userLink->save(false);
+
+        $this->redirect('/JobFair/index.php/profile/view');
+
+        }
+
+        else // user logged in succesfully to google, now check if we register or login to JobFair, link
 		{
 
 		
@@ -767,14 +803,31 @@ class ProfileController extends Controller
 			 // register
 			 else {
 			 	
-			 	// check that there is no duplicate user
+			 	// check that there is no duplicate user, if so ask if he want to link the accounts
 			 	$duplicateUser = User::model()->findByAttributes(array('email'=>$user['email']));
 			 	if ($duplicateUser != null) {
-			 		$error = 'User email is already linked with another account.';
-					$this->redirect(array('user/StudentRegister', 'error'=>$error,));
-					return;
+
+                    //populate db
+                    $duplicateUser->googleid = $user_id;
+                    $duplicateUser->image_url = $user['picture'];
+                    $duplicateUser->save(false);
+
+                    if ($duplicateUser->disable != 1)
+                    {
+                        $identity = new UserIdentity($duplicateUser->username, '');
+                        if ($identity->authenticateOutside()) {
+                            Yii::app()->user->login($identity);
+                        }
+                        $mesg = "Google";
+                        $this->actionLinkNotification($mesg);
+                        return;
+                    }
+                    else {
+                        $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+                        return;
+                    }
+
 			 	}
-			 	
 			 	$model = new User();
 			 	//Populate user attributes
 			 	$model->FK_usertype = 1;
@@ -785,6 +838,7 @@ class ProfileController extends Controller
 			 	$model->last_name = $user['family_name'];
 			 	$model->email = $user["email"];
 			 	$model->googleid = $user["id"];
+                $model->image_url = $user['picture'];
 			 	//Hash the password before storing it into the database
 			 	$hasher = new PasswordHash(8, false);
 			 	$model->password = $hasher->HashPassword('tester');
@@ -800,6 +854,7 @@ class ProfileController extends Controller
 			 	$this->redirect("/JobFair/index.php/user/ChangeFirstPassword");
 				
 			}
+
 		}
 
 	}
@@ -834,7 +889,30 @@ class ProfileController extends Controller
 				// *** Model marker begin ***
 					$fiuCsUser = $fiucsauth->getUserInfo();
 					//$fiucsauth->debug($fiuCsUser['email'] . "@fiu.edu");
-					
+
+
+                    $currentUser = User::getCurrentUser();
+                    if (($currentUser != null) && ($currentUser->FK_usertype == 1))
+                    {
+
+                        // check that there is no duplicate id
+                        $duplicateUser = User::model()->findByAttributes(array('fiucsid'=>$fiuCsUser['id']));
+                        if ($duplicateUser != null) {
+                            $error = 'User FIU Senior Project account is already linked with another account.';
+                            $this->redirect(array('user/StudentRegister', 'error'=>$error,));
+                            return;
+                        }
+
+                        $username = Yii::app()->user->name;
+                        $userLink = User::model()->find("username=:username",array(':username'=>$username));
+                        //$user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
+                        $userLink->fiucsid  = $fiuCsUser['id'];
+                        $userLink->save(false);
+
+                        $this->redirect('/JobFair/index.php/profile/view');
+
+                    }
+
 					$userExists = User::model()->findByAttributes(array('fiucsid'=>$fiuCsUser["id"]));
 					// if user exists with fiucsseniorid, login
 					if ($userExists != null) {
@@ -862,9 +940,26 @@ class ProfileController extends Controller
 						// check that there is no duplicate user
 						$duplicateUser = User::model()->findByAttributes(array('email'=>$fiuCsUser['email'] . "@fiu.edu"));
 						if ($duplicateUser != null) {
-							$error = 'User email is already linked with another account.';
-							$this->redirect(array('/user/StudentRegister', 'error'=>$error));
-							return;
+
+                            //populate db
+                            $duplicateUser->fiucsid = $fiuCsUser['id'];
+                            $duplicateUser->save(false);
+
+                            if ($duplicateUser->disable != 1)
+                            {
+                                $identity = new UserIdentity($duplicateUser->username, '');
+                                if ($identity->authenticateOutside()) {
+                                    Yii::app()->user->login($identity);
+                                }
+
+                                $this->redirect("/JobFair/index.php/profile/LinkNotification2");
+
+                                return;
+                            }
+                            else {
+                                $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+                                return;
+                            }
 						}
 					
 						$model = new User();
@@ -916,7 +1011,7 @@ class ProfileController extends Controller
          //PASS: cis49112014
 		$google_client_id   = '44822970295-ub8arp3hk5as3s549jdmgl497rahs6jl.apps.googleusercontent.com';
 		$google_client_secret   = 'RsCRTYbGC4VZc40ppLR-4L5h';
-		$google_redirect_url    = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/googleAuth/oauth2callback';
+		$google_redirect_url    = 'http://'.Yii::app()->request->getServerName().'/JobFair/index.php/profile/fiuAuth/oauth2callback';
 		$google_developer_key   = 'AIzaSyBRvfT7Djj4LZUrHqLdZfJRWBLubk51ARA';
 
 		//include google api files
@@ -980,12 +1075,35 @@ class ProfileController extends Controller
 		{
 			$this->redirect($authUrl);
 		}
+
+        //link Fiu Account account to the current one
+        $currentUser = User::getCurrentUser();
+        if (($currentUser != null) && ($currentUser->FK_usertype == 1))
+        {
+            // check that there is no duplicate id
+            $duplicateUser = User::model()->findByAttributes(array('fiu_account_id'=>$user_id));
+            if ($duplicateUser != null) {
+                $error = 'User FIU account is already linked with another account.';
+                $this->redirect(array('user/StudentRegister', 'error'=>$error,));
+                return;
+            }
+
+            $username = Yii::app()->user->name;
+            $userLink = User::model()->find("username=:username",array(':username'=>$username));
+            //$user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
+            $userLink->fiu_account_id = $user_id;
+            $userLink->image_url = $user['picture'];
+            $userLink->save(false);
+
+            $this->redirect('/JobFair/index.php/profile/view');
+
+        }
 		else // user logged in succesfully to google, now check if we register or login to JobFair
 		{
 
 
-			$userExists = User::model()->findByAttributes(array('googleid'=>$user["id"]));
-			// if user exists with googleid, login
+			$userExists = User::model()->findByAttributes(array('fiu_account_id'=>$user["id"]));
+			// if user exists with fiu_account_id, login
 			if ($userExists != null) {
 				
 				if ($userExists->disable != 1)
@@ -1011,21 +1129,39 @@ class ProfileController extends Controller
 				// check that there is no duplicate user
 				$duplicateUser = User::model()->findByAttributes(array('email'=>$user['email']));
 				if ($duplicateUser != null) {
-					$error = 'User email is already linked with another account.';
-					$this->redirect(array('/user/StudentRegister', 'error'=>$error));
-					return;
+
+                    //populate db
+                    $duplicateUser->fiu_account_id = $user_id;
+                    $duplicateUser->image_url = $user['picture'];
+                    $duplicateUser->save(false);
+
+                    if ($duplicateUser->disable != 1)
+                    {
+                        $identity = new UserIdentity($duplicateUser->username, '');
+                        if ($identity->authenticateOutside()) {
+                            Yii::app()->user->login($identity);
+                        }
+                        $mesg = "FIU Email";
+                        $this->actionLinkNotification($mesg);
+                        return;
+                    }
+                    else {
+                        $this->redirect("/JobFair/index.php/site/page?view=disableUser");
+                        return;
+                    }
 				}
 					
 				$model = new User();
 				//Populate user attributes
 				$model->FK_usertype = 1;
 				$model->registration_date = new CDbExpression('NOW()');
-				$model->activation_string = 'google';
+				$model->activation_string = 'fiu';
 				$model->username = $user["email"];
 				$model->first_name = $user['given_name'];
 				$model->last_name = $user['family_name'];
 				$model->email = $user["email"];
-				$model->googleid = $user["id"];
+				$model->fiu_account_id = $user["id"];
+                $model->image_url = $user['picture'];
 				//Hash the password before storing it into the database
 				$hasher = new PasswordHash(8, false);
 				$model->password = $hasher->HashPassword('tester');
@@ -1044,5 +1180,26 @@ class ProfileController extends Controller
 		}
 
 	}
-	
+    public function actionLinkToo()
+    {
+        $link = true;
+        $model = new LinkTooForm();
+        $this->render('LinkToo', array('model'=>$model));
+
+        //return $link;
+    }
+    public function actionLinkNotification($mesg)
+    {
+        $model = new LinkTooForm();
+        $this->render('LinkNotification', array('model'=>$model, 'mesg'=>$mesg));
+    }
+    public function actionLinkNotification2()
+    {
+        $model = new LinkTooForm();
+        $this->render('LinkNotification2', array('model'=>$model));
+    }
+
+
+
+
 }
