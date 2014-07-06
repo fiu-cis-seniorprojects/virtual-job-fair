@@ -827,8 +827,7 @@ class UserController extends Controller
             echo json_encode(Array("status"=>$val));
         }
     }
-<<<<<<< HEAD
-=======
+
     public function actionDuplicationError()
     {
         //$model = User::getCurrentUser();
@@ -846,9 +845,6 @@ class UserController extends Controller
         $model = new LinkTooForm();
         $this->render('LinkNotification', array('model'=>$model, 'mesg'=>$mesg));
     }
-	
->>>>>>> integration
-
 
     public function actionToggleLookingForJob()
     {
