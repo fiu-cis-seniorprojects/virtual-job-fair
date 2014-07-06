@@ -224,6 +224,30 @@ function uploadvideo(){
             $("#myonoffswitch").val(data["status"]);
         });
     }
+
+    function toggleLookingForJob(){
+        var val = $('#myonoffswitch_1').val();
+        if(val == '1')
+        {
+            $('#myonoffswitch_1').val('0');
+        }
+        else
+        {
+            $('#myonoffswitch_1').val('1');
+        }
+        $.get("/JobFair/index.php/user/toggleLookingForJob", {"value": val}, function(data){
+            data = JSON.parse(data);
+            if(data["status"] == '0')
+            {
+                $("#myonoffswitch_1").prop('checked', false);
+            }
+            else
+            {
+                $("#myonoffswitch_1").prop('checked', true);
+            }
+            $("#myonoffswitch_1").val(data["status"]);
+        });
+    }
 </script>
 
 
@@ -297,8 +321,17 @@ function uploadvideo(){
 <div id="menutools">
     <div class="titlebox">SETTINGS</div><br><br>
     <?php
-        $checked = '';
+        $checked = $checked_lfj = '';
         $job_notif = null;
+        $looking_for_job = null;
+        if(isset($user['looking_for_job']))
+        {
+            $looking_for_job = $user->looking_for_job;
+            if($user->looking_for_job == '1')
+            {
+                $checked_lfj = 'checked';
+            }
+        }
         if(isset($user['job_notification']))
         {
             $job_notif = $user->job_notification;
@@ -313,6 +346,16 @@ function uploadvideo(){
         <div style="margin-left: 120px;" class="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleJobMatching()">
             <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+    </div>
+    <div style="overflow: hidden;">
+        <div style="float: left;">Looking For Job:</div>
+        <div style="margin-left: 120px;" class="onoffswitch">
+            <input type="checkbox" name="myonoffswitch_1" class="onoffswitch-checkbox" value='<?php echo $looking_for_job; ?>' id="myonoffswitch_1" <?php echo $checked_lfj; ?> onclick="toggleLookingForJob()">
+            <label class="onoffswitch-label" for="myonoffswitch_1">
                 <span class="onoffswitch-inner"></span>
                 <span class="onoffswitch-switch"></span>
             </label>
