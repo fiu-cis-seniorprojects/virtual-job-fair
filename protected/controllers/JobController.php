@@ -68,15 +68,29 @@ class JobController extends Controller
         if(isset($radioOption) && $radioOption != "")
         {
             $result = $this->indeed($query, $city);
-            //print_r($result); return;
-            $this->render('home', array('jobs'=>$job,'result'=>$result,'flag'=>$flag));
+            if($result['totalresults'] == 0) {$result = "";}
+            $result2 = $this->careerBuilder($query, $city);
+            if($result2[0] == 0) {$result2 = "";}
+            // jobs -> careerPath, result -> Indeed, cbresults -> careerBuilder
+            $this->render('home', array('jobs'=>$job,'result'=>$result, 'cbresults'=>$result2, 'flag'=>$flag));
         }
         else
         {
             $result = "";
-            $this->render('home', array('jobs'=>$job, 'result'=>$result, 'flag'=>$flag));
+            $result2 = "";
+            $this->render('home', array('jobs'=>$job, 'result'=>$result, 'cbresults'=>$result2,  'flag'=>$flag));
         }
 	}
+
+
+    public function careerBuilder($query, $city)
+    {
+        require_once 'protected/careerBuilder/cbapi.php';
+        $results = careerBuilder\CBAPI::getJobResults($query, $city, "", "");
+       // print_r($results);
+        return $results;
+    }
+
 
     // call to indeed API
     public function indeed($query, $city)
@@ -537,6 +551,7 @@ class JobController extends Controller
             $loc = "Miami, Florida";
             // call indeed API to get jobs query by user
             $result = $this->indeed($keyword, $loc);
+            $result2 = $this->careerBuilder($keyword, $loc);
 
         }
 
@@ -556,7 +571,7 @@ class JobController extends Controller
         //print_r($result); return;
 
         // render search results, user, skills, companies and flag to job/home
-        $this->render('home',array('result'=>$result, 'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,));
+        $this->render('home',array('result'=>$result, 'cbresults'=>$result2, 'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,));
 
     }
 
