@@ -86,15 +86,13 @@ class JobMatchCommand extends CConsoleCommand {
             {
                 $jobs = Job::model()->findAll("active = 1");
                 $student = User::model()->find("username=:username", array(':username'=>$nau_info['username']));
-                if($student['username'] != null && $student['job_notification'] == 1 && $student['looking_for_job'] == 1)
+                if($student['username'] != null && $student['looking_for_job'] == 1 && $student['job_notification'] == 1)
                 {
                     $message = "";
                     $results = Yii::app()->jobmatch->getStudentMatchJobs(intval($student['id']), $jobs);
                     if(count($results) > 0)
                     {
                         $message .= $this->buildTable('student', $results);
-                        var_dump($message);
-                        die();
                         User::sendEmail($student->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
                     }
                     return;
@@ -112,10 +110,7 @@ class JobMatchCommand extends CConsoleCommand {
                 if(count($results) > 0)
                 {
                     $message .= "The following jobs matched with your skills:<br/>";
-                    foreach($results as $j)
-                    {
-                        $message .= "$j->title : $j->post_date<br/>";
-                    }
+                    $message .= $this->buildTable('student', $results);
                     echo "[*] Sending email to $st->email\n";
                     User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
                 }
