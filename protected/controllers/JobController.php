@@ -125,9 +125,9 @@ class JobController extends Controller
         if($result['totalresults'] >0){
             for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
             {
-                $snippets[$j] =  strtolower($result['results']['result'][$i]['snippet']);
+                $snippets[$j] = strtolower($result['results']['result'][$i]['snippet']);
                 $snippets[$j] = utf8_decode($snippets[$j]);
-                $snippets[$j] =  iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+                $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
 
                 $result['results']['result'][$i]['snippet'] = '';
             }

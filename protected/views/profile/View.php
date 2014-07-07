@@ -229,6 +229,11 @@ function uploadvideo(){
         var val = $('#myonoffswitch_1').val();
         if(val == '1')
         {
+            var jm = $('#myonoffswitch').val();
+            if(jm == '1')
+            {
+                toggleJobMatching();
+            }
             $('#myonoffswitch_1').val('0');
         }
         else
