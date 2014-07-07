@@ -1508,7 +1508,7 @@ ul
 .jobtable {
     border: solid #E1EEF4 1px;
     table-layout: fixed;
-    width:50px;
+    width:75%;
     -moz-border-radius: 30px;
     -webkit-border-radius: 6px;
     border-radius: 6px;
