@@ -551,7 +551,9 @@ class JobController extends Controller
             $loc = "Miami, Florida";
             // call indeed API to get jobs query by user
             $result = $this->indeed($keyword, $loc);
+            if($result['totalresults'] == 0) {$result = "";}
             $result2 = $this->careerBuilder($keyword, $loc);
+            if($result2[0] == 0) {$result2 = "";}
 
         }
 
