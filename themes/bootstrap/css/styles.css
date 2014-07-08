@@ -340,7 +340,7 @@ margin: 0 10px 5px 0;
 }
 
 #menutools{
-	margin-bottom: 20px;
+	margin-bottom: 50px;
 	float: left;
 	width: 200px;
 	min-height: 180px;
@@ -403,6 +403,26 @@ margin: 0 10px 5px 0;
  	font-size:12px;
 	background-color: transparent;
 	border-color: rgb(178, 197, 252);
+}
+
+#jobinterest{
+    float: left;
+    width:200px;
+    margin-top:20px;
+    min-height:250px;
+    padding:5px;
+    border-width: 1px;
+    border-color:white;
+    border-style:solid;
+    border-radius: 5px 5px 5px 5px;
+    text-align: center;
+    font-size:12px;
+    background-color: transparent;
+    border-color: rgb(178, 197, 252);
+}
+
+#jobinterest:hover{
+    border-color:#0088cc;
 }
 
 #menutools:hover{
@@ -1506,6 +1526,7 @@ ul
 
 
 .jobtable {
+    margin-bottom:50px;
     border: solid #E1EEF4 1px;
     table-layout: fixed;
     width:75%;

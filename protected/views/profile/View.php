@@ -23,6 +23,9 @@ if (!isset($videoresume)){
 if (!isset($user->basicInfo)){
 	$user->basicInfo = new BasicInfo;
 }
+if (!isset($_GET['addinterestname'])) {
+    $_GET['addinterestname'] = '';
+}
 ?>
 
 
@@ -62,10 +65,12 @@ $('div[class^=child-]').hide();
     }
 </script>
 
+
 <script>
 $(document).ready(function() {
 	var i = 1;
 	$("#saveSkills").hide();
+   // $("#saveInterest").hide();
 	$("#edit").click(function(e) { 
 		if($("#BasicInfo_about_me").is(":disabled") && $("#User_email").is(":disabled")
 		&& $("#BasicInfo_phone").is(":disabled")&& $("#BasicInfo_city").is(":disabled")
@@ -89,11 +94,40 @@ $(document).ready(function() {
 		}
 	});
 
-	
-
 	$("#saveSkills").click(function(e) {
 		$(this).closest('form').submit();
 	});
+
+    $clicked = 0;
+    $("#addjobinterest").click(function(e)
+    {
+        if($clicked < 1){
+            var input = $('<input />',{
+                id: "addinterestname",
+                type:"text",
+                name:"addinterestname",
+                placeholder: "position, company, job type",
+                html: "width=120px"
+            });
+            $clicked++;
+
+            $(this).after(input);
+        }
+
+    });
+
+    $("#saveInterest").click(function(e) {
+
+        if($clicked > 0)
+        {
+            if ($('#addinterestname').val() == ""){
+                alert("Interest was left empty");
+                return;
+            }
+        }
+
+        $(this).closest('form').submit();
+    });
 	
 	$("#editEducation").click(function(e) { 
 		
@@ -131,7 +165,6 @@ $(document).ready(function() {
 		$("#saveSkills").show();
 	});
 
-	
 	$('#addskillname').bind("enterKey",function(e){
 		  $("#addskill").click();
 	});
@@ -749,8 +782,117 @@ $form = $this->beginWidget('CActiveForm', array(
 		    	),
 			)); ?>
    
-</div> <!-- End SKILLS -->
+</div> </div><!-- End SKILLS -->
+<br><br>
+<div id="rightside">
+    <?php
+    $form = $this->beginWidget('CActiveForm', array(
+    'id'=>'user-saveInterest-form', 'action'=> '/JobFair/index.php/Profile/saveInterest',
+    'enableAjaxValidation'=>false,
+    'htmlOptions' => array('enctype' => 'multipart/form-data',),
+    ));
 
+    ?>
+
+    <div id="jobinterest">
+        <div class="titlebox">Job Interest</div>
+        <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
+        <div style= "text-align:left; clear:both" >Add keywords to receive emails with jobs matching your criteria
+          <br><br>  <strong>Current Criteria: </strong> <?php echo $user->job_interest;?>
+        </div>
+        <hr>
+        <?php $this->endWidget(); ?>
+        <div style= "text-align:left;">
+        <?php if($user->job_int_date != 0)
+        {
+            $date = $user->job_int_date;
+            if($date == 1)
+            {?>
+                <div class="radio">
+                    <input type="radio" name="day" id="daily" value="1" checked>
+                    <strong> Send me job postings daily </strong>
+                </div>
+                <br> <div class="radio">
+                    <input type="radio" name="day" id="weekly" value="2">
+                    <strong> Send me job postings weekly </strong>
+                </div>
+                <br> <div class="radio">
+                    <input type="radio" name="day" id="monthly" value="3">
+                    <strong> Send me job postings monthly </strong>
+                </div>
+
+           <?php }
+            elseif($date == 2)
+            { ?>
+                <div class="radio">
+                    <input type="radio" name="day" id="daily" value="1">
+                    <strong> Send me job postings daily </strong>
+                </div>
+                <br> <div class="radio">
+                    <input type="radio" name="day" id="weekly" value="2" checked>
+                    <strong> Send me job postings weekly </strong>
+                </div>
+                <br> <div class="radio">
+                    <input type="radio" name="day" id="monthly" value="3">
+                    <strong> Send me job postings monthly </strong>
+                </div>
+            <?php }
+            elseif($date == 3)
+            { ?>
+            <div class="radio">
+                <input type="radio" name="day" id="daily" value="1">
+                <strong> Send me job postings daily </strong>
+            </div>
+            <br> <div class="radio">
+                <input type="radio" name="day" id="weekly" value="2">
+                <strong> Send me job postings weekly </strong>
+            </div>
+            <br> <div class="radio">
+                <input type="radio" name="day" id="monthly" value="3" checked>
+                <strong> Send me job postings monthly </strong>
+            </div>
+        <?php }
+        } if($user->job_int_date == 0){ ?>
+            <div class="radio">
+                <input type="radio" name="day" id="daily" value="1">
+                <strong> Send me job postings daily </strong>
+            </div>
+            <br> <div class="radio">
+                <input type="radio" name="day" id="weekly" value="2">
+                <strong> Send me job postings weekly </strong>
+            </div>
+            <br> <div class="radio">
+                <input type="radio" name="day" id="monthly" value="3">
+                <strong> Send me job postings monthly </strong>
+            </div>
+        </div>
+       <?php }
+        ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                'label'=>'Add Interest',
+                'type'=>'primary',
+                'htmlOptions'=>array(
+                    'data-toggle'=>'modal',
+                    'data-target'=>'#myModal',
+                    'style'=>'width: 120px',
+                    'id' => "addjobinterest",
+                    'onclick' => 'myFunction()',
+                    'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
+                ),
+            )); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'label'=>'Save',
+            'type'=>'primary',
+            'htmlOptions'=>array(
+                'data-toggle'=>'modal',
+                'data-target'=>'#myModal',
+                'style'=>'width: 120px',
+                'id' => "saveInterest",
+                'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
+            ),
+        )); ?>
+    </form>
+    </div> <!-- End Job Interest -->
 
 
 </div> <!-- END RIGHT SIDE -->

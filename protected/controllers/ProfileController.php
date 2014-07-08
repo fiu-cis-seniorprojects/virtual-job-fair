@@ -72,6 +72,20 @@ class ProfileController extends Controller
 		$model = User::model()->find("username=:username",array(':username'=>$username));
 		$this->render('videostudent', array('user'=>$model,));
 	}
+
+    public function actionSaveInterest()
+    {
+        $username = Yii::app()->user->name;
+        $interest = htmlentities($_POST['addinterestname']);
+        $date = $_POST['day'];
+        $model = User::model()->find("username=:username",array(':username'=>$username));
+        $model->job_interest = $interest;
+        $model->job_int_date = $date;
+        //var_dump($model->job_int_date);die;
+        $model->save(false);
+
+        $this->redirect('/JobFair/index.php/profile/view');
+    }
 	
 	public function actionSaveSkills(){
 		$user = User::getCurrentUser();
@@ -436,7 +450,19 @@ class ProfileController extends Controller
 		
 		return;
 	}
-	
+
+    public function actionGetJobInterest()
+    {
+        $jobinterest = $_GET['job_interest'];
+        $interest = User::model()->find("job_interest=:job_interest", array(":job_interest"=>$jobinterest));
+        if (!$interest) {
+            print $jobinterest;
+        } else {
+            print $jobinterest;
+        }
+
+        return;
+    }
 	
 	
 	//Specifies access rules
@@ -448,7 +474,8 @@ class ProfileController extends Controller
 					  		'DeleteExperience', 'AddExperience', 'UploadImage', 
 					  		'EditStudent', 'UploadResume', 'EditCompanyInfo',
                             'LinkToo','LinkNotification','LinkNotification2',
-					  		'EditBasicInfo', 'Student', 'Employer','Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',),
+					  		'EditBasicInfo', 'Student', 'Employer','Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',
+                            'getJobInterest', 'saveInterest'),
 					  'users'=>array('@')),
 				array('allow',
 					  'actions'=>array('videoemployer','videostudent','googleAuth','fiuCsSeniorAuth','fiuAuth',),

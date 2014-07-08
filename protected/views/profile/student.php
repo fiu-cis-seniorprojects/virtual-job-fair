@@ -204,6 +204,7 @@ function formatDate($date) {
 			</ul>
 			<div style=clear:both></div>
 	</div><!-- End Skills -->
+
 </div>
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
