@@ -161,7 +161,7 @@ function getURLParameter(name) {
         <?php for ($i = 0; $i < $pages; $i ++) {?>
             <a class="pageclick"<?php if ($i == 0) echo "id='firstpage'"; ?>> <?php echo $i + 1;?></a>
         <?php }?>
-    <head><th>Position</th> <th>Company</th> <th style="width: 60px">Type</th>  <th>Opening</th> <th style="width: 70px">Deadline</th>  <th>Compensation</th> <th> Skills</th><th>Source</th></head>
+    <head><th style="width: 20%">Position</th> <th style="width: 15%">Company</th> <th style="width: 10%">Type</th>  <th>Opening</th> <th style="width: 70px">Deadline</th>  <th>Compensation</th> <th> Skills</th><th>Source</th></head>
     <?php  if($jobs != null & sizeof($jobs) > 0) { ?>
     </div>
     <?php foreach ($jobs as $job) {?>

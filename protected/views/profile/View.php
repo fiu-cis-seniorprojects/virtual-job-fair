@@ -107,7 +107,7 @@ $(document).ready(function() {
                 type:"text",
                 name:"addinterestname",
                 placeholder: "position, company, job type",
-                html: "width=120px"
+                width: "180px"
             });
             $clicked++;
 
