@@ -43,19 +43,34 @@ class JobController extends Controller
         }
         if(isset($phrase) && $phrase != "")
         {
-            $query = $phrase." ";
+            if(strpos($phrase, '"') !== false) { $query = $phrase." "; }    //contains ""
+            else{ $query = "\"$phrase\""." "; }                             //add  ""
+            //var_dump($query);die;
         }
         if(isset($allWords) && $allWords != "")
         {
-            $query .= $allWords." ";
+            $words = explode(" ", $allWords);
+            foreach($words as $words){
+                if(strpos($words, '+') !== false) { $query .= $words." "; } //contains +
+                else { $query .= "+".$words." ";}                           //add  +
+            }
+            //var_dump($query);die;
         }
         if(isset($anyWord) && $anyWord != "")
         {
-            $query .= $anyWord." ";
+            if(strpos($anyWord, 'OR') !== false) { $query .= $anyWord." "; } //contains OR
+            else { $query .= str_replace(" ", ' OR ', $anyWord)." "; }       //add OR
+           // var_dump($query);die;
         }
         if(isset($minus) && $minus != "")
         {
-            $query .= $minus." ";
+            $words = explode(" ", $minus);
+            foreach($words as $words){
+                if(strpos($words, '-') !== false) { $query .= $words." "; } //contains -
+                else { $query .= "-".$words." ";}                           //add  -
+            }
+            var_dump($query);die;
+            //$query .= $minus." ";
         }
         if($query != null)
         {

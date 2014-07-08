@@ -46,6 +46,7 @@ $rpp = 10; //results per page
             });
 
             $(this).after(input);
+            $(input).after('<br>');
             $clicked++;
         }
 
@@ -153,7 +154,6 @@ function getURLParameter(name) {
     <!-- ******* Job Postings from Job Page using external sources & Career Path *******  -->
     <div class="pages">
     <table class="jobtable">
-
      <?php if ($jobs == null && $result == "" && $cbresults == ""){?>
         <h3>Sorry, no jobs matched your search. Please try again.</h3>
      <?php } else {?>
@@ -161,7 +161,7 @@ function getURLParameter(name) {
         <?php for ($i = 0; $i < $pages; $i ++) {?>
             <a class="pageclick"<?php if ($i == 0) echo "id='firstpage'"; ?>> <?php echo $i + 1;?></a>
         <?php }?>
-    <head><th>Position</th> <th>Company</th> <th>Type</th>  <th>Opening</th> <th>Deadline</th>  <th>Compensation</th> <th> Skills</th><th>Source</th></head>
+    <head><th>Position</th> <th>Company</th> <th style="width: 60px">Type</th>  <th>Opening</th> <th style="width: 70px">Deadline</th>  <th>Compensation</th> <th> Skills</th><th>Source</th></head>
     <?php  if($jobs != null & sizeof($jobs) > 0) { ?>
     </div>
     <?php foreach ($jobs as $job) {?>
