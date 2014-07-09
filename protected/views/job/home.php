@@ -3,6 +3,8 @@
 $pages = 0;
 $size = 0;
 $loValue = false;
+$query = "";
+
 settype($size, "integer");
 if (!isset($_GET['allWords'])) {
 	$_GET['allWords'] = '';
@@ -57,7 +59,13 @@ $rpp = 10; //results per page
         document.getElementById("searchForm").submit();
     }
 
-$(document).ready(function() {
+    function saveQuery()
+    {
+
+    }
+
+
+    $(document).ready(function() {
 
 	$('#type').val(getURLParameter("type").replace(/[+]/g, " "));
 
@@ -127,7 +135,6 @@ function getURLParameter(name) {
                 'htmlOptions'=>array(
                     'data-toggle'=>'modal',
                     'data-target'=>'#myModal',
-                    //'action'=> '/JobFair/index.php/job/home',
                     'id' => "searchbutton",
                     'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
                     'onclick' => "myFunction()",
@@ -161,7 +168,7 @@ function getURLParameter(name) {
         <?php for ($i = 0; $i < $pages; $i ++) {?>
             <a class="pageclick"<?php if ($i == 0) echo "id='firstpage'"; ?>> <?php echo $i + 1;?></a>
         <?php }?>
-    <head><th style="width: 20%">Position</th> <th style="width: 15%">Company</th> <th style="width: 10%">Type</th>  <th>Opening</th> <th style="width: 70px">Deadline</th>  <th>Compensation</th> <th> Skills</th><th>Source</th></head>
+    <head><th style="width: 20%">Position</th> <th style="width: 15%">Company</th> <th style="width: 10%">Type</th>  <th>Opening</th> <th style="width: 70px">Deadline</th>  <th>Salary</th> <th> Skills</th><th>Source</th></head>
     <?php  if($jobs != null & sizeof($jobs) > 0) { ?>
     </div>
     <?php foreach ($jobs as $job) {?>

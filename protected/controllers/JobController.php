@@ -1,7 +1,9 @@
 <?php
 $flag = 0;
+static $saveQuery = "";
 class JobController extends Controller
 {
+
 	private function isExpired($job){
 		if (strtotime($job->deadline) < (strtotime("-1 day",strtotime("now")))){
 			return true;
@@ -63,13 +65,12 @@ class JobController extends Controller
         {
             if(strpos($minus, '-') !== false) { $query .= $minus." "; } // contains +
             else { $query .= "-".str_replace(" ", ' -', $minus)." "; }     // add +
-            //var_dump($query);die;
         }
         if($query != null)
         {
             //print_r($query); exit;
             $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
-
+            $GLOBALS['saveQuery'] = $query;
         }
 
         // calling indeed function
@@ -499,7 +500,7 @@ class JobController extends Controller
 				array('allow',  // allow authenticated users to perform these actions
 					  'actions'=>array('StudentMatch', 'View', 'Home', 'Post', 
 					  		'SaveSkills', 'studentMatch','EditJobPost','VerifyJobPost', 'View' ,'VirtualHandshake', 'QuerySkill', 'Apply',
-					  		'viewApplication', 'Close', 'Search'),
+					  		'viewApplication', 'Close', 'Search', 'SaveQuery'),
 					  'users'=>array('@')),
 				array('allow',
 					  'actions'=>array('Home'),
