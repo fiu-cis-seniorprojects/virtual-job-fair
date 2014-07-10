@@ -131,36 +131,72 @@ class JobController extends Controller
         $j = 0;
 
         // if there are results from indeed.com API
-        if($result['totalresults'] >0){
-            for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
+        if($result['totalresults'] > 0){
+            if($result['totalresults'] == 1)
             {
-                $snippets[$j] = strtolower($result['results']['result'][$i]['snippet']);
-                $snippets[$j] = utf8_decode($snippets[$j]);
-                $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+               //print_r($result);die;
+               $snippets[$j] = strtolower($result['results']['result']['snippet']);
+               $snippets[$j] = utf8_decode($snippets[$j]);
+               $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+                $result['results']['result']['snippet'] = '';
+            }
+            else{
+                for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
+                {
+                    $snippets[$j] = strtolower($result['results']['result'][$i]['snippet']);
+                    $snippets[$j] = utf8_decode($snippets[$j]);
+                    $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
 
-                $result['results']['result'][$i]['snippet'] = '';
+                    $result['results']['result'][$i]['snippet'] = '';
+                }
             }
 
-            // put back into results snippet as skill words
-            for ($i = 0; $i < count($result['results']['result']); $i++)
+            if($result['totalresults'] == 1)
             {
+                // put back into results snippet as skill words
                 // check each snipped for skills
-                $cur_snippet = $snippets[$i];
-                $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
-                $cur_snippet_words = explode(' ', $cur_snippet); // split into words
-                foreach ($cur_snippet_words as $snippet_word)
-                {
-                    // check database to see if current word is a skill
-                    $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
-                    if ($skill)
+                    $cur_snippet = $snippets[0];
+                    $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
+                    $cur_snippet_words = explode(' ', $cur_snippet); // split into words
+                    foreach ($cur_snippet_words as $snippet_word)
                     {
-                        // append current word (skill) to results snippet (check duplicates)
-                        $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
-                        if (!strstr($cur_skills, $snippet_word))
+                        // check database to see if current word is a skill
+                        $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
+                        if ($skill)
                         {
-                            $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                                 $cur_skills = strtolower($result['results']['result']['snippet']);
+                                if (!strstr($cur_skills, $snippet_word))
+                                {
+                                    $result['results']['result']['snippet'] .= ucfirst($snippet_word) . ' ';
+                                }
+
                         }
                     }
+            }
+            else
+            {
+                // put back into results snippet as skill words
+                for ($i = 0; $i < count($result['results']['result']); $i++)
+                {
+                    // check each snipped for skills
+                    $cur_snippet = $snippets[$i];
+                    $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
+                    $cur_snippet_words = explode(' ', $cur_snippet); // split into words
+                    foreach ($cur_snippet_words as $snippet_word)
+                    {
+                        // check database to see if current word is a skill
+                        $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
+                        if ($skill)
+                        {
+                            // append current word (skill) to results snippet (check duplicates)
+                                $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
+                                if (!strstr($cur_skills, $snippet_word))
+                                {
+                                    $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                                }
+                        }
+                    }
+
                 }
             }
         }
