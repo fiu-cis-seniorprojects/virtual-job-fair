@@ -36,7 +36,7 @@
 </script>
 <br/>
 
-<div id="adminSearchbox"> 
+<div id="adminSearchbox">
 <h1> Search for User or Job</h1>
 
 <form method="POST" action="adminSearch" >
@@ -44,7 +44,7 @@
 <input type="submit" class="btn btn-primary">
 </form>
 
-<?php 
+<?php
 if ($results != NULL)
 {?>
 
@@ -60,7 +60,7 @@ if ($results != NULL)
 	<td><?php echo $js->email;?></td>
 	<td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $js->registration_date);?></td>
 	<td><?php echo $js->first_name.' '.$js->last_name;?></td>
-	
+
 	<?php if ($js->disable == 0){?>
 	<form method="POST" action="disableUser" >
 	<input type="hidden"  name="id" value="<?php echo $js->id;?>">
@@ -78,7 +78,7 @@ if ($results != NULL)
 
 
 
-<?php 
+<?php
 if ($results1 != NULL)
 {?>
 
@@ -94,7 +94,7 @@ if ($results1 != NULL)
 	<td><?php echo $js->fKPoster->username;?></td>
 	<td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $js->post_date);?></td>
 	<td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $js->deadline);?></td>
-	
+
 	<form method="POST" action="deleteJob" >
 	<input type="hidden"  name="id" value="<?php echo $js->id;?>">
 	<td><input type="submit" value="Delete" class="btn btn-primary"> </td></form>
@@ -105,7 +105,7 @@ if ($results1 != NULL)
 
 </div>
 
-<div id="adminSearchbox"> 
+<div id="adminSearchbox">
 <h1> Skills</h1>
 <p>Add a skill to database:</p>
 <form method="POST" action="/JobFair/index.php/home/addSkill" >

@@ -69,6 +69,7 @@
 
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
     //'type'=>'inverse', // null or 'inverse'
+    'htmlOptions' => array('role' => 'navigation'),
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
@@ -91,7 +92,7 @@
                         array('label'=>'My Profile', 'url'=>array($profile), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
                         array('label'=>'Merge Accounts','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/MergeAccounts'),
                         array('label'=>'Change Password','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/ChangePassword'),
-                        array('label'=>'API Configuration','visible'=>(User::isCurrentUserAdmin(Yii::app()->user->name)), 'url'=>'/JobFair/index.php/ApiConfig/home'),
+//                        array('label'=>'API Configuration','visible'=>(User::isCurrentUserAdmin(Yii::app()->user->name)), 'url'=>'/JobFair/index.php/ApiConfig/home'),
 
                         '----',
                         array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
@@ -102,26 +103,55 @@
         ),
     ),
 )); ?>
-<div class="container" id="page">
-	
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
 
-	<?php echo $content; ?>
 
-	<div class="clear"></div>
+<?php if(isset($this->breadcrumbs)):?>
+    <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+        'links'=>$this->breadcrumbs,
+    )); ?><!-- breadcrumbs -->
+<?php endif?>
 
-	<div id="footer">
 
-	</div><!-- footer -->
+<div class="container-fluid" id="page">
 
-</div><!-- page -->
+<?php
+    if (User::isCurrentUserAdmin(Yii::app()->user->name))
+    {
+        echo "<div class=\"row-fluid\"><div class=\"span3\">";
+        $this->widget('bootstrap.widgets.TbMenu', array(
+            'type' => 'list',
+            'htmlOptions' => array('class' => 'well'),
+            'items' => array(
+                array('label' => 'ADMINISTRATION'),
+                array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('/')),
+                array('label' => 'Users', 'icon' => 'user', 'url' => $this->createUrl('UserCrud/admin')),
+                array('label' => 'Skills', 'icon' => 'pencil', 'url' => $this->createUrl('Skillset/admin')),
+                array('label' => 'Postings', 'icon' => 'list', 'url' => '#'),
+                array('label' => 'API Configuration', 'icon' => 'cog', 'url' => $this->createUrl('ApiConfig/home')),
+                array('label' => 'NOTIFICATIONS'),
+                array('label' => 'Settings', 'icon' => 'cog', 'url' => '#'),
+                array('label' => 'Help', 'icon' => 'flag', 'url' => '#'),
+            ),
+        ));
+        echo "</div>";
+
+        echo "<div class=\"span9\">";
+        echo $content;
+        echo "</div>";
+
+        echo "</div>";
+    }
+    else
+    {
+        echo $content;
+    }
+
+?>
+
+</div>
 
 </body>
-		<div style="height:50px;"></div>
+        <div style="height: 50px"></div>
         <div style="position:fixed; text-align:center; width:100%; height:20px; background-color:white;border-top: 1px solid rgb(206, 206, 206); padding:5px; bottom:0px; ">
 
            <a target="blank" href="http://fiu.edu">Florida Interational University</a> | Virtual Job Fair - Senior Project 2013
