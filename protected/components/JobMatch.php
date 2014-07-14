@@ -18,43 +18,53 @@ class JobMatch extends CApplicationComponent
         return $this->_model;
     }
 
-    private function queryForSkill($skillid, $skillmap){
-        foreach ($skillmap as $skill){
-            if ($skill->skillid == $skillid){
+    private function queryForSkill($skillid, $skillmap)
+    {
+        foreach ($skillmap as $skill)
+        {
+            if ($skill->skillid == $skillid)
+            {
                 return $skill;
             }
         }
         return null;
     }
 
-    private function compare_skills($jobskillmaps, $studentskillmaps){
+    private function compare_skills($jobskillmaps, $studentskillmaps)
+    {
         //first take out all irrelevant skills from the student
-        foreach($studentskillmaps as $skill){
+        foreach($studentskillmaps as $skill)
+        {
             $studentskills[] = $skill->skillid;
         }
 
-        foreach($jobskillmaps as $skill){
+        foreach($jobskillmaps as $skill)
+        {
             $jobskills[] = $skill->skillid;
         }
 
-        if (!isset($studentskills) || !isset($jobskills)){
+        if (!isset($studentskills) || !isset($jobskills))
+        {
             return 0;
-        } else {
+        }
+        else
+        {
             $studentskills = array_intersect($studentskills, $jobskills);
             $score =  (count($studentskills) / count($jobskills));
             $skilldifference = 1;
-            foreach($studentskills as $skillid){
+            foreach($studentskills as $skillid)
+            {
                 $studentSkillObject = $this->queryForSkill($skillid, $studentskillmaps);
                 $jobSkillObject =  $this->queryForSkill($skillid, $jobskillmaps);
                 $skilldifference += ($studentSkillObject->ordering - $jobSkillObject->ordering);
             }
-            if ($skilldifference == 0) {
+            if ($skilldifference == 0)
+            {
                 $skilldifference ++;
             }
             $score -=  $skilldifference / 100;
             return $score;
         }
-
     }
 
     private function cmp($student1,$student2)
@@ -151,6 +161,107 @@ class JobMatch extends CApplicationComponent
         }
         $jobs = array_slice($jobs, 0 , 6);
         return $jobs;
+    }
+
+    public function indeed($query, $city)
+    {
+        $loc = $city;
+        $result = Array();
+
+        // to call Indeed API
+        require 'protected/indeed/indeed.php';
+        // Indeed publisher number 5595740829812660
+        $client = new Indeed("5595740829812660");
+
+        // parameters pass to indeed API
+        $params = array(
+            "q" => $query,                              // query from user
+            "l" => $loc,                                // user location
+            "limit" => 25,                              // Maximum number of results returned per query. Default is 10
+            "userip" => $_SERVER['REMOTE_ADDR'],        // user IP address
+            "useragent" => $_SERVER['HTTP_USER_AGENT']  // user browser
+        );
+
+        // search results from indeed.com
+        $results = $client->search($params);
+        // get array of jobs
+        $result = $this->xmlToArray($results);
+
+        // convert snippets to skills
+        $snippets = array();
+        $j = 0;
+
+        // if there are results from indeed.com API
+        if($result['totalresults'] >0)
+        {
+            for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
+            {
+                $snippets[$j] = strtolower($result['results']['result'][$i]['snippet']);
+                $snippets[$j] = utf8_decode($snippets[$j]);
+                $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+
+                $result['results']['result'][$i]['snippet'] = '';
+            }
+
+            // put back into results snippet as skill words
+            for ($i = 0; $i < count($result['results']['result']); $i++)
+            {
+                // check each snipped for skills
+                $cur_snippet = $snippets[$i];
+                $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
+                $cur_snippet_words = explode(' ', $cur_snippet); // split into words
+                foreach ($cur_snippet_words as $snippet_word)
+                {
+                    // check database to see if current word is a skill
+                    $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
+                    if ($skill)
+                    {
+                        // append current word (skill) to results snippet (check duplicates)
+                        $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
+                        if (!strstr($cur_skills, $snippet_word))
+                        {
+                            $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                        }
+                    }
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function careerBuilder($query, $city)
+    {
+        require_once 'protected/careerBuilder/cbapi.php';
+        $results = careerBuilder\CBAPI::getJobResults($query, $city, "", "");
+        // print_r($results);
+        return $results;
+    }
+
+    public function xmlToArray($input, $callback = null, $recurse = false)
+    {
+        $data = ((!$recurse) && is_string($input))? simplexml_load_string($input, 'SimpleXMLElement', LIBXML_NOCDATA): $input;
+        if($data instanceof \SimpleXMLElement) $data = (array)$data;
+        if (is_array($data)) foreach ($data as &$item) $item = $this->xmlToArray($item, $callback, true);
+        return (!is_array($data) && is_callable($callback))? call_user_func($callback, $data): $data;
+    }
+
+    public function customJobSearch($query = null, $city = null)
+    {
+        if($query != null)
+        {
+            $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
+            $indeed = $this->indeed($query, $city);
+            if($indeed['totalresults'] == 0)
+            {
+                $indeed = "";
+            }
+            $cb = $this->careerBuilder($query, $city);
+            if($cb[0] == 0)
+            {
+                $cb = "";
+            }
+            return array('careerpath'=>$job,'indeed'=>$indeed, 'cbresults'=>$cb);
+        }
     }
 
 }

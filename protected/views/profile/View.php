@@ -278,8 +278,7 @@ function uploadvideo(){
 
 <div  id="profileImage">
 <div id="upload">
-<img style="width:200px; 
-	height:215px;" src="<?php echo $user->image_url ?>" />
+<img style="width:200px; height:215px;" src="<?php echo $user->image_url ?>" />
 	 </div>
 	<a id="uploadlink" href="#" onclick="uploadpic()"><img style="margin-top: 5px;" src='/JobFair/images/ico/add.gif' />Upload Image</a>
 	<?php echo CHtml::activeFileField($user, 'image_url', array('style'=>'display: none;')); ?>  
@@ -351,8 +350,8 @@ function uploadvideo(){
         }
     ?>
     <div style="overflow: hidden;">
-        <div style="float: left;">Email Job Matches:</div>
-        <div style="margin-left: 120px;" class="onoffswitch">
+        <div style="float: left;">Email Job Notifications:</div>
+        <div style="margin-left: 130px;" class="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" value='<?php echo $job_notif; ?>' id="myonoffswitch" <?php echo $checked; ?> onclick="toggleJobMatching()">
             <label class="onoffswitch-label" for="myonoffswitch">
                 <span class="onoffswitch-inner"></span>
@@ -362,7 +361,7 @@ function uploadvideo(){
     </div>
     <div style="overflow: hidden;">
         <div style="float: left;">Looking For Job:</div>
-        <div style="margin-left: 120px;" class="onoffswitch">
+        <div style="margin-left: 130px;" class="onoffswitch">
             <input type="checkbox" name="myonoffswitch_1" class="onoffswitch-checkbox" value='<?php echo $looking_for_job; ?>' id="myonoffswitch_1" <?php echo $checked_lfj; ?> onclick="toggleLookingForJob()">
             <label class="onoffswitch-label" for="myonoffswitch_1">
                 <span class="onoffswitch-inner"></span>
