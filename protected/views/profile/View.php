@@ -6,7 +6,6 @@
 /* @var $form CActiveForm */
 
 
-
 $this->breadcrumbs=array(
 	'Profile'=>array('/profile'),
 	'View',
@@ -23,9 +22,7 @@ if (!isset($videoresume)){
 if (!isset($user->basicInfo)){
 	$user->basicInfo = new BasicInfo;
 }
-if (!isset($_GET['addinterestname'])) {
-    $_GET['addinterestname'] = '';
-}
+
 ?>
 
 
@@ -98,33 +95,7 @@ $(document).ready(function() {
 		$(this).closest('form').submit();
 	});
 
-    $clicked = 0;
-    $("#addjobinterest").click(function(e)
-    {
-        if($clicked < 1){
-            var input = $('<input />',{
-                id: "addinterestname",
-                type:"text",
-                name:"addinterestname",
-                placeholder: "position, company, job type",
-                width: "180px"
-            });
-            $clicked++;
-
-            $(this).after(input);
-        }
-
-    });
-
     $("#saveInterest").click(function(e) {
-
-        if($clicked > 0)
-        {
-            if ($('#addinterestname').val() == ""){
-                alert("Interest was left empty");
-                return;
-            }
-        }
 
         $(this).closest('form').submit();
     });
@@ -803,7 +774,11 @@ $form = $this->beginWidget('CActiveForm', array(
         <div class="titlebox">Job Interest</div>
         <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
         <div style= "text-align:left; clear:both" >Add keywords to receive emails with jobs matching your criteria
-          <br><br>  <strong>Current Criteria: </strong> <?php echo $user->job_interest;?>
+          <br><br>  <strong>Current Criteria: </strong> <?php foreach ($saveQ as $query) {
+                echo ($query['query']); ?> <br> <?php
+
+          }
+           ?>
         </div>
         <hr>
         <?php $this->endWidget(); ?>

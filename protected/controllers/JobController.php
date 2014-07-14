@@ -1,6 +1,7 @@
 <?php
 $flag = 0;
-static $saveQuery = "";
+$saveQuery = "";
+
 class JobController extends Controller
 {
 
@@ -70,7 +71,6 @@ class JobController extends Controller
         {
             //print_r($query); exit;
             $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
-            $GLOBALS['saveQuery'] = $query;
         }
 
         // calling indeed function
@@ -90,6 +90,53 @@ class JobController extends Controller
             $this->render('home', array('jobs'=>$job, 'result'=>$result, 'cbresults'=>$result2,  'flag'=>$flag));
         }
 	}
+
+    public function actionSaveQuery($allWords = null, $phrase = null, $anyWord = null, $minus = null, $city = null, $tagName = null)
+    {
+        $saveQuery = "";
+        $loc = "";
+        $tag = "";
+
+
+        if(isset($city) && $city != "") { $loc = $city;  }
+        else{ $loc = "Miami, FL"; }
+
+        if(isset($tagName) && $tagName != "" && strlen($tagName) < 25) { $tag = $tagName; }
+
+        if(isset($phrase) && $phrase != "")
+        {
+            if(strpos($phrase, '"') !== false) { $saveQuery = $phrase." "; }    // contains ""
+            else{ $saveQuery = "\"$phrase\""." "; }                             // add  ""
+        }
+        if(isset($allWords) && $allWords != "")
+        {
+            if(strpos($allWords, '+') !== false) { $saveQuery .= $allWords." "; } // contains +
+            else { $saveQuery .= "+".str_replace(" ", ' +', $allWords)." "; }     // add +
+        }
+        if(isset($anyWord) && $anyWord != "")
+        {
+            if(strpos($anyWord, 'OR') !== false) { $saveQuery .= $anyWord." "; } // contains OR
+            else { $saveQuery .= str_replace(" ", ' OR ', $anyWord)." "; }       // add OR
+        }
+        if(isset($minus) && $minus != "")
+        {
+            if(strpos($minus, '-') !== false) { $saveQuery .= $minus." "; } // contains +
+            else { $saveQuery .= "-".str_replace(" ", ' -', $minus)." "; }     // add +
+        }
+
+        if( $saveQuery != "")
+        {
+            $username = Yii::app()->user->name;
+            $model = User::model()->find("username=:username",array(':username'=>$username));
+            $saved_queries = new SavedQuery();
+            $saved_queries->query = $saveQuery;
+            $saved_queries->query_tag = $tag;
+            $saved_queries->FK_userid = $model->id;
+            $saved_queries->location = $loc;
+            $saved_queries->save(false);
+         }
+        $this->redirect("/JobFair/index.php/Job/home/") ;
+    }
 
 
     public function careerBuilder($query, $city)
@@ -131,36 +178,72 @@ class JobController extends Controller
         $j = 0;
 
         // if there are results from indeed.com API
-        if($result['totalresults'] >0){
-            for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
+        if($result['totalresults'] > 0){
+            if($result['totalresults'] == 1)
             {
-                $snippets[$j] = strtolower($result['results']['result'][$i]['snippet']);
-                $snippets[$j] = utf8_decode($snippets[$j]);
-                $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+               //print_r($result);die;
+               $snippets[$j] = strtolower($result['results']['result']['snippet']);
+               $snippets[$j] = utf8_decode($snippets[$j]);
+               $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+                $result['results']['result']['snippet'] = '';
+            }
+            else{
+                for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
+                {
+                    $snippets[$j] = strtolower($result['results']['result'][$i]['snippet']);
+                    $snippets[$j] = utf8_decode($snippets[$j]);
+                    $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
 
-                $result['results']['result'][$i]['snippet'] = '';
+                    $result['results']['result'][$i]['snippet'] = '';
+                }
             }
 
-            // put back into results snippet as skill words
-            for ($i = 0; $i < count($result['results']['result']); $i++)
+            if($result['totalresults'] == 1)
             {
+                // put back into results snippet as skill words
                 // check each snipped for skills
-                $cur_snippet = $snippets[$i];
-                $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
-                $cur_snippet_words = explode(' ', $cur_snippet); // split into words
-                foreach ($cur_snippet_words as $snippet_word)
-                {
-                    // check database to see if current word is a skill
-                    $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
-                    if ($skill)
+                    $cur_snippet = $snippets[0];
+                    $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
+                    $cur_snippet_words = explode(' ', $cur_snippet); // split into words
+                    foreach ($cur_snippet_words as $snippet_word)
                     {
-                        // append current word (skill) to results snippet (check duplicates)
-                        $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
-                        if (!strstr($cur_skills, $snippet_word))
+                        // check database to see if current word is a skill
+                        $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
+                        if ($skill)
                         {
-                            $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                                 $cur_skills = strtolower($result['results']['result']['snippet']);
+                                if (!strstr($cur_skills, $snippet_word))
+                                {
+                                    $result['results']['result']['snippet'] .= ucfirst($snippet_word) . ' ';
+                                }
+
                         }
                     }
+            }
+            else
+            {
+                // put back into results snippet as skill words
+                for ($i = 0; $i < count($result['results']['result']); $i++)
+                {
+                    // check each snipped for skills
+                    $cur_snippet = $snippets[$i];
+                    $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
+                    $cur_snippet_words = explode(' ', $cur_snippet); // split into words
+                    foreach ($cur_snippet_words as $snippet_word)
+                    {
+                        // check database to see if current word is a skill
+                        $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
+                        if ($skill)
+                        {
+                            // append current word (skill) to results snippet (check duplicates)
+                                $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
+                                if (!strstr($cur_skills, $snippet_word))
+                                {
+                                    $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                                }
+                        }
+                    }
+
                 }
             }
         }
