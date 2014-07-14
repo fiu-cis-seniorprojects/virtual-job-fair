@@ -1,6 +1,7 @@
 <?php
 $flag = 0;
-static $saveQuery = "";
+$saveQuery = "";
+
 class JobController extends Controller
 {
 
@@ -70,7 +71,6 @@ class JobController extends Controller
         {
             //print_r($query); exit;
             $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
-            $GLOBALS['saveQuery'] = $query;
         }
 
         // calling indeed function
@@ -90,6 +90,53 @@ class JobController extends Controller
             $this->render('home', array('jobs'=>$job, 'result'=>$result, 'cbresults'=>$result2,  'flag'=>$flag));
         }
 	}
+
+    public function actionSaveQuery($allWords = null, $phrase = null, $anyWord = null, $minus = null, $city = null, $tagName = null)
+    {
+        $saveQuery = "";
+        $loc = "";
+        $tag = "";
+
+
+        if(isset($city) && $city != "") { $loc = $city;  }
+        else{ $loc = "Miami, FL"; }
+
+        if(isset($tagName) && $tagName != "" && strlen($tagName) < 25) { $tag = $tagName; }
+
+        if(isset($phrase) && $phrase != "")
+        {
+            if(strpos($phrase, '"') !== false) { $saveQuery = $phrase." "; }    // contains ""
+            else{ $saveQuery = "\"$phrase\""." "; }                             // add  ""
+        }
+        if(isset($allWords) && $allWords != "")
+        {
+            if(strpos($allWords, '+') !== false) { $saveQuery .= $allWords." "; } // contains +
+            else { $saveQuery .= "+".str_replace(" ", ' +', $allWords)." "; }     // add +
+        }
+        if(isset($anyWord) && $anyWord != "")
+        {
+            if(strpos($anyWord, 'OR') !== false) { $saveQuery .= $anyWord." "; } // contains OR
+            else { $saveQuery .= str_replace(" ", ' OR ', $anyWord)." "; }       // add OR
+        }
+        if(isset($minus) && $minus != "")
+        {
+            if(strpos($minus, '-') !== false) { $saveQuery .= $minus." "; } // contains +
+            else { $saveQuery .= "-".str_replace(" ", ' -', $minus)." "; }     // add +
+        }
+
+        if( $saveQuery != "")
+        {
+            $username = Yii::app()->user->name;
+            $model = User::model()->find("username=:username",array(':username'=>$username));
+            $saved_queries = new SavedQuery();
+            $saved_queries->query = $saveQuery;
+            $saved_queries->query_tag = $tag;
+            $saved_queries->FK_userid = $model->id;
+            $saved_queries->location = $loc;
+            $saved_queries->save(false);
+         }
+        $this->redirect("/JobFair/index.php/Job/home/") ;
+    }
 
 
     public function careerBuilder($query, $city)

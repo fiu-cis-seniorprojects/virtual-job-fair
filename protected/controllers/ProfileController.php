@@ -11,7 +11,9 @@ class ProfileController extends Controller
 		} else {
 			$username = Yii::app()->user->name;
 		}
-		$user = User::model()->find("username=:username",array(':username'=>$username));		
+		$user = User::model()->find("username=:username",array(':username'=>$username));
+
+        $saveQ = SavedQuery::model()->findAll("FK_userid=:id", array(':id'=>$user->id));
 		
 		if ($user->FK_usertype == 2){
 			$this->actionViewEmployer();
@@ -26,7 +28,7 @@ class ProfileController extends Controller
 		$videoresume = VideoResume::model()->findByPk($user->id);
 // 		print "<pre>"; print_r($videoresume->video_path);print "</pre>";return;
 		
-		$this->render('View', array('user'=>$user, 'allSchools'=>$allSchools, 'resume'=>$resume, 'videoresume'=>$videoresume,));		
+		$this->render('View', array('user'=>$user, 'allSchools'=>$allSchools, 'resume'=>$resume, 'videoresume'=>$videoresume, 'saveQ'=>$saveQ));
 	}
 	
 	

@@ -20,6 +20,9 @@ if (!isset($_GET['anyWord'])) {
 if (!isset($_GET['minus'])) {
     $_GET['minus'] = '';
 }
+if (!isset($_GET['tagName'])) {
+    $_GET['tagName'] = '';
+}
 
 if(isset($job))
 {
@@ -58,11 +61,26 @@ $rpp = 10; //results per page
 
     function myFunction()
     {
+        document.getElementById("searchForm").action = "/JobFair/index.php/job/home";
         document.getElementById("searchForm").submit();
     }
 
     function saveQuery()
     {
+        var tagNam = prompt("Please enter your query name", "Programmer Search");
+
+        var num = tagNam.length;
+
+        if(tagNam != "" && num < 25)
+        {
+            document.getElementById("tagName").value = tagNam;
+            document.getElementById("searchForm").action = "/JobFair/index.php/job/savequery";
+            document.getElementById("searchForm").submit();
+        }
+        else
+        {
+            alert("Tag value cannot be empty AND greater than 25 characters long");
+        }
 
     }
 
@@ -94,7 +112,7 @@ function getURLParameter(name) {
 <div id="searchforjobs2" style="float:left;">
 <div class="titlebox">Advanced Search  </div>
     <br/><br>
-    <form method="GET" id="searchForm" action="/JobFair/index.php/job/home">
+    <form method="GET" id="searchForm" action="">
       <h4>Find jobs with... </h4>
         <div>
             <strong>these words:</strong>
@@ -109,7 +127,7 @@ function getURLParameter(name) {
                 'name'=>'phrase',
                 'id'=>'phrase',
                 'value'=> $_GET['phrase'],
-                'htmlOptions'=>array('value'=> $_GET['phrase'],'placeholder' => 'put word or phrase in quotes',
+                'htmlOptions'=>array('value'=> $_GET['phrase'],'placeholder' => 'put words or phrase in quotes',
                     'style'=>'width: 200px;'),)); ?>
             <br> <strong>any of these words:</strong><br>
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
@@ -130,6 +148,12 @@ function getURLParameter(name) {
              <input type="radio" name="radioOption" id="radioOption" value="true">
                 <strong> Include jobs from outside sources </strong>
             </div>
+            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'tagName',
+                'id'=>'tagName',
+                'value'=> $_GET['tagName'],
+                'htmlOptions'=>array('value'=> $_GET['tagName'],
+                    'style'=>'width: 200px; display: none'),)); ?>
             <!-- search button -->
             <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Search',
@@ -140,6 +164,18 @@ function getURLParameter(name) {
                     'id' => "searchbutton",
                     'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
                     'onclick' => "myFunction()",
+                ),
+            )); ?>
+            <!-- save button -->
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                'label'=>'Save Query',
+                'type'=>'info',
+                'htmlOptions'=>array(
+                    'data-toggle'=>'modal',
+                    'data-target'=>'#myModal',
+                    'id' => "savebutton",
+                    'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
+                    'onclick' => "saveQuery()",
                 ),
             )); ?>
            <!-- reset button -->
