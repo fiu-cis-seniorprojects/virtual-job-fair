@@ -1,7 +1,8 @@
 <?php
 /* @var $this ProfileController */
+/* @var $model model */
+/* @var $form LinkTooForm */
 ?>
-
 <br><br>
 <br><br>
 <?php
@@ -15,18 +16,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'htmlOptions'=>array('class'=>'well'),
 ));
 ?>
-
-<br>
-<h2>Congratulations!!!</h2>
-<?php
-echo "Your Senior Project account has been linked to your profile.";
-?><br><br>
-<?php $this->widget('bootstrap.widgets.TbButton', array(
-    'buttonType'=>'link',
-    'type'=>'primary',
-    'label'=>'View my Profile',
-    'url'=>'../profile/view'
-)); ?>
-<br><br>
+<h2>Linking Error:</h2>
+<h3>This account is already link to another account</h3>
 
 <?php $this->endWidget(); ?>

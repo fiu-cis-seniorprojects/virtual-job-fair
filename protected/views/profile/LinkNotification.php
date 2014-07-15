@@ -17,10 +17,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ));
 ?>
 
-<br/><br/>
-<h2>Congratulation!!!</h2>
+<br>
+<h2>Congratulations!!!</h2>
 <?php
-echo "Your " .$mesg. " account has been link to your profile.";
+echo "Your " .$mesg. " account has been linked to your profile.";
 ?><br><br>
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'buttonType'=>'link',

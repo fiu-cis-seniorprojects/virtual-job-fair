@@ -24,7 +24,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '<?php echo Yii::app()->createAbsoluteUrl("Profile/UserChoice"); ?>',
+                url: '<?php echo Yii::app()->createAbsoluteUrl("User/UserChoice"); ?>',
                 data:data,
                 success:function(data){
                     alert(data);
