@@ -266,8 +266,6 @@ class JobMatchCommand extends CConsoleCommand {
                     }
                     else
                     {
-                        echo "NO QUERIES ACTIVE OR NO SAVED";
-                        continue;
                         $results = Yii::app()->jobmatch->getStudentMatchJobs($st->id, $jobs);
                         if(count($results) > 0)
                         {
@@ -279,7 +277,6 @@ class JobMatchCommand extends CConsoleCommand {
                     }
                 }
             }
-            return;
             foreach($jobs as $job)
             {
                 $message = "";
