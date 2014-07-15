@@ -128,7 +128,7 @@ class ProfileController extends Controller
         $runner->addCommands($commandPath);
         $commandPath = Yii::getFrameworkPath() . DIRECTORY_SEPARATOR . 'cli' . DIRECTORY_SEPARATOR . 'commands';
         $runner->addCommands($commandPath);
-        $args = array('yiic', 'jobmatch', "--username=$user->username", "--useremail=$user->email");
+        $args = array('yiic', 'jobmatch', "-u $user->username", "-e $user->email");
         ob_start();
         $runner->run($args);
         echo htmlentities(ob_get_clean(), null, Yii::app()->charset);

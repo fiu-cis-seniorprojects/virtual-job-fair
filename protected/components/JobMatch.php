@@ -169,17 +169,18 @@ class JobMatch extends CApplicationComponent
         $result = Array();
 
         // to call Indeed API
-        require 'protected/indeed/indeed.php';
+        require_once getcwd() . '/indeed/indeed.php';
         // Indeed publisher number 5595740829812660
         $client = new Indeed("5595740829812660");
-
         // parameters pass to indeed API
         $params = array(
             "q" => $query,                              // query from user
             "l" => $loc,                                // user location
             "limit" => 25,                              // Maximum number of results returned per query. Default is 10
-            "userip" => $_SERVER['REMOTE_ADDR'],        // user IP address
-            "useragent" => $_SERVER['HTTP_USER_AGENT']  // user browser
+            //"userip" => $_SERVER['REMOTE_ADDR'],        // user IP address
+            "userip" => '0.0.0.0',        // user IP address
+            //"useragent" => $_SERVER['HTTP_USER_AGENT']  // user browser
+            "useragent" => "JobFair Search Bot 1.0"  // user browser
         );
 
         // search results from indeed.com
@@ -194,20 +195,31 @@ class JobMatch extends CApplicationComponent
         // if there are results from indeed.com API
         if($result['totalresults'] >0)
         {
-            for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
+            if($result['totalresults'] == 1)
             {
-                $snippets[$j] = strtolower($result['results']['result'][$i]['snippet']);
+                //print_r($result);die;
+                $snippets[$j] = strtolower($result['results']['result']['snippet']);
                 $snippets[$j] = utf8_decode($snippets[$j]);
                 $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
+                $result['results']['result']['snippet'] = '';
+            }
+            else
+            {
+                for ($i = 0; $i < count($result['results']['result']); $i++, $j++)
+                {
+                    $snippets[$j] = strtolower($result['results']['result'][$i]['snippet']);
+                    $snippets[$j] = utf8_decode($snippets[$j]);
+                    $snippets[$j] = iconv(mb_detect_encoding($snippets[$j], mb_detect_order(), true), "ISO-8859-1//IGNORE", $snippets[$j]);
 
-                $result['results']['result'][$i]['snippet'] = '';
+                    $result['results']['result'][$i]['snippet'] = '';
+                }
             }
 
-            // put back into results snippet as skill words
-            for ($i = 0; $i < count($result['results']['result']); $i++)
+            if($result['totalresults'] == 1)
             {
+                // put back into results snippet as skill words
                 // check each snipped for skills
-                $cur_snippet = $snippets[$i];
+                $cur_snippet = $snippets[0];
                 $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
                 $cur_snippet_words = explode(' ', $cur_snippet); // split into words
                 foreach ($cur_snippet_words as $snippet_word)
@@ -216,13 +228,39 @@ class JobMatch extends CApplicationComponent
                     $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
                     if ($skill)
                     {
-                        // append current word (skill) to results snippet (check duplicates)
-                        $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
+                        $cur_skills = strtolower($result['results']['result']['snippet']);
                         if (!strstr($cur_skills, $snippet_word))
                         {
-                            $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                            $result['results']['result']['snippet'] .= ucfirst($snippet_word) . ' ';
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                // put back into results snippet as skill words
+                for ($i = 0; $i < count($result['results']['result']); $i++)
+                {
+                    // check each snipped for skills
+                    $cur_snippet = $snippets[$i];
+                    $cur_snippet = str_replace(array( '.', '/', ',', '.'), ' ', $cur_snippet);
+                    $cur_snippet_words = explode(' ', $cur_snippet); // split into words
+                    foreach ($cur_snippet_words as $snippet_word)
+                    {
+                        // check database to see if current word is a skill
+                        $skill = Skillset::model()->find("LOWER(name)=:name", array(":name"=>$snippet_word));
+                        if ($skill)
+                        {
+                            // append current word (skill) to results snippet (check duplicates)
+                            $cur_skills = strtolower($result['results']['result'][$i]['snippet']);
+                            if (!strstr($cur_skills, $snippet_word))
+                            {
+                                $result['results']['result'][$i]['snippet'] .= ucfirst($snippet_word) . ' ';
+                            }
                         }
                     }
+
                 }
             }
         }
@@ -231,7 +269,7 @@ class JobMatch extends CApplicationComponent
 
     public function careerBuilder($query, $city)
     {
-        require_once 'protected/careerBuilder/cbapi.php';
+        require_once getcwd() . '/careerBuilder/cbapi.php';
         $results = careerBuilder\CBAPI::getJobResults($query, $city, "", "");
         // print_r($results);
         return $results;
@@ -253,14 +291,14 @@ class JobMatch extends CApplicationComponent
             $indeed = $this->indeed($query, $city);
             if($indeed['totalresults'] == 0)
             {
-                $indeed = "";
+                $indeed = Array();
             }
             $cb = $this->careerBuilder($query, $city);
             if($cb[0] == 0)
             {
-                $cb = "";
+                $cb = Array();
             }
-            return array('careerpath'=>$job,'indeed'=>$indeed, 'cbresults'=>$cb);
+            return array('careerpath'=>$job, 'indeed'=>$indeed, 'careerbuilder'=>$cb);
         }
     }
 
