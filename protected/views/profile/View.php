@@ -472,7 +472,7 @@ function uploadvideo(){
         )); ?>
     </form>
 
-</div><br>
+</div></div>
 
 
 <div id="menutools">
@@ -795,7 +795,7 @@ $form = $this->beginWidget('CActiveForm', array(
 			)); ?>
    
 </div>
-</div> <!-- End SKILLS -->
+<!-- End SKILLS -->
 
 <div id="rightside">
     <div id="menutools">
