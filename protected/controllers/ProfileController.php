@@ -77,9 +77,9 @@ class ProfileController extends Controller
 
     public function actionSaveInterest()
     {
-        var_dump("k");die;
+       // var_dump($_GET);die;
         $username = Yii::app()->user->name;
-        $date = $_POST['day'];
+        $date = $_GET['day'];
 
         $model = User::model()->find("username=:username",array(':username'=>$username));
         $model->job_int_date = $date;
@@ -88,7 +88,7 @@ class ProfileController extends Controller
         $savedQ = SavedQuery::model()->findAll("FK_userid=:id",array(':id'=>$model->id));
         foreach($savedQ as $sq)
         {
-            if(isset($_POST[$sq->query_tag]))
+            if(isset($_GET[$sq->query_tag]))
             {
                 $sq->active = 1;
                 $sq->save(false);

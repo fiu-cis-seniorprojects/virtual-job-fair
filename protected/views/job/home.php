@@ -146,7 +146,7 @@ function getURLParameter(name) {
             <!-- outside resources radio button -->
             <br> <div class="radio">
              <input type="radio" name="radioOption" id="radioOption" value="true">
-                <strong> Include jobs from outside sources</strong>  <br> (Indeed, CareerBuilder)
+                <strong> Include jobs from outside sources</strong>
             </div>
             <!-- hidden box, DO NOT MAKE VISIBLE -->
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
