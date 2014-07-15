@@ -68,7 +68,7 @@ $(document).ready(function() {
 	var i = 1;
 	$("#saveSkills").hide();
    // $("#saveInterest").hide();
-	$("#edit").click(function(e) { 
+	$("#edit").click(function(e) {
 		if($("#BasicInfo_about_me").is(":disabled") && $("#User_email").is(":disabled")
 		&& $("#BasicInfo_phone").is(":disabled")&& $("#BasicInfo_city").is(":disabled")
 		&& $("#BasicInfo_state").is(":disabled")) {  
@@ -96,10 +96,9 @@ $(document).ready(function() {
 	});
 
     $("#saveInterest").click(function(e) {
-
         $(this).closest('form').submit();
     });
-	
+
 	$("#editEducation").click(function(e) { 
 		
 		if ($('#Education_name').val() == ""){
@@ -159,6 +158,13 @@ $(document).delegate('.deletenewskill','click',function(){
 	$("#" + this.id).remove();
 	
 });
+
+function saveQ()
+{
+    document.getElementById("interestForm").action = "/JobFair/index.php/profile/saveinterest";
+    document.getElementById("interestForm").submit();
+    alert('Saved!');
+}
 
 function uploadpic(){
 	document.getElementById("User_image_url").click();
@@ -314,9 +320,9 @@ function uploadvideo(){
 	
 </div> <!--  END BASIC INFO -->
 
-	
 
-	
+
+
 	<div style="clear:both"></div>
 		<?php $this->endWidget(); ?>
 	<hr>
@@ -370,6 +376,11 @@ function uploadvideo(){
             </label>
         </div>
     </div><hr>
+</div>
+
+
+
+<div id="menutools">
 <div class="titlebox">DOCUMENTS</div><br><br>
 <p><a href="#" id="editResume" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadresume()"/></a></p>
 
@@ -416,72 +427,6 @@ $this->endWidget();
 
 ?> 
 </div>
-
-
-<div id="menutools">
-<div id="studentlinks">
-<!--Author Manuel
-making the links dynamic so if the base Url changed the program won not be affected
--->
-
-<?php
-    $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/linkedIn_login.png','', array('width'=>160, 'height'=>100));
-    echo CHtml::link($image, array('profile/auth'));
-
-    $currentUser = User::getCurrentUser();
-    if(($currentUser != null) && ($currentUser->linkedinid !=null))
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
-    else{
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
-    }
-?><br><br>
-
-
-<?php
-    $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/google_login.png','', array('width'=>160, 'height'=>100));
-    echo CHtml::link($image, array('profile/googleAuth'));
-
-    $currentUser = User::getCurrentUser();
-    if(($currentUser != null) && ($currentUser->googleid !=null))
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
-    else{
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
-    }
-?><br><br>
-
-
-<?php
-    $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/fiu_cs_login.png','', array('width'=>160, 'height'=>100));
-    echo CHtml::link($image, array('profile/fiuCsSeniorAuth'));
-
-    $currentUser = User::getCurrentUser();
-    if(($currentUser != null) && ($currentUser->fiucsid !=null))
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
-    else{
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
-    }
-?><br><br>
-
-<?php
-    $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/fiu_login.png','', array('width'=>160, 'height'=>100));
-    echo CHtml::link($image, array('profile/fiuAuth'));
-
-    $currentUser = User::getCurrentUser();
-    if(($currentUser != null) && ($currentUser->fiu_account_id !=null))
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
-    else{
-        echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
-    }
-?><br><br>
-
-<hr/>
-<a href="/JobFair/index.php/user/ChangePassword">Change Password</a>
-</div>
-
-</div>
-
-
-
 </div> <!--  END LEFT SIDE -->
 
 
@@ -674,10 +619,6 @@ function formatDate($mysqldate){
 
 ?>
 
-
-
-
-
 </div> <!--  END COTENT -->
 
 <div id="rightside">
@@ -758,126 +699,74 @@ $form = $this->beginWidget('CActiveForm', array(
 		    	),
 			)); ?>
    
-</div> </div><!-- End SKILLS -->
-<br><br>
-<div id="rightside">
-    <?php
-    $form = $this->beginWidget('CActiveForm', array(
-    'id'=>'user-saveInterest-form', 'action'=> '/JobFair/index.php/Profile/saveInterest',
-    'enableAjaxValidation'=>false,
-    'htmlOptions' => array('enctype' => 'multipart/form-data',),
-    ));
-
-    ?>
-
-    <div id="jobinterest">
-        <div class="titlebox">Job Interest</div>
-        <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
-        <div style= "text-align:left; clear:both" >Add keywords to receive emails with jobs matching your criteria
-          <br><br>  <strong>Current Criteria: </strong> <?php foreach ($saveQ as $query) {
-                echo ($query['query']); ?> <br> <?php
-
-          }
-           ?>
-        </div>
-        <hr>
-        <?php $this->endWidget(); ?>
-        <div style= "text-align:left;">
-        <?php if($user->job_int_date != 0)
-        {
-            $date = $user->job_int_date;
-            if($date == 1)
-            {?>
-                <div class="radio">
-                    <input type="radio" name="day" id="daily" value="1" checked>
-                    <strong> Send me job postings daily </strong>
-                </div>
-                <br> <div class="radio">
-                    <input type="radio" name="day" id="weekly" value="2">
-                    <strong> Send me job postings weekly </strong>
-                </div>
-                <br> <div class="radio">
-                    <input type="radio" name="day" id="monthly" value="3">
-                    <strong> Send me job postings monthly </strong>
-                </div>
-
-           <?php }
-            elseif($date == 2)
-            { ?>
-                <div class="radio">
-                    <input type="radio" name="day" id="daily" value="1">
-                    <strong> Send me job postings daily </strong>
-                </div>
-                <br> <div class="radio">
-                    <input type="radio" name="day" id="weekly" value="2" checked>
-                    <strong> Send me job postings weekly </strong>
-                </div>
-                <br> <div class="radio">
-                    <input type="radio" name="day" id="monthly" value="3">
-                    <strong> Send me job postings monthly </strong>
-                </div>
-            <?php }
-            elseif($date == 3)
-            { ?>
-            <div class="radio">
-                <input type="radio" name="day" id="daily" value="1">
-                <strong> Send me job postings daily </strong>
-            </div>
-            <br> <div class="radio">
-                <input type="radio" name="day" id="weekly" value="2">
-                <strong> Send me job postings weekly </strong>
-            </div>
-            <br> <div class="radio">
-                <input type="radio" name="day" id="monthly" value="3" checked>
-                <strong> Send me job postings monthly </strong>
-            </div>
-        <?php }
-        } if($user->job_int_date == 0){ ?>
-            <div class="radio">
-                <input type="radio" name="day" id="daily" value="1">
-                <strong> Send me job postings daily </strong>
-            </div>
-            <br> <div class="radio">
-                <input type="radio" name="day" id="weekly" value="2">
-                <strong> Send me job postings weekly </strong>
-            </div>
-            <br> <div class="radio">
-                <input type="radio" name="day" id="monthly" value="3">
-                <strong> Send me job postings monthly </strong>
-            </div>
-        </div>
-       <?php }
-        ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'label'=>'Add Interest',
-                'type'=>'primary',
-                'htmlOptions'=>array(
-                    'data-toggle'=>'modal',
-                    'data-target'=>'#myModal',
-                    'style'=>'width: 120px',
-                    'id' => "addjobinterest",
-                    'onclick' => 'myFunction()',
-                    'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
-                ),
-            )); ?>
-        <?php $this->widget('bootstrap.widgets.TbButton', array(
-            'label'=>'Save',
-            'type'=>'primary',
-            'htmlOptions'=>array(
-                'data-toggle'=>'modal',
-                'data-target'=>'#myModal',
-                'style'=>'width: 120px',
-                'id' => "saveInterest",
-                'style' => "margin-top: 5px; margin-bottom: 5px;width: 120px;",
-            ),
-        )); ?>
-    </form>
-    </div> <!-- End Job Interest -->
-
-
-</div> <!-- END RIGHT SIDE -->
-
 </div>
+</div> <!-- End SKILLS -->
+
+<div id="rightside">
+    <div id="menutools">
+        <div id="studentlinks">
+            <!--Author Manuel
+            making the links dynamic so if the base Url changed the program won not be affected
+            -->
+            <h5>Link Accounts:</h5>
+            <?php
+            $image = CHtml::image(Yii::app()->baseUrl. '/images/imgs/linkedIn_login.png','', array('width'=>160, 'height'=>100));
+            echo CHtml::link($image, array('profile/auth'));
+
+            $currentUser = User::getCurrentUser();
+            if(($currentUser != null) && ($currentUser->linkedinid !=null))
+                echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
+            else{
+                echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
+            }
+            ?><br><br>
+
+
+            <?php
+            $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/google_login.png','', array('width'=>160, 'height'=>100));
+            echo CHtml::link($image, array('profile/googleAuth'));
+
+            $currentUser = User::getCurrentUser();
+            if(($currentUser != null) && ($currentUser->googleid !=null))
+                echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
+            else{
+                echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
+            }
+            ?><br><br>
+
+
+            <?php
+            $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/fiu_cs_login.png','', array('width'=>160, 'height'=>100));
+            echo CHtml::link($image, array('profile/fiuCsSeniorAuth'));
+
+            $currentUser = User::getCurrentUser();
+            if(($currentUser != null) && ($currentUser->fiucsid !=null))
+                echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
+            else{
+                echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
+            }
+            ?><br><br>
+
+            <?php
+            $image =CHtml::image(Yii::app()->baseUrl. '/images/imgs/fiu_login.png','', array('width'=>160, 'height'=>100));
+            echo CHtml::link($image, array('profile/fiuAuth'));
+
+            $currentUser = User::getCurrentUser();
+            if(($currentUser != null) && ($currentUser->fiu_account_id !=null))
+                echo CHtml::image(Yii::app()->baseUrl. '/images/ico/checkmark.ico','', array('width'=>30, 'height'=>30));
+            else{
+                echo CHtml::image(Yii::app()->baseUrl. '/images/ico/exclamation5.ico','', array('width'=>30, 'height'=>30));
+            }
+            ?><br><br>
+
+            <hr/>
+            <a href="/JobFair/index.php/user/ChangePassword">Change Password</a>
+        </div>
+
+    </div>
+
+</div><!-- End Link Accounts -->
+
 </div>
 
 <!-- Check for first time viewing for students, prompt for LinkedIn Connect -->

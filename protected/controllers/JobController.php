@@ -97,9 +97,8 @@ class JobController extends Controller
         $loc = "";
         $tag = "";
 
-
-        if(isset($city) && $city != "") { $loc = $city;  }
-        else{ $loc = "Miami, FL"; }
+        if(isset($city) && $city != ""){ $loc = $city;  }
+        else{$loc = ""; }
 
         if(isset($tagName) && $tagName != "" && strlen($tagName) < 25) { $tag = $tagName; }
 

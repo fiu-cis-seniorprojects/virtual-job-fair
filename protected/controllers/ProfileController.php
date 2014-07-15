@@ -77,15 +77,23 @@ class ProfileController extends Controller
 
     public function actionSaveInterest()
     {
+        var_dump("k");die;
         $username = Yii::app()->user->name;
-        $interest = htmlentities($_POST['addinterestname']);
         $date = $_POST['day'];
+
         $model = User::model()->find("username=:username",array(':username'=>$username));
-        $model->job_interest = $interest;
         $model->job_int_date = $date;
-        //var_dump($model->job_int_date);die;
         $model->save(false);
 
+        $savedQ = SavedQuery::model()->findAll("FK_userid=:id",array(':id'=>$model->id));
+        foreach($savedQ as $sq)
+        {
+            if(isset($_POST[$sq->query_tag]))
+            {
+                $sq->active = 1;
+                $sq->save(false);
+            }
+        }
         $this->redirect('/JobFair/index.php/profile/view');
     }
 	
