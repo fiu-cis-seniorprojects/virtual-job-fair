@@ -67,7 +67,7 @@ $rpp = 10; //results per page
 
     function saveQuery()
     {
-        var tagNam = prompt("Please enter your query name", "Programmer Search");
+        var tagNam = prompt("Please enter name, then check profile settings", "Search_1");
 
         var num = tagNam.length;
 
@@ -146,8 +146,9 @@ function getURLParameter(name) {
             <!-- outside resources radio button -->
             <br> <div class="radio">
              <input type="radio" name="radioOption" id="radioOption" value="true">
-                <strong> Include jobs from outside sources </strong>
+                <strong> Include jobs from outside sources</strong>  <br> (Indeed, CareerBuilder)
             </div>
+            <!-- hidden box, DO NOT MAKE VISIBLE -->
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                 'name'=>'tagName',
                 'id'=>'tagName',

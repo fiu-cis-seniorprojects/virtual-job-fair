@@ -9,6 +9,7 @@
  * @property string $query_tag
  * @property string $query
  * @property string $location
+ * @property integer $active
  *
  * The followings are the available model relations:
  * @property User $fKUser
@@ -42,11 +43,11 @@ class SavedQuery extends CActiveRecord
         // will receive user inputs.
         return array(
             array('id', 'required'),
-            array('id, FK_userid', 'numerical', 'integerOnly'=>true),
+            array('id, FK_userid', 'active', 'numerical', 'integerOnly'=>true),
             array('query_tag, query, location', 'length', 'max'=>45),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, FK_userid, query_tag, query, location', 'safe', 'on'=>'search'),
+            array('id, FK_userid, query_tag, query, location', 'active', 'safe', 'on'=>'search'),
         );
     }
 
@@ -72,7 +73,8 @@ class SavedQuery extends CActiveRecord
             'FK_userid' => 'Fk Userid',
             'query_tag' => 'Query Name',
             'query' => 'Query',
-            'location' => 'Location'
+            'location' => 'Location',
+            'active' => 'Active'
         );
     }
 
@@ -92,6 +94,7 @@ class SavedQuery extends CActiveRecord
         $criteria->compare('query_tag',$this->query_tag,true);
         $criteria->compare('query',$this->query,true);
         $criteria->compare('location',$this->location,true);
+        $criteria->compare('active', $this->active, true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
