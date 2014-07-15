@@ -472,7 +472,7 @@ function uploadvideo(){
         )); ?>
     </form>
 
-</div></div>
+</div><br>
 
 
 <div id="menutools">
