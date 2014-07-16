@@ -373,7 +373,8 @@ function uploadvideo(){
     <!-- Saved Query Profile Search-->
     <h5> Queries Preferences</h5>
     <form method="GET" id="interestForm" action="/JobFair/index.php/profile/saveinterest">
-        <div style= "text-align:left; clear:both" >Select query notifications to receive emails with jobs
+        <div style= "text-align:left; clear:both" >
+            <p>Select queries to search for jobs</p>
 
             <div style= "text-align:left;">
                 <?php foreach ($saveQ as $query) { ?>
@@ -381,21 +382,24 @@ function uploadvideo(){
                     {?>
                         <div class="checkbox">
                             <input type="checkbox" name="<?php echo $query['query_tag']; ?>" id="<?php echo $query['query_tag']; ?>" value="1" checked>
-                            <strong> <?php echo ($query['query_tag']).":"; ?> <?php echo ($query['query']); ?>  </strong>
+                            <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
+                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+
                         </div>
                     <?php } else
                     {?>
                         <div class="checkbox">
                             <input type="checkbox" name="<?php echo $query['query_tag']; ?>" id="<?php echo $query['query_tag']; ?>" value="1">
-                            <strong> <?php echo ($query['query_tag']).":"; ?> <?php echo ($query['query']); ?>  </strong>
+                            <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
+                             <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+
                         </div>
                     <?php } ?>
                 <?php } ?>
             </div>
             <hr>
             <p>Select email frequency</p>
-            <?php if($user->job_int_date != 0)
-            {
+            <?php
                 $date = $user->job_int_date;
                 if($date == 1)
                 {?>
@@ -403,63 +407,35 @@ function uploadvideo(){
                         <input type="radio" name="day" id="daily" value="1" checked>
                         <strong> Send me job postings daily </strong>
                     </div>
-                    <br> <div class="radio">
-                    <input type="radio" name="day" id="weekly" value="2">
-                    <strong> Send me job postings weekly </strong>
-                </div>
-                    <br> <div class="radio">
-                    <input type="radio" name="day" id="monthly" value="3">
-                    <strong> Send me job postings monthly </strong>
-                </div>
-
-                <?php }
-                elseif($date == 2)
-                { ?>
+                <?php }else {?>
                     <div class="radio">
                         <input type="radio" name="day" id="daily" value="1">
                         <strong> Send me job postings daily </strong>
                     </div>
-                    <br> <div class="radio">
-                    <input type="radio" name="day" id="weekly" value="2" checked>
-                    <strong> Send me job postings weekly </strong>
-                </div>
-                    <br> <div class="radio">
-                    <input type="radio" name="day" id="monthly" value="3">
-                    <strong> Send me job postings monthly </strong>
-                </div>
-                <?php }
-                elseif($date == 3)
-                { ?>
+                <?php } ?>
+                <?php if($date == 7) {?>
                     <div class="radio">
-                        <input type="radio" name="day" id="daily" value="1">
-                        <strong> Send me job postings daily </strong>
+                        <input type="radio" name="day" id="weekly" value="7" checked>
+                        <strong> Send me job postings weekly </strong>
                     </div>
-                    <br> <div class="radio">
-                    <input type="radio" name="day" id="weekly" value="2">
-                    <strong> Send me job postings weekly </strong>
-                </div>
-                    <br> <div class="radio">
-                    <input type="radio" name="day" id="monthly" value="3" checked>
-                    <strong> Send me job postings monthly </strong>
-                </div>
-                <?php }
-            } if($user->job_int_date == 0){ ?>
-            <div class="radio">
-                <input type="radio" name="day" id="daily" value="1">
-                <strong> Send me job postings daily </strong>
-            </div>
-            <br> <div class="radio">
-                <input type="radio" name="day" id="weekly" value="2">
-                <strong> Send me job postings weekly </strong>
-            </div>
-            <br> <div class="radio">
-                <input type="radio" name="day" id="monthly" value="3">
-                <strong> Send me job postings monthly </strong>
-            </div>
+                <?php } else {?>
+                    <div class="radio">
+                        <input type="radio" name="day" id="weekly" value="7">
+                        <strong> Send me job postings weekly </strong>
+                    </div>
+                <?php } ?>
+                <?php if($date == 30) {?>
+                    <div class="radio">
+                        <input type="radio" name="day" id="monthly" value="30" checked>
+                        <strong> Send me job postings monthly </strong>
+                    </div>
+                <?php } else {?>
+                    <div class="radio">
+                        <input type="radio" name="day" id="monthly" value="30">
+                        <strong> Send me job postings monthly </strong>
+                    </div>
+                <?php } ?>
         </div>
-
-        <?php } ?>
-
         <?php $this->widget('bootstrap.widgets.TbButton', array(
             'label'=>'Save',
             'type'=>'primary',
@@ -472,7 +448,8 @@ function uploadvideo(){
         )); ?>
     </form>
 
-</div></div>
+</div>
+
 
 
 <div id="menutools">

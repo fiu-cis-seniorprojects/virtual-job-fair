@@ -96,6 +96,14 @@ class ProfileController extends Controller
         }
         $this->redirect('/JobFair/index.php/profile/view');
     }
+
+    public function actionDeleteInterest()
+    {
+        $model = SavedQuery::model()->findByPk($_GET['id']);
+        //var_dump($model);die;
+        $model->delete();
+        $this->redirect('/JobFair/index.php/profile/view');
+    }
 	
 	public function actionSaveSkills(){
 		$user = User::getCurrentUser();
@@ -485,7 +493,7 @@ class ProfileController extends Controller
 					  		'EditStudent', 'UploadResume', 'EditCompanyInfo',
                             'LinkToo','LinkNotification','LinkNotification2',
 					  		'EditBasicInfo', 'Student', 'Employer','Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',
-                            'getJobInterest', 'saveInterest'),
+                            'getJobInterest', 'saveInterest', 'DeleteInterest'),
 					  'users'=>array('@')),
 				array('allow',
 					  'actions'=>array('videoemployer','videostudent','googleAuth','fiuCsSeniorAuth','fiuAuth',),

@@ -37,12 +37,17 @@ class JobController extends Controller
                 $city = null){
 
         $flag = 2;
+        $mi = false;
         $query = "";
         $job = Array();
 
         if( $allWords == "" &&  $phrase == "" &&  $anyWord == "" &&  $minus == "")
         {
             $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE active = '1';");
+        }
+        if( $allWords == "" &&  $phrase == "" &&  $anyWord == "" &&  $minus != "")
+        {
+            $mi = true;
         }
         if(isset($phrase) && $phrase != "")
         {
@@ -64,10 +69,10 @@ class JobController extends Controller
         }
         if(isset($minus) && $minus != "")
         {
-            if(strpos($minus, '-') !== false) { $query .= $minus." "; } // contains +
-            else { $query .= "-".str_replace(" ", ' -', $minus)." "; }     // add +
+            if(strpos($minus, '-') !== false) { $query .= $minus." "; } // contains -
+            else { $query .= "-".str_replace(" ", ' -', $minus)." "; }     // add -
         }
-        if($query != null)
+        if($query != null && $mi == false)
         {
             //print_r($query); exit;
             $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
