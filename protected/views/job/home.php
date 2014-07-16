@@ -1,4 +1,10 @@
 <br/><br/><br/><br/>
+
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
+
 <?php
 $pages = 0;
 $size = 0;
@@ -23,6 +29,13 @@ if (!isset($_GET['minus'])) {
 if (!isset($_GET['tagName'])) {
     $_GET['tagName'] = '';
 }
+if (!isset($_GET['radioOption'])) {
+    $_GET['radioOption'] = '';
+}
+if (!isset($_GET['city'])) {
+    $_GET['city'] = '';
+}
+
 
 if(isset($job))
 {
@@ -39,23 +52,18 @@ $rpp = 10; //results per page
 ?>
 <script>
 
+    $("#city").hide();
     $(document).on('click', '#radioOption', create);
     $clicked = 0;
 
     function create(e)
     {
-        if($clicked < 1){
-            var input = $('<input />',{
-                id: "location",
-                type:"text",
-                name:"city",
-                value: "Miami, Florida"
-            });
-
-            $(this).after(input);
-            $(input).after('<br>');
-            $clicked++;
-        }
+            var value = $(this).val();
+            if (value == 'true') {
+                $("#city").show();
+            } else if (value == '') {
+                $("#city").hide();
+            }
 
     }
 
@@ -84,21 +92,29 @@ $rpp = 10; //results per page
 
     }
 
-
     $(document).ready(function() {
 
-	$('#type').val(getURLParameter("type").replace(/[+]/g, " "));
+       $('#jobtable').dataTable({
+           "sPaginationType" : "full_numbers",
+           "bSort":             false,
+           "bFilter" :          false
+        });
 
-	$('.pageclick').click(function(e) {
-		//alert('.page' + $(this).text().replace(" ", ""));
+//        $('#jobtable')dataTable( {
+//            "sPaginationType" : "full_numbers"
+//        } );
+        $('#type').val(getURLParameter("type").replace(/[+]/g, " "));
 
-		$('tr').hide();
-		$('#headerrow').show();
-		$('.currentpageclick').attr('class', 'pageclick');
-		$('.page' + $(this).text().replace(" ", "")).show();
-		$(this).attr('class', 'currentpageclick');
-	});
-	$('#firstpage').attr('class', 'currentpageclick');
+        $('.pageclick').click(function(e) {
+            //alert('.page' + $(this).text().replace(" ", ""));
+
+            $('tr').hide();
+            $('#headerrow').show();
+            $('.currentpageclick').attr('class', 'pageclick');
+            $('.page' + $(this).text().replace(" ", "")).show();
+            $(this).attr('class', 'currentpageclick');
+        });
+        $('#firstpage').attr('class', 'currentpageclick');
 });
 
 function getURLParameter(name) {
@@ -107,6 +123,8 @@ function getURLParameter(name) {
     );
 }
 </script>
+
+<div id="fullcontentjob">
 
 <!-- ********** Advance Search *********** -->
 <div id="searchforjobs2" style="float:left;">
@@ -145,9 +163,18 @@ function getURLParameter(name) {
                     'style'=>'width: 200px;'),)); ?>
             <!-- outside resources radio button -->
             <br> <div class="radio">
-             <input type="radio" name="radioOption" id="radioOption" value="true">
+                <input type="radio" name="radioOption" id="radioOption" value="true"
+                    <?php  if($_GET['radioOption'] == "true"){echo 'checked="checked"';} ?>  >
                 <strong> Include jobs from outside sources</strong>
             </div>
+            <!-- hidden box, DO NOT MAKE VISIBLE -->
+            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'city',
+                'id'=>'city',
+                'value'=> $_GET['city'],
+                'htmlOptions'=>array('value'=> $_GET['city'], 'placeholder' => 'Miami, Florida',
+                    'style'=>'width: 200px; display: none'),)); ?>
+
             <!-- hidden box, DO NOT MAKE VISIBLE -->
             <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                 'name'=>'tagName',
@@ -192,26 +219,21 @@ function getURLParameter(name) {
                 ),)); ?>
         </div>
     </form>
-</div>
-<div>
+</div> <!-- END OF ADVANCED SEARCH -->
+
 
 <!-- ********** Search Result from Nav Bar && Advanced Search ************** -->
+ <div id ="jobcontent">
  <?php if (isset($flag) && $flag == 2) { ?>
     <!-- ******* Job Postings from Job Page using external sources & Career Path *******  -->
-    <div class="pages">
-    <table class="jobtable">
+    <table class="display" id="jobtable" >
      <?php if ($jobs == null && $result == "" && $cbresults == ""){?>
         <h3>Sorry, no jobs matched your search. Please try again.</h3>
      <?php } else {?>
-        Job Postings Page:
-        <?php for ($i = 0; $i < $pages; $i ++) {?>
-            <a class="pageclick"<?php if ($i == 0) echo "id='firstpage'"; ?>> <?php echo $i + 1;?></a>
-        <?php }?>
-
-    <head><th style="width: 15%">Position</th> <th style="width: 12%">Company</th> <th style="width: 8%">Type</th>
-        <th style="width:8%">Opening</th> <th style="width: 8%">Deadline</th>  <th style="width: 8%">Salary</th>
-        <th style="width: 10%"> Skills</th><th style="width: 9%">Source</th>
-    </head>
+    <thead><th>Position</th> <th>Company</th> <th>Type</th>
+        <th>Opening</th> <th>Deadline</th>  <th>Salary</th>
+        <th> Skills</th><th>Source</th>
+    </thead>
      <!-- get size of all job results -->
     <?php
          // gets how many job from CareerPath
@@ -232,7 +254,7 @@ function getURLParameter(name) {
             if($sizeCB == 1) {$sizeCB =2;}
         }
     ?>
-
+    <tbody>
         <?php // There is only CareerPath jobs
          if($j == $sizeIndeed && $k == $sizeCB && $sizeJobs > 0)
          {
@@ -256,7 +278,6 @@ function getURLParameter(name) {
            <?php  while($j != $sizeIndeed || $k != $sizeCB || $i != $sizeJobs)
            {
                if($i < $sizeJobs) { ?>
-                <tr>
                    <tr>
                        <td><a href="/JobFair/index.php/job/view/jobid/<?php echo $jobs[$i]->id;?>"><?php echo $jobs[$i]->title;?></a></td>
                        <td><a href="/JobFair/index.php/profile/employer/user/<?php echo User::model()->findByAttributes(array('id'=>$jobs[$i]->FK_poster))->username;?>"><?php echo CompanyInfo::model()->findByAttributes(array('FK_userid'=>$jobs[$i]->FK_poster))->name;?></a></td>
@@ -270,7 +291,6 @@ function getURLParameter(name) {
                            }?></td>
                        <td><?php echo "CareerPath"?></td>
                    </tr>
-                </tr>
                <?php $i++; }
                if($j < $sizeIndeed && $sizeIndeed > 1){ ?>
                 <tr>
@@ -330,7 +350,9 @@ function getURLParameter(name) {
          }
 
      }?>
-    </table>
-    </div>
-
+    </tbody>
+ </table>
 <?php } ?>
+</div> <!-- END OF JOB RESULT TABLE-->
+
+</div> <!-- END OF FULL CONTENT -->
