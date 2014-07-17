@@ -52,20 +52,7 @@ $rpp = 10; //results per page
 ?>
 <script>
 
-    $("#city").hide();
-    $(document).on('click', '#radioOption', create);
-    $clicked = 0;
 
-    function create(e)
-    {
-            var value = $(this).val();
-            if (value == 'true') {
-                $("#city").show();
-            } else if (value == '') {
-                $("#city").hide();
-            }
-
-    }
 
     function myFunction()
     {
@@ -94,15 +81,36 @@ $rpp = 10; //results per page
 
     $(document).ready(function() {
 
+        var isChecked = $('#radioOption').is(':checked');
+        $("#city").hide();
+        $(document).on('click', '#radioOption', create);
+        $clicked = 0;
+
+
+        function create(e)
+        {
+            var value =  $('#radioOption').is(':checked');;
+            if (value == true) {
+                $("#city").show();
+                isChecked = false;
+            } else if (value == false) {
+                $("#city").hide();
+                isChecked = true;
+            }
+
+        }
+
+        var value = $('#radioOption').val();
+        if (isChecked == true)
+            $("#city").show();
+
+
        $('#jobtable').dataTable({
            "sPaginationType" : "full_numbers",
            "bSort":             false,
            "bFilter" :          false
         });
 
-//        $('#jobtable')dataTable( {
-//            "sPaginationType" : "full_numbers"
-//        } );
         $('#type').val(getURLParameter("type").replace(/[+]/g, " "));
 
         $('.pageclick').click(function(e) {
@@ -113,6 +121,7 @@ $rpp = 10; //results per page
             $('.currentpageclick').attr('class', 'pageclick');
             $('.page' + $(this).text().replace(" ", "")).show();
             $(this).attr('class', 'currentpageclick');
+
         });
         $('#firstpage').attr('class', 'currentpageclick');
 });
@@ -162,8 +171,8 @@ function getURLParameter(name) {
                 'htmlOptions'=>array('value'=> $_GET['minus'],'placeholder' => 'put minus sign before words',
                     'style'=>'width: 200px;'),)); ?>
             <!-- outside resources radio button -->
-            <br> <div class="radio">
-                <input type="radio" name="radioOption" id="radioOption" value="true"
+            <br> <div>
+                <input type="checkbox" name="radioOption" id="radioOption" value="true"
                     <?php  if($_GET['radioOption'] == "true"){echo 'checked="checked"';} ?>  >
                 <strong> Include jobs from outside sources</strong>
             </div>
@@ -172,7 +181,7 @@ function getURLParameter(name) {
                 'name'=>'city',
                 'id'=>'city',
                 'value'=> $_GET['city'],
-                'htmlOptions'=>array('value'=> $_GET['city'], 'placeholder' => 'Miami, Florida',
+                'htmlOptions'=>array('value'=> $_GET['city'], 'placeholder' => 'City, State',
                     'style'=>'width: 200px; display: none'),)); ?>
 
             <!-- hidden box, DO NOT MAKE VISIBLE -->
@@ -356,3 +365,4 @@ function getURLParameter(name) {
 </div> <!-- END OF JOB RESULT TABLE-->
 
 </div> <!-- END OF FULL CONTENT -->
+
