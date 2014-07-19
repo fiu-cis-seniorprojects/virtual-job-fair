@@ -25,6 +25,9 @@ $(function() {
 });
 </script>
 
+<div id="fullcontent" style="width:1200px;">
+
+
 <div id="leftside3" style="border-right: 1px solid rgb(228, 228, 228);min-height: 380px;">
 <h1><?php echo 'Welcome to Virtual Job Fair' ?></h1> <br>
 <h3 style="margin: -10px 0 0 10px"><i><?php echo  $user->first_name ." ". $user->last_name  ?></i></h3>
@@ -78,7 +81,6 @@ if ($jobs == null) $jobs = array();
 
 
 </div>
-<div id="fullcontent" style="width:1200px;">
 <div id="notificationside">
 
 <div id="notificationemployer">

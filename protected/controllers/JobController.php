@@ -615,12 +615,13 @@ class JobController extends Controller
         $keyword = "";
         $result = Array();
         // words to search for
-        if(isset($_POST['keyword']))
+        if(isset($_GET['keyword']))
         {
-            $keyword = ($_POST['keyword']);
+            $keyword = ($_GET['keyword']);
         }
         // array to contain the results of the search
         $results = Array();
+        $result2 = Array();
 
         // there are words to search
         if ($keyword != null)
@@ -669,7 +670,8 @@ class JobController extends Controller
         //print_r($result); return;
 
         // render search results, user, skills, companies and flag to job/home
-        $this->render('home',array('result'=>$result, 'cbresults'=>$result2, 'jobs'=>$results,'user'=>$user,'companies'=>$companies,'skills'=>$skills,'flag'=>$flag,));
+        $this->render('home',array('result'=>$result, 'cbresults'=>$result2, 'jobs'=>$results,'user'=>$user,
+            'companies'=>$companies,'skills'=>$skills,'flag'=>$flag));
 
     }
 

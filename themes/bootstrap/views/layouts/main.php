@@ -21,7 +21,11 @@
 
 <body>
 
-<?php 
+<?php
+if (!isset($_GET['keyword'])) {
+    $_GET['keyword'] = '';
+}
+
 	if (User::isStudent(Yii::app()->user->name))
 		$profile = '/profile/view';
 	else 
@@ -56,9 +60,18 @@
 		</form>';
 	} else if (User::isCurrentUserStudent(Yii::app()->user->name)){
 		$home = '/home/studenthome';
-		$search = '<form class="navbar-search pull-left" method="post" action="/JobFair/index.php/job/search">'
-				.'<input type="text" class="search-query span2" name="keyword" placeholder="Search by Skills, Type, Company, Position" style="width:250px">'.
-		'<button type="submit" style="background-color:transparent ; border:0" >
+		$search = '<form class="navbar-search pull-left" method="get" action="/JobFair/index.php/job/search">'
+                    . $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                    'name'=>'keyword',
+                    'id'=>'keyword',
+                    'value'=> $_GET['keyword'],
+                    'htmlOptions'=>array('class'=>'search-query span2',
+                        'style'=>'width: 250px',
+                        'placeholder'=>'Search by Position, Skills, Company, Type'
+                    ),
+                ), true
+            ).
+            '<button type="submit" style="background-color:transparent ; border:0" >
 		<img src="/JobFair/images/ico/Search-icon.png"  height="25" width="25" style="margin:1px 0 0 5px"></button>
 		</form>';
 	} else {

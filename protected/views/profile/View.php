@@ -391,7 +391,7 @@ function uploadvideo(){
                         <div class="checkbox">
                             <input type="checkbox" name="<?php echo $query['query_tag']; ?>" id="<?php echo $query['query_tag']; ?>" value="1">
                             <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
-                             <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
+                            <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
                         </div>
                     <?php } ?>

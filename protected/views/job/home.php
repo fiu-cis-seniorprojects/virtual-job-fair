@@ -1,15 +1,15 @@
-<br/><br/><br/><br/>
-
+<!-- ****  DO NOT REMOVE **** -->
+<!-- DataTable -->
 <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
+<!-- Modal for saved query -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<!-- **** **** -->
+
 
 <?php
-$pages = 0;
-$size = 0;
-$loValue = false;
-$query = "";
 $i = 0; $j = 0; $k = 0;
 $sizeJobs = 0; $sizeIndeed = 0; $sizeCB = 0 ;
 
@@ -36,23 +36,9 @@ if (!isset($_GET['city'])) {
     $_GET['city'] = '';
 }
 
-
-if(isset($job))
-{
-    $jobcount = count($jobs);
-    if(isset($result))
-    {
-        $jobcount += count($result);
-    }
-    $pages = round($jobcount / $rpp);
-    if ($pages == 0) $pages = 1;
-}
-
-$rpp = 10; //results per page
 ?>
+
 <script>
-
-
 
     function myFunction()
     {
@@ -62,22 +48,18 @@ $rpp = 10; //results per page
 
     function saveQuery()
     {
-        var tagNam = prompt("Please enter name, then check profile settings", "Search_1");
+        var leng = document.getElementById("tagName").value.length;
 
-        var num = tagNam.length;
-
-        if(tagNam != "" && num < 25)
+        if(leng == 0 ){ alert("Name CANNOT be left empty.\n" + "Please try again!");}
+        if(leng > 25){ alert("Name length CANNOT be greater than 25 characters.\n" + "Please try again!"); }
+        if(leng > 0 && leng < 25)
         {
-            document.getElementById("tagName").value = tagNam;
             document.getElementById("searchForm").action = "/JobFair/index.php/job/savequery";
             document.getElementById("searchForm").submit();
         }
-        else
-        {
-            alert("Tag value cannot be empty AND greater than 25 characters long");
-        }
-
     }
+
+    $(document).on('click', '#saveBT', saveQuery);
 
     $(document).ready(function() {
 
@@ -97,10 +79,9 @@ $rpp = 10; //results per page
                 $("#city").hide();
                 isChecked = true;
             }
-
         }
 
-        var value = $('#radioOption').val();
+//        var value = $('#radioOption').val();
         if (isChecked == true)
             $("#city").show();
 
@@ -135,7 +116,7 @@ function getURLParameter(name) {
 
 <div id="fullcontentjob">
 
-<!-- ********** Advance Search *********** -->
+<!-- --------------------- ADVANCED SEARCH ---------------------- -->
 <div id="searchforjobs2" style="float:left;">
 <div class="titlebox">Advanced Search  </div>
     <br/><br>
@@ -183,14 +164,6 @@ function getURLParameter(name) {
                 'value'=> $_GET['city'],
                 'htmlOptions'=>array('value'=> $_GET['city'], 'placeholder' => 'City, State',
                     'style'=>'width: 200px; display: none'),)); ?>
-
-            <!-- hidden box, DO NOT MAKE VISIBLE -->
-            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'tagName',
-                'id'=>'tagName',
-                'value'=> $_GET['tagName'],
-                'htmlOptions'=>array('value'=> $_GET['tagName'],
-                    'style'=>'width: 200px; display: none'),)); ?>
             <!-- search button -->
             <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Search',
@@ -212,9 +185,32 @@ function getURLParameter(name) {
                     'data-target'=>'#myModal',
                     'id' => "savebutton",
                     'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
-                    'onclick' => "saveQuery()",
+                    'onclick' => "$('#saveQmodal').modal('show');",
                 ),
             )); ?>
+            <!-- Modal -->
+            <div class="modal fade" id="saveQmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Query Name</h4>
+                    </div>
+                    <div class="modal-body">
+                        Enter query name. Then check profile preference.
+                        <!-- tag name -->
+                        <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                            'name'=>'tagName',
+                            'id'=>'tagName',
+                            'value'=> $_GET['tagName'],
+                            'htmlOptions'=>array('value'=> $_GET['tagName'],
+                                'style'=>'width: 200px;'),)); ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="saveBT" value="true">Save name</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
            <!-- reset button -->
             <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'buttonType'=>'reset',
@@ -228,18 +224,28 @@ function getURLParameter(name) {
                 ),)); ?>
         </div>
     </form>
-</div> <!-- END OF ADVANCED SEARCH -->
+</div>
+<!-- -----------  END OF ADVANCED SEARCH ------------------ -->
 
 
-<!-- ********** Search Result from Nav Bar && Advanced Search ************** -->
+<!-- ----------------- SEARCH RESULTS --------------------- -->
  <div id ="jobcontent">
  <?php if (isset($flag) && $flag == 2) { ?>
     <!-- ******* Job Postings from Job Page using external sources & Career Path *******  -->
     <table class="display" id="jobtable" >
      <?php if ($jobs == null && $result == "" && $cbresults == ""){?>
-        <h3>Sorry, no jobs matched your search. Please try again.</h3>
+        <h3>Sorry, your search did not match any jobs </h3>
+        <br>
+         <strong>Search suggestions:</strong>
+         <br>
+         <ul type= "square">
+             <li>Try more general keywords </li>
+             <li>Check your spelling  </li>
+             <li>Replace abbreviations with the entire word </li>
+             <li>Try searching by position, skills, or company. </li>
+         </ul>
      <?php } else {?>
-    <thead><th>Position</th> <th>Company</th> <th>Type</th>
+    <thead align="left"><th>Position</th> <th>Company</th> <th>Type</th>
         <th>Opening</th> <th>Deadline</th>  <th>Salary</th>
         <th> Skills</th><th>Source</th>
     </thead>
@@ -365,4 +371,3 @@ function getURLParameter(name) {
 </div> <!-- END OF JOB RESULT TABLE-->
 
 </div> <!-- END OF FULL CONTENT -->
-

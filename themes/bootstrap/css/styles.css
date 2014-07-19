@@ -16,6 +16,7 @@ body{
 
 #fullcontentjob{
     width: 1100px;
+    margin-top: 80px;
     margin-left: auto;
     margin-right: auto;
     min-height: 700px;
@@ -29,7 +30,7 @@ body{
     margin-right: auto;
 }
 
-lab2 {
+#lab2 {
 font-weight: bold;
 display: inline-block;
 width: 120px;
@@ -52,8 +53,6 @@ font-size: 10pt;
 	float:left;
 
 }
-
-
 
 #hardcorecontent{
 	width: 1100px ;
@@ -88,8 +87,6 @@ font-size: 10pt;
 
 #ficationside{
 	float:left;
-	
-	
 }
 
 /************************** CONTAINERS CSS END **************************/
@@ -934,7 +931,7 @@ opacity: 1.5;
 	width:100%;
 }
 
-jobtitle{
+.jobtitle{
 	font-weight:bold;
 	display: inline-block;
     zoom: 1;
@@ -955,7 +952,7 @@ jobtitle{
 }
 
 
-lab{
+.lab{
 	font-weight:bold;
 	display: inline-block;
     width: 70px;
@@ -964,7 +961,8 @@ lab{
 	float:left;
 	clear: both;
 }
-lab2{
+
+.lab2{
 	font-weight:bold;
 	display: inline-block;
     width: 150px;
@@ -973,7 +971,7 @@ lab2{
 	float:left;
 	clear: both;
 }
-lab3{
+.lab3{
 	display: inline-block;
     width: 150px;
     zoom: 1;
@@ -982,7 +980,7 @@ lab3{
 	clear: both;
 	margin-top: -10px
 }
-jobdetail{
+.jobdetail{
 	font-weight:bold;
 	display: inline-block;
     width: 100px;
@@ -991,7 +989,7 @@ jobdetail{
 	float:left;
 	clear: both;
 }
-aboutme{
+.aboutme{
 
     width: 370px;
     zoom: 1;
@@ -1068,12 +1066,7 @@ font-size:18px;
 		
 }
 
-
-
-
-
-
-schoolDetail{
+.schoolDetail{
 	
 	padding-left:10px;
 }
@@ -1081,7 +1074,7 @@ h3{
 	font-size:20px!important;
 	line-height: 0!important;
 }
-experience{
+.experience{
 	font-weight:bold;
 	display: inline-block;
     width: 630px;
@@ -1091,7 +1084,7 @@ experience{
     margin-top:20px;
 }
 
-name{
+.name{
 	font-weight:bold;
 	display: inline-block;
     width: 700px;
@@ -1176,7 +1169,7 @@ input, textarea{
 	top:1px;
 }
 
-ul
+div.nav ul
 {
     list-style-type: none;
 }
@@ -1650,7 +1643,7 @@ ul
 	top:1px;
 }
 
-matchlab{
+.matchlab{
 	font-weight:bold;
 	display: inline-block;
     width: 80px;
@@ -1697,7 +1690,6 @@ matchlab{
 	-webkit-box-shadow: 0 0 5px#888;
 	box-shadow: 2px 2px 2px #888;
 	font-size:12px;
-	background-color:trasnparent;
 }
 .matchProfileImage img{
 	width: 200px;
@@ -1809,11 +1801,6 @@ matchlab{
 	border-bottom-right-radius: 4px;
 	border-bottom-left-radius: 4px; 
 	padding:10px 10px 25px;
-	/*
-	background: #FFFFFF; /* old browsers 
-	background: -moz-linear-gradient(top, #FFFFFF 0%, #FFFFFF 90%, #e4e9ed 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(90%,#FFFFFF), color-stop(100%,#e4e9ed)); /* webkit */
-	*/
 	background: transparent !important;
 	margin:0;
 	color:#333;
@@ -1938,7 +1925,7 @@ box-shadow: 1px 1px 10px 1px; border-radius:0 5px 5px 0;height: 28px;
 	background-color: #FFFFFF;
 	left: 420px;
 	position: absolute;
-	top: 43.5px;
+	top: 43px;
 	z-index: 9999;
 	padding: 10px;
 	border-radius: 10px;
