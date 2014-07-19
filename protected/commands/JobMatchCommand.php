@@ -207,8 +207,6 @@ class JobMatchCommand extends CConsoleCommand {
         $date = date('Y-m-d');
         $time = date('H:i:s');
         $pasttime = $date . " " . date('H:i:s', strtotime("-30 min"));
-//        echo $now . "\n";
-//        echo $date . " " . $pasttime . "\n";
         $matchnotification = MatchNotification::model()->findBySql("SELECT * FROM match_notification ORDER BY date_modified DESC limit 1");
         $notfication_status = intval($matchnotification['status']);
         if($notfication_status)
@@ -241,12 +239,11 @@ class JobMatchCommand extends CConsoleCommand {
             foreach($students as $st)
             {
                 $message = "";
-                //check user interval to send email notification appropiatedly
                 $results = Array();
-                if($interval > 0 && $interval == intval($st->job_int_date))
+                $saved_queries = SavedQuery::model()->findAll("FK_userid=:id AND active = 1", array(':id'=>$st->id));
+                if(count($saved_queries) > 0 && $interval > 0)
                 {
-                    $saved_queries = SavedQuery::model()->findAll("FK_userid=:id, active = 1", array(':id'=>$st->id));
-                    if(count($saved_queries) > 0)
+                    if($interval == intval($st->job_int_date))
                     {
                         $word = "query";
                         if(count($saved_queries) > 1)
@@ -264,18 +261,19 @@ class JobMatchCommand extends CConsoleCommand {
                         echo "[*] Sending email to $st->email\n";
                         User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
                     }
-                    else
+                }
+                else
+                {
+                    $results = Yii::app()->jobmatch->getStudentMatchJobs($st->id, $jobs);
+                    if(count($results) > 0)
                     {
-                        $results = Yii::app()->jobmatch->getStudentMatchJobs($st->id, $jobs);
-                        if(count($results) > 0)
-                        {
-                            $message .= "The following jobs matched with your skills:<br/>";
-                            $message .= $this->buildTable('student', $results);
-                            echo "[*] Sending email to $st->email\n";
-                            User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
-                        }
+                        $message .= "The following jobs matched with your skills:<br/>";
+                        $message .= $this->buildTable('student', $results);
+                        echo "[*] Sending email to $st->email\n";
+                        User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
                     }
                 }
+
             }
             foreach($jobs as $job)
             {
