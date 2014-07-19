@@ -79,7 +79,7 @@ class JobController extends Controller
         }
 
         // calling indeed function
-        if(isset($radioOption) && $radioOption != "")
+        if(isset($radioOption) && $radioOption != "" && $mi == false)
         {
             $result = $this->indeed($query, $city);
             if($result['totalresults'] == 0) {$result = "";}
