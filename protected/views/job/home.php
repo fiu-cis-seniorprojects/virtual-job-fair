@@ -4,8 +4,6 @@
 <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
-<!-- Modal for saved query -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <!-- **** **** -->
 
 
@@ -182,21 +180,23 @@ function getURLParameter(name) {
                 'type'=>'info',
                 'htmlOptions'=>array(
                     'data-toggle'=>'modal',
-                    'data-target'=>'#myModal',
+                    'data-target'=>'#saveQmodal',
+                    'href'=> "#saveQmodal",
                     'id' => "savebutton",
                     'style' => "margin-top: 5px; margin-bottom: 5px; width: 115px;",
                     'onclick' => "$('#saveQmodal').modal('show');",
                 ),
             )); ?>
             <!-- Modal -->
-            <div class="modal fade" id="saveQmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal hide fade" id="saveQmodal" tabindex="-1">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Query Name</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">Please enter query name</h4>
                     </div>
                     <div class="modal-body">
-                        Enter query name. Then check profile preference.
+                        By saving a query, and setting up profile preferences you can receive emails with jobs
+                        matching your criteria. <br>
                         <!-- tag name -->
                         <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                             'name'=>'tagName',
@@ -204,6 +204,8 @@ function getURLParameter(name) {
                             'value'=> $_GET['tagName'],
                             'htmlOptions'=>array('value'=> $_GET['tagName'],
                                 'style'=>'width: 200px;'),)); ?>
+                        <br>
+                        <strong>Remember to check profile settings to set preference. </strong>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -211,7 +213,7 @@ function getURLParameter(name) {
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
-           <!-- reset button -->
+        <!--  reset button-->
             <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'buttonType'=>'reset',
                 'label'=>'Reset Fields',
