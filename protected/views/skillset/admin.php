@@ -1,54 +1,51 @@
-<?php
-/* @var $this SkillsetController */
-/* @var $model Skillset */
+<h1>Manage Skills</h1>
 
-$this->breadcrumbs=array(
-	'Skillsets'=>array('index'),
-	'Manage',
-);
+<div class="btn-toolbar well">
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'label'=>'Create New Skill',
+        'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'size' => 'large',
 
-$this->menu=array(
-	array('label'=>'List Skillset', 'url'=>array('index')),
-	array('label'=>'Create Skillset', 'url'=>array('create')),
-);
+        'htmlOptions' => array(
+            'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("Skillset/create").'"',
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#skillset-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
+        ),
+    )); ?>
 
-<h1>Manage Skillsets</h1>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'label'=>'Consolidate Skills',
+        'type'=>'warning', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'size' => 'large',
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
+        'htmlOptions' => array(
+            'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("Skillset/consolidate").'"',
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+        ),
+    )); ?>
+</div>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'skillset-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'name',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
+    'id'=>'skillset-grid',
+    'dataProvider'=>$model->search(),
+    'filter'=>$model,
+    'pager' => array('cssFile' => Yii::app()->baseUrl . '/css/gridViewStyle/gridView.css'),
+    'cssFile' => Yii::app()->baseUrl . '/css/gridViewStyle/gridView.css',
+    //and you can even set your own css class to the grid container
+    'htmlOptions' => array('class' => 'grid-view rounded'),
+    'columns'=>array(
+        array (
+            'name' => 'name',
+            'type' => 'raw',
+            'value' => 'CHtml::encode($data->name)',
+            'filter' => CHtml::textField('Skillset[name]', '', array('placeholder'=>'Search for Skill', 'maxlength'=>'45', 'style' => 'width: 100%' )),
+        ),
+
+        array(
+            'class'=>'CButtonColumn',
+            'template'=>'{update}{delete}',
+            'deleteConfirmation' => 'Deleting a user will erase ALL of the information associated with the account (including job postings). Proceed?',
+            'updateButtonImageUrl' => Yii::app()->baseUrl . '/css/gridViewStyle/images/' . 'gr-update.png',
+            'deleteButtonImageUrl' => Yii::app()->baseUrl . '/css/gridViewStyle/images/' . 'gr-delete.png',
+        ),
+    ),
 )); ?>

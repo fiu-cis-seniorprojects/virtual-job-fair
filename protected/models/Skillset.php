@@ -56,9 +56,21 @@ class Skillset extends CActiveRecord
 			array('name', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('name', 'safe', 'on'=>'search'),
+            array('name', 'uniqueSkill')
 		);
 	}
+
+    public function uniqueSkill($attribute,$params)
+    {
+        if ($this->isNewRecord)
+        {
+            $dup_skill = Skillset::model()->find("name=:name", array(':name' => $this->name));
+        }
+
+        if (isset($dup_skill))
+            $this->addError($attribute, 'Skill name already exists, please select a different one!');
+    }
 
 	/**
 	 * @return array relational rules.
@@ -80,7 +92,7 @@ class Skillset extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			//'id' => 'ID',
 			'name' => 'Name',
 		);
 	}
@@ -93,7 +105,6 @@ class Skillset extends CActiveRecord
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);

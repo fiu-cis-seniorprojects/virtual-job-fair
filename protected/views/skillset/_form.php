@@ -1,30 +1,31 @@
+<h1><?php echo ($model->isNewRecord ? 'New' : 'Update');?> Skill</h1>
+
 <?php
-/* @var $this SkillsetController */
-/* @var $model Skillset */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'skillset-form',
-	'enableAjaxValidation'=>false,
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'=>'skillset-form',
+    'enableAjaxValidation'=>false,
+    'htmlOptions'=>array('class'=>'well'),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+<fieldset>
 
-	<?php echo $form->errorSummary($model); ?>
+    <p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
+    <?php echo $form->errorSummary($model); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+    <?php echo $form->textFieldRow($model, 'name', array('maxlength'=>45, 'class'=>'span3')); ?>
+
+</fieldset>
+
+<?php $this->widget('bootstrap.widgets.TbButton',
+    array(  'label'=>'Cancel',
+        'htmlOptions' => array(
+            'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("Skillset/index").'"'
+        ),
+    )
+);
+?>
+
+<?php $this->widget('bootstrap.widgets.TbButton', array('type' => 'primary', 'buttonType'=>'submit', 'label'=>$model->isNewRecord ? 'Create' : 'Save')); ?>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->
