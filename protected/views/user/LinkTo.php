@@ -27,7 +27,7 @@
                 url: '<?php echo Yii::app()->createAbsoluteUrl("User/UserChoice"); ?>',
                 data:data,
                 success:function(data){
-                    alert(data);
+                    window.location.href = <?php echo '"'.  $this->createAbsoluteUrl('User/LinkNotification/mesg/' . $mesg) . '"'; ?>;
                 },
                 error: function(data) { // if error occured
                     alert("Error occured.please try again");
@@ -169,10 +169,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     //messages to show completion
     echo $form->checkBoxListRow($model, 'toPost',array() , array('type'=>"hidden"));
     echo $form->hiddenField( $model, 'toPost',array('value'=>$mesg));
-?><br>
+?>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'primary',
-    'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Submit')); ?>
+    'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Fix Conflicts')); ?>
 
 <?php $this->endWidget(); ?>
 

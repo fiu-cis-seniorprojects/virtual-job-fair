@@ -27,7 +27,7 @@
                 url: '<?php echo Yii::app()->createAbsoluteUrl("Profile/UserChoice"); ?>',
                 data:data,
                 success:function(data){
-                    alert(data);
+                    window.location.href = <?php echo '"'.  $this->createAbsoluteUrl('Profile/LinkNotification/mesg/' . $mesg) . '"'; ?>;
                 },
                 error: function(data) { // if error occured
                     alert("Error occured.please try again");
@@ -171,8 +171,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     echo $form->hiddenField( $model, 'toPost',array('value'=>$mesg));
 ?><br>
 
-<?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'primary',
-    'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Submit')); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'primary',
+        'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Submit')); ?>
 
 <?php $this->endWidget(); ?>
 

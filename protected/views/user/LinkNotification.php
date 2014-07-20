@@ -26,7 +26,7 @@ echo "Your " .$mesg. " account has been linked to your profile.";
     'buttonType'=>'link',
     'type'=>'primary',
     'label'=>'View my Profile',
-    'url'=>'../profile/view'
+    'url'=>'../../../profile/view'
 )); ?><br><br>
 
 <?php $this->endWidget(); ?>

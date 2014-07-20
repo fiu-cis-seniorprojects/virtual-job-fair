@@ -19,6 +19,7 @@ class LinkTooForm extends CFormModel
     public $statevar;
     public $about_me;
     public $about_me_var;
+    public $password;
     public $allowExpired;
     public $next;
 
@@ -33,6 +34,7 @@ class LinkTooForm extends CFormModel
             array('firstname', 'length', 'max'=>255),
             array('firstnamevar', 'length', 'max'=>255),
             array('toPost', 'length', 'max'=>255),
+            array('password', 'length', 'max'=>255),
             array('lastnamevar', 'length', 'max'=>255),
             array('email', 'length', 'max'=>255),
             array('emailvar', 'length', 'max'=>255),
@@ -59,6 +61,7 @@ class LinkTooForm extends CFormModel
             'firstname'=> '',
             'firstnamevar'=>'',
             'toPost'=>'',
+            'password'=>'',
             'lastnamevar'=>'',
             'email'=>'',
             'emailvar'=>'',

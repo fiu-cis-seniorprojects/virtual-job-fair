@@ -439,7 +439,7 @@ class ProfileController extends Controller
 					  'actions'=>array('View', 'ViewEmployer', 'DeleteEducation', 'AddEducation',
 					  		'DeleteExperience', 'AddExperience', 'UploadImage', 
 					  		'EditStudent', 'UploadResume', 'EditCompanyInfo',
-                            'LinkToo','LinkNotification','LinkNotification2','DuplicationError','UserChoice',
+                            'LinkToo','LinkNotification','BlankPage','DuplicationError','UserChoice',
 					  		'EditBasicInfo', 'Student', 'Employer','Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',),
 					  'users'=>array('@')),
 				array('allow',
@@ -983,6 +983,8 @@ class ProfileController extends Controller
                                 $city = null;
                                 $state = null;
                                 $about_me = null;
+
+                               // '<window.location.href = >' echo '"'.  $this->createAbsoluteUrl('Profile/LinkNotification/mesg/' . $mesg) . '"';
                                 $this->actionLinkToo($fiuCsUser['email'],$fiuCsUser['first_name'],$fiuCsUser['last_name'],$picture,$mesg,$phone,$city,$state,$about_me);
                                 return;
                             }
@@ -1223,7 +1225,7 @@ class ProfileController extends Controller
         $this->render('LinkToo', array('model'=>$model, 'email'=>$email, 'first_name'=>$first_name,'last_name'=>$last_name,
             'picture'=>$picture, 'mesg'=>$mesg , 'phone'=>$phone, 'city'=>$city, 'state'=>$state, 'about_me'=>$about_me));
 
-        //return $link;
+        return;
     }
     public function actionUserChoice()
     {
@@ -1303,18 +1305,21 @@ class ProfileController extends Controller
             }
 
         }
-        $this->actionLinkNotification2();
+
+
         Yii::app()->end();
     }
+
+
     public function actionLinkNotification($mesg)
     {
         $model = new LinkTooForm();
         $this->render('LinkNotification', array('model'=>$model, 'mesg'=>$mesg));
     }
-    public function actionLinkNotification2()
+    public function actionBlankPage()
     {
-        $model = new LinkTooForm();
-        $this->render('LinkNotification2', array('model'=>$model));
+        $this->render('BlankPage');
+        return;
     }
     public function actionDuplicationError()
     {
