@@ -6,7 +6,7 @@ class SkillsetController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	//public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -27,16 +27,8 @@ class SkillsetController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('index', 'admin','create','update', 'delete', 'consolidate'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -70,8 +62,17 @@ class SkillsetController extends Controller
 		if(isset($_POST['Skillset']))
 		{
 			$model->attributes=$_POST['Skillset'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+            // dont allow duplicate skill names
+//            $posting_user = Skillset::model()->find("name=:name", array(':name' => $model->attributes['name']));
+//            if (isset($posting_user))
+//            {
+//               // array_push($model->errors, 'Duplicate skills are not allowed!');
+//            }
+//            else
+//            {
+                if ($model->save())
+                    $this->redirect(array('admin'));
+//            }
 		}
 
 		$this->render('create',array(
@@ -95,7 +96,7 @@ class SkillsetController extends Controller
 		{
 			$model->attributes=$_POST['Skillset'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin','id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -122,10 +123,7 @@ class SkillsetController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Skillset');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+		$this->actionAdmin();
 	}
 
 	/**
@@ -142,6 +140,60 @@ class SkillsetController extends Controller
 			'model'=>$model,
 		));
 	}
+
+    public function actionConsolidate()
+    {
+        $model=new Skillset('search');
+        $model->unsetAttributes();  // clear any default values
+        if(isset($_GET['Skillset']))
+            $model->attributes=$_GET['Skillset'];
+
+        if (isset($_POST['skill_one']) && isset($_POST['skill_two']))
+        {
+            // make sure skill one exists on database
+            $skill_one = Skillset::model()->find("name=:name", array(':name' => $_POST['skill_one']));
+            if (!isset($skill_one))
+            {
+
+            }
+            else
+            {
+
+                // make sure skill two exists on database
+                $skill_two = Skillset::model()->find("name=:name", array(':name' => $_POST['skill_two']));
+                if (!isset($skill_two))
+                {
+
+
+                }
+                else
+                {
+                    // merge skill one to skill two (skill two remains)
+                    $jobskill_mappings = JobSkillMap::model()->findAll("skillid=:skillid", array(':skillid' => $skill_one->id));
+                    foreach ($jobskill_mappings as $jobskill_mapping)
+                    {
+                        $jobskill_mapping->skillid = $skill_two->id;
+                        $jobskill_mapping->save(false);
+                    }
+
+                    $studentskill_mappings = StudentSkillMap::model()->findAll("skillid=:skillid", array(':skillid' => $skill_one->id));
+                    foreach ($studentskill_mappings as $studentskill_mapping)
+                    {
+                        $studentskill_mapping->skillid = $skill_two->id;
+                        $studentskill_mapping->save(false);
+                    }
+
+                    $skill_one->delete();
+
+                    $this->redirect(array('admin'));
+                }
+            }
+        }
+
+        $this->render('consolidate',array(
+            'model'=>$model,
+        ));
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

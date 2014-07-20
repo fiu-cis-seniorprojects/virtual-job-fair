@@ -141,7 +141,7 @@ class HomeController extends Controller
 	{
 		return array(
 				array('allow',  // allow authenticated users to perform these actions
-						'actions'=>array('StudentHome', 'MergeSkills', 'AddSkill', 'EmployerHome', 'Search', 'Search2','Employersearch', 'New', 'Hello', 'AdminHome', 'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob', 'DeleteNotification', 'AcceptNotificationSchedualInterview', 'CareerPathSync'),
+						'actions'=>array('NotificationAdmin', 'StudentHome', 'MergeSkills', 'AddSkill', 'EmployerHome', 'Search', 'Search2','Employersearch', 'New', 'Hello', 'AdminHome', 'adminsearch', 'DisableUser', 'EnableUser', 'DeleteJob', 'DeleteNotification', 'AcceptNotificationSchedualInterview', 'CareerPathSync'),
 						'users'=>array('@')),
 				array('deny', //deny all users anything not specified
 						'users'=>array('*'),
@@ -588,6 +588,22 @@ class HomeController extends Controller
 		$skill2->delete();
 		$this->redirect("/JobFair/index.php/home/adminhome");
 	}
+
+    public function actionNotificationAdmin()
+    {
+        $results = null;
+        $results1 = null;
+
+        $username = Yii::app()->user->name;
+        $user = User::model()->find("username=:username",array(':username'=>$username));
+
+        $notification = Notification::model()->getNotificationId($user->id); // pass the notifications
+        $matchnotification = MatchNotification::model()->findBySql("SELECT * FROM match_notification ORDER BY date_modified DESC limit 1");
+        $status = Array('status'=>$matchnotification['status'], 'date_modified'=>$matchnotification['date_modified'], 'userid'=>$matchnotification['userid']);
+        $user = User::model()->find("id=:id",array(':id'=>$matchnotification['userid']));
+        $status['username'] = $user['username'];
+        $this->render('notificationadmin', array('results'=>$results, 'results1'=>$results1, 'notification'=>$notification, 'matchnotification'=>$status));
+    }
 
 
     // synchronize with the careerpath API

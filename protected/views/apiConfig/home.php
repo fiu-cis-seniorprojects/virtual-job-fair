@@ -1,13 +1,13 @@
+<h1><?php echo 'API Configuration'; ?></h1>
+
 <?php
 /* @var $this ApiConfigController */
 
 $this->breadcrumbs=array(
-	'Api Config'=>array('/apiConfig'),
-	'Home',
+    'Api Config'=>array('/apiConfig'),
+    'Home',
 );
 ?>
-<h1><?php echo 'API Configuration'; ?></h1>
-
 
 <!--API BULK IMPORT FORM-->
 <br>
@@ -137,7 +137,11 @@ if (isset($api_status) && !is_null($api_status))
 
 <?php echo $form->checkboxRow($model, 'allowExpired'); ?>
 
-<?php $this->widget('bootstrap.widgets.TbButton', array('id' => 'btnBulkImport', 'type'=>'primary', 'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Synchronize with CareerPath')); ?>
+<?php $this->widget('bootstrap.widgets.TbButton', array('id' => 'btnBulkImport',
+                                                        'type'=>'primary',
+                                                        'size' => 'normal',
+                                                        'buttonType'=>'submit',
+                                                        'label'=>'Synchronize with CareerPath')); ?>
 
 <?php $this->endWidget(); ?>
 
@@ -171,4 +175,5 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("ApiAuth/index").  '"'
             ),
     )); ?>
+
 <?php $this->endWidget(); ?>

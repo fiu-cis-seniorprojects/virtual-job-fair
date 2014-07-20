@@ -1,74 +1,54 @@
-<?php
-/* @var $this UserCrudController */
-/* @var $model User */
-
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#user-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
-
 <h1>Manage Users</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'user-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+    'pager' => array('cssFile' => Yii::app()->baseUrl . '/css/gridViewStyle/gridView.css'),
+    'cssFile' => Yii::app()->baseUrl . '/css/gridViewStyle/gridView.css',
+    //and you can even set your own css class to the grid container
+    'htmlOptions' => array('class' => 'grid-view rounded'),
 	'columns'=>array(
-		'id',
-		'username',
-		'password',
-		'FK_usertype',
-		'email',
-		'registration_date',
-		/*
-		'activation_string',
-		'activated',
-		'image_url',
-		'first_name',
-		'last_name',
-		'disable',
-		'has_viewed_profile',
-		'linkedinid',
-		'googleid',
-		'fiucsid',
-		'hide_email',
-		'job_notification',
-		'fiu_account_id',
-		'looking_for_job',
-		*/
+
+        array(
+            'name' => 'registration_date',
+            'value' => 'date("m/d/Y",strtotime($data->registration_date))',
+            'filter' => false
+        ),
+
+        array (
+            'name' => 'username',
+            'type' => 'raw',
+            'value' => 'CHtml::encode($data->username)',
+            'filter' => CHtml::textField('User[username]', '', array('placeholder'=>'Search for Username', 'maxlength'=>'45', 'style' => 'width: 90%' )),
+        ),
+
+        array (
+            'name' => 'email',
+            'type' => 'raw',
+            'value' => 'CHtml::encode($data->email)',
+            'filter' => CHtml::textField('User[email]', '', array('placeholder'=>'Search for Email', 'maxlength'=>'45', 'style' => 'width: 90%' )),
+        ),
+
+        array (
+            'name' => 'first_name',
+            'type' => 'raw',
+            'value' => 'CHtml::encode($data->first_name)',
+            'filter' => CHtml::textField('User[first_name]', '', array('placeholder'=>'Search for First Name', 'maxlength'=>'45', 'style' => 'width: 90%' )),
+        ),
+
+        array (
+            'name' => 'last_name',
+            'type' => 'raw',
+            'value' => 'CHtml::encode($data->last_name)',
+            'filter' => CHtml::textField('User[last_name]', '', array('placeholder'=>'Search for Last Name', 'maxlength'=>'45', 'style' => 'width: 90%' )),
+        ),
+
 		array(
 			'class'=>'CButtonColumn',
+            'template'=>'{update}{delete}',
+            'deleteConfirmation' => 'Deleting a user will erase ALL of the information associated with the account (including job postings). Proceed?',
+            'updateButtonImageUrl' => Yii::app()->baseUrl . '/css/gridViewStyle/images/' . 'gr-update.png',
+            'deleteButtonImageUrl' => Yii::app()->baseUrl . '/css/gridViewStyle/images/' . 'gr-delete.png',
 		),
 	),
 )); ?>

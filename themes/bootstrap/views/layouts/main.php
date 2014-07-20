@@ -13,7 +13,18 @@
     
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
-	<?php Yii::app()->bootstrap->register();  ?>	
+	<?php Yii::app()->bootstrap->register();  ?>
+
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+            width: 260px;
+        }
+    </style>
 	
 	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery.jgrowl.js"></script>
 	<link rel="shortcut icon" href="/JobFair/images/ico/icon.ico">
@@ -92,8 +103,6 @@
                         array('label'=>'My Profile', 'url'=>array($profile), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
                         array('label'=>'Merge Accounts','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/MergeAccounts'),
                         array('label'=>'Change Password','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/ChangePassword'),
-//                        array('label'=>'API Configuration','visible'=>(User::isCurrentUserAdmin(Yii::app()->user->name)), 'url'=>'/JobFair/index.php/ApiConfig/home'),
-
                         '----',
                         array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                         array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
@@ -104,36 +113,28 @@
     ),
 )); ?>
 
-
-<?php if(isset($this->breadcrumbs)):?>
-    <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-        'links'=>$this->breadcrumbs,
-    )); ?><!-- breadcrumbs -->
-<?php endif?>
-
-
 <div class="container-fluid" id="page">
 
 <?php
     if (User::isCurrentUserAdmin(Yii::app()->user->name))
     {
         echo "<div class=\"row-fluid\"><div class=\"span3\">";
+        echo "<div class=\"well sidebar-nav affix\">";
         $this->widget('bootstrap.widgets.TbMenu', array(
             'type' => 'list',
-            'htmlOptions' => array('class' => 'well'),
             'items' => array(
                 array('label' => 'ADMINISTRATION'),
                 array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('/')),
                 array('label' => 'Users', 'icon' => 'user', 'url' => $this->createUrl('UserCrud/admin')),
                 array('label' => 'Skills', 'icon' => 'pencil', 'url' => $this->createUrl('Skillset/admin')),
-                array('label' => 'Postings', 'icon' => 'list', 'url' => '#'),
+                array('label' => 'Postings', 'icon' => 'list', 'url' => $this->createUrl('PostingsAdmin/admin')),
                 array('label' => 'API Configuration', 'icon' => 'cog', 'url' => $this->createUrl('ApiConfig/home')),
                 array('label' => 'NOTIFICATIONS'),
-                array('label' => 'Settings', 'icon' => 'cog', 'url' => '#'),
-                array('label' => 'Help', 'icon' => 'flag', 'url' => '#'),
+                array('label' => 'Settings', 'icon' => 'cog', 'url' => $this->createUrl('home/notificationAdmin')),
+//                array('label' => 'Help', 'icon' => 'flag', 'url' => '#'),
             ),
         ));
-        echo "</div>";
+        echo "</div></div>";
 
         echo "<div class=\"span9\">";
         echo $content;

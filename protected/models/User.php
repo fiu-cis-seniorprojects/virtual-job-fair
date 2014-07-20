@@ -274,8 +274,6 @@ class User extends CActiveRecord
 					$model->message =  $message;//$username. " just join our website, check there jobpost and apply... ";
 					$model->link = $link;
 					$model->save(false);
-
-
                 }
 
 
@@ -427,7 +425,6 @@ public static function sendEmployerNotificationStudentAcceptIntervie($sender, $r
         array_pop($base);
         $base = implode('/', $base);
 		$file = fopen($base . "/email/index1.html", "r");
-//	$file = fopen("/Applications/XAMPP/xamppfiles/htdocs/JobFair/email/index1.html", "r");
 		$html = "";
 		while(!feof($file))
 		{
