@@ -8,7 +8,7 @@ class m140601_035609_initial extends CDbMigration
         $this->execute("ALTER SCHEMA `jobfairdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;");
 
         // needed for fulltext index
-        $this->execute("SET storage_engine=MYISAM;");
+        //$this->execute("SET storage_engine=MYISAM;");
 
         // begin populating db
         $this->createTable('SMS', array(
@@ -123,7 +123,7 @@ class m140601_035609_initial extends CDbMigration
         'email_notification'=>'int(11) DEFAULT NULL',
         'active'=>'int(11) DEFAULT 1',
         'matches_found'=>'int(11) DEFAULT NULL',
-        ), '');
+        ), 'CHARSET=utf8');
 
         $this->createIndex('idx_FK_poster', 'job', 'FK_poster', FALSE);
 

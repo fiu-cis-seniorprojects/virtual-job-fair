@@ -44,8 +44,5 @@ class m140610_182901_careerpath_sync extends CDbMigration
                         ALTER TABLE `jobfairdb`.`job`
                         DROP COLUMN `posting_url`;
         ");
-
-
-		return false;
 	}
 }

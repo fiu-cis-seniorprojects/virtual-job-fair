@@ -14,7 +14,6 @@ class m140607_063219_create_match_notification_table extends CDbMigration
 
 	public function safeDown()
 	{
-        $this->dropForeignKey('fk_global_match_user', 'match_notification');
         $this->dropTable('match_notification');
 	}
 }
