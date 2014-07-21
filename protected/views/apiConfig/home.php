@@ -1,13 +1,35 @@
 <h1><?php echo 'API Configuration'; ?></h1>
 
-<?php
-/* @var $this ApiConfigController */
+<!--API KEY MANAGER-->
+<br>
+<br>
+<h3><?php echo 'Authentication'; ?></h3>
+<br>
 
-$this->breadcrumbs=array(
-    'Api Config'=>array('/apiConfig'),
-    'Home',
-);
+<?php /** @var BootActiveForm $form */
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'=>'api-manager-form',
+    'enableClientValidation' => false,
+    'clientOptions'=>array(
+        'validateOnSubmit'=>false,
+        'validateOnChange'=>false,
+    ),
+    'htmlOptions'=>array('class'=>'well'),
+));
 ?>
+
+
+<?php $this->widget('bootstrap.widgets.TbButton',
+    array(  'type'=>'primary',
+        'size' => 'large',
+        'type' => 'success',
+        'label'=>'Manage API Keys',
+        'htmlOptions' => array(
+            'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("ApiAuth/index").  '"'
+        ),
+    )); ?>
+
+<?php $this->endWidget(); ?>
 
 <!--API BULK IMPORT FORM-->
 <br>
@@ -114,6 +136,7 @@ if (isset($api_status) && !is_null($api_status))
 <?php echo $form->labelEx($model,'dateFrom'); ?>
 <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
     'name' => 'ApiConfigForm[dateFrom]',
+    'value' => date('Y-m-d', strtotime('last month')),
     'options' => array(
         'showAnim' => 'fold',
         'dateFormat'=> 'yy-mm-dd',
@@ -126,6 +149,7 @@ if (isset($api_status) && !is_null($api_status))
 <?php echo $form->labelEx($model,'dateTo'); ?>
 <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
     'name' => 'ApiConfigForm[dateTo]',
+    'value' => date('Y-m-d'),
     'options' => array(
         'showAnim' => 'fold',
         'dateFormat'=> 'yy-mm-dd',
@@ -142,38 +166,5 @@ if (isset($api_status) && !is_null($api_status))
                                                         'size' => 'normal',
                                                         'buttonType'=>'submit',
                                                         'label'=>'Synchronize with CareerPath')); ?>
-
-<?php $this->endWidget(); ?>
-
-
-
-<!--API KEY MANAGER-->
-<br>
-<br>
-<h3><?php echo 'Authentication'; ?></h3>
-<br>
-
-<?php /** @var BootActiveForm $form */
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id'=>'api-manager-form',
-    'enableClientValidation' => false,
-    'clientOptions'=>array(
-        'validateOnSubmit'=>false,
-        'validateOnChange'=>false,
-    ),
-    'htmlOptions'=>array('class'=>'well'),
-));
-?>
-
-
-<?php $this->widget('bootstrap.widgets.TbButton',
-    array(  'type'=>'primary',
-            'size' => 'large',
-            'type' => 'success',
-            'label'=>'Manage API Keys',
-            'htmlOptions' => array(
-                'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("ApiAuth/index").  '"'
-            ),
-    )); ?>
 
 <?php $this->endWidget(); ?>

@@ -145,6 +145,7 @@ class SkillsetController extends Controller
     {
         $model=new Skillset('search');
         $model->unsetAttributes();  // clear any default values
+        $error = '';
         if(isset($_GET['Skillset']))
             $model->attributes=$_GET['Skillset'];
 
@@ -154,44 +155,53 @@ class SkillsetController extends Controller
             $skill_one = Skillset::model()->find("name=:name", array(':name' => $_POST['skill_one']));
             if (!isset($skill_one))
             {
-
+                $error = "Skill A not found!";
             }
             else
             {
-
                 // make sure skill two exists on database
                 $skill_two = Skillset::model()->find("name=:name", array(':name' => $_POST['skill_two']));
                 if (!isset($skill_two))
                 {
-
-
+                    $error = "Skill B not found!";
                 }
                 else
                 {
-                    // merge skill one to skill two (skill two remains)
-                    $jobskill_mappings = JobSkillMap::model()->findAll("skillid=:skillid", array(':skillid' => $skill_one->id));
-                    foreach ($jobskill_mappings as $jobskill_mapping)
+                    // make sure both skills are not the same one
+                    if (strcmp($skill_one->name, $skill_two->name) != 0)
                     {
-                        $jobskill_mapping->skillid = $skill_two->id;
-                        $jobskill_mapping->save(false);
-                    }
+                        // merge skill one to skill two (skill two remains)
+                        $jobskill_mappings = JobSkillMap::model()->findAll("skillid=:skillid", array(':skillid' => $skill_one->id));
+                        foreach ($jobskill_mappings as $jobskill_mapping)
+                        {
+                            $jobskill_mapping->skillid = $skill_two->id;
+                            $jobskill_mapping->save(false);
+                        }
 
-                    $studentskill_mappings = StudentSkillMap::model()->findAll("skillid=:skillid", array(':skillid' => $skill_one->id));
-                    foreach ($studentskill_mappings as $studentskill_mapping)
+                        $studentskill_mappings = StudentSkillMap::model()->findAll("skillid=:skillid", array(':skillid' => $skill_one->id));
+                        foreach ($studentskill_mappings as $studentskill_mapping)
+                        {
+                            $studentskill_mapping->skillid = $skill_two->id;
+                            $studentskill_mapping->save(false);
+                        }
+
+                        $skill_one->delete();
+
+                        $this->redirect(array('admin'));
+                    }
+                    else
                     {
-                        $studentskill_mapping->skillid = $skill_two->id;
-                        $studentskill_mapping->save(false);
+                        $error = "Skill A and Skill B cannot be the same!";
                     }
-
-                    $skill_one->delete();
-
-                    $this->redirect(array('admin'));
                 }
             }
         }
 
         $this->render('consolidate',array(
             'model'=>$model,
+            'error'=>$error,
+            'skill1'=>(isset($_POST['skill_one']) ? $_POST['skill_one']  : ''),
+            'skill2'=>(isset($_POST['skill_two']) ? $_POST['skill_two']  : ''),
         ));
     }
 

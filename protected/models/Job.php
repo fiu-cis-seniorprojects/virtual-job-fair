@@ -191,6 +191,36 @@ class Job extends CActiveRecord
 		}
 		return null;
 	}
+
+
+    public function cascade_delete()
+    {
+        $id = $this->id;
+
+        // remove any skill mappings
+        $skill_mappigns = JobSkillMap::model()->findAllByAttributes(array('jobid' => $id));
+        foreach ($skill_mappigns as $skill_mapping)
+        {
+            $skill_mapping->delete();
+        }
+
+        // remove any applications mappings
+        $app_mappings = Application::model()->findAllByAttributes(array('jobid' => $id));
+        foreach ($app_mappings as $app_mapping)
+        {
+            $app_mapping->delete();
+        }
+
+        // remove any handshake mappings
+        $hs_mappings = Handshake::model()->findAllByAttributes(array('jobid' => $id));
+        foreach($hs_mappings as $hs_mapping)
+        {
+            $hs_mapping->delete();
+        }
+
+        // finally remove job
+        $this->delete();
+    }
 	
 	public static function compare_skills($jobskillmaps, $studentskillmaps){
 		//first take out all irrelevant skills from the student
@@ -275,4 +305,6 @@ class Job extends CActiveRecord
 
         return $skills;
     }
+
+
 }

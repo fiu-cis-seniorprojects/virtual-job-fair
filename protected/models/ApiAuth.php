@@ -37,9 +37,11 @@ class ApiAuth extends CActiveRecord
 		return array(
 			array('valid_key', 'required'),
 			array('valid_key', 'length', 'max'=>255),
+            array('description', 'required'),
+            array('description', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('valid_key', 'safe', 'on'=>'search'),
+			array('valid_key description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,6 +64,7 @@ class ApiAuth extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'valid_key' => 'API Key',
+            'description' => 'Description',
 		);
 	}
 
@@ -78,6 +81,7 @@ class ApiAuth extends CActiveRecord
 
 //		$criteria->compare('id',$this->id);
 		$criteria->compare('valid_key',$this->valid_key,true);
+        $criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -234,6 +234,57 @@ class User extends CActiveRecord
     	return ($this->FK_usertype == 3);
     }
 
+    public function cascade_delete()
+    {
+        $id = $this->id;
+
+        // delete basic info mappings
+        $basic_info = BasicInfo::model()->findByAttributes(array('userid' => $id));
+        if (isset($basic_info))
+            $basic_info->delete();
+
+        // delete company info mapping
+        $comp_info = CompanyInfo::model()->findByAttributes(array('FK_userid' => $id));
+        if (isset($comp_info))
+            $comp_info->delete();
+
+        // delete sms mappings
+        $sms_mappings = SMS::model()->findAll("sender_id=:id OR receiver_id=:id ", array(':id' => $id));
+        foreach ($sms_mappings as $sms_mapping)
+        {
+            $sms_mapping->delete();
+        }
+
+        // delete education mapping
+        $edu_mappings = Education::model()->findAllByAttributes(array('FK_user_id' => $id));
+        foreach ($edu_mappings as $edu_mapping)
+        {
+            $edu_mapping->delete();
+        }
+
+        // delete skills mappings
+        $skills_mappings = StudentSkillMap::model()->findAllByAttributes(array('userid' => $id));
+        foreach ($skills_mappings as $skills_mapping)
+        {
+            $skills_mapping->delete();
+        }
+
+        // delete application mappings
+        $app_mappings = Application::model()->findAllByAttributes(array('userid' => $id));
+        foreach($app_mappings as $app_mapping)
+        {
+            $app_mapping->delete();
+        }
+
+        // delete jobs mappings
+        $job_mappings = Job::model()->findAllByAttributes(array('FK_poster' => $id));
+        foreach ($job_mappings as $job_mapping)
+        {
+            $job_mapping->cascade_delete();
+        }
+
+        $this->delete();
+    }
 
     public static function isCurrentUserStudent(){
     	$username = Yii::app()->user->name;

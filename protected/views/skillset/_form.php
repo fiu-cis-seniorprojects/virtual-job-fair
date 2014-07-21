@@ -13,7 +13,30 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->textFieldRow($model, 'name', array('maxlength'=>45, 'class'=>'span3')); ?>
+    <label class="required" for="Skillset_name">
+        Name
+        <span class="required">*</span>
+    </label>
+    <?php
+
+
+    $skills_list = Skillset::model()->getNames();
+    $skill_name = $model->name;
+    $this->widget('bootstrap.widgets.TbTypeahead', array(
+        'name'=>'Skillset[name]',
+        'id'=>'Skillset_name',
+        'value'=>$skill_name,
+        'options'=>array(
+            'source'=>$skills_list,
+            'items'=>6,
+            'matcher'=>"js:function(item) {
+            return ~item.toLowerCase().indexOf(this.query.toLowerCase());
+        }",
+        ),
+    ));
+
+    ?>
+
 
 </fieldset>
 

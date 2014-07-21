@@ -1,16 +1,17 @@
 <h1>Manage Users</h1>
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'user-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-    'pager' => array('cssFile' => Yii::app()->baseUrl . '/css/gridViewStyle/gridView.css'),
-    'cssFile' => Yii::app()->baseUrl . '/css/gridViewStyle/gridView.css',
-    //and you can even set your own css class to the grid container
-    'htmlOptions' => array('class' => 'grid-view rounded'),
-	'columns'=>array(
+
+
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
+    'type'=>'striped bordered condensed well',
+    'dataProvider'=>$model->search(),
+    'filter'=>$model,
+    'template'=>"{summary}{items}\n{pager}",
+    'summaryText'=>"Displaying {start} - {end} of {count}",
+    'columns'=>array(
 
         array(
             'name' => 'registration_date',
+            'header' => 'Registered',
             'value' => 'date("m/d/Y",strtotime($data->registration_date))',
             'filter' => false
         ),
@@ -43,12 +44,10 @@
             'filter' => CHtml::textField('User[last_name]', '', array('placeholder'=>'Search for Last Name', 'maxlength'=>'45', 'style' => 'width: 90%' )),
         ),
 
-		array(
-			'class'=>'CButtonColumn',
+        array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
             'template'=>'{update}{delete}',
-            'deleteConfirmation' => 'Deleting a user will erase ALL of the information associated with the account (including job postings). Proceed?',
-            'updateButtonImageUrl' => Yii::app()->baseUrl . '/css/gridViewStyle/images/' . 'gr-update.png',
-            'deleteButtonImageUrl' => Yii::app()->baseUrl . '/css/gridViewStyle/images/' . 'gr-delete.png',
-		),
-	),
+            'htmlOptions'=>array('style'=>'width: 50px'),
+        ),
+    ),
 )); ?>

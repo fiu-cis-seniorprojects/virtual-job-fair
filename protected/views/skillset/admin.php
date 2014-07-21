@@ -1,5 +1,6 @@
 <h1>Manage Skills</h1>
 
+
 <div class="btn-toolbar well">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Create New Skill',
@@ -24,28 +25,21 @@
     )); ?>
 </div>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-    'id'=>'skillset-grid',
+
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
+    'type'=>'striped bordered condensed well',
     'dataProvider'=>$model->search(),
     'filter'=>$model,
-    'pager' => array('cssFile' => Yii::app()->baseUrl . '/css/gridViewStyle/gridView.css'),
-    'cssFile' => Yii::app()->baseUrl . '/css/gridViewStyle/gridView.css',
-    //and you can even set your own css class to the grid container
-    'htmlOptions' => array('class' => 'grid-view rounded'),
+    'template'=>"{summary}{items}\n{pager}",
+    'summaryText'=>"Displaying {start} - {end} of {count}",
     'columns'=>array(
-        array (
-            'name' => 'name',
-            'type' => 'raw',
-            'value' => 'CHtml::encode($data->name)',
-            'filter' => CHtml::textField('Skillset[name]', '', array('placeholder'=>'Search for Skill', 'maxlength'=>'45', 'style' => 'width: 100%' )),
-        ),
-
+        array(  'name'=>'name',
+                'header'=>'Name',
+                'filter' => CHtml::textField('Skillset[name]', '', array('placeholder'=>'Search for skill', 'maxlength'=>'45', 'style' => 'width: 100%' )),),
         array(
-            'class'=>'CButtonColumn',
+            'class'=>'bootstrap.widgets.TbButtonColumn',
             'template'=>'{update}{delete}',
-            'deleteConfirmation' => 'Deleting a user will erase ALL of the information associated with the account (including job postings). Proceed?',
-            'updateButtonImageUrl' => Yii::app()->baseUrl . '/css/gridViewStyle/images/' . 'gr-update.png',
-            'deleteButtonImageUrl' => Yii::app()->baseUrl . '/css/gridViewStyle/images/' . 'gr-delete.png',
+            'htmlOptions'=>array('style'=>'width: 50px'),
         ),
     ),
 )); ?>

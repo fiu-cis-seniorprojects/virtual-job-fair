@@ -1,8 +1,5 @@
-<?php
-/* @var $this ApiAuthController */
-/* @var $model ApiAuth */
-/* @var $form CActiveForm */
-?>
+<h1><?php echo ($model->isNewRecord ? 'New' : 'Update');?> API Key</h1>
+
 
 <script>
     function random_str(char_len)
@@ -14,33 +11,62 @@
 
         $('#apikeyText').val(text);
     }
+
+    $( document ).ready(function() {
+        random_str(45);
+    });
+
 </script>
 
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'api-auth-form',
-	'enableAjaxValidation'=>false,
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'=>'user-form',
+    'enableAjaxValidation'=>false,
+    'htmlOptions'=>array('class'=>'well'),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+<fieldset>
 
-	<?php echo $form->errorSummary($model); ?>
+    <p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'valid_key'); ?>
-		<?php echo $form->textField($model,'valid_key',array('id'=>'apikeyText','size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'valid_key'); ?>
-	</div>
+    <?php echo $form->errorSummary($model); ?>
 
-	<div class="row buttons">
+    <?php echo $form->textFieldRow($model, 'description', array('style' => 'width:50%;','maxlength'=>45, 'class'=>'span3')); ?>
 
-        <?php
-            echo CHtml::button('Generate', array('onclick' => 'js:random_str(45);'));
-        ?>
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+    <div>
+    <?php echo $form->textFieldRow($model, 'valid_key', array('style' => 'width:50%;', 'maxlength'=>45, 'class'=>'span3', 'id'=>'apikeyText')); ?>
+
+    <?php $this->widget('bootstrap.widgets.TbButton',
+        array(  'label'=>'Generate',
+
+            'type' => 'inverse',
+            'htmlOptions' => array(
+                'style' => 'vertical-align:top',
+                'onclick' => 'js:random_str(45);'
+            ),
+        )
+    );
+    ?>
+    </div>
+
+</fieldset>
+
+
+
+
+<div class="form-actions">
+<?php $this->widget('bootstrap.widgets.TbButton', array('type' => 'primary', 'buttonType'=>'submit', 'label'=>'Save')); ?>
+
+
+<?php $this->widget('bootstrap.widgets.TbButton',
+    array(  'label'=>'Cancel',
+        'htmlOptions' => array(
+            'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("ApiAuth/index").'"'
+        ),
+    )
+);
+?>
+</div>
+
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

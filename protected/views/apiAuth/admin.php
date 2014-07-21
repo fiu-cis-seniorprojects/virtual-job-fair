@@ -1,54 +1,37 @@
-<?php
-/* @var $this ApiAuthController */
-/* @var $model ApiAuth */
-
-$this->breadcrumbs=array(
-	'API Keys'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Api Key', 'url'=>array('index')),
-	array('label'=>'Create Api Key', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#api-auth-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
-
 <h1>API Key Management</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<div class="btn-toolbar well">
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'label'=>'Create New API Key',
+        'type'=>'success', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'size' => 'large',
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'api-auth-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'valid_key',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
+        'htmlOptions' => array(
+            'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("ApiAuth/create").'"',
+
+        ),
+    )); ?>
+</div>
+
+
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
+    'type'=>'striped bordered condensed well',
+    'dataProvider'=>$model->search(),
+    'filter'=>$model,
+    'template'=>"{summary}{items}\n{pager}",
+    'summaryText'=>"Displaying {start} - {end} of {count}",
+    'columns'=>array(
+        array(  'name'=>'description',
+            'header'=>'Description',
+            'filter' => CHtml::textField('ApiAuth[description]', '', array('placeholder'=>'Search by description', 'maxlength'=>'45', 'style' => 'width: 100%' )),),
+        array(  'name'=>'valid_key',
+            'header'=>'Key',
+            'filter' => false),
+        array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+            'template'=>'{update}{delete}',
+            'htmlOptions'=>array('style'=>'width: 50px'),
+        ),
+    ),
 )); ?>

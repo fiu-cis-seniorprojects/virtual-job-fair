@@ -3,12 +3,6 @@
 class ApiAuthController extends Controller
 {
 	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column2';
-
-	/**
 	 * @return array action filters
 	 */
 	public function filters()
@@ -27,16 +21,8 @@ class ApiAuthController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','create','update','index','view'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -51,7 +37,7 @@ class ApiAuthController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
+		$this->render('admin',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -71,7 +57,7 @@ class ApiAuthController extends Controller
 		{
 			$model->attributes=$_POST['ApiAuth'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -114,7 +100,7 @@ class ApiAuthController extends Controller
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
 	/**
@@ -122,10 +108,12 @@ class ApiAuthController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('ApiAuth');
+/*		$dataProvider=new CActiveDataProvider('ApiAuth');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-		));
+		));*/
+
+        $this->actionAdmin();
 	}
 
 	/**
