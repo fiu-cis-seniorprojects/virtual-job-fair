@@ -18,7 +18,6 @@
  * @property boolean $hide_email
  * @property boolean $job_notification
  * @property boolean $looking_for_job
- * @property boolean $job_interest
  * @property boolean $job_int_date
 
  *
@@ -172,7 +171,6 @@ class User extends CActiveRecord
         $criteria->compare('last_name',$this->last_name,true);
         $criteria->compare('job_notification',$this->job_notification,true);
         $criteria->compare('looking_for_job',$this->looking_for_job,true);
-        $criteria->compare('job_interest', $this->job_interest, true);
         $criteria->compare('job_int_date', $this->job_int_date, true);
 
         return new CActiveDataProvider($this, array(
