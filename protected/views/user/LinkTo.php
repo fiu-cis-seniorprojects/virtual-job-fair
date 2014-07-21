@@ -10,39 +10,39 @@
 /* @var $state   */
 /* @var $about_me   */
 ?>
-    <script type="text/javascript">
-        $(document).ready(function()
-        {
-            $('#saveQmodal').modal('show');
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#saveQmodal').modal('show');
 
+    });
+
+
+    //data = $data;
+    function formSend(form, data, hasError)
+    {
+
+        var data=$("#link_accounts").serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo Yii::app()->createAbsoluteUrl("User/UserChoice"); ?>',
+            data:data,
+            success:function(data){
+                window.location.href = <?php echo '"'.  $this->createAbsoluteUrl('User/LinkNotification/mesg/' . $mesg) . '"'; ?>;
+            },
+            error: function(data) { // if error occured
+                alert("Error occured.please try again");
+                alert(data);
+            },
+
+            dataType:'html'
         });
 
+        return false;
+    }
 
-        //data = $data;
-        function formSend(form, data, hasError)
-        {
-
-            var data=$("#link_accounts").serialize();
-
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo Yii::app()->createAbsoluteUrl("Profile/UserChoice"); ?>',
-                data:data,
-                success:function(data){
-                    window.location.href = <?php echo '"'.  $this->createAbsoluteUrl('Profile/LinkNotification/mesg/' . $mesg) . '"'; ?>;
-                },
-                error: function(data) { // if error occured
-                    alert("Error occured.please try again");
-                    alert(data);
-                },
-
-                dataType:'html'
-            });
-
-            return false;
-        }
-
-    </script>
+</script>
 
 <!--Modal-->
 <div class="modal hide fade" id="saveQmodal" tabindex="-1">
@@ -52,6 +52,7 @@
         </div>
         <div class="modal-body">
             Choose the one you want to keep: <br>
+
 
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -63,8 +64,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'afterValidate'=>'js:formSend'
     ),
     'htmlOptions'=>array('class'=>'well'),
-
-
 ));
 ?>
 
@@ -80,10 +79,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     if(($picture!= null)&&($user->image_url != null)&&($picture != $user->image_url)){
         $nothing = true;
         echo 'Choose your profile picture';
+        $model->profilePic = $user->image_url;
         $image =CHtml::image($picture,'', array('width'=>100, 'height'=>60));
         $user_image =CHtml::image($user->image_url,'', array('width'=>100, 'height'=>60));
-        $model->profilePic = $user->image_url;
-        echo $form->radioButtonList($model, 'profilePic',array( $user->image_url=> $user_image, $picture=>$image), array('checked'=>1));
+        echo $form->radioButtonList($model, 'profilePic',array( $user->image_url=> $user_image, $picture=>$image));
         echo '<br/>';
     }
     if($user->image_url == null){
@@ -191,12 +190,14 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ?>
 
 
-</div>
-<div class="modal-footer">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'primary',
-        'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Fix Conflicts')); ?>
 
-    <?php $this->endWidget(); ?>
-</div>
-</div><!-- /.modal-content -->
+
+        </div>
+        <div class="modal-footer">
+            <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'primary',
+                'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Fix Conflicts')); ?>
+
+            <?php $this->endWidget(); ?>
+        </div>
+    </div><!-- /.modal-content -->
 </div><!-- /.modal -->

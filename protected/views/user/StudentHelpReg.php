@@ -3,29 +3,6 @@
 /* @var $email */
 /* @var $form CActiveForm  */
 ?>
-    <script type="text/javascript">
-        function formSend(form, data, hasError)
-        {   alert("akiiiiiii");
-            var data=$("link-to").serialize();
-
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo Yii::app()->createAbsoluteUrl("ApiConfig/importJobs"); ?>',
-                data:data,
-                success:function(data){
-                    alert(data);
-                },
-                error: function(data) { // if error occured
-                    alert("Error occured.please try again");
-                    alert(data);
-                },
-
-                dataType:'html'
-            });
-
-            return false;
-        }
-    </script>
 <br><br>
 <br><br>
 <?php /** @var BootActiveForm $form */

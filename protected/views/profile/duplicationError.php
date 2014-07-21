@@ -1,24 +1,23 @@
 <?php
-/* @var $this UserController */
-/* @var $mesg messageLink */
+/* @var $this ProfileController */
+/* @var $model model */
+/* @var $form LinkTooForm */
 ?>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('#saveQmodal').modal('show');
 
-<script type="text/javascript">
-$(document).ready(function()
-{
-    $('#saveQmodal').modal('show');
+        });
 
-});
-
-</script>
+    </script>
 
 <div class="modal hide fade" id="saveQmodal" tabindex="-1">
     <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title">Congratulations!!!</h4>
+        <h4 class="modal-title">Linking Error:</h4>
     </div>
     <div class="modal-body">
-
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'link-to',
@@ -30,9 +29,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'htmlOptions'=>array('class'=>'well'),
 ));
 ?>
-<?php
-echo "Your " .$mesg. " account has been linked to your profile.";
-?>
+
+<h3>This account is already link to another account</h3>
 
     </div>
         <div class="modal-footer">
@@ -40,7 +38,7 @@ echo "Your " .$mesg. " account has been linked to your profile.";
                 'buttonType'=>'link',
                 'type'=>'primary',
                 'label'=>'View my Profile',
-                'url'=>'../../../profile/view'
+                'url'=>'../profile/view'
             )); ?>
 
             <?php $this->endWidget(); ?>

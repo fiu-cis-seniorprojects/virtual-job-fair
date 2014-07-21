@@ -475,7 +475,6 @@ class UserController extends Controller
                 // get username and link the accounts
                 $username = $duplicateUser->username;
                 $user = User::model()->find("username=:username",array(':username'=>$username));
-                $user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
                 $user->linkedinid = $data->{'id'};
                 $user->save(false);
                 $user_id = $user->id;
@@ -487,10 +486,6 @@ class UserController extends Controller
                 if ($basic_info == null)
                     $basic_info = new BasicInfo();
                 $basic_info->userid = $user_id;
-                $basic_info->phone = $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};
-                $basic_info->city = $data->location->name;
-                $basic_info->state = '';
-                $basic_info->about_me = $data->headline;
                 $basic_info->save(false);
                 // ------------------BASIC INFO -----------------
 
@@ -599,7 +594,31 @@ class UserController extends Controller
                         Yii::app()->user->login($identity);
                     }
                     $mesg = "LinkedIn";
-                    $this->actionLinkNotification($mesg);
+                    //get variables
+                    $mesg = "LinkedIn";
+
+                    $phone = $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};
+                    if($phone != null){
+                        $phone = strip_tags($data->{'phone-numbers'}->{'phone-number'}->{'phone-number'}->asXML());
+                    }
+
+                    $city = $data->location->name;
+                    if($city != null){
+                        $city = strip_tags($data->location->name->asXML());
+                    }
+
+                    $state = '';
+
+                    $about_me = $data->headline;
+                    if($about_me != null){
+                        $about_me = strip_tags($data->headline->asXML());
+                    }
+
+                    $picture = $data->{'picture-urls'}->{'picture-url'}[0];
+                    if($picture != null){
+                        $picture = strip_tags($data->{'picture-urls'}->{'picture-url'}[0]->asXML());
+                    }
+                    $this->actionLinkTo($data->{'email-address'},$data->{'first-name'},$data->{'last-name'}, $picture ,$mesg,$phone,$city,$state,$about_me);
                     return;
                 }
                 else {
@@ -781,31 +800,126 @@ class UserController extends Controller
 	}
     public function actionMergeAccounts() {
 
-        $model = User::getCurrentUser();
+        $model = new LinkTooForm();
         $error = '';
-        if(isset($_POST['User'])) {
-            $pass = 'tester';
-            $p1 = $_POST['User']['Email'];
-            $p2 = $_POST['User']['password'];
-            //verify old password
-            $username = Yii::app()->user->name;
-            $hasher = new PasswordHash(8, false);
+
+        if(isset($_POST['LinkTooForm'])) {
+
+            $model = new LinkTooForm();
+            $model->attributes = $_POST['LinkTooForm'];
+
+            $username = $model->email;
+            $password = $model->password;
+
             $login = new LoginForm;
             $login->username = $username;
-            $login->password = $pass;
+            $login->password = $password;
 
-            if ($p1 == $p2) {
-                //Hash the password before storing it into the database
-                $hasher = new PasswordHash(8, false);
-                $user = User::getCurrentUser();
-                $user->password = $hasher->HashPassword($p1);
-                $user->save(false);
-                $this->redirect("/JobFair/index.php/home/studenthome");
-            } else {
-                $error = "Passwords do not match.";
+            $user1 = User::model()->findByAttributes(array('username'=>$username));
+            $user2 = User::getCurrentUser();
+
+            if ($user1 == null){
+                $error = "Username was incorrect.";
                 $this->render('MergeAccounts',array('model'=>$model, 'error' => $error));
             }
-        } else {
+
+            elseif (!$login->validate()){
+                $error = "Password was incorrect.";
+                $this->render('MergeAccounts',array('model'=>$model, 'error' => $error));
+            }
+
+            else
+            {
+                $basic_info = BasicInfo::model()->findByAttributes(array('userid'=>$user1->id));
+
+                //link the third party accounts;
+                $linkedinid = $user1->linkedinid;
+                $googleid = $user1->googleid;
+                $fiucsid = $user1->fiucsid;
+                $fiu_account_id = $user1->fiu_account_id;
+
+                if($user2->linkedinid == null && $linkedinid != null)
+                {
+                    $user2->linkedinid = $linkedinid;
+                    $user2->save(false);
+                }
+                if($user2->googleid == null && $googleid != null)
+                {
+                    $user2->googleid = $googleid;
+                    $user2->save(false);
+                }
+                if($user2->fiucsid == null && $fiucsid != null)
+                {
+                    $user2->fiucsid = $fiucsid;
+                    $user2->save(false);
+                }
+                if($user2->fiu_account_id == null && $fiu_account_id != null)
+                {
+                    $user2->fiu_account_id = $fiu_account_id;
+                    $user2->save(false);
+                }
+
+                //disable user
+                $user1->disable = 1;
+                $user1->save(false);
+
+                //get basic info
+                $first_name = $user1->first_name;
+                $last_name = $user1->last_name;
+                $email = $user1->email;
+                $picture = $user1->image_url;
+                $mesg = "Virtual Job Fair";
+                $phone = $basic_info->phone;
+                $city = $basic_info->city;
+                $state = $basic_info->state;
+                $about_me = $basic_info->about_me;
+
+                //get education
+                $education1 = Education::model()->find('FK_user_id=:id',array(':id'=>$user1->id));
+                $education2 = Education::model()->find('FK_user_id=:id',array(':id'=>$user2->id));
+
+                if($education1 != null && $education2 == null){
+
+                    $education1->FK_user_id = $user2->id;
+                    $education1->save(false);
+                }
+
+                if($education1 != null && $education2 != null){
+                    if($education1->FK_school_id != $education2->FK_school_id)
+                    {
+                        $education1->FK_user_id = $user2->id;
+                        $education1->save(false);
+                    }
+
+                }
+                //get experience
+                $experience1 = Experience::model()->find('FK_userid=:id',array(':id'=>$user1->id));
+                $experience2 = Experience::model()->find('FK_userid=:id',array(':id'=>$user2->id));
+
+
+
+                if($experience1 != null && $experience2 == null){
+
+                    $experience1->FK_userid = $user2->id;
+                    $experience1->save(false);
+                }
+                if($experience1 != null && $experience2 != null){
+                    if($experience1->company_name != $experience2->company_name)
+                    {
+                        $experience1->FK_userid = $user2->id;
+                        $experience1->save(false);
+                    }
+
+                }
+                //get skill
+
+                $this->actionLinkTo($email,$first_name,$last_name,$picture,$mesg,$phone,$city,$state,$about_me);
+                return;
+
+            }
+//
+        }
+        else {
             $this->render('MergeAccounts',array('model'=>$model, 'error' => $error));
         }
     }
@@ -839,6 +953,94 @@ class UserController extends Controller
     {
         $model = new LinkTooForm();
         $this->render('StudentHelpReg', array('model'=>$model,'email'=>$email));
+    }
+    public function actionLinkTo($email, $first_name, $last_name, $picture,$mesg,$phone,$city,$state,$about_me)
+    {
+        $model = new LinkTooForm();
+        $this->render('LinkTo', array('model'=>$model, 'email'=>$email, 'first_name'=>$first_name,'last_name'=>$last_name,
+            'picture'=>$picture, 'mesg'=>$mesg , 'phone'=>$phone, 'city'=>$city, 'state'=>$state, 'about_me'=>$about_me));
+
+        //return $link;
+    }
+    public function actionUserChoice()
+    {
+
+        if(isset($_POST['LinkTooForm']))
+        {
+            $user = User::getCurrentUser();
+            $basic_info = BasicInfo::model()->findByAttributes(array('userid'=>$user->id));
+
+            $model = new LinkTooForm();
+            $model->attributes = $_POST['LinkTooForm'];
+            $mesg = $model->toPost;
+
+            if($model->profilePic != null){
+                $user->image_url = $model->profilePic;
+                $user->save(false);
+            }
+            if($model->profilePicVar != null){
+                $user->image_url = $model->profilePicVar;
+                $user->save(false);
+            }
+            if($model->firstname != null){
+                $user->first_name = $model->firstname;
+                $user->save(false);
+            }
+            if($model->firstnamevar != null){
+                $user->first_name = $model->firstnamevar;
+                $user->save(false);
+            }
+            if($model->lastname != null){
+                $user->last_name = $model->lastname;
+                $user->save(false);
+            }
+            if($model->lastnamevar != null){
+                $user->last_name = $model->lastnamevar;
+                $user->save(false);
+            }
+            if($model->email != null){
+                $user->email = $model->email;
+                $user->save(false);
+            }
+            if($model->emailvar != null){
+                $user->email = $model->emailvar;
+                $user->save(false);
+            }
+            if($model->phone != null){
+                $basic_info->phone = $model->phone;
+                $basic_info->save(false);
+            }
+            if($model->phonevar != null){
+                $basic_info->phone = $model->phonevar;
+                $basic_info->save(false);
+            }
+            if($model->city != null){
+                $basic_info->city = $model->city;
+                $basic_info->save(false);
+            }
+            if($model->cityvar != null){
+                $basic_info->city = $model->cityvar;
+                $basic_info->save(false);
+            }
+            if($model->state != null){
+                $basic_info->state = $model->state;
+                $basic_info->save(false);
+            }
+            if($model->statevar != null){
+                $basic_info->state = $model->statevar;
+                $basic_info->save(false);
+            }
+            if($model->about_me != null){
+                $basic_info->about_me = $model->about_me;
+                $basic_info->save(false);
+            }
+            if($model->about_me_var != null){
+                $basic_info->about_me = $model->about_me_var;
+                $basic_info->save(false);
+            }
+
+        }
+        Yii::app()->end();
     }
     public function actionLinkNotification($mesg)
     {

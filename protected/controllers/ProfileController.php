@@ -1,7 +1,8 @@
 <?php
 
 class ProfileController extends Controller
-{ 
+{
+
 	
 	public function actionView()
 	{
@@ -483,6 +484,7 @@ class ProfileController extends Controller
     }
 	
 	
+	
 	//Specifies access rules
 	public function accessRules()
 	{
@@ -494,6 +496,8 @@ class ProfileController extends Controller
                             'LinkToo','LinkNotification','LinkNotification2',
 					  		'EditBasicInfo', 'Student', 'Employer','Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',
                             'getJobInterest', 'saveInterest', 'DeleteInterest'),
+                            'LinkToo','LinkNotification','BlankPage','DuplicationError','UserChoice',
+					  		'EditBasicInfo', 'Student', 'Employer','Demo', 'Auth', 'saveSkills', 'getSkill', 'uploadVideo',),
 					  'users'=>array('@')),
 				array('allow',
 					  'actions'=>array('videoemployer','videostudent','googleAuth','fiuCsSeniorAuth','fiuAuth',),
@@ -592,15 +596,13 @@ class ProfileController extends Controller
         // check that there is no duplicate id
         $duplicateUser = User::model()->findByAttributes(array('linkedinid'=>$data->{'id'}));
         if ($duplicateUser != null) {
-            $error = 'User LinkedIn account is already linked with another account.';
-            $this->redirect(array('user/StudentRegister', 'error'=>$error,));
+            $this->actionDuplicationError();
             return;
         }
 
 	   // get username and link the accounts
 	   $username = Yii::app()->user->name;
 	   $user = User::model()->find("username=:username",array(':username'=>$username));
-	   $user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
        $user->linkedinid = $data->{'id'};
 	   $user->save(false);
 	   $user_id = $user->id;
@@ -612,10 +614,6 @@ class ProfileController extends Controller
 	   if ($basic_info == null)
 	   $basic_info = new BasicInfo(); 
 	   $basic_info->userid = $user_id;
-	   $basic_info->phone = $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};
-	   $basic_info->city = $data->location->name;
-	   $basic_info->state = '';
-	   $basic_info->about_me = $data->headline;
 	   $basic_info->save(false);
 	   // ------------------BASIC INFO -----------------
 
@@ -716,8 +714,34 @@ class ProfileController extends Controller
 			}
 	} 
 	// ----------------------SKILLS----------------------
-	
-	$this->redirect('/JobFair/index.php/profile/view');
+
+        //get variables
+        $mesg = "LinkedIn";
+
+        $phone = $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};
+        if($phone != null){
+            $phone = strip_tags($data->{'phone-numbers'}->{'phone-number'}->{'phone-number'}->asXML());
+        }
+
+        $city = $data->location->name;
+        if($city != null){
+            $city = strip_tags($data->location->name->asXML());
+        }
+
+        $state = '';
+
+        $about_me = $data->headline;
+        if($about_me != null){
+            $about_me = strip_tags($data->headline->asXML());
+        }
+
+        $picture = $data->{'picture-urls'}->{'picture-url'}[0];
+        if($picture != null){
+        $picture = strip_tags($data->{'picture-urls'}->{'picture-url'}[0]->asXML());
+        }
+        $this->actionLinkToo($data->{'email-address'},$data->{'first-name'},$data->{'last-name'}, $picture ,$mesg,$phone,$city,$state,$about_me);
+       // return;
+
 	}
 
 	
@@ -806,20 +830,23 @@ class ProfileController extends Controller
             // check that there is no duplicate id
             $duplicateUser = User::model()->findByAttributes(array('googleid'=>$user["id"]));
             if ($duplicateUser != null) {
-                $error = 'User Google account is already linked with another account.';
-                $this->redirect(array('site/error', 'error'=>$error,));
+                $this->actionDuplicationError();
                 return;
             }
 
-        $username = Yii::app()->user->name;
-        $userLink = User::model()->find("username=:username",array(':username'=>$username));
-        //$user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
-        $userLink->googleid = $user_id;
-        $userLink->image_url = $user['picture'];
-        $userLink->save(false);
+            $username = Yii::app()->user->name;
+            $userLink = User::model()->find("username=:username",array(':username'=>$username));
+            $userLink->googleid = $user_id;
+            $userLink->save(false);
 
-        $this->redirect('/JobFair/index.php/profile/view');
-
+            //get variables
+            $mesg = "Google";
+            $phone = null;
+            $city = null;
+            $state = null;
+            $about_me = null;
+            $this->actionLinkToo($email,$user['given_name'],$user['family_name'],$user['picture'],$mesg,$phone,$city,$state,$about_me);
+            return;
         }
 
         else // user logged in succesfully to google, now check if we register or login to JobFair, link
@@ -854,7 +881,6 @@ class ProfileController extends Controller
 
                     //populate db
                     $duplicateUser->googleid = $user_id;
-                    $duplicateUser->image_url = $user['picture'];
                     $duplicateUser->save(false);
 
                     if ($duplicateUser->disable != 1)
@@ -863,9 +889,15 @@ class ProfileController extends Controller
                         if ($identity->authenticateOutside()) {
                             Yii::app()->user->login($identity);
                         }
+                        //get variables
                         $mesg = "Google";
-                        $this->actionLinkNotification($mesg);
+                        $phone = null;
+                        $city = null;
+                        $state = null;
+                        $about_me = null;
+                        $this->actionLinkToo($email,$user['given_name'],$user['family_name'],$user['picture'],$mesg,$phone,$city,$state,$about_me);
                         return;
+
                     }
                     else {
                         $this->redirect("/JobFair/index.php/site/page?view=disableUser");
@@ -943,19 +975,23 @@ class ProfileController extends Controller
                         // check that there is no duplicate id
                         $duplicateUser = User::model()->findByAttributes(array('fiucsid'=>$fiuCsUser['id']));
                         if ($duplicateUser != null) {
-                            $error = 'User FIU Senior Project account is already linked with another account.';
-                            $this->redirect(array('user/StudentRegister', 'error'=>$error,));
+                            $this->actionDuplicationError();
                             return;
                         }
 
                         $username = Yii::app()->user->name;
                         $userLink = User::model()->find("username=:username",array(':username'=>$username));
-                        //$user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
                         $userLink->fiucsid  = $fiuCsUser['id'];
                         $userLink->save(false);
 
-                        $this->redirect('/JobFair/index.php/profile/view');
-
+                        $mesg = "Senior Project";
+                        $picture = null;
+                        $phone = null;
+                        $city = null;
+                        $state = null;
+                        $about_me = null;
+                        $this->actionLinkToo($fiuCsUser['email'],$fiuCsUser['first_name'],$fiuCsUser['last_name'],$picture,$mesg,$phone,$city,$state,$about_me);
+                        return;
                     }
 
 					$userExists = User::model()->findByAttributes(array('fiucsid'=>$fiuCsUser["id"]));
@@ -997,8 +1033,16 @@ class ProfileController extends Controller
                                     Yii::app()->user->login($identity);
                                 }
 
-                                $this->redirect("/JobFair/index.php/profile/LinkNotification2");
+                                //get variables
+                                $mesg = "Senior Project";
+                                $picture = null;
+                                $phone = null;
+                                $city = null;
+                                $state = null;
+                                $about_me = null;
 
+                               // '<window.location.href = >' echo '"'.  $this->createAbsoluteUrl('Profile/LinkNotification/mesg/' . $mesg) . '"';
+                                $this->actionLinkToo($fiuCsUser['email'],$fiuCsUser['first_name'],$fiuCsUser['last_name'],$picture,$mesg,$phone,$city,$state,$about_me);
                                 return;
                             }
                             else {
@@ -1128,20 +1172,23 @@ class ProfileController extends Controller
             // check that there is no duplicate id
             $duplicateUser = User::model()->findByAttributes(array('fiu_account_id'=>$user_id));
             if ($duplicateUser != null) {
-                $error = 'User FIU account is already linked with another account.';
-                $this->redirect(array('user/StudentRegister', 'error'=>$error,));
+                $this->actionDuplicationError();
                 return;
             }
 
             $username = Yii::app()->user->name;
             $userLink = User::model()->find("username=:username",array(':username'=>$username));
-            //$user->image_url = $data->{'picture-urls'}->{'picture-url'}[0];//$data->{'picture-url'};
             $userLink->fiu_account_id = $user_id;
-            $userLink->image_url = $user['picture'];
             $userLink->save(false);
 
-            $this->redirect('/JobFair/index.php/profile/view');
-
+            //get variables
+            $mesg = "FIU Email";
+            $phone = null;
+            $city = null;
+            $state = null;
+            $about_me = null;
+            $this->actionLinkToo($email,$user['given_name'],$user['family_name'],$user['picture'],$mesg,$phone,$city,$state,$about_me);
+            return;
         }
 		else // user logged in succesfully to google, now check if we register or login to JobFair
 		{
@@ -1177,7 +1224,6 @@ class ProfileController extends Controller
 
                     //populate db
                     $duplicateUser->fiu_account_id = $user_id;
-                    $duplicateUser->image_url = $user['picture'];
                     $duplicateUser->save(false);
 
                     if ($duplicateUser->disable != 1)
@@ -1186,8 +1232,13 @@ class ProfileController extends Controller
                         if ($identity->authenticateOutside()) {
                             Yii::app()->user->login($identity);
                         }
+                        //get variables
                         $mesg = "FIU Email";
-                        $this->actionLinkNotification($mesg);
+                        $phone = null;
+                        $city = null;
+                        $state = null;
+                        $about_me = null;
+                        $this->actionLinkToo($email,$user['given_name'],$user['family_name'],$user['picture'],$mesg,$phone,$city,$state,$about_me);
                         return;
                     }
                     else {
@@ -1225,25 +1276,113 @@ class ProfileController extends Controller
 		}
 
 	}
-    public function actionLinkToo()
+    public function actionLinkToo($email, $first_name, $last_name, $picture,$mesg,$phone,$city,$state,$about_me)
     {
-        $link = true;
         $model = new LinkTooForm();
-        $this->render('LinkToo', array('model'=>$model));
+        $this->render('LinkToo', array('model'=>$model, 'email'=>$email, 'first_name'=>$first_name,'last_name'=>$last_name,
+            'picture'=>$picture, 'mesg'=>$mesg , 'phone'=>$phone, 'city'=>$city, 'state'=>$state, 'about_me'=>$about_me));
 
-        //return $link;
+        return;
     }
+    public function actionUserChoice()
+    {
+
+        if(isset($_POST['LinkTooForm']))
+        {
+            $user = User::getCurrentUser();
+            $basic_info = BasicInfo::model()->findByAttributes(array('userid'=>$user->id));
+
+            $model = new LinkTooForm();
+            $model->attributes = $_POST['LinkTooForm'];
+            $mesg = $model->toPost;
+
+            if($model->profilePic != null){
+                $user->image_url = $model->profilePic;
+                $user->save(false);
+            }
+            if($model->profilePicVar != null){
+                $user->image_url = $model->profilePicVar;
+                $user->save(false);
+            }
+            if($model->firstname != null){
+                $user->first_name = $model->firstname;
+                $user->save(false);
+            }
+            if($model->firstnamevar != null){
+                $user->first_name = $model->firstnamevar;
+                $user->save(false);
+            }
+            if($model->lastname != null){
+                $user->last_name = $model->lastname;
+                $user->save(false);
+            }
+            if($model->lastnamevar != null){
+                $user->last_name = $model->lastnamevar;
+                $user->save(false);
+            }
+            if($model->email != null){
+                $user->email = $model->email;
+                $user->save(false);
+            }
+            if($model->emailvar != null){
+                $user->email = $model->emailvar;
+                $user->save(false);
+            }
+            if($model->phone != null){
+                $basic_info->phone = $model->phone;
+                $basic_info->save(false);
+            }
+            if($model->phonevar != null){
+                $basic_info->phone = $model->phonevar;
+                $basic_info->save(false);
+            }
+            if($model->city != null){
+                $basic_info->city = $model->city;
+                $basic_info->save(false);
+            }
+            if($model->cityvar != null){
+                $basic_info->city = $model->cityvar;
+                $basic_info->save(false);
+            }
+            if($model->state != null){
+                $basic_info->state = $model->state;
+                $basic_info->save(false);
+            }
+            if($model->statevar != null){
+                $basic_info->state = $model->statevar;
+                $basic_info->save(false);
+            }
+            if($model->about_me != null){
+                $basic_info->about_me = $model->about_me;
+                $basic_info->save(false);
+            }
+            if($model->about_me_var != null){
+                $basic_info->about_me = $model->about_me_var;
+                $basic_info->save(false);
+            }
+
+        }
+
+
+        Yii::app()->end();
+    }
+
+
     public function actionLinkNotification($mesg)
     {
         $model = new LinkTooForm();
         $this->render('LinkNotification', array('model'=>$model, 'mesg'=>$mesg));
     }
-    public function actionLinkNotification2()
+    public function actionBlankPage()
+    {
+        $this->render('BlankPage');
+        return;
+    }
+    public function actionDuplicationError()
     {
         $model = new LinkTooForm();
-        $this->render('LinkNotification2', array('model'=>$model));
+        $this->render('duplicationError', array('model'=>$model));
     }
-
 
 
 
