@@ -10,12 +10,14 @@
 /* @var $state   */
 /* @var $about_me   */
 ?>
-
-<br/><br/>
-<h2>Merge conflict(s) found</h2><br>
-<h3>Choose the one you want to keep:</h3><br>
-
     <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('#saveQmodal').modal('show');
+
+        });
+
+
         //data = $data;
         function formSend(form, data, hasError)
         {
@@ -41,6 +43,15 @@
         }
 
     </script>
+
+<!--Modal-->
+<div class="modal hide fade" id="saveQmodal" tabindex="-1">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Merge conflict(s) found</h4>
+        </div>
+        <div class="modal-body">
+            Choose the one you want to keep: <br>
 
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -71,7 +82,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         echo 'Choose your profile picture';
         $image =CHtml::image($picture,'', array('width'=>100, 'height'=>60));
         $user_image =CHtml::image($user->image_url,'', array('width'=>100, 'height'=>60));
-        echo $form->radioButtonList($model, 'profilePic',array( $user->image_url=> $user_image, $picture=>$image));
+        $model->profilePic = $user->image_url;
+        echo $form->radioButtonList($model, 'profilePic',array( $user->image_url=> $user_image, $picture=>$image), array('checked'=>1));
         echo '<br/>';
     }
     if($user->image_url == null){
@@ -82,6 +94,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     if(($first_name!= null)&&($user->first_name != null)&&($first_name != $user->first_name)){
         $nothing = true;
         echo 'Choose your first name:';
+        $model->firstname = $user->first_name;
         echo $form->radioButtonList($model, 'firstname', array($user->first_name=>$user->first_name, $first_name=>$first_name));
         echo '<br/>';
     }
@@ -93,6 +106,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     if(($last_name!= null)&&($user->last_name != null)&&($last_name != $user->last_name)){
         $nothing = true;
         echo 'Choose your last name:';
+        $model->lastname = $user->last_name;
         echo $form->radioButtonList($model, 'lastname', array($user->last_name=>$user->last_name,$last_name=>$last_name));
         echo '<br/>';
     }
@@ -104,6 +118,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     if(($email != null)&&($user->email != null)&&($email != $user->email)){
         $nothing = true;
         echo 'Choose the Email you want to keep:';
+        $model->email = $user->email;
         echo $form->radioButtonList($model, 'email', array($user->email=>$user->email,$email=>$email));
         echo '<br/>';
     }
@@ -116,6 +131,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     if(($phone != null)&&($basic_info->phone != null)&&($phone != $basic_info->phone)){
         $nothing = true;
         echo 'Choose the phone number you want to keep:';
+        $model->phone = $basic_info->phone;
         echo $form->radioButtonList($model, 'phone', array($basic_info->phone=>$basic_info->phone,$phone=>$phone));
         echo '<br/>';
     }
@@ -128,6 +144,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     if(($city != null)&&($basic_info->city != null)&&($city != $basic_info->city)){
         $nothing = true;
         echo 'Choose your city:';
+        $model->city = $basic_info->city;
         echo $form->radioButtonList($model, 'city', array($basic_info->city=>$basic_info->city,$city=>$city));
         echo '<br/>';
     }
@@ -140,6 +157,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     if(($state != null)&&($basic_info->state != null)&&($state != $basic_info->state)){
         $nothing = true;
         echo 'Choose your state:';
+        $model->state = $basic_info->state;
         echo $form->radioButtonList($model, 'state', array($basic_info->state=>$basic_info->state,$state=>$state));
         echo '<br/>';
     }
@@ -152,6 +170,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     if(($about_me != null)&&($basic_info->about_me != null)&&($about_me != $basic_info->about_me)){
         $nothing = true;
         echo 'Say something about you:';
+        $model->about_me = $basic_info->about_me;
         echo $form->radioButtonList($model, 'about_me', array($basic_info->about_me=>$basic_info->about_me,$about_me=>$about_me));
         echo '<br/>';
     }
@@ -169,10 +188,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     //messages to show completion
     echo $form->checkBoxListRow($model, 'toPost',array() , array('type'=>"hidden"));
     echo $form->hiddenField( $model, 'toPost',array('value'=>$mesg));
-?><br>
+?>
 
+
+</div>
+<div class="modal-footer">
     <?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'primary',
-        'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Submit')); ?>
+        'size' => 'normal', 'buttonType'=>'submit', 'label'=>'Fix Conflicts')); ?>
 
-<?php $this->endWidget(); ?>
-
+    <?php $this->endWidget(); ?>
+</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal -->

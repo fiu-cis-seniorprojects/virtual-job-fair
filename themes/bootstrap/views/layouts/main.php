@@ -88,7 +88,7 @@
             'items'=>   array('-',
                         array('label'=>'('.Yii::app()->user->name.')', 'url'=>'#', 'items'=>array(
                         array('label'=>'My Profile', 'url'=>array($profile), 'visible'=>!Yii::app()->user->isGuest & !User::isCurrentUserAdmin(Yii::app()->user->name)),
-                        array('label'=>'Merge Accounts','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/MergeAccounts'),
+                        array('label'=>'Merge Accounts','visible'=>(User::isCurrentUserStudent(Yii::app()->user->name)), 'url'=>'/JobFair/index.php/user/MergeAccounts'),
                         array('label'=>'Change Password','visible'=>!Yii::app()->user->isGuest, 'url'=>'/JobFair/index.php/user/ChangePassword'),
                         array('label'=>'API Configuration','visible'=>(User::isCurrentUserAdmin(Yii::app()->user->name)), 'url'=>'/JobFair/index.php/ApiConfig/home'),
 

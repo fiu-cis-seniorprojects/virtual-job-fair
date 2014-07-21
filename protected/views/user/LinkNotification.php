@@ -3,8 +3,22 @@
 /* @var $mesg messageLink */
 ?>
 
-<br><br>
-<br><br>
+<script type="text/javascript">
+$(document).ready(function()
+{
+    $('#saveQmodal').modal('show');
+
+});
+
+</script>
+
+<div class="modal hide fade" id="saveQmodal" tabindex="-1">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">Congratulations!!!</h4>
+    </div>
+    <div class="modal-body">
+
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'link-to',
@@ -16,17 +30,20 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'htmlOptions'=>array('class'=>'well'),
 ));
 ?>
-
-<br>
-<h2>Congratulations!!!</h2>
 <?php
 echo "Your " .$mesg. " account has been linked to your profile.";
-?><br><br>
-<?php $this->widget('bootstrap.widgets.TbButton', array(
-    'buttonType'=>'link',
-    'type'=>'primary',
-    'label'=>'View my Profile',
-    'url'=>'../../../profile/view'
-)); ?><br><br>
+?>
 
-<?php $this->endWidget(); ?>
+    </div>
+        <div class="modal-footer">
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                'buttonType'=>'link',
+                'type'=>'primary',
+                'label'=>'View my Profile',
+                'url'=>'../../../profile/view'
+            )); ?>
+
+            <?php $this->endWidget(); ?>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->
