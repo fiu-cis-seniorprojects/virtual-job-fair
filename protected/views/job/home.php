@@ -48,8 +48,12 @@ if (!isset($_GET['city'])) {
     {
         var leng = document.getElementById("tagName").value.length;
 
-        if(leng == 0 ){ alert("Name CANNOT be left empty.\n" + "Please try again!");}
-        if(leng > 25){ alert("Name length CANNOT be greater than 25 characters.\n" + "Please try again!"); }
+        if(leng == 0 ){
+           $('#alertEmpty').show();
+        }
+        if(leng > 25){
+            $('#alertBig').show();
+        }
         if(leng > 0 && leng < 25)
         {
             document.getElementById("searchForm").action = "/JobFair/index.php/job/savequery";
@@ -57,10 +61,20 @@ if (!isset($_GET['city'])) {
         }
     }
 
+    function hideError()
+    {
+        $('#alertEmpty').hide();
+        $('#alertBig').hide();
+    }
+
     $(document).on('click', '#saveBT', saveQuery);
+
+    $(document).on('click', '#btClose', hideError);
 
     $(document).ready(function() {
 
+        $('#alertEmpty').hide();
+        $('#alertBig').hide();
         var isChecked = $('#radioOption').is(':checked');
         $("#city").hide();
         $(document).on('click', '#radioOption', create);
@@ -206,9 +220,15 @@ function getURLParameter(name) {
                                 'style'=>'width: 200px;'),)); ?>
                         <br>
                         <strong>Remember to check profile settings to set preference. </strong>
+                        <div id="alertEmpty" class="alert alert-error">
+                            <strong>Error!</strong> The name cannot be left empty. Please try again.
+                        </div>
+                        <div id="alertBig" class="alert alert-error">
+                            <strong>Error!</strong> The name cannot be greater then 25 characters. Please try again.
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="btClose" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary" id="saveBT" value="true">Save name</button>
                     </div>
                 </div><!-- /.modal-content -->
