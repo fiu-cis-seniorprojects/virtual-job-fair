@@ -30,7 +30,7 @@ body{
     margin-right: auto;
 }
 
-#lab2 {
+lab2 {
 font-weight: bold;
 display: inline-block;
 width: 120px;
@@ -831,7 +831,7 @@ opacity: 1.5;
 }
 
 .tb5 {
-	height: 12px!important;
+	height: 15px!important;
 	min-width:30px!important;
 	width:300px!important;
 	border:0px!important;
@@ -893,7 +893,7 @@ opacity: 1.5;
 	width:100%;
 }
 
-.jobtitle{
+jobtitle{
 	font-weight:bold;
 	display: inline-block;
     zoom: 1;
@@ -924,7 +924,7 @@ lab{
 	clear: both;
 }
 
-.lab2{
+lab2{
 	font-weight:bold;
 	display: inline-block;
     width: 150px;
@@ -933,7 +933,7 @@ lab{
 	float:left;
 	clear: both;
 }
-.lab3{
+lab3{
 	display: inline-block;
     width: 150px;
     zoom: 1;
@@ -942,7 +942,7 @@ lab{
 	clear: both;
 	margin-top: -10px
 }
-.jobdetail{
+jobdetail{
 	font-weight:bold;
 	display: inline-block;
     width: 100px;
@@ -951,7 +951,7 @@ lab{
 	float:left;
 	clear: both;
 }
-.aboutme{
+aboutme{
 
     width: 370px;
     zoom: 1;
@@ -1002,9 +1002,8 @@ font-size:18px;
 }
 
 
-
 .school{
-	height: 12px!important;
+	height: 15px!important;
 
 	width: 420px!important;
 	border:0px!important;
@@ -1028,15 +1027,14 @@ font-size:18px;
 		
 }
 
-.schoolDetail{
-	
+schoolDetail{
 	padding-left:10px;
 }
 h3{
 	font-size:20px!important;
 	line-height: 0!important;
 }
-.experience{
+experience{
 	font-weight:bold;
 	display: inline-block;
     width: 630px;
@@ -1605,7 +1603,7 @@ div.nav ul
 	top:1px;
 }
 
-.matchlab{
+matchlab{
 	font-weight:bold;
 	display: inline-block;
     width: 80px;
