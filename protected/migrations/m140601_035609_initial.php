@@ -365,9 +365,9 @@ class m140601_035609_initial extends CDbMigration
 
         // default users, pass is 123456 for each
         $this->execute("
-        INSERT INTO `user` VALUES   (1,'student1','\$2a\$08\$uIjjONcbol5mPr0sa.kzY.6JWHRU3GoKmhKUNzjNaA./oQEfFzmpy',1,'student1@mail.com','2014-06-10 06:57:27','',1,'/JobFair/images/profileimages/avatarsmall.gif','Student','One',NULL,NULL,NULL,NULL,NULL,NULL),
-                                    (2,'admin','\$2a\$08\$uIjjONcbol5mPr0sa.kzY.6JWHRU3GoKmhKUNzjNaA./oQEfFzmpy',3,'admin@mail.com','2014-06-10 06:57:27','',1,'/JobFair/images/profileimages/avatarsmall.gif','Admin','Admin',NULL,NULL,NULL,NULL,NULL,NULL),
-                                    (3,'employer1','\$2a\$08\$8lGICd9kmq7vnjBaTM6HzOlRVzmzuvDxjkxHNSd7IyU9KRJfEUkry',2,'employer1@mail.com','2014-06-10 07:12:37','',1,'/JobFair/images/profileimages/avatarsmall.gif','Employer','One',NULL,NULL,NULL,NULL,NULL,0);
+        INSERT INTO `user` VALUES   (1,'student1','\$2a\$08\$uIjjONcbol5mPr0sa.kzY.6JWHRU3GoKmhKUNzjNaA./oQEfFzmpy',1,'student1@mail.com','2014-06-10 06:57:27','',1,'/JobFair/images/profileimages/user-default.png','Student','One',NULL,NULL,NULL,NULL,NULL,NULL),
+                                    (2,'admin','\$2a\$08\$uIjjONcbol5mPr0sa.kzY.6JWHRU3GoKmhKUNzjNaA./oQEfFzmpy',3,'admin@mail.com','2014-06-10 06:57:27','',1,'/JobFair/images/profileimages/user-default.png','Admin','Admin',NULL,NULL,NULL,NULL,NULL,NULL),
+                                    (3,'employer1','\$2a\$08\$8lGICd9kmq7vnjBaTM6HzOlRVzmzuvDxjkxHNSd7IyU9KRJfEUkry',2,'employer1@mail.com','2014-06-10 07:12:37','',1,'/JobFair/images/profileimages/user-default.png','Employer','One',NULL,NULL,NULL,NULL,NULL,0);
 
         ");
 

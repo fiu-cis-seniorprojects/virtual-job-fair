@@ -76,7 +76,7 @@ $user = User::getCurrentUser();
 	<br>
 	<?php foreach ($job->applications as $application) {?>
 		<?php $applicant = User::getUser($application->userid);?>
-		<a  style="margin:0px 10px 0px 10px;; display:block" href="/JobFair/index.php/profile/student/user/<?php echo $applicant->username ?>"> <img src='/JobFair/images/imgs/avatarsmall.gif' height="20" width="20"/> <?php echo $applicant->first_name . $applicant->last_name;?></a><br>
+		<a  style="margin:0px 10px 0px 10px;; display:block" href="/JobFair/index.php/profile/student/user/<?php echo $applicant->username ?>"> <img src='/JobFair/images/imgs/user-default.png' height="20" width="20"/> <?php echo $applicant->first_name . $applicant->last_name;?></a><br>
 	<?php }?>
 	</div>
 	<br/>

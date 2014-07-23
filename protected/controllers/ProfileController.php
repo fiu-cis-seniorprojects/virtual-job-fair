@@ -78,9 +78,14 @@ class ProfileController extends Controller
 
     public function actionSaveInterest()
     {
-       // var_dump($_GET);die;
+        //var_dump($_GET);die;
+        $suc = false;
         $username = Yii::app()->user->name;
-        $date = $_GET['day'];
+         if(isset($_GET['day']))
+        {
+            $date = $_GET['day'];
+        }
+        else{ $date = 0; }
 
         $model = User::model()->find("username=:username",array(':username'=>$username));
         $model->job_int_date = $date;
@@ -89,12 +94,18 @@ class ProfileController extends Controller
         $savedQ = SavedQuery::model()->findAll("FK_userid=:id",array(':id'=>$model->id));
         foreach($savedQ as $sq)
         {
-            if(isset($_GET[$sq->query_tag]))
+            if(isset($_GET[$sq->id]))
             {
                 $sq->active = 1;
                 $sq->save(false);
             }
+            if(!isset($_GET[$sq->id]))
+            {
+                $sq->active = 0;
+                $sq->save(false);
+            }
         }
+        $suc = true;
         $this->redirect('/JobFair/index.php/profile/view');
     }
 
@@ -697,7 +708,7 @@ class ProfileController extends Controller
 			$new_skill = new Skillset();
 			$new_skill->name = $data->skills->skill[$i]->skill->name;
 			$new_skill->save(false);
-			echo 'New Skill ' . $new_skill->attributes;
+			//echo 'New Skill ' . $new_skill->attributes;
 	   		}
 					 
 		   	// check if student has that skill, if not add it to student-skill-map table
@@ -708,7 +719,7 @@ class ProfileController extends Controller
 			$new_sdnt_skill->skillid = Skillset::model()->findByAttributes(array('name'=>$data->skills->skill[$i]->skill->name))->id;
 			$new_sdnt_skill->ordering = $i + 1;
 			$new_sdnt_skill->save(false);
-			echo 'New Skill for student' . $new_sdnt_skill->attributes;
+			//echo 'New Skill for student' . $new_sdnt_skill->attributes;
 			}
 	} 
 	// ----------------------SKILLS----------------------

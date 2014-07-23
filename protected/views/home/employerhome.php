@@ -82,7 +82,7 @@ color: rgb(129, 126, 126);">Applied: <?php echo $countapp?> candidates</span></a
 							foreach ($apps as $app) {
 							$auser= User::model()->findByAttributes(array('id' => $app->userid));
 							?>
-							<a class="applicants" href="/JobFair/index.php/profile/student/user/<?php echo $auser->username;?>" target="_blank" > <img src='/JobFair/images/imgs/avatarsmall.gif' height="20" width="20"/> <?php echo $auser->first_name . " " . $auser->last_name?></a>
+							<a class="applicants" href="/JobFair/index.php/profile/student/user/<?php echo $auser->username;?>" target="_blank" > <img src='/JobFair/images/imgs/user-default.png' height="20" width="20"/> <?php echo $auser->first_name . " " . $auser->last_name?></a>
 							
 							<?php 
 							}
