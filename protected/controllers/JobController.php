@@ -146,7 +146,7 @@ class JobController extends Controller
             }
          }
 
-        $this->redirect("/JobFair/index.php/job/view");
+        $this->redirect("/JobFair/index.php/job/home");
     }
 
 
