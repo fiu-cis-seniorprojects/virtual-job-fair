@@ -8,13 +8,14 @@ class JobMatchCommand extends CConsoleCommand {
         $str .= "\t-i\tTime Interval in days. Used in parallel with cronjob schedule. Accepted values [1, 7, 30] days.\n";
         $str .= "\t-e\tRegistered user email address. Must be used with -u switch.\n";
         $str .= "\t-u\tRegistered user username. Must be used with -e switch.\n";
+        $str .= "\t-m \tSend employers job matching results email.\n";
         $str .= "\t-h --help\tThis output.\n";
         $str .= "Ex.: ./yiic jobmatch -i 1\tSends users job match notifications every day if configured in user profile.\n";
         echo $str;
         exit;
     }
 
-    public function buildTable($type, $ar)
+    public function buildTable($type, $ar, $interval)
     {
         $flag = 0;
         $color = "#D1E5F6";
@@ -43,85 +44,122 @@ class JobMatchCommand extends CConsoleCommand {
         }
         elseif($type == 'student_custom')
         {
-            foreach($ar as $site=>$varr)
+            $table .= CHtml::openTag('tr', array('bgcolor'=>$color, 'align'=>'center'));
+            $table .= CHtml::tag('td', array(), 'Job Title');
+            $table .= CHtml::tag('td', array(), 'Posted');
+            $table .= CHtml::tag('td', array(), 'Source');
+            $table .= CHtml::tag('td', array(), 'Job Details');
+            $table .= CHtml::tag('td', array(), 'Posted Recently');
+            $table .= CHtml::closeTag('tr');
+            #let's intercalate array elements
+            $cb = (isset($ar['careerbuilder'])) ? array_slice($ar['careerbuilder'], 1) : null;
+            $indeed = (isset($ar['indeed'])) ? $ar['indeed']['results']['result'] : null;
+            $cp = (isset($ar['careerpath'])) ? $ar['careerpath'] : null;
+            $cb_count = $indeed_count = $cp_count = 0;
+            $cmp_time_cb = $cmp_time_indeed = $cmp_time_cp = "";
+            $cmp_time = strtotime('- ' . strval($interval) . ' day');
+            if($cb != null and count($cb) > 0)
+            {
+                $cb_count = count($cb);
+            }
+            if($indeed != null && count($indeed) > 0)
+            {
+                $indeed_count = count($indeed);
+            }
+            if($cp != null && count($cp) > 0)
+            {
+                $cp_count = count($cp);
+            }
+            $max = 0;
+            if($cb_count > $indeed_count)
+            {
+                $max = $cb_count;
+            }
+            if($max < $cp_count)
+            {
+                $max = $cp_count;
+            }
+            if($max == 0)
             {
                 $table .= CHtml::openTag('tr', array('bgcolor'=>$color, 'align'=>'center'));
-                $table .= CHtml::tag('td', array('bgcolor'=>$color, 'align'=>'center', 'colspan'=>3), $site);
+                $table .= CHtml::tag('td', array('bgcolor'=>$color, 'align'=>'center', 'colspan'=>5), "No Matches Found");
                 $table .= CHtml::closeTag('tr');
-                $table .= CHtml::openTag('tr', array('bgcolor'=>$color, 'align'=>'center'));
-                $table .= CHtml::tag('td', array(), 'Job Title');
-                $table .= CHtml::tag('td', array(), 'Posted');
-                $table .= CHtml::tag('td', array(), 'Job Details');
-                $table .= CHtml::closeTag('tr');
-                if(count($varr) == 0)
+                $table .= CHtml::closeTag('table');
+                return $table;
+            }
+            for($i = 0; $i < $max; $i++)
+            {
+                $job_date = null;
+                if($i < $cb_count)
                 {
-                    continue;
-                }
-                if($site == 'careerbuilder')
-                {
-                    if(count($varr) > 0)
+                    $newpost = "";
+                    $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
+                    $job = (array)$cb[$i];
+                    $lnk = CHtml::link('here', $job['jobDetailsURL']);
+                    $table .= CHtml::tag('td', array(), $job['title']);
+                    $table .= CHtml::tag('td', array(), $job['posted']);
+                    $table .= CHtml::tag('td', array(), "CarrerBuilder");
+                    if(strtotime($job['posted']) >= $cmp_time)
                     {
-                        for($i = 1; $i < count($varr); $i++)
-                        {
-                            $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
-                            $job = (array)$varr[$i];
-                            $lnk = CHtml::link('here', $job['jobDetailsURL']);
-                            $table .= CHtml::tag('td', array(), $job['title']);
-                            $table .= CHtml::tag('td', array(), $job['posted']);
-                            $table .= CHtml::tag('td', array(), $lnk);
-                            $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
-                            $flag += 1;
-                            $table .= CHtml::closeTag('tr');
-                        }
+                        $newpost = "YES";
                     }
+                    $table .= CHtml::tag('td', array(), $lnk);
+                    $table .= CHtml::tag('td', array(), $newpost);
+                    $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
+                    $flag += 1;
+                    $table .= CHtml::closeTag('tr');
                 }
-                elseif($site == 'indeed')
+                if($i < $indeed_count)
                 {
-                    $jobs_arr = $varr['results']['result'];
-                    $jobs_count = intval($varr['totalresults']);
-                    if($jobs_count > 0)
+                    $newpost = "";
+                    if($indeed_count == 1)
                     {
-                        if($jobs_count == 1)
-                        {
-                            $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
-                            $lnk = CHtml::link('here', $jobs_arr['url']);
-                            $table .= CHtml::tag('td', array(), $jobs_arr['jobtitle']);
-                            $table .= CHtml::tag('td', array(), $jobs_arr['date']);
-                            $table .= CHtml::tag('td', array(), $lnk);
-                            $table .= CHtml::closeTag('tr');
-                        }
-                        else
-                        {
-                            foreach($jobs_arr as $job)
-                            {
-                                $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
-                                $lnk = CHtml::link('here', $job['url']);
-                                $table .= CHtml::tag('td', array(), $job['jobtitle']);
-                                $table .= CHtml::tag('td', array(), $job['date']);
-                                $table .= CHtml::tag('td', array(), $lnk);
-                                $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
-                                $flag += 1;
-                                $table .= CHtml::closeTag('tr');
-                            }
-                        }
+                        $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
+                        $lnk = CHtml::link('here', $indeed['url']);
+                        $table .= CHtml::tag('td', array(), $indeed['jobtitle']);
+                        $table .= CHtml::tag('td', array(), $indeed['date']);
+                        $table .= CHtml::tag('td', array(), "Indeed");
+                        $job_date = strtotime($indeed['date']);
                     }
+                    else
+                    {
+                        $job = $indeed[$i];
+                        $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
+                        $lnk = CHtml::link('here', $job['url']);
+                        $table .= CHtml::tag('td', array(), $job['jobtitle']);
+                        $table .= CHtml::tag('td', array(), $job['date']);
+                        $table .= CHtml::tag('td', array(), "Indeed");
+                        $job_date = strtotime($job['date']);
+                    }
+                    if($job_date >= $cmp_time)
+                    {
+                        $newpost = "YES";
+                    }
+                    $table .= CHtml::tag('td', array(), $lnk);
+                    $table .= CHtml::tag('td', array(), $newpost);
+                    $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
+                    $flag += 1;
+                    $table .= CHtml::closeTag('tr');
                 }
-                else
+                if($i < $cp_count)
                 {
-                    if(count($varr) > 0)
+                    $newpost = "";
+                    $job = $cp[$i];
+                    $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
+                    $lnk = CHtml::link('here', Yii::app()->request->hostInfo . "/JobFair/index.php/job/view/jobid/".$job["id"]);
+                    $table .= CHtml::tag('td', array(), $job['title']);
+                    $table .= CHtml::tag('td', array(), $job['post_date']);
+                    $job_date = strtotime($job['post_date']);
+                    $table .= CHtml::tag('td', array(), "CarrerPath");
+                    if($job_date >= $cmp_time)
                     {
-                        foreach($varr as $job)
-                        {
-                            $table .= CHtml::openTag('tr', array('bgcolor'=>$color));
-                            $lnk = CHtml::link('here', Yii::app()->request->hostInfo . "/JobFair/index.php/job/view/jobid/".$job["id"]);
-                            $table .= CHtml::tag('td', array(), $job['title']);
-                            $table .= CHtml::tag('td', array(), $job['post_date']);
-                            $table .= CHtml::tag('td', array(), $lnk);
-                            $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
-                            $flag += 1;
-                            $table .= CHtml::closeTag('tr');
-                        }
+                        $newpost = "YES";
                     }
+                    $table .= CHtml::tag('td', array(), $lnk);
+                    $table .= CHtml::tag('td', array(), $newpost);
+                    $color = ($flag%2 == 0) ? "#FFFFFF" : "#D1E5F6";
+                    $flag += 1;
+                    $table .= CHtml::closeTag('tr');
                 }
             }
         }
@@ -162,16 +200,17 @@ class JobMatchCommand extends CConsoleCommand {
         $new_active_user = false;
         $nau_info = array();
         $interval = 0;
-
+        $send_empl = false;
         $switches = Array(
             "-u",
             "-e",
             "-i",
             "-h",
+            "-m",
             "--help"
         );
 
-        if(count($args) > 0)
+        if(count($args) > 0)    #TODO: This is not the best way to parse arguments. Migrate implementation to "$this->resolveRequest" or updagrade CConsoleCommand for better getopt support.
         {
             for($j = 0; $j < count($args); $j++)
             {
@@ -182,6 +221,9 @@ class JobMatchCommand extends CConsoleCommand {
                         case "-u":
                             $new_active_user = true;
                             $nau_info['username'] = $args[$j+1];
+                            break;
+                        case "-m":
+                            $send_empl = true;
                             break;
                         case "-e":
                             $new_active_user = true;
@@ -203,6 +245,10 @@ class JobMatchCommand extends CConsoleCommand {
                 }
             }
         }
+        else
+        {
+            $this->getHelp();
+        }
         $now = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
         $time = date('H:i:s');
@@ -223,7 +269,7 @@ class JobMatchCommand extends CConsoleCommand {
                         $results = Yii::app()->jobmatch->getStudentMatchJobs(intval($student['id']), $jobs);
                         if(count($results) > 0)
                         {
-                            $message .= $this->buildTable('student', $results);
+                            $message .= $this->buildTable('student', $results, $interval);
                             User::sendEmail($student->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
                         }
                         return;
@@ -234,6 +280,7 @@ class JobMatchCommand extends CConsoleCommand {
             }
             echo "[*] Job Matching Notification is ON\n";
             $jobs = Job::model()->findAll("post_date > '$pasttime' AND active = 1");
+            #Add fecthing for user not active or validated
             $students = User::model()->findAll("FK_usertype = 1 AND job_notification = 1 AND looking_for_job = 1");
             echo "\n::::::::::::::::::::\n[*] Matching jobs for students.\n";
             foreach($students as $st)
@@ -241,26 +288,24 @@ class JobMatchCommand extends CConsoleCommand {
                 $message = "";
                 $results = Array();
                 $saved_queries = SavedQuery::model()->findAll("FK_userid=:id AND active = 1", array(':id'=>$st->id));
-                if(count($saved_queries) > 0 && $interval > 0)
+                if(count($saved_queries) > 0 && ($interval == intval($st->job_int_date)) && $interval > 0)
                 {
-                    if($interval == intval($st->job_int_date))
+                    $word = "query";
+                    if(count($saved_queries) > 1)
                     {
-                        $word = "query";
-                        if(count($saved_queries) > 1)
-                        {
-                            $word = "queries";
-                        }
-                        $message .= "Jobs matching your custom $word:<br/>";
-                        foreach($saved_queries as $query)
-                        {
-                            $results = Yii::app()->jobmatch->customJobSearch($query->query, $query->location);
-                            $message .= "Matches for query [$query->query]<br/>";
-                            $message .= $this->buildTable('student_custom', $results);
-                            $message .= "<br/>";
-                        }
-                        echo "[*] Sending email to $st->email\n";
-                        User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
+                        $word = "queries";
                     }
+                    $message .= "Jobs matching your custom $word:<br/>";
+                    foreach($saved_queries as $query)
+                    {
+                        $results = Yii::app()->jobmatch->customJobSearch($query->query, $query->location);
+                        $message .= "Matches for query [$query->query]<br/>";
+                        $message .= $this->buildTable('student_custom', $results, $interval);
+                        $message .= "<br/>";
+                    }
+                    echo "[*] Sending custom search job results email to: $st->email\n";
+                    User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
+
                 }
                 else
                 {
@@ -268,36 +313,39 @@ class JobMatchCommand extends CConsoleCommand {
                     if(count($results) > 0)
                     {
                         $message .= "The following jobs matched with your skills:<br/>";
-                        $message .= $this->buildTable('student', $results);
-                        echo "[*] Sending email to $st->email\n";
+                        $message .= $this->buildTable('student', $results, $interval);
+                        echo "[*] Sending skill matches results email to: $st->email\n";
                         User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
                     }
                 }
 
             }
-            foreach($jobs as $job)
+            if($send_empl)
             {
-                $message = "";
-                $job_poster_info = User::model()->findByPk($job->FK_poster);
-                if(!$job_poster_info->job_notification)
+                foreach($jobs as $job)
                 {
-                    echo "[*] Employer $job_poster_info->username has notifications OFF\n";
-                    continue;
+                    $message = "";
+                    $job_poster_info = User::model()->findByPk($job->FK_poster);
+                    if(!$job_poster_info->job_notification)
+                    {
+                        echo "[*] Employer $job_poster_info->username has notifications OFF\n";
+                        continue;
+                    }
+                    $job_poster_email = $job_poster_info->email;
+                    echo "\n[*] Working on jobid $job->id : $job->title\n";
+                    $results = Yii::app()->jobmatch->getJobStudentsMatch($job->id);
+                    if(count($results) == 0)
+                    {
+                        echo "[*] No student matches found\n";
+                        continue;
+                    }
+                    $message .= "The following students matched this job posting:<br/>";
+                    $table = $this->buildTable('', $results, $interval);
+                    $message .= $table;
+                    echo $this->replaceTags($message);
+                    echo "[*] Sending email to $job_poster_email\n";
+                    User::sendEmail($job_poster_email, "Virtual Job Fair | Job Matches", "Job Matches for $job->title", $message);
                 }
-                $job_poster_email = $job_poster_info->email;
-                echo "\n[*] Working on jobid $job->id : $job->title\n";
-                $results = Yii::app()->jobmatch->getJobStudentsMatch($job->id);
-                if(count($results) == 0)
-                {
-                    echo "[*] No student matches found\n";
-                    continue;
-                }
-                $message .= "The following students matched this job posting:<br/>";
-                $table = $this->buildTable('', $results);
-                $message .= $table;
-                echo $this->replaceTags($message);
-                echo "[*] Sending email to $job_poster_email\n";
-                User::sendEmail($job_poster_email, "Virtual Job Fair | Job Matches", "Job Matches for $job->title", $message);
             }
             return 0;
         }
