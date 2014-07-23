@@ -14,13 +14,13 @@ $user = User::getCurrentUser();
 
    $(function() {
 
-       $('#applybutton').bind('click', function(e) {
-
-           e.preventDefault();
-           $('#applybox').bPopup();
-
-           $('#applybox').show();
-       });
+//       $('#applybutton').bind('click', function(e) {
+//
+//           e.preventDefault();
+//           $('#applybox').bPopup();
+//
+//           $('#applybox').show();
+//       });
 
    });
   
@@ -141,7 +141,7 @@ $deadline = strtotime($job->deadline);
 		<p>You have already applied</p>
 	<?php } elseif ($job->active) {?>
 	<?php //href="/JobFair/index.php/Job/Apply/jobid/<?php echo $job->id?>
-		<a id="applybutton" class="btn btn-primary" > Apply</a>
+<!--		<a id="applybutton" class="btn btn-primary" > Apply</a>-->
 	<?php } else {?>
 		<p>This posting is closed</p>
 		<?php //echo Yii::app()->getBaseUrl(true);?>
