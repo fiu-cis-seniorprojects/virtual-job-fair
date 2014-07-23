@@ -127,7 +127,7 @@ class ApiConfigController extends Controller
                 $new_user->username = $user_name;
                 $new_user->FK_usertype = 2; // employer type
                 $new_user->registration_date = new CDbExpression('NOW()');
-                $new_user->image_url = '/JobFair/images/profileimages/avatarsmall.gif';
+                $new_user->image_url = '/JobFair/images/profileimages/user-default.png';
 
                 // hash the password before storing it into the database
                 $new_user->password = $hasher->HashPassword($new_user->password);

@@ -36,6 +36,14 @@ if (!isset($_GET['city'])) {
 
 ?>
 
+
+<?php if (isset($suc) && $suc == true) { var_dump("here");die;?>
+    $('#saveSuc').show();
+<?php } ?>
+<?php if (isset($suc) && $suc == false) { ?>
+    $('#saveErr').show();
+<?php } ?>
+
 <script>
 
     function myFunction()
@@ -71,8 +79,8 @@ if (!isset($_GET['city'])) {
 
     $(document).on('click', '#btClose', hideError);
 
-    $(document).ready(function() {
-
+    $(document).ready(function()
+    {
         $('#alertEmpty').hide();
         $('#alertBig').hide();
         var isChecked = $('#radioOption').is(':checked');
@@ -93,7 +101,7 @@ if (!isset($_GET['city'])) {
             }
         }
 
-//        var value = $('#radioOption').val();
+        //var value = $('#radioOption').val();
         if (isChecked == true)
             $("#city").show();
 
@@ -391,5 +399,30 @@ function getURLParameter(name) {
  </table>
 <?php } ?>
 </div> <!-- END OF JOB RESULT TABLE-->
+
+<div class="modal hide fade" id="saveSuc" tabindex="-1">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">Query was saved Successfully! </h4>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btClose" class="btn btn-default" data-dismiss="modal">OK</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
+<div class="modal hide fade" id="saveErr" tabindex="-1">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">An error occurred while trying to save query. Please try again. </h4>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btClose" class="btn btn-default" data-dismiss="modal">OK</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
 
 </div> <!-- END OF FULL CONTENT -->

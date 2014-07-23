@@ -101,6 +101,7 @@ class JobController extends Controller
         $saveQuery = "";
         $loc = "";
         $tag = "";
+        $suc = false;
 
         if(isset($city) && $city != ""){ $loc = $city;  }
         else{$loc = ""; }
@@ -133,13 +134,19 @@ class JobController extends Controller
             $username = Yii::app()->user->name;
             $model = User::model()->find("username=:username",array(':username'=>$username));
             $saved_queries = new SavedQuery();
-            $saved_queries->query = $saveQuery;
+            $saved_queries->query = htmlentities($saveQuery);
             $saved_queries->query_tag = $tag;
             $saved_queries->FK_userid = $model->id;
             $saved_queries->location = $loc;
-            $saved_queries->save(false);
+            try{
+                $saved_queries->save(false);
+            }catch (Exception $e)
+            {
+               alert("Oops, something went wrong. Please try again.");
+            }
          }
-        $this->redirect("/JobFair/index.php/Job/home/") ;
+
+        $this->redirect("/JobFair/index.php/job/view");
     }
 
 
@@ -585,7 +592,7 @@ class JobController extends Controller
 		
 		return array(
 				array('allow',  // allow authenticated users to perform these actions
-					  'actions'=>array('StudentMatch', 'View', 'Home', 'Post', 
+					  'actions'=>array('StudentMatch', 'View', 'Home', 'Post',
 					  		'SaveSkills', 'studentMatch','EditJobPost','VerifyJobPost', 'View' ,'VirtualHandshake', 'QuerySkill', 'Apply',
 					  		'viewApplication', 'Close', 'Search', 'SaveQuery'),
 					  'users'=>array('@')),

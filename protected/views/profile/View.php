@@ -381,7 +381,7 @@ function uploadvideo(){
                     <?php if($query['active'] == '1')
                     {?>
                         <div class="checkbox">
-                            <input type="checkbox" name="<?php echo $query['query_tag']; ?>" id="<?php echo $query['query_tag']; ?>" value="1" checked>
+                            <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1" checked>
                             <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
                             <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
@@ -389,7 +389,7 @@ function uploadvideo(){
                     <?php } else
                     {?>
                         <div class="checkbox">
-                            <input type="checkbox" name="<?php echo $query['query_tag']; ?>" id="<?php echo $query['query_tag']; ?>" value="1">
+                            <input type="checkbox" name="<?php echo $query['id']; ?>" id="<?php echo $query['id']; ?>" value="1">
                             <strong> <?php echo ($query['query_tag']).":"; ?></strong> <?php echo ($query['query']); ?>
                             <del><a href="/JobFair/index.php/profile/deleteinterest?id=<?php echo $query->id?>"><img src='/JobFair/images/ico/del.gif' width="10px" height="10px"/></a></del>
 
@@ -450,13 +450,11 @@ function uploadvideo(){
 
 </div>
 
-
-
 <div id="menutools">
 <div class="titlebox">DOCUMENTS</div><br><br>
 <p><a href="#" id="editResume" class="editbox"><img src='/JobFair/images/ico/add.gif' onclick="uploadresume()"/></a></p>
 
-	
+
 <?php
 
 	$form = $this->beginWidget('CActiveForm', array(

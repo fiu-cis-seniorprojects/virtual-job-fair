@@ -87,7 +87,7 @@ class UserController extends Controller
 				$model->FK_usertype = 2;
 				$model->registration_date = new CDbExpression('NOW()');
 				$model->activation_string = $this->genRandomString(10);
-				$model->image_url = '/JobFair/images/profileimages/avatarsmall.gif';
+				$model->image_url = '/JobFair/images/profileimages/user-default.png';
 					
 				//Hash the password before storing it into the database
 				$hasher = new PasswordHash(8, false);
@@ -177,7 +177,7 @@ class UserController extends Controller
 			}
 						
 			$model->attributes=$_POST['User'];
-			$model->image_url = '/JobFair/images/profileimages/avatarsmall.gif';
+			$model->image_url = '/JobFair/images/profileimages/user-default.png';
 			$resume = Resume::model();
 			
 			//Form inputs are valid
