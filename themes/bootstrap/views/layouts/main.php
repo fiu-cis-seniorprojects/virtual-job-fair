@@ -152,10 +152,10 @@ if (!isset($_GET['keyword'])) {
         echo "</div></div>";
 
         echo "<div class=\"span9\">";
-        echo $this->getUniqueId() . '<br>';
-        echo $this->getAction()->getId();
+//        echo $this->getUniqueId() . '<br>';
+//        echo $this->getAction()->getId();
         echo $content;
-        echo "</div>";
+        echo "</div>";  
 
         echo "</div>";
     }
