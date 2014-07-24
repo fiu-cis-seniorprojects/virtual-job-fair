@@ -3,7 +3,7 @@
 
 <div class="btn-toolbar well">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'label'=>'Create New Skill',
+        'label'=>'New Skill',
         'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         //'size' => 'large',
 
@@ -14,7 +14,7 @@
     )); ?>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'label'=>'Consolidate Skills',
+        'label'=>'Merge Skills',
         'type'=>'warning', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         //'size' => 'large',
 

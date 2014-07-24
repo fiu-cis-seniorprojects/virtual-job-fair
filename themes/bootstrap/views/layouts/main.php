@@ -143,7 +143,7 @@ if (!isset($_GET['keyword'])) {
                 array('label' => 'Skills', 'icon' => 'pencil', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('skillset/admin', 'skillset/consolidate', 'skillset/create', 'skillset/update', 'skillset/index'))),
                 array('label' => 'Postings', 'icon' => 'list', 'url' => $this->createUrl('PostingsAdmin/admin'), 'active' => in_array($actionid, array('postingsAdmin/admin', 'postingsAdmin/index'))),
                 array('label' => 'CAREEPATH API'),
-                array('label' => 'Authentication', 'icon' => 'lock', 'url' => $this->createUrl('ApiAuth/index'), 'active' => in_array($actionid, array('apiAuth/index', 'apiAuth/home'))),
+                array('label' => 'Authentication', 'icon' => 'lock', 'url' => $this->createUrl('ApiAuth/index'), 'active' => in_array($actionid, array('apiAuth/index', 'apiAuth/home', 'apiAuth/create', 'apiAuth/update'))),
                 array('label' => 'Import Jobs', 'icon' => 'briefcase', 'url' => $this->createUrl('ApiConfig/home'), 'active' => in_array($actionid, array('apiConfig/home', 'apiConfig/index'))),
                 array('label' => 'NOTIFICATIONS'),
                 array('label' => 'Settings', 'icon' => 'cog', 'url' => $this->createUrl('home/notificationAdmin'), 'active' => in_array($actionid, array('home/notificationAdmin'))),

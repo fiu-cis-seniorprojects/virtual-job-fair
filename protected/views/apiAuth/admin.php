@@ -3,8 +3,8 @@
 
 <div class="btn-toolbar well">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'label'=>'Create New API Key',
-        'type'=>'success', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'label'=>'New API Key',
+        'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         //'size' => 'large',
 
         'htmlOptions' => array(

@@ -1,4 +1,4 @@
-<h1>Consolidate Skills</h1>
+<h1>Merge Skills</h1>
 
 
 <?php
