@@ -55,7 +55,7 @@ $(function() {
 									$countapp++;
 								}
 							}
-							?>		
+							?>
 				
 				  <li class="eachjob">
 				    <span class="menuBox"><a href="#" class="ajob" ><?php echo $job->title?> <span style="float:right; font-size: 10pt;

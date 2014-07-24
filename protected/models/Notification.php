@@ -15,7 +15,7 @@ class Notification extends CActiveRecord
 {
 	public $keyid;
 	/**
-	 * Returns the static model of the specified AR class.
+	 * R    eturns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return Notification the static model class
 	 */

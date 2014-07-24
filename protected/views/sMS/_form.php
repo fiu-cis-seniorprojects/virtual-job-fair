@@ -1,4 +1,4 @@
-<?php
+    <?php
 /* @var $this SMSController */
 /* @var $model SMS */
 /* @var $form CActiveForm */
