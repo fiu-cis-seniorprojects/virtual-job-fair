@@ -140,15 +140,22 @@ class JobController extends Controller
             $saved_queries->location = $loc;
             try{
                 $saved_queries->save(false);
+                $suc = 1;
             }catch (Exception $e)
             {
-               alert("Oops, something went wrong. Please try again.");
+                $suc = 0;
+               //alert("Oops, something went wrong. Please try again.");
             }
          }
 
-        $this->redirect("/JobFair/index.php/job/home");
+        $this->render('savedQuerySuc', array('mesg'=>$suc));
+        //$this->actionsavedQuerySuc($suc);
     }
 
+//    public function actionsavedQuerySuc($suc)
+//    {
+//        $this->render('savedQuerySuc', array('mesg'=>$suc));
+//    }
 
     public function careerBuilder($query, $city)
     {
