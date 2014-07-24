@@ -697,7 +697,7 @@ class ProfileController extends Controller
 			$new_skill = new Skillset();
 			$new_skill->name = $data->skills->skill[$i]->skill->name;
 			$new_skill->save(false);
-			echo 'New Skill ' . $new_skill->attributes;
+			//echo 'New Skill ' . $new_skill->attributes;
 	   		}
 					 
 		   	// check if student has that skill, if not add it to student-skill-map table
@@ -708,10 +708,10 @@ class ProfileController extends Controller
 			$new_sdnt_skill->skillid = Skillset::model()->findByAttributes(array('name'=>$data->skills->skill[$i]->skill->name))->id;
 			$new_sdnt_skill->ordering = $i + 1;
 			$new_sdnt_skill->save(false);
-			echo 'New Skill for student' . $new_sdnt_skill->attributes;
+			//echo 'New Skill for student' . $new_sdnt_skill->attributes;
 			}
 	} 
-	// ----------------------SKILLS----------------------
+	// ----------------------end SKILLS----------------------
 
         //get variables
         $mesg = "LinkedIn";
@@ -737,7 +737,21 @@ class ProfileController extends Controller
         if($picture != null){
         $picture = strip_tags($data->{'picture-urls'}->{'picture-url'}[0]->asXML());
         }
-        $this->actionLinkToo($data->{'email-address'},$data->{'first-name'},$data->{'last-name'}, $picture ,$mesg,$phone,$city,$state,$about_me);
+
+        $xemail = $data->{'email-address'};
+        if($xemail != null){
+            $xemail = strip_tags($data->{'email-address'}->asXML());
+        }
+        $fname = $data->{'first-name'};
+        if($fname != null){
+            $fname = strip_tags($data->{'first-name'}->asXML());
+        }
+        $lname = $data->{'last-name'};
+        if($lname != null){
+            $lname = strip_tags($data->{'last-name'}->asXML());
+        }
+
+        $this->actionLinkToo($xemail,$fname,$lname, $picture ,$mesg,$phone,$city,$state,$about_me);
        // return;
 
 	}

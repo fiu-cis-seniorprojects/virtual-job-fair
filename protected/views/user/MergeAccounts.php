@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 <?php $user = User::getCurrentUser(); ?>
-<br/><br/><br/><br/>
+<br/><br/><br/>
 <div class="form">
 <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
