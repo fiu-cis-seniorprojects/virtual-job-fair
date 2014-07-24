@@ -818,13 +818,13 @@ class UserController extends Controller
             $user1 = User::model()->findByAttributes(array('username'=>$username));
             $user2 = User::getCurrentUser();
 
-            if ($user1 == null){
-                $error = "Username was incorrect.";
+            if ($user1 == null ||!$login->validate()){
+                $error = "Username or password was incorrect.";
                 $this->render('MergeAccounts',array('model'=>$model, 'error' => $error));
             }
-
-            elseif (!$login->validate()){
-                $error = "Password was incorrect.";
+            //if user is disable
+            elseif ($user1->disable == 1){
+                $error = "User's account is disable.";
                 $this->render('MergeAccounts',array('model'=>$model, 'error' => $error));
             }
 
