@@ -138,7 +138,7 @@ if (!isset($_GET['keyword'])) {
             'type' => 'list',
             'items' => array(
                 array('label' => 'ADMINISTRATION'),
-                array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('/'), 'active' => in_array($actionid, array('home/adminhome', 'site/error'))),
+//                array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('/'), 'active' => in_array($actionid, array('home/adminhome', 'site/error'))),
                 array('label' => 'Users', 'icon' => 'user', 'url' => $this->createUrl('UserCrud/admin'), 'active' => in_array($actionid, array('userCrud/admin', 'userCrud/update', 'userCrud/index'))),
                 array('label' => 'Skills', 'icon' => 'pencil', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('skillset/admin', 'skillset/consolidate', 'skillset/create', 'skillset/update', 'skillset/index'))),
                 array('label' => 'Postings', 'icon' => 'list', 'url' => $this->createUrl('PostingsAdmin/admin'), 'active' => in_array($actionid, array('postingsAdmin/admin', 'postingsAdmin/index'))),
