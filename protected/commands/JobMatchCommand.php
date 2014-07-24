@@ -281,7 +281,7 @@ class JobMatchCommand extends CConsoleCommand {
             echo "[*] Job Matching Notification is ON\n";
             $jobs = Job::model()->findAll("post_date > '$pasttime' AND active = 1");
             #Add fecthing for user not active or validated
-            $students = User::model()->findAll("FK_usertype = 1 AND job_notification = 1 AND looking_for_job = 1");
+            $students = User::model()->findAll("FK_usertype = 1 AND job_notification = 1 AND looking_for_job = 1 AND activated = 1 AND disable != 1");
             echo "\n::::::::::::::::::::\n[*] Matching jobs for students.\n";
             foreach($students as $st)
             {
