@@ -178,16 +178,16 @@ class JobMatch extends CApplicationComponent
             "l" => $loc,                                // user location
             "limit" => 25,                              // Maximum number of results returned per query. Default is 10
             //"userip" => $_SERVER['REMOTE_ADDR'],        // user IP address
-            "userip" => '0.0.0.0',        // user IP address
+            "userip" => '131.94.128.231',        // user IP address
             //"useragent" => $_SERVER['HTTP_USER_AGENT']  // user browser
-            "useragent" => "JobFair Search Bot 1.0"  // user browser
+            //"useragent" => "JobFair Search Bot 1.0"  // user browser
+            "useragent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.5; rv:12.0) Gecko/20100101 Firefox/12.0"  // user browser
         );
 
         // search results from indeed.com
         $results = $client->search($params);
         // get array of jobs
         $result = $this->xmlToArray($results);
-
         // convert snippets to skills
         $snippets = array();
         $j = 0;
@@ -289,12 +289,12 @@ class JobMatch extends CApplicationComponent
         {
             $job =  Job::model()->findAllBySql("SELECT * FROM job WHERE MATCH(type,title,description,comp_name) AGAINST ('%".$query."%' IN BOOLEAN MODE) AND active = '1'");
             $indeed = $this->indeed($query, $city);
-            if($indeed['totalresults'] == 0)
+            if(intval($indeed['totalresults']) == 0)
             {
                 $indeed = Array();
             }
             $cb = $this->careerBuilder($query, $city);
-            if($cb[0] == 0)
+            if(intval($cb[0]) == 0)
             {
                 $cb = Array();
             }

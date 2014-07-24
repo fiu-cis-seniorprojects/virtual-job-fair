@@ -127,53 +127,53 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     }
 
     //choosing a phone
-    if(($phone != null)&&($basic_info->phone != null)&&($phone != $basic_info->phone)){
+    if(($basic_info != null)&&($phone != null)&&($basic_info->phone != null)&&($phone != $basic_info->phone)){
         $nothing = true;
         echo 'Choose the phone number you want to keep:';
         $model->phone = $basic_info->phone;
         echo $form->radioButtonList($model, 'phone', array($basic_info->phone=>$basic_info->phone,$phone=>$phone));
         echo '<br/>';
     }
-    if($basic_info->phone == null){
+    if(($basic_info != null)&&($basic_info->phone == null)){
         $nothing = true;
         echo $form->hiddenField( $model, 'phonevar',array('value'=>$phone));
     }
 
     //choosing a city
-    if(($city != null)&&($basic_info->city != null)&&($city != $basic_info->city)){
+    if(($basic_info != null)&&($city != null)&&($basic_info->city != null)&&($city != $basic_info->city)){
         $nothing = true;
         echo 'Choose your city:';
         $model->city = $basic_info->city;
         echo $form->radioButtonList($model, 'city', array($basic_info->city=>$basic_info->city,$city=>$city));
         echo '<br/>';
     }
-    if($basic_info->city == null){
+    if(($basic_info != null)&&($basic_info->city == null)){
         $nothing = true;
         echo $form->hiddenField( $model, 'cityvar',array('value'=>$city));
     }
 
     //choosing a state
-    if(($state != null)&&($basic_info->state != null)&&($state != $basic_info->state)){
+    if(($basic_info != null)&&($state != null)&&($basic_info->state != null)&&($state != $basic_info->state)){
         $nothing = true;
         echo 'Choose your state:';
         $model->state = $basic_info->state;
         echo $form->radioButtonList($model, 'state', array($basic_info->state=>$basic_info->state,$state=>$state));
         echo '<br/>';
     }
-    if($basic_info->state == null){
+    if(($basic_info != null)&&($basic_info->state == null)){
         $nothing = true;
         echo $form->hiddenField( $model, 'statevar',array('value'=>$state));
     }
 
     //choosing a about_me
-    if(($about_me != null)&&($basic_info->about_me != null)&&($about_me != $basic_info->about_me)){
+    if(($basic_info != null)&&($about_me != null)&&($basic_info->about_me != null)&&($about_me != $basic_info->about_me)){
         $nothing = true;
         echo 'Say something about you:';
         $model->about_me = $basic_info->about_me;
         echo $form->radioButtonList($model, 'about_me', array($basic_info->about_me=>$basic_info->about_me,$about_me=>$about_me));
         echo '<br/>';
     }
-    if($basic_info->about_me == null){
+    if(($basic_info != null)&&($basic_info->about_me == null)){
         $nothing = true;
         echo $form->hiddenField( $model, 'about_me_var',array('value'=>$about_me));
     }

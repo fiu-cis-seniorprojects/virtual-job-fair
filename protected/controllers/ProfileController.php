@@ -156,7 +156,7 @@ class ProfileController extends Controller
         $runner->addCommands($commandPath);
         $commandPath = Yii::getFrameworkPath() . DIRECTORY_SEPARATOR . 'cli' . DIRECTORY_SEPARATOR . 'commands';
         $runner->addCommands($commandPath);
-        $args = array('yiic', 'jobmatch', "-u $user->username", "-e $user->email");
+        $args = array('yiic', 'jobmatch', "-u", $user->username, "-e", $user->email);
         ob_start();
         $runner->run($args);
         echo htmlentities(ob_get_clean(), null, Yii::app()->charset);
@@ -722,7 +722,7 @@ class ProfileController extends Controller
 			//echo 'New Skill for student' . $new_sdnt_skill->attributes;
 			}
 	} 
-	// ----------------------SKILLS----------------------
+	// ----------------------end SKILLS----------------------
 
         //get variables
         $mesg = "LinkedIn";
@@ -748,7 +748,21 @@ class ProfileController extends Controller
         if($picture != null){
         $picture = strip_tags($data->{'picture-urls'}->{'picture-url'}[0]->asXML());
         }
-        $this->actionLinkToo($data->{'email-address'},$data->{'first-name'},$data->{'last-name'}, $picture ,$mesg,$phone,$city,$state,$about_me);
+
+        $xemail = $data->{'email-address'};
+        if($xemail != null){
+            $xemail = strip_tags($data->{'email-address'}->asXML());
+        }
+        $fname = $data->{'first-name'};
+        if($fname != null){
+            $fname = strip_tags($data->{'first-name'}->asXML());
+        }
+        $lname = $data->{'last-name'};
+        if($lname != null){
+            $lname = strip_tags($data->{'last-name'}->asXML());
+        }
+
+        $this->actionLinkToo($xemail,$fname,$lname, $picture ,$mesg,$phone,$city,$state,$about_me);
        // return;
 
 	}

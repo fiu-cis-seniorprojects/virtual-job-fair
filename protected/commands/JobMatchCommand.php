@@ -53,10 +53,9 @@ class JobMatchCommand extends CConsoleCommand {
             $table .= CHtml::closeTag('tr');
             #let's intercalate array elements
             $cb = (isset($ar['careerbuilder'])) ? array_slice($ar['careerbuilder'], 1) : null;
-            $indeed = (isset($ar['indeed'])) ? $ar['indeed']['results']['result'] : null;
+            $indeed = (isset($ar['indeed']) && count($ar['indeed']) > 0) ? $ar['indeed']['results']['result'] : null;
             $cp = (isset($ar['careerpath'])) ? $ar['careerpath'] : null;
             $cb_count = $indeed_count = $cp_count = 0;
-            $cmp_time_cb = $cmp_time_indeed = $cmp_time_cp = "";
             $cmp_time = strtotime('- ' . strval($interval) . ' day');
             if($cb != null and count($cb) > 0)
             {
@@ -70,10 +69,10 @@ class JobMatchCommand extends CConsoleCommand {
             {
                 $cp_count = count($cp);
             }
-            $max = 0;
-            if($cb_count > $indeed_count)
+            $max = $cb_count;
+            if($indeed_count > $cb_count)
             {
-                $max = $cb_count;
+                $max = $indeed_count;
             }
             if($max < $cp_count)
             {
@@ -99,7 +98,9 @@ class JobMatchCommand extends CConsoleCommand {
                     $table .= CHtml::tag('td', array(), $job['title']);
                     $table .= CHtml::tag('td', array(), $job['posted']);
                     $table .= CHtml::tag('td', array(), "CarrerBuilder");
-                    if(strtotime($job['posted']) >= $cmp_time)
+                    $c_date = date('m/d/Y', $cmp_time);
+                    $c_date = strtotime($c_date);
+                    if(strtotime($job['posted']) >= $c_date)
                     {
                         $newpost = "YES";
                     }
@@ -249,6 +250,7 @@ class JobMatchCommand extends CConsoleCommand {
         {
             $this->getHelp();
         }
+
         $now = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
         $time = date('H:i:s');
@@ -281,7 +283,7 @@ class JobMatchCommand extends CConsoleCommand {
             echo "[*] Job Matching Notification is ON\n";
             $jobs = Job::model()->findAll("post_date > '$pasttime' AND active = 1");
             #Add fecthing for user not active or validated
-            $students = User::model()->findAll("FK_usertype = 1 AND job_notification = 1 AND looking_for_job = 1");
+            $students = User::model()->findAll("FK_usertype = 1 AND job_notification = 1 AND looking_for_job = 1 AND activated = 1 AND disable = 0");
             echo "\n::::::::::::::::::::\n[*] Matching jobs for students.\n";
             foreach($students as $st)
             {
@@ -298,7 +300,7 @@ class JobMatchCommand extends CConsoleCommand {
                     $message .= "Jobs matching your custom $word:<br/>";
                     foreach($saved_queries as $query)
                     {
-                        $results = Yii::app()->jobmatch->customJobSearch($query->query, $query->location);
+                        $results = Yii::app()->jobmatch->customJobSearch(html_entity_decode($query->query), $query->location);
                         $message .= "Matches for query [$query->query]<br/>";
                         $message .= $this->buildTable('student_custom', $results, $interval);
                         $message .= "<br/>";
@@ -309,13 +311,16 @@ class JobMatchCommand extends CConsoleCommand {
                 }
                 else
                 {
-                    $results = Yii::app()->jobmatch->getStudentMatchJobs($st->id, $jobs);
-                    if(count($results) > 0)
+                    if(($interval == intval($st->job_int_date)) && $interval > 0)
                     {
-                        $message .= "The following jobs matched with your skills:<br/>";
-                        $message .= $this->buildTable('student', $results, $interval);
-                        echo "[*] Sending skill matches results email to: $st->email\n";
-                        User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
+                        $results = Yii::app()->jobmatch->getStudentMatchJobs($st->id, $jobs);
+                        if(count($results) > 0)
+                        {
+                            $message .= "The following jobs matched with your skills:<br/>";
+                            $message .= $this->buildTable('student', $results, $interval);
+                            echo "[*] Sending skill matches results email to: $st->email\n";
+                            User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
+                        }
                     }
                 }
 
