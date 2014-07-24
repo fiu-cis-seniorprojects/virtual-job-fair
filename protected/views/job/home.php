@@ -381,8 +381,14 @@ function getURLParameter(name) {
                     <td><?php if($results['result'][$j]['company'] != null) { echo $results['result'][$j]['company'];}
                         else {echo "N/A";}?></a></td>
                     <td>N/A</td>
-                    <td><?php if($results['result'][$j]['date'] != null) {echo $results['result'][$j]['date'];}
-                        else {echo "N/A";} ?></td>
+                    <td><?php
+                        if($results['result'][$j]['date'] != null)
+                        {
+                            $date_str = $results['result'][$j]['date'];
+                            echo date('m/d/Y', strtotime($date_str));
+                        }
+                        else {echo "N/A";}
+                        ?></td>
                     <td>N/A</td>
                     <td>N/A</td>
                     <td>
@@ -421,7 +427,11 @@ function getURLParameter(name) {
                        <td><?php if($results['result']['company'] != null) { echo $results['result']['company'];}
                            else {echo "N/A";}?></a></td>
                        <td>N/A</td>
-                       <td><?php if($results['result']['date'] != null) {echo $results['result']['date'];}
+                       <td><?php if($results['result']['date'] != null)
+                           {
+                               $date_str = $results['result']['date'];
+                               echo date('m/d/Y', strtotime($date_str));
+                           }
                            else {echo "N/A";} ?></td>
                        <td>N/A</td>
                        <td>N/A</td>
