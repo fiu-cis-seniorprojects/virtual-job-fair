@@ -571,7 +571,7 @@ class UserController extends Controller
                         $new_skill = new Skillset();
                         $new_skill->name = $data->skills->skill[$i]->skill->name;
                         $new_skill->save(false);
-                        echo 'New Skill ' . $new_skill->attributes;
+                        //echo 'New Skill ' . $new_skill->attributes;
                     }
 
                     // check if student has that skill, if not add it to student-skill-map table
@@ -742,7 +742,7 @@ class UserController extends Controller
 					$new_skill = new Skillset();
 					$new_skill->name = $data->skills->skill[$i]->skill->name;
 					$new_skill->save(false);
-					echo 'New Skill ' . $new_skill->attributes;
+					//echo 'New Skill ' . $new_skill->attributes;
 				}
 
 				// check if student has that skill, if not add it to student-skill-map table
@@ -818,13 +818,13 @@ class UserController extends Controller
             $user1 = User::model()->findByAttributes(array('username'=>$username));
             $user2 = User::getCurrentUser();
 
-            if ($user1 == null){
-                $error = "Username was incorrect.";
+            if ($user1 == null ||!$login->validate()){
+                $error = "Username or password was incorrect.";
                 $this->render('MergeAccounts',array('model'=>$model, 'error' => $error));
             }
-
-            elseif (!$login->validate()){
-                $error = "Password was incorrect.";
+            //if user is disable
+            elseif ($user1->disable == 1){
+                $error = "User's account is disable.";
                 $this->render('MergeAccounts',array('model'=>$model, 'error' => $error));
             }
 
@@ -841,21 +841,25 @@ class UserController extends Controller
                 if($user2->linkedinid == null && $linkedinid != null)
                 {
                     $user2->linkedinid = $linkedinid;
+                    $user1->linkedinid = null;
                     $user2->save(false);
                 }
                 if($user2->googleid == null && $googleid != null)
                 {
                     $user2->googleid = $googleid;
+                    $user1->googleid = null;
                     $user2->save(false);
                 }
                 if($user2->fiucsid == null && $fiucsid != null)
                 {
                     $user2->fiucsid = $fiucsid;
+                    $user1->fiucsid = null;
                     $user2->save(false);
                 }
                 if($user2->fiu_account_id == null && $fiu_account_id != null)
                 {
                     $user2->fiu_account_id = $fiu_account_id;
+                    $user1->fiu_account_id = null;
                     $user2->save(false);
                 }
 
