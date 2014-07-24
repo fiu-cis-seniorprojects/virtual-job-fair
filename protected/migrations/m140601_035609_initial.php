@@ -208,7 +208,7 @@ class m140601_035609_initial extends CDbMigration
         'image_url'=>'varchar(255) DEFAULT NULL',
         'first_name'=>'varchar(45) NOT NULL',
         'last_name'=>'varchar(45) NOT NULL',
-        'disable'=>'int(11) DEFAULT NULL',
+        'disable'=>'int(11) NOT NULL DEFAULT 0',
         'has_viewed_profile'=>'int(11) DEFAULT NULL',
         'linkedinid'=>'varchar(45) DEFAULT NULL',
         'googleid'=>'varchar(45) DEFAULT NULL',
