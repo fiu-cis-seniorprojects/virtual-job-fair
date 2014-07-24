@@ -34,7 +34,7 @@
 </script>
 <br/>
 
-<h1>Notification Settings</h1><br/>
+<h2>Notification Settings</h2><br/>
 
 <div class="well">
     <?php

@@ -133,23 +133,27 @@ if (!isset($_GET['keyword'])) {
     {
         echo "<div class=\"row-fluid\"><div class=\"span3\">";
         echo "<div class=\"well sidebar-nav affix\">";
+        $actionid = $this->getUniqueId() . '/' . $this->getAction()->getId();
         $this->widget('bootstrap.widgets.TbMenu', array(
             'type' => 'list',
             'items' => array(
                 array('label' => 'ADMINISTRATION'),
-                array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('/')),
-                array('label' => 'Users', 'icon' => 'user', 'url' => $this->createUrl('UserCrud/admin')),
-                array('label' => 'Skills', 'icon' => 'pencil', 'url' => $this->createUrl('Skillset/admin')),
-                array('label' => 'Postings', 'icon' => 'list', 'url' => $this->createUrl('PostingsAdmin/admin')),
-                array('label' => 'API Configuration', 'icon' => 'cog', 'url' => $this->createUrl('ApiConfig/home')),
+                array('label' => 'Home', 'icon' => 'home', 'url' => $this->createUrl('/'), 'active' => in_array($actionid, array('home/adminhome', 'site/error'))),
+                array('label' => 'Users', 'icon' => 'user', 'url' => $this->createUrl('UserCrud/admin'), 'active' => in_array($actionid, array('userCrud/admin', 'userCrud/update', 'userCrud/index'))),
+                array('label' => 'Skills', 'icon' => 'pencil', 'url' => $this->createUrl('Skillset/admin'), 'active' => in_array($actionid, array('skillset/admin', 'skillset/consolidate', 'skillset/create', 'skillset/update', 'skillset/index'))),
+                array('label' => 'Postings', 'icon' => 'list', 'url' => $this->createUrl('PostingsAdmin/admin'), 'active' => in_array($actionid, array('postingsAdmin/admin', 'postingsAdmin/index'))),
+                array('label' => 'CAREEPATH API'),
+                array('label' => 'Authentication', 'icon' => 'lock', 'url' => $this->createUrl('ApiAuth/index'), 'active' => in_array($actionid, array('apiAuth/index', 'apiAuth/home'))),
+                array('label' => 'Import Jobs', 'icon' => 'briefcase', 'url' => $this->createUrl('ApiConfig/home'), 'active' => in_array($actionid, array('apiConfig/home', 'apiConfig/index'))),
                 array('label' => 'NOTIFICATIONS'),
-                array('label' => 'Settings', 'icon' => 'cog', 'url' => $this->createUrl('home/notificationAdmin')),
-//                array('label' => 'Help', 'icon' => 'flag', 'url' => '#'),
+                array('label' => 'Settings', 'icon' => 'cog', 'url' => $this->createUrl('home/notificationAdmin'), 'active' => in_array($actionid, array('home/notificationAdmin'))),
             ),
         ));
         echo "</div></div>";
 
         echo "<div class=\"span9\">";
+        echo $this->getUniqueId() . '<br>';
+        echo $this->getAction()->getId();
         echo $content;
         echo "</div>";
 

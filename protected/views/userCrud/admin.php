@@ -1,4 +1,4 @@
-<h1>Manage Users</h1>
+<h2>Manage Users</h2>
 
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(

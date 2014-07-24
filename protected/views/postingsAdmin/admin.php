@@ -1,4 +1,4 @@
-<h1>Manage Job Postings</h1>
+<h2>Manage Job Postings</h2>
 
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
