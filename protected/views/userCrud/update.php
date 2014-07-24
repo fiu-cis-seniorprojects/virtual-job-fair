@@ -12,7 +12,7 @@
     })
 </script>
 
-<h1>Update User</h1>
+<h2>Edit User</h2>
 
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -38,15 +38,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 </fieldset>
 
-    <?php $this->widget('bootstrap.widgets.TbButton',
-                                                        array(  'label'=>'Cancel',
-                                                                'htmlOptions' => array(
-                                                                                        'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("userCrud/index").'"'
-                                                                                      ),
-                                                             )
-                       );
-    ?>
-
+<div class="form-actions">
     <?php $this->widget('bootstrap.widgets.TbButton', array('type' => 'primary', 'buttonType'=>'submit', 'label'=>'Save')); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton',
+        array(  'label'=>'Cancel',
+            'htmlOptions' => array(
+                'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("userCrud/admin").'"'
+            ),
+        )
+    );?>
+</div>
 
 <?php $this->endWidget(); ?>

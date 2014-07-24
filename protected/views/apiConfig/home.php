@@ -1,46 +1,12 @@
-<h1><?php echo 'API Configuration'; ?></h1>
-
-<!--API KEY MANAGER-->
-<br>
-<br>
-<h3><?php echo 'Authentication'; ?></h3>
-<br>
-
-<?php /** @var BootActiveForm $form */
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id'=>'api-manager-form',
-    'enableClientValidation' => false,
-    'clientOptions'=>array(
-        'validateOnSubmit'=>false,
-        'validateOnChange'=>false,
-    ),
-    'htmlOptions'=>array('class'=>'well'),
-));
-?>
-
-
-<?php $this->widget('bootstrap.widgets.TbButton',
-    array(  'type'=>'primary',
-        'size' => 'large',
-        'type' => 'success',
-        'label'=>'Manage API Keys',
-        'htmlOptions' => array(
-            'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("ApiAuth/index").  '"'
-        ),
-    )); ?>
-
-<?php $this->endWidget(); ?>
-
 <!--API BULK IMPORT FORM-->
-<br>
-<br>
-<h3><?php echo 'CareerPath Import'; ?></h3>
+<h2><?php echo 'Import Jobs from CareerPath'; ?></h2>
 <br>
 
 
 <script type="text/javascript">
     function formSend(form, data, hasError)
     {
+        $('#buttonImportJobs').attr('disabled','disabled');
         var data=$("#careerpath-bulkimport-form").serialize();
         $.ajax({
             type: 'POST',
@@ -48,10 +14,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             data:data,
             success:function(data){
                 alert(data);
+                $('#buttonImportJobs').removeAttr('disabled');
             },
             error: function(data) { // if error occured
                 alert("Error occured.please try again");
                 alert(data);
+                $('#buttonImportJobs').removeAttr('disabled');
             },
 
             dataType:'html'
@@ -161,10 +129,16 @@ if (isset($api_status) && !is_null($api_status))
 
 <?php echo $form->checkboxRow($model, 'allowExpired'); ?>
 
+<div class="form-actions">
+
 <?php $this->widget('bootstrap.widgets.TbButton', array('id' => 'btnBulkImport',
                                                         'type'=>'primary',
                                                         'size' => 'normal',
                                                         'buttonType'=>'submit',
-                                                        'label'=>'Synchronize with CareerPath')); ?>
+                                                        'label'=>'Import Jobs',
+                                                        'htmlOptions'=>array('id'=>'buttonImportJobs'),));
+?>
+</div>
 
 <?php $this->endWidget(); ?>
+

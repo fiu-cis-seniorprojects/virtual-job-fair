@@ -1,11 +1,11 @@
-<h1>API Key Management</h1>
+<h2>API Authentication</h2>
 
 
 <div class="btn-toolbar well">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Create New API Key',
         'type'=>'success', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'size' => 'large',
+        //'size' => 'large',
 
         'htmlOptions' => array(
             'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("ApiAuth/create").'"',
@@ -13,7 +13,6 @@
         ),
     )); ?>
 </div>
-
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed well',

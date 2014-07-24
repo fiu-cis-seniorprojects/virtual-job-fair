@@ -1,4 +1,4 @@
-<h1><?php echo ($model->isNewRecord ? 'New' : 'Update');?> Skill</h1>
+<h2><?php echo ($model->isNewRecord ? 'New' : 'Edit');?> Skill</h2>
 
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -40,6 +40,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 </fieldset>
 
+<div class="form-actions">
+<?php $this->widget('bootstrap.widgets.TbButton', array('type' => 'primary', 'buttonType'=>'submit', 'label'=>$model->isNewRecord ? 'Create' : 'Save')); ?>
+
+
 <?php $this->widget('bootstrap.widgets.TbButton',
     array(  'label'=>'Cancel',
         'htmlOptions' => array(
@@ -48,7 +52,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     )
 );
 ?>
-
-<?php $this->widget('bootstrap.widgets.TbButton', array('type' => 'primary', 'buttonType'=>'submit', 'label'=>$model->isNewRecord ? 'Create' : 'Save')); ?>
+</div>
 
 <?php $this->endWidget(); ?>

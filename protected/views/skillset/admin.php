@@ -1,11 +1,11 @@
-<h1>Manage Skills</h1>
+<h2>Manage Skills</h2>
 
 
 <div class="btn-toolbar well">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Create New Skill',
         'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'size' => 'large',
+        //'size' => 'large',
 
         'htmlOptions' => array(
             'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("Skillset/create").'"',
@@ -16,7 +16,7 @@
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Consolidate Skills',
         'type'=>'warning', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'size' => 'large',
+        //'size' => 'large',
 
         'htmlOptions' => array(
             'onclick' => 'js:document.location.href="'.Yii::app()->createAbsoluteUrl("Skillset/consolidate").'"',

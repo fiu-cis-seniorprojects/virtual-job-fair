@@ -1,4 +1,4 @@
-<h1><?php echo ($model->isNewRecord ? 'New' : 'Update');?> API Key</h1>
+<h2><?php echo ($model->isNewRecord ? 'Create' : 'Edit');?> API Key</h2>
 
 
 <script>
