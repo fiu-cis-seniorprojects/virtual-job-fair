@@ -262,7 +262,7 @@ function getURLParameter(name) {
  <div id ="jobcontent">
  <?php if (isset($flag) && $flag == 2) { ?>
     <!-- ******* Job Postings from Job Page using external sources & Career Path *******  -->
-    <table class="display" id="jobtable" style="max-width: 200%; width:120%">
+    <table class="display" id="jobtable" style="max-width: 120%; width:100%">
      <?php if ($jobs == null && $result == "" && $cbresults == ""){?>
         <h3>Sorry, your search did not match any jobs </h3>
         <br>
@@ -274,9 +274,9 @@ function getURLParameter(name) {
              <li>Replace abbreviations with the entire word </li>
              <li>Try searching by position, skills, or company. </li>
          </ul>
-     <?php } else {?>
+     <?php } else { ?>
     <thead align="left"><th>Position</th> <th>Company</th> <th>Type</th>
-        <th>Opening</th> <th>Deadline</th>  <th>Salary</th>
+        <th>Opening</th>  <!-- <th>Deadline</th>-->  <th>Salary</th>
         <th> Skills</th><th>Source</th>
     </thead>
      <!-- get size of all job results -->
@@ -309,7 +309,7 @@ function getURLParameter(name) {
                  <td><a href="/JobFair/index.php/profile/employer/user/<?php echo User::model()->findByAttributes(array('id'=>$job->FK_poster))->username;?>"><?php echo CompanyInfo::model()->findByAttributes(array('FK_userid'=>$job->FK_poster))->name;?></a></td>
                  <td><?php echo $job->type;?></td>
                  <td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $job->post_date);?></td>
-                 <td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $job->deadline);?></td>
+<!--                 <td>--><?php //echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $job->deadline);?><!--</td>-->
                  <td><?php echo $job->compensation;?></td>
                  <td>
                     <?php
@@ -320,7 +320,7 @@ function getURLParameter(name) {
                             $cur_skill = Skillset::model()->findByAttributes(array('id'=>$one->skillid))->name;
 
                             $this->widget('bootstrap.widgets.TbLabel', array(
-                            'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
+                            'type'=>'default', // 'success', 'warning', 'important', 'info' or 'inverse'
                             'label'=>strtolower($cur_skill),
                             ));
                             echo ' ';
@@ -341,13 +341,13 @@ function getURLParameter(name) {
          else{?>
            <?php  while($j != $sizeIndeed || $k != $sizeCB || $i != $sizeJobs)
            {
-               if($i < $sizeJobs) { ?>
+               if($i < $sizeJobs) { ?> <!-- CareerPath -->
                    <tr>
                        <td><a href="/JobFair/index.php/job/view/jobid/<?php echo $jobs[$i]->id;?>"><?php echo $jobs[$i]->title;?></a></td>
                        <td><a href="/JobFair/index.php/profile/employer/user/<?php echo User::model()->findByAttributes(array('id'=>$jobs[$i]->FK_poster))->username;?>"><?php echo CompanyInfo::model()->findByAttributes(array('FK_userid'=>$jobs[$i]->FK_poster))->name;?></a></td>
                        <td><?php echo $jobs[$i]->type;?></td>
                        <td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $jobs[$i]->post_date);?></td>
-                       <td><?php echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $jobs[$i]->deadline);?></td>
+<!--                       <td>--><?php //echo Yii::app()->dateFormatter->format('MM/dd/yyyy', $jobs[$i]->deadline);?><!--</td>-->
                        <td><?php echo $jobs[$i]->compensation;?></td>
                        <td>
                             <?php
@@ -356,7 +356,7 @@ function getURLParameter(name) {
                                 {
                                     $cur_skill = Skillset::model()->findByAttributes(array('id' => $one->skillid))->name;
                                     $this->widget('bootstrap.widgets.TbLabel', array(
-                                        'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                        'type'=>'default', // 'success', 'warning', 'important', 'info' or 'inverse'
                                         'label'=>strtolower($cur_skill),
                                     ));
                                     echo ' ';
@@ -373,7 +373,7 @@ function getURLParameter(name) {
                        <td><?php echo "CareerPath"?></td>
                    </tr>
                <?php $i++; }
-               if($j < $sizeIndeed && $sizeIndeed > 1){ ?>
+               if($j < $sizeIndeed && $sizeIndeed > 1){ ?> <!-- Indeed -->
                 <tr>
                     <td><a href=<?php echo $results['result'][$j]['url']; ?> target="_blank">
                             <?php if($results['result'][$j]['jobtitle'] != null) {echo $results['result'][$j]['jobtitle'];}
@@ -389,7 +389,7 @@ function getURLParameter(name) {
                         }
                         else {echo "N/A";}
                         ?></td>
-                    <td>N/A</td>
+<!--                    <td>N/A</td>-->
                     <td>N/A</td>
                     <td>
                         <?php
@@ -399,7 +399,7 @@ function getURLParameter(name) {
                             foreach ($in_skill_list as $in_skill)
                             {
                                 $this->widget('bootstrap.widgets.TbLabel', array(
-                                    'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                    'type'=>'default', // 'success', 'warning', 'important', 'info' or 'inverse'
                                     'label'=>strtolower($in_skill),
                                 ));
                                 echo ' ';
@@ -417,6 +417,7 @@ function getURLParameter(name) {
                     </td>
                     <td><?php echo "Indeed"?></td>
                </tr>
+               <!-- Indeed -->
                <?php $j++; }
                if($sizeIndeed == 1)
                {?>
@@ -433,7 +434,7 @@ function getURLParameter(name) {
                                echo date('m/d/Y', strtotime($date_str));
                            }
                            else {echo "N/A";} ?></td>
-                       <td>N/A</td>
+<!--                       <td>N/A</td>-->
                        <td>N/A</td>
                        <td>
                            <?php
@@ -443,7 +444,7 @@ function getURLParameter(name) {
                                foreach ($in_skill_list as $in_skill)
                                {
                                    $this->widget('bootstrap.widgets.TbLabel', array(
-                                       'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                       'type'=>'default', // 'success', 'warning', 'important', 'info' or 'inverse'
                                        'label'=>strtolower($in_skill),
                                    ));
                                    echo ' ';
@@ -462,7 +463,7 @@ function getURLParameter(name) {
                        <td><?php echo "Indeed"?></td>
                    </tr>
               <?php $j++; }
-               if($k < $sizeCB && $sizeCB > 0){  ?>
+               if($k < $sizeCB && $sizeCB > 0){  ?>  <!-- CareerBuilder -->
                 <tr>
                     <td><a href=<?php echo $cbresults[$k]->jobDetailsURL; ?> target="_blank">
                             <?php if($cbresults[$k]->title != null) {echo $cbresults[$k]->title;}
@@ -473,20 +474,20 @@ function getURLParameter(name) {
                         else {echo "N/A";}?></td>
                     <td><?php if($cbresults[$k]->posted != null) {echo $cbresults[$k]->posted;}
                         else {echo "N/A";} ?></td>
-                    <td>N/A</td>
-                    <td><?php if($cbresults[$k]->pay != null) {echo $cbresults[$k]->pay;}
+<!--                    <td>N/A</td>-->
+                    <td><?php if($cbresults[$k]->pay != null) {echo '<small>'.$cbresults[$k]->pay.'</small>';}
                         else {echo "N/A";} ?></td>
-<!--                    <td>--><?php //if($cbresults[$k]->skills != null) {echo $cbresults[$k]->skills;}
-//                        else {echo "N/A";} ?><!--</td>-->
                     <td>
                         <?php
                         if($cbresults[$k]->skills != null)
                         {
                             $in_skill_list = explode(' ', $cbresults[$k]->skills);
-                            foreach ($in_skill_list as $in_skill)
+                            $uniqueSkill = array_unique($in_skill_list);
+
+                            foreach ($uniqueSkill as $in_skill)
                             {
                                 $this->widget('bootstrap.widgets.TbLabel', array(
-                                    'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                    'type'=>'default', // 'success', 'warning', 'important', 'info' or 'inverse'
                                     'label'=>strtolower($in_skill),
                                 ));
                                 echo ' ';
