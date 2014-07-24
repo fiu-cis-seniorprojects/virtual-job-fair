@@ -325,6 +325,13 @@ function getURLParameter(name) {
                             ));
                             echo ' ';
                         }
+                        if (count($temp) <= 0)
+                        {
+                            $this->widget('bootstrap.widgets.TbLabel', array(
+                                'type'=>'inverse', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                'label'=>'N/A',
+                            ));
+                        }
                     ?>
                  </td>
                  <td><?php echo "CareerPath"?></td>
@@ -353,6 +360,13 @@ function getURLParameter(name) {
                                         'label'=>strtolower($cur_skill),
                                     ));
                                     echo ' ';
+                                }
+                                if (count($temp) <= 0)
+                                {
+                                    $this->widget('bootstrap.widgets.TbLabel', array(
+                                        'type'=>'inverse', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                        'label'=>'N/A',
+                                    ));
                                 }
                             ?>
                        </td>
