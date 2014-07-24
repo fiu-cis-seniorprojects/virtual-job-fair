@@ -262,7 +262,7 @@ function getURLParameter(name) {
  <div id ="jobcontent">
  <?php if (isset($flag) && $flag == 2) { ?>
     <!-- ******* Job Postings from Job Page using external sources & Career Path *******  -->
-    <table class="display" id="jobtable" style="max-width: 200%; width: 120%" >
+    <table class="display" id="jobtable" style="max-width: 200%; width:120%">
      <?php if ($jobs == null && $result == "" && $cbresults == ""){?>
         <h3>Sorry, your search did not match any jobs </h3>
         <br>
@@ -320,7 +320,7 @@ function getURLParameter(name) {
                             $cur_skill = Skillset::model()->findByAttributes(array('id'=>$one->skillid))->name;
 
                             $this->widget('bootstrap.widgets.TbLabel', array(
-                            'type'=>'success', // 'success', 'warning', 'important', 'info' or 'inverse'
+                            'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
                             'label'=>strtolower($cur_skill),
                             ));
                             echo ' ';
@@ -356,7 +356,7 @@ function getURLParameter(name) {
                                 {
                                     $cur_skill = Skillset::model()->findByAttributes(array('id' => $one->skillid))->name;
                                     $this->widget('bootstrap.widgets.TbLabel', array(
-                                        'type'=>'success', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                        'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
                                         'label'=>strtolower($cur_skill),
                                     ));
                                     echo ' ';
@@ -393,7 +393,7 @@ function getURLParameter(name) {
                             foreach ($in_skill_list as $in_skill)
                             {
                                 $this->widget('bootstrap.widgets.TbLabel', array(
-                                    'type'=>'success', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                    'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
                                     'label'=>strtolower($in_skill),
                                 ));
                                 echo ' ';
@@ -433,7 +433,7 @@ function getURLParameter(name) {
                                foreach ($in_skill_list as $in_skill)
                                {
                                    $this->widget('bootstrap.widgets.TbLabel', array(
-                                       'type'=>'success', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                       'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
                                        'label'=>strtolower($in_skill),
                                    ));
                                    echo ' ';
@@ -476,7 +476,7 @@ function getURLParameter(name) {
                             foreach ($in_skill_list as $in_skill)
                             {
                                 $this->widget('bootstrap.widgets.TbLabel', array(
-                                    'type'=>'success', // 'success', 'warning', 'important', 'info' or 'inverse'
+                                    'type'=>'info', // 'success', 'warning', 'important', 'info' or 'inverse'
                                     'label'=>strtolower($in_skill),
                                 ));
                                 echo ' ';
