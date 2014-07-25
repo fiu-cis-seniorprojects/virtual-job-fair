@@ -250,6 +250,7 @@ class JobMatchCommand extends CConsoleCommand {
         {
             $this->getHelp();
         }
+
         $now = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
         $time = date('H:i:s');
