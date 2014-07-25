@@ -51,7 +51,7 @@ class APIController extends Controller
         }
 
         // dissect scis job posting information
-        $jp_id = $job_posting['ID'];
+        $jp_id = $job_posting['URL']; //$job_posting['ID'];
         $jp_postedTime = $job_posting['PostedTime'];
         $jp_expireTime = $job_posting['ExpireTime'];
         $jp_company = $job_posting['Company'];
