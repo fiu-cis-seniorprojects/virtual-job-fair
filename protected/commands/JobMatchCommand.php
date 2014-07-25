@@ -310,13 +310,16 @@ class JobMatchCommand extends CConsoleCommand {
                 }
                 else
                 {
-                    $results = Yii::app()->jobmatch->getStudentMatchJobs($st->id, $jobs);
-                    if(count($results) > 0)
+                    if(($interval == intval($st->job_int_date)) && $interval > 0)
                     {
-                        $message .= "The following jobs matched with your skills:<br/>";
-                        $message .= $this->buildTable('student', $results, $interval);
-                        echo "[*] Sending skill matches results email to: $st->email\n";
-                        User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
+                        $results = Yii::app()->jobmatch->getStudentMatchJobs($st->id, $jobs);
+                        if(count($results) > 0)
+                        {
+                            $message .= "The following jobs matched with your skills:<br/>";
+                            $message .= $this->buildTable('student', $results, $interval);
+                            echo "[*] Sending skill matches results email to: $st->email\n";
+                            User::sendEmail($st->email, "Virtual Job Fair | Job Matches", "Your Job Matches", $message);
+                        }
                     }
                 }
 
