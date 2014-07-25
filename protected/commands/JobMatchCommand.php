@@ -98,9 +98,9 @@ class JobMatchCommand extends CConsoleCommand {
                     $table .= CHtml::tag('td', array(), $job['title']);
                     $table .= CHtml::tag('td', array(), $job['posted']);
                     $table .= CHtml::tag('td', array(), "CarrerBuilder");
-                    $reformat = explode('/', $job['posted']);
-                    $arranged_date = $reformat[1] . "/" . $reformat[0] . "/" . $reformat[2];
-                    if(strtotime($arranged_date) >= $cmp_time)
+                    $c_date = date('m/d/Y', $cmp_time);
+                    $c_date = strtotime($c_date);
+                    if(strtotime($job['posted']) >= $c_date)
                     {
                         $newpost = "YES";
                     }
